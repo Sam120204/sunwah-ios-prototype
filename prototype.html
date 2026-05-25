@@ -67,6 +67,11 @@
         .ai-thinking-dot {
             animation: ai-thinking-pulse 1.4s ease-in-out infinite both;
         }
+        /* Mobile touch interactions */
+        .tap-highlight-none { -webkit-tap-highlight-color: transparent; }
+        button:active { opacity: 0.85; }
+        button { transition: opacity 0.1s ease; }
+        [data-active-score="true"] { border-color: #007AFF !important; background-color: rgba(0,122,255,0.06) !important; }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center font-sans p-4 md:p-8">
@@ -931,7 +936,7 @@
                     <!-- ==========================================
                          VIEW 6: PORTFOLIO INTELLIGENCE
                          ========================================== -->
-                    <div id="view-portfolio" class="absolute inset-x-0 top-0 bottom-16 bg-gray-50 flex flex-col z-10 view-transition hidden font-sans overflow-hidden">
+                    <div id="view-portfolio" class="absolute inset-x-0 top-0 bottom-16 bg-gray-50 flex flex-col z-10 view-transition hidden font-sans overflow-y-auto no-scrollbar">
 
                         <!-- Header -->
                         <div class="bg-white px-4 pt-3 pb-3 border-b border-gray-100 shrink-0 flex justify-between items-center">
@@ -943,108 +948,106 @@
                             </div>
                         </div>
 
-                        <!-- Tab navigation -->
-                        <div class="bg-white border-b border-gray-100 shrink-0 flex">
+                        <!-- TAB NAVIGATION — Analysis & Suggestions tabs are hidden until workflow runs -->
+                        <div id="portfolio-tab-nav" class="hidden bg-white border-b border-gray-100 shrink-0 flex">
                             <button id="ptab-btn-holdings" onclick="switchPortfolioTab('holdings')" class="flex-1 py-2.5 flex items-center justify-center border-b-2 border-navyBlue">
                                 <span class="text-[10px] font-semibold text-navyBlue">Holdings</span>
                             </button>
                             <button id="ptab-btn-analysis" onclick="switchPortfolioTab('analysis')" class="flex-1 py-2.5 flex items-center justify-center border-b-2 border-transparent opacity-40 pointer-events-none">
-                                <span class="text-[10px] font-medium text-gray-500">Analysis</span>
+                                <span class="text-[10px] font-medium text-gray-400">Analysis</span>
                             </button>
                             <button id="ptab-btn-recommend" onclick="switchPortfolioTab('recommend')" class="flex-1 py-2.5 flex items-center justify-center border-b-2 border-transparent opacity-40 pointer-events-none">
-                                <span class="text-[10px] font-medium text-gray-500">Suggestions</span>
+                                <span class="text-[10px] font-medium text-gray-400">Suggestions</span>
                             </button>
                         </div>
 
-                        <!-- TAB 1: HOLDINGS (always unlocked) -->
-                        <div id="ptab-panel-holdings" class="flex-1 overflow-y-auto no-scrollbar bg-gray-50">
+                        <!-- UNIFIED INPUT PAGE: always shows; content changes based on portfolio state -->
+                        <div id="ptab-panel-holdings" class="flex-1 overflow-y-auto no-scrollbar bg-gray-50 pb-4">
 
-                            <!-- EMPTY STATE: starter templates -->
-                            <div id="ptab-holdings-empty" class="p-4 space-y-4">
-                                <!-- Hero -->
-                                <div class="bg-white rounded-2xl border border-gray-150 p-5 text-center space-y-2">
-                                    <div class="w-11 h-11 mx-auto bg-navyBlue/5 rounded-full flex items-center justify-center mb-1">
-                                        <svg class="w-5 h-5 text-navyBlue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path></svg>
-                                    </div>
-                                    <p class="text-sm font-semibold text-gray-900">No portfolio yet</p>
-                                    <p class="text-[11px] text-gray-500 leading-relaxed max-w-[260px] mx-auto">Pick a starter template below to load a sample portfolio, or build one from scratch.</p>
+                            <!-- Page header -->
+                            <div class="px-4 pt-4 pb-2">
+                                <p class="text-sm font-bold text-gray-900">Build your portfolio</p>
+                                <p class="text-[11px] text-gray-400 mt-0.5">Upload documents, paste text, or add manually.</p>
+                            </div>
+
+                            <!-- Mobile-first upload actions — side by side -->
+                            <div class="px-4">
+                                <div class="flex gap-2">
+                                    <button onclick="document.getElementById('portfolio-file-input').click()" class="flex-1 bg-white border border-gray-200 rounded-2xl px-3 py-2.5 flex flex-col items-center gap-1.5 active:bg-gray-50 transition tap-highlight-none">
+                                        <svg class="w-5 h-5 text-blue-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                        <span class="text-[10px] font-medium text-gray-700 text-center leading-tight">Photos</span>
+                                        <span class="text-[9px] text-gray-400 text-center leading-tight">JPG, PNG</span>
+                                    </button>
+                                    <button onclick="document.getElementById('portfolio-file-input').click()" class="flex-1 bg-white border border-gray-200 rounded-2xl px-3 py-2.5 flex flex-col items-center gap-1.5 active:bg-gray-50 transition tap-highlight-none">
+                                        <svg class="w-5 h-5 text-red-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                                        <span class="text-[10px] font-medium text-gray-700 text-center leading-tight">Document</span>
+                                        <span class="text-[9px] text-gray-400 text-center leading-tight">PDF, CSV</span>
+                                    </button>
                                 </div>
+                                <!-- Hidden file input -->
+                                <input type="file" id="portfolio-file-input" accept=".pdf,.jpg,.jpeg,.png,.csv,.xlsx" class="hidden" onchange="handlePortfolioFileUpload(this)">
 
-                                <!-- Section heading -->
-                                <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider px-1">Starter templates</p>
-
-                                <!-- Template: Tech -->
-                                <button onclick="applyPortfolioTemplate('tech')" class="w-full bg-white border border-gray-150 hover:border-gray-300 hover:bg-gray-50 rounded-xl p-3 text-left transition active:scale-[0.99] flex items-start gap-3">
-                                    <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
-                                        <svg class="w-4 h-4 text-gray-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                                    </div>
+                                <!-- Uploaded file chip -->
+                                <div id="upload-file-chip" class="hidden mt-2 bg-white border border-gray-200 rounded-xl px-3 py-2.5 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-navyBlue shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
                                     <div class="flex-1 min-w-0">
-                                        <div class="flex items-center justify-between gap-2">
-                                            <p class="text-xs font-semibold text-gray-900">Tech Growth</p>
-                                            <span class="text-[9px] font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded shrink-0">Aggressive</span>
-                                        </div>
-                                        <p class="text-[10px] text-gray-500 mt-0.5 leading-relaxed">Tech-tilted HK equity ETFs with high growth and higher volatility.</p>
-                                        <p class="text-[9px] text-gray-400 mt-1 truncate">3067.HK · 2800.HK · 3199.HK</p>
+                                        <p id="upload-file-name" class="text-[11px] font-medium text-gray-700 truncate"></p>
+                                        <p id="upload-file-status" class="text-[9px] text-gray-400"></p>
                                     </div>
-                                </button>
+                                    <div id="upload-file-spinner" class="hidden w-4 h-4 border-1.5 border-navyBlue border-t-transparent rounded-full animate-spin shrink-0"></div>
+                                    <button id="upload-file-remove" onclick="clearPortfolioUpload()" class="text-gray-400 hover:text-iosRed transition shrink-0 ml-1">
+                                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </button>
+                                </div>
+                            </div>
 
-                                <!-- Template: Balanced -->
-                                <button onclick="applyPortfolioTemplate('balanced')" class="w-full bg-white border border-gray-150 hover:border-gray-300 hover:bg-gray-50 rounded-xl p-3 text-left transition active:scale-[0.99] flex items-start gap-3">
-                                    <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
-                                        <svg class="w-4 h-4 text-gray-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <!-- Text input area -->
+                            <div class="px-4 mt-3">
+                                <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden focus-within:border-navyBlue transition">
+                                    <textarea id="portfolio-text-input" rows="3" oninput="autoResizeTextarea(this)" placeholder="Or paste your holdings here... e.g. 3067.HK 100 shares at $7.50" class="w-full bg-transparent px-3 py-2.5 text-xs text-gray-800 placeholder-gray-400 focus:outline-none resize-none leading-relaxed"></textarea>
+                                    <div class="px-3 pb-2 flex justify-between items-center">
+                                        <p class="text-[9px] text-gray-300">AI will parse your input</p>
+                                        <button onclick="submitPortfolioText()" id="portfolio-text-submit" class="bg-navyBlue hover:bg-slate-900 text-white font-semibold text-[10px] px-3 py-1.5 rounded-lg transition active:scale-95">Parse</button>
                                     </div>
-                                    <div class="flex-1 min-w-0">
-                                        <div class="flex items-center justify-between gap-2">
-                                            <p class="text-xs font-semibold text-gray-900">Balanced</p>
-                                            <span class="text-[9px] font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded shrink-0">Moderate</span>
-                                        </div>
-                                        <p class="text-[10px] text-gray-500 mt-0.5 leading-relaxed">HK equity, global bonds, and gold for diversified stability.</p>
-                                        <p class="text-[9px] text-gray-400 mt-1 truncate">2800.HK · 3001.HK · 2840.HK</p>
-                                    </div>
-                                </button>
+                                </div>
+                            </div>
 
-                                <!-- Template: Income -->
-                                <button onclick="applyPortfolioTemplate('bonds')" class="w-full bg-white border border-gray-150 hover:border-gray-300 hover:bg-gray-50 rounded-xl p-3 text-left transition active:scale-[0.99] flex items-start gap-3">
-                                    <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
-                                        <svg class="w-4 h-4 text-gray-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <div class="flex items-center justify-between gap-2">
-                                            <p class="text-xs font-semibold text-gray-900">Income</p>
-                                            <span class="text-[9px] font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded shrink-0">Conservative</span>
-                                        </div>
-                                        <p class="text-[10px] text-gray-500 mt-0.5 leading-relaxed">Dividend-focused HK equity plus global fixed income for steady yield.</p>
-                                        <p class="text-[9px] text-gray-400 mt-1 truncate">3001.HK · 2800.HK</p>
-                                    </div>
-                                </button>
+                            <!-- Divider -->
+                            <div class="flex items-center gap-3 px-4 mt-4 mb-2">
+                                <div class="flex-1 h-px bg-gray-200"></div>
+                                <span class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">or add manually</span>
+                                <div class="flex-1 h-px bg-gray-200"></div>
+                            </div>
 
-                                <!-- Build from scratch -->
-                                <button onclick="enterManualBuilder()" class="w-full text-center py-2 text-[11px] font-medium text-gray-500 hover:text-navyBlue transition">
-                                    or build from scratch →
+                            <!-- Quick add buttons — clean iOS list style -->
+                            <div id="quick-add-chips" class="px-4 space-y-2">
+                                <button onclick="openManualAddPanel()" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 flex items-center gap-3 active:bg-navyBlue/5 transition tap-highlight-none">
+                                    <svg class="w-4 h-4 text-navyBlue shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                                    <span class="text-xs font-medium text-gray-700">Add ETF</span>
+                                </button>
+                                <button onclick="openManualAddPanel('sp')" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 flex items-center gap-3 active:bg-amber-50 transition tap-highlight-none">
+                                    <svg class="w-4 h-4 text-amber-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path></svg>
+                                    <span class="text-xs font-medium text-gray-700">Add Structured Product</span>
                                 </button>
                             </div>
 
-                            <!-- BUILDER STATE: add holdings + run analysis -->
-                            <div id="ptab-holdings-builder" class="hidden p-4 space-y-3">
-
-                                <!-- Back to templates -->
-                                <button onclick="backToPortfolioTemplates()" class="flex items-center gap-1.5 text-[11px] font-medium text-gray-500 hover:text-navyBlue transition active:opacity-70 mb-1">
-                                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                                    Back to starter templates
-                                </button>
-
-                                <!-- Add ETF -->
-                                <div class="bg-white rounded-xl border border-gray-150 p-3 space-y-2">
-                                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Add ETF</p>
+                            <!-- Manual add panel (ETF / SP) -->
+                            <div id="manual-add-panel" class="hidden px-4 space-y-3">
+                                <!-- ETF add section -->
+                                <div id="manual-add-etf" class="hidden bg-white rounded-2xl border border-gray-150 p-3.5 space-y-2">
+                                    <div class="flex justify-between items-center">
+                                        <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Search ETF</p>
+                                        <button onclick="closeManualAddPanel()" class="text-gray-400 hover:text-gray-700 transition">
+                                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                        </button>
+                                    </div>
                                     <div class="relative">
-                                        <input type="text" id="etf-picker-input" oninput="filterETFPicker()" onfocus="openETFPickerDropdown()" placeholder="Search by symbol or name..." class="w-full bg-gray-50 border border-gray-200 rounded-lg pl-3 pr-8 py-2 text-xs text-gray-900 focus:outline-none focus:border-gray-400 transition">
-                                        <svg class="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                        <input type="text" id="etf-picker-input" oninput="filterETFPicker()" onfocus="openETFPickerDropdown()" placeholder="Search by symbol or name..." class="w-full bg-gray-50 border border-gray-200 rounded-xl pl-3 pr-8 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-gray-400 transition">
+                                        <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                                     </div>
-                                    <!-- Dropdown list -->
-                                    <div id="etf-picker-dropdown" class="hidden max-h-40 overflow-y-auto border border-gray-200 rounded-lg bg-white shadow-sm divide-y divide-gray-50">
+                                    <div id="etf-picker-dropdown" class="hidden max-h-40 overflow-y-auto border border-gray-200 rounded-xl bg-white shadow-sm divide-y divide-gray-50">
                                     </div>
-                                    <!-- Selected ETF display -->
-                                    <div id="etf-picker-selected" class="hidden flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
+                                    <div id="etf-picker-selected" class="hidden flex items-center justify-between bg-gray-50 border border-gray-200 rounded-xl px-3 py-2">
                                         <div>
                                             <span id="etf-picker-sel-sym" class="text-xs font-semibold text-gray-800"></span>
                                             <span id="etf-picker-sel-name" class="text-[10px] text-gray-400 ml-1.5"></span>
@@ -1052,51 +1055,80 @@
                                         <button onclick="clearETFPickerSelection()" class="text-gray-400 hover:text-gray-700 transition text-xs">×</button>
                                     </div>
                                     <div class="flex gap-2">
-                                        <input type="number" id="builder-etf-qty" placeholder="Qty" min="1" class="flex-1 bg-gray-50 border border-gray-200 text-xs text-gray-700 px-2.5 py-2 rounded-lg focus:outline-none focus:border-gray-400 appearance-none">
-                                        <button onclick="addCustomETFToStaging()" class="bg-navyBlue hover:bg-slate-900 text-white font-medium px-3 py-2 rounded-lg text-xs transition shrink-0">Add</button>
+                                        <input type="number" id="builder-etf-qty" placeholder="Qty" min="1" class="flex-1 bg-gray-50 border border-gray-200 text-xs text-gray-700 px-2.5 py-2.5 rounded-xl focus:outline-none focus:border-gray-400 appearance-none">
+                                        <button onclick="addCustomETFToStaging()" class="bg-navyBlue hover:bg-slate-900 text-white font-semibold px-4 py-2.5 rounded-xl text-xs transition shrink-0">Add</button>
                                     </div>
                                 </div>
-
-                                <!-- Add Structured Product -->
-                                <div class="bg-white rounded-xl border border-gray-150 p-3 space-y-2">
-                                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Add Structured Product</p>
+                                <!-- Structured Product add section -->
+                                <div id="manual-add-sp" class="hidden bg-white rounded-2xl border border-gray-150 p-3.5 space-y-2">
+                                    <div class="flex justify-between items-center">
+                                        <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Search Structured Product</p>
+                                        <button onclick="closeManualAddPanel()" class="text-gray-400 hover:text-gray-700 transition">
+                                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                        </button>
+                                    </div>
                                     <div class="relative">
-                                        <input type="text" id="sp-picker-input" oninput="filterSPPicker()" onfocus="openSPPickerDropdown()" placeholder="Search by name or issuer..." class="w-full bg-gray-50 border border-gray-200 rounded-lg pl-3 pr-8 py-2 text-xs text-gray-900 focus:outline-none focus:border-gray-400 transition">
-                                        <svg class="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                        <input type="text" id="sp-picker-input" oninput="filterSPPicker()" onfocus="openSPPickerDropdown()" placeholder="Search by name or issuer..." class="w-full bg-gray-50 border border-gray-200 rounded-xl pl-3 pr-8 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-gray-400 transition">
+                                        <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                                     </div>
-                                    <!-- Dropdown list -->
-                                    <div id="sp-picker-dropdown" class="hidden max-h-40 overflow-y-auto border border-gray-200 rounded-lg bg-white shadow-sm divide-y divide-gray-50">
+                                    <div id="sp-picker-dropdown" class="hidden max-h-40 overflow-y-auto border border-gray-200 rounded-xl bg-white shadow-sm divide-y divide-gray-50">
                                     </div>
-                                    <!-- Selected SP display -->
-                                    <div id="sp-picker-selected" class="hidden flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
+                                    <div id="sp-picker-selected" class="hidden flex items-center justify-between bg-gray-50 border border-gray-200 rounded-xl px-3 py-2">
                                         <div class="min-w-0">
                                             <span id="sp-picker-sel-name" class="text-xs font-semibold text-gray-800 truncate block"></span>
                                         </div>
                                         <button onclick="clearSPPickerSelection()" class="text-gray-400 hover:text-gray-700 transition text-xs ml-2 shrink-0">×</button>
                                     </div>
-                                    <button onclick="addStructuredProductToStaging()" class="w-full bg-navyBlue hover:bg-slate-900 text-white font-medium py-2 rounded-lg text-xs transition">Add to Portfolio</button>
+                                    <button onclick="addStructuredProductToStaging()" class="w-full bg-navyBlue hover:bg-slate-900 text-white font-semibold py-2.5 rounded-xl text-xs transition">Add to Portfolio</button>
                                 </div>
+                            </div>
 
-                                <!-- Holdings list -->
-                                <div id="ptab-holdings-list" class="hidden space-y-0 bg-white rounded-xl border border-gray-150 overflow-hidden">
-                                    <div class="px-3 py-2.5 border-b border-gray-100 flex justify-between items-center">
-                                        <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Positions</p>
-                                        <button onclick="clearDraftStaging()" class="text-[10px] font-medium text-gray-400 hover:text-iosRed transition">Clear all</button>
-                                    </div>
-                                    <div id="builder-holdings-rows" class="divide-y divide-gray-100"></div>
-                                    <div class="px-3 py-2.5 border-t border-gray-100 flex justify-between items-center">
-                                        <span class="text-[10px] text-gray-400">Total value</span>
-                                        <span id="builder-totals-val" class="text-xs font-semibold text-navyBlue">HKD 0</span>
-                                    </div>
-                                </div>
-
-                                <!-- Run analysis CTA -->
-                                <div id="ptab-run-btn" class="hidden pt-1">
-                                    <button onclick="runPortfolioAnalysis()" class="w-full bg-navyBlue hover:bg-slate-900 text-white font-medium py-3 px-4 rounded-xl text-xs transition">
-                                        Run Analysis
+                            <!-- Quick example section — shown ONLY when portfolio is empty, iOS style -->
+                            <div id="quick-example-section" class="px-4 mt-4">
+                                <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider text-center mb-3">Try an example</p>
+                                <div class="flex flex-col items-center space-y-2">
+                                    <button onclick="applyPortfolioTemplate('tech')" class="w-full text-center bg-white border border-gray-200 hover:border-navyBlue hover:bg-navyBlue/5 rounded-xl px-4 py-3 text-xs text-gray-700 transition active:scale-[0.99] active:bg-navyBlue/5">
+                                        <span class="inline-flex items-center gap-2">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></span>
+                                            Tech portfolio (HK) · 3067.HK · 2800.HK · 3199.HK
+                                        </span>
+                                    </button>
+                                    <button onclick="applyPortfolioTemplate('hk50')" class="w-full text-center bg-white border border-gray-200 hover:border-navyBlue hover:bg-navyBlue/5 rounded-xl px-4 py-3 text-xs text-gray-700 transition active:scale-[0.99] active:bg-navyBlue/5">
+                                        <span class="inline-flex items-center gap-2">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
+                                            Hang Seng 50 · 2800.HK · 2828.HK
+                                        </span>
+                                    </button>
+                                    <button onclick="applyPortfolioTemplate('china')" class="w-full text-center bg-white border border-gray-200 hover:border-navyBlue hover:bg-navyBlue/5 rounded-xl px-4 py-3 text-xs text-gray-700 transition active:scale-[0.99] active:bg-navyBlue/5">
+                                        <span class="inline-flex items-center gap-2">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-400 shrink-0"></span>
+                                            China + HK equity · 2800.HK · 2828.HK · 3001.HK
+                                        </span>
                                     </button>
                                 </div>
                             </div>
+
+                            <!-- Current portfolio list — shown when there are holdings -->
+                            <div id="ptab-holdings-list" class="hidden mt-3 mx-4 space-y-0 bg-white rounded-2xl border border-gray-150 overflow-hidden shadow-sm">
+                                <div class="px-4 py-3 border-b border-gray-100 flex justify-between items-center">
+                                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Current Portfolio</p>
+                                    <button onclick="clearDraftStaging()" class="text-[10px] font-medium text-gray-400 hover:text-iosRed transition">Clear all</button>
+                                </div>
+                                <div id="builder-holdings-rows" class="divide-y divide-gray-100"></div>
+                                <div class="px-4 py-3 border-t border-gray-100 flex justify-between items-center">
+                                    <span class="text-[10px] text-gray-400">Total value</span>
+                                    <span id="builder-totals-val" class="text-xs font-bold text-navyBlue">HKD 0</span>
+                                </div>
+                            </div>
+
+                            <!-- Start analysis CTA — shown when portfolio has items -->
+                            <div id="ptab-run-btn" class="hidden px-4 mt-4">
+                                <button onclick="runPortfolioAnalysis()" class="w-full bg-navyBlue hover:bg-slate-900 text-white font-bold py-3.5 px-4 rounded-2xl text-xs transition active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-navyBlue/20">
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                    Start Analysis
+                                </button>
+                            </div>
+
                         </div>
 
                         <!-- TAB 2: ANALYSIS (unlocked after running) -->
@@ -1129,8 +1161,19 @@
 
                         <!-- TAB 3: RECOMMENDATIONS (unlocked after analysis) -->
                         <div id="ptab-panel-recommend" class="hidden flex-1 overflow-y-auto no-scrollbar bg-gray-50">
+                            <!-- Idle state with generate button -->
+                            <div id="ptab-recommend-idle" class="flex flex-col items-center justify-center py-16 px-6 space-y-4">
+                                <div class="w-12 h-12 rounded-full bg-navyBlue/10 flex items-center justify-center mb-2">
+                                    <svg class="w-6 h-6 text-navyBlue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
+                                </div>
+                                <p class="text-sm font-semibold text-gray-800">AI Portfolio Recommendations</p>
+                                <p class="text-xs text-gray-500 text-center max-w-[260px] leading-relaxed">Get personalized rebalancing suggestions based on your current portfolio composition.</p>
+                                <button onclick="generateRecommendations()" class="mt-2 bg-navyBlue hover:bg-slate-900 text-white font-medium text-xs py-2.5 px-6 rounded-lg transition shadow-sm">
+                                    Generate Recommendations
+                                </button>
+                            </div>
                             <!-- Loading state -->
-                            <div id="ptab-recommend-loading" class="flex flex-col items-center justify-center py-16 px-6 space-y-4">
+                            <div id="ptab-recommend-loading" class="hidden flex flex-col items-center justify-center py-16 px-6 space-y-4">
                                 <div class="w-8 h-8 border-2 border-navyBlue border-t-transparent rounded-full animate-spin"></div>
                                 <p class="text-xs text-gray-500">Generating AI recommendations...</p>
                             </div>
@@ -1190,6 +1233,19 @@
                             <!-- Footer note -->
                             <div class="px-4 py-3 border-t border-gray-100 shrink-0">
                                 <p class="text-[9px] text-gray-400 text-center leading-relaxed">Portfolios are saved automatically after analysis is run.</p>
+                            </div>
+                        </div>
+
+                        <!-- Score Drill-Down Bottom Sheet (positioned via JS relative to iPhone mockup) -->
+                        <div id="score-detail-backdrop" class="bg-black/40 z-40 hidden opacity-0 transition-opacity duration-300" onclick="closeScoreDetailSheet()"></div>
+                        <div id="score-detail-sheet" class="hidden z-50 bg-white rounded-t-2xl shadow-2xl transform translate-y-full transition-transform duration-300 flex flex-col" style="max-height:75vh;">
+                            <div class="flex justify-center pt-2.5 pb-1 shrink-0">
+                                <div class="w-9 h-1 bg-gray-300 rounded-full"></div>
+                            </div>
+                            <div id="score-detail-header" class="px-4 pb-3 border-b border-gray-100 shrink-0"></div>
+                            <div id="score-detail-body" class="flex-1 overflow-y-auto no-scrollbar px-4 py-3 space-y-3 pb-6"></div>
+                            <div class="px-4 py-3 border-t border-gray-100 shrink-0">
+                                <button onclick="closeScoreDetailSheet()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2.5 rounded-xl text-xs transition">Close</button>
                             </div>
                         </div>
 
@@ -1548,7 +1604,6 @@
                                         <button id="sc-btn-bull" onclick="selectScenario('bull')" class="flex-1 py-1.5 text-[10px] font-semibold rounded-lg bg-navyBlue text-white border border-navyBlue transition">Bull</button>
                                         <button id="sc-btn-base" onclick="selectScenario('base')" class="flex-1 py-1.5 text-[10px] font-medium rounded-lg bg-white text-gray-500 border border-gray-200 transition">Base</button>
                                         <button id="sc-btn-bear" onclick="selectScenario('bear')" class="flex-1 py-1.5 text-[10px] font-medium rounded-lg bg-white text-gray-500 border border-gray-200 transition">Bear</button>
-                                        <button id="sc-btn-custom" onclick="selectScenario('custom')" class="flex-1 py-1.5 text-[10px] font-medium rounded-lg bg-white text-gray-500 border border-gray-200 transition">Custom</button>
                                     </div>
                                 </div>
 
@@ -1582,19 +1637,6 @@
                                             <tbody id="sc-table" class="divide-y divide-gray-100"></tbody>
                                         </table>
                                     </div>
-                                </div>
-
-                                <!-- Custom scenario input -->
-                                <div id="sc-custom-panel" class="hidden bg-white rounded-xl border border-gray-150 p-3 space-y-2">
-                                    <div>
-                                        <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Model a Custom Move</p>
-                                        <p class="text-[9px] text-gray-400 mt-0.5 leading-relaxed">Drag the slider to set a hypothetical % change in the underlying asset and see the estimated payoff.</p>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <input type="range" id="sc-custom-slider" min="-50" max="50" value="10" oninput="updateCustomScenario(this.value)" class="flex-1 accent-navyBlue">
-                                        <span id="sc-custom-val" class="text-xs font-semibold text-navyBlue w-10 text-right">+10%</span>
-                                    </div>
-                                    <p class="text-xs text-gray-700">Estimated payoff: <span id="sc-custom-result" class="font-bold text-navyBlue">—</span></p>
                                 </div>
                             </div>
 
@@ -4077,12 +4119,27 @@
         const hkdCurrency = currencyW['HKD'] || 0;
         const usdCurrency = currencyW['USD'] || 0;
 
+        // Real fee & liquidity from ETF database
+        let weightedFeeSum = 0, weightedLiqSum = 0;
+        appState.portfolio.forEach(item => {
+            const db = etfDatabase[item.symbol];
+            if (db) {
+                const fee = parseFloat(db.fees) || 0;
+                const liq = db.liquidity === 'Excellent' ? 100 : db.liquidity === 'High' ? 80 : db.liquidity === 'Medium' ? 60 : 40;
+                weightedFeeSum += item.weight * fee;
+                weightedLiqSum += item.weight * liq;
+            }
+        });
+        const weightedAvgFee = weightedFeeSum;
+        const weightedAvgLiq  = weightedLiqSum;
+
         return {
             totalValHKD, hhi: weightedHHI, effectiveN, healthScore,
             techSector, coreEquitySector, fixedIncomeSector, commoditySector,
             hkRegion, globalRegion,
             hkdCurrency, usdCurrency,
             sectorW, regionW, currencyW,
+            weightedAvgFee, weightedAvgLiq,
         };
     }
 
@@ -4118,6 +4175,10 @@
     }
 
     function switchPortfolioTab(tab) {
+        // Don't switch to locked tabs
+        const btn = document.getElementById('ptab-btn-' + tab);
+        if (btn && (btn.classList.contains('opacity-40') || btn.classList.contains('pointer-events-none'))) return;
+
         ['holdings','analysis','recommend'].forEach(t => {
             const panel = document.getElementById('ptab-panel-' + t);
             const btn = document.getElementById('ptab-btn-' + t);
@@ -4131,6 +4192,18 @@
         const activePanel = document.getElementById('ptab-panel-' + tab);
         const activeBtn = document.getElementById('ptab-btn-' + tab);
         if (activePanel) activePanel.classList.remove('hidden');
+        
+        // Handle recommend tab sub-states (idle/loading/results)
+        if (tab === 'recommend') {
+            const idleEl = document.getElementById('ptab-recommend-idle');
+            const loadingEl = document.getElementById('ptab-recommend-loading');
+            const resultsEl = document.getElementById('ptab-recommend-results');
+            // Show idle if no results yet
+            if (idleEl) idleEl.classList.toggle('hidden', resultsEl && resultsEl.children.length > 0);
+            if (loadingEl) loadingEl.classList.add('hidden');
+            if (resultsEl) resultsEl.classList.toggle('hidden', resultsEl.children.length === 0);
+        }
+        
         if (activeBtn) {
             activeBtn.className = activeBtn.className
                 .replace('border-transparent','border-navyBlue')
@@ -4146,6 +4219,9 @@
             const spans = btn.querySelectorAll('span');
             spans.forEach(s => s.className = s.className.replace('text-gray-400','text-gray-600'));
         }
+        // Show the full tab nav when first tab is unlocked
+        const tabNav = document.getElementById('portfolio-tab-nav');
+        if (tabNav) tabNav.classList.remove('hidden');
     }
 
     function lockPortfolioTab(tab) {
@@ -4162,30 +4238,43 @@
                 { symbol: '2800.HK', qty: 1500, cost: 18.10 },
                 { symbol: '3199.HK', qty: 2000, cost: 7.90 }
             ];
-        } else if (type === 'balanced') {
+        } else if (type === 'hk50') {
+            appState.portfolio = [
+                { symbol: '2800.HK', qty: 5000, cost: 18.00 },
+                { symbol: '2828.HK', qty: 1000, cost: 21.50 }
+            ];
+        } else if (type === 'china') {
             appState.portfolio = [
                 { symbol: '2800.HK', qty: 3000, cost: 18.10 },
-                { symbol: '3001.HK', qty: 50, cost: 94.50 },
-                { symbol: '2840.HK', qty: 10, cost: 1720.50 }
-            ];
-        } else if (type === 'bonds') {
-            appState.portfolio = [
-                { symbol: '3001.HK', qty: 150, cost: 95.40 },
-                { symbol: '2800.HK', qty: 1000, cost: 19.34 }
+                { symbol: '2828.HK', qty: 1000, cost: 21.50 },
+                { symbol: '3001.HK', qty: 100, cost: 95.00 }
             ];
         }
-        appState.builderManuallyOpened = true;
         recalculatePortfolioState();
         updateBuilderTotals();
         renderBuilderStagedView();
     }
 
-    function enterManualBuilder() {
-        appState.builderManuallyOpened = true;
-        renderBuilderStagedView();
+    function openManualAddPanel(mode) {
+        closeManualAddPanel();
+        document.getElementById('manual-add-panel').classList.remove('hidden');
+        if (mode === 'sp') {
+            document.getElementById('manual-add-sp').classList.remove('hidden');
+            document.getElementById('manual-add-etf').classList.add('hidden');
+        } else {
+            document.getElementById('manual-add-etf').classList.remove('hidden');
+            document.getElementById('manual-add-sp').classList.add('hidden');
+        }
     }
 
-    // ETF picker for portfolio builder
+    function closeManualAddPanel() {
+        document.getElementById('manual-add-panel').classList.add('hidden');
+        document.getElementById('manual-add-etf').classList.add('hidden');
+        document.getElementById('manual-add-sp').classList.add('hidden');
+        clearETFPickerSelection();
+        clearSPPickerSelection();
+    }
+
     let _pickerSelectedETF = null;
     let _pickerSelectedSP = null;
 
@@ -4196,16 +4285,17 @@
     function filterETFPicker() {
         const q = (document.getElementById('etf-picker-input').value || '').toLowerCase();
         const dropdown = document.getElementById('etf-picker-dropdown');
+        if (!dropdown) return;
         const etfs = Object.values(etfDatabase).filter(e =>
             q === '' || e.symbol.toLowerCase().includes(q) || e.name.toLowerCase().includes(q)
         );
         dropdown.innerHTML = etfs.map(e => `
-            <div onclick="selectETFPickerItem('${e.symbol}')" class="px-3 py-2 cursor-pointer hover:bg-gray-50 transition flex justify-between items-center">
+            <div onclick="selectETFPickerItem('${e.symbol}')" class="px-3 py-2 cursor-pointer hover:bg-navyBlue/5 transition flex justify-between items-center">
                 <div>
                     <span class="text-xs font-semibold text-gray-800">${e.symbol}</span>
                     <span class="text-[10px] text-gray-400 ml-1">${e.name}</span>
                 </div>
-                <span class="text-[10px] text-gray-500 shrink-0">${e.assetClass}</span>
+                <span class="text-[9px] text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded shrink-0">${e.assetClass}</span>
             </div>
         `).join('') || '<p class="text-xs text-gray-400 text-center py-3">No results</p>';
         dropdown.classList.remove('hidden');
@@ -4214,18 +4304,25 @@
     function selectETFPickerItem(symbol) {
         _pickerSelectedETF = symbol;
         const etf = etfDatabase[symbol];
+        if (!etf) return;
         document.getElementById('etf-picker-input').value = '';
         document.getElementById('etf-picker-dropdown').classList.add('hidden');
         const sel = document.getElementById('etf-picker-selected');
-        sel.classList.remove('hidden');
-        document.getElementById('etf-picker-sel-sym').textContent = etf.symbol;
-        document.getElementById('etf-picker-sel-name').textContent = etf.name;
+        if (sel) {
+            sel.classList.remove('hidden');
+            const symEl = document.getElementById('etf-picker-sel-sym');
+            const nameEl = document.getElementById('etf-picker-sel-name');
+            if (symEl) symEl.textContent = etf.symbol;
+            if (nameEl) nameEl.textContent = etf.name;
+        }
     }
 
     function clearETFPickerSelection() {
         _pickerSelectedETF = null;
-        document.getElementById('etf-picker-selected').classList.add('hidden');
-        document.getElementById('etf-picker-input').value = '';
+        const sel = document.getElementById('etf-picker-selected');
+        if (sel) sel.classList.add('hidden');
+        const input = document.getElementById('etf-picker-input');
+        if (input) input.value = '';
     }
 
     function openSPPickerDropdown() {
@@ -4235,11 +4332,12 @@
     function filterSPPicker() {
         const q = (document.getElementById('sp-picker-input').value || '').toLowerCase();
         const dropdown = document.getElementById('sp-picker-dropdown');
+        if (!dropdown) return;
         const sps = structuredProductsDB.filter(p =>
             q === '' || p.name.toLowerCase().includes(q) || p.issuer.toLowerCase().includes(q) || p.type.toLowerCase().includes(q)
         );
         dropdown.innerHTML = sps.map(p => `
-            <div onclick="selectSPPickerItem('${p.id}')" class="px-3 py-2 cursor-pointer hover:bg-gray-50 transition">
+            <div onclick="selectSPPickerItem('${p.id}')" class="px-3 py-2 cursor-pointer hover:bg-navyBlue/5 transition">
                 <p class="text-xs font-semibold text-gray-800 truncate">${p.name}</p>
                 <p class="text-[10px] text-gray-400">${p.issuer} · ${p.type}</p>
             </div>
@@ -4250,17 +4348,23 @@
     function selectSPPickerItem(id) {
         _pickerSelectedSP = id;
         const p = structuredProductsDB.find(x => x.id === id);
+        if (!p) return;
         document.getElementById('sp-picker-input').value = '';
         document.getElementById('sp-picker-dropdown').classList.add('hidden');
         const sel = document.getElementById('sp-picker-selected');
-        sel.classList.remove('hidden');
-        document.getElementById('sp-picker-sel-name').textContent = p.name;
+        if (sel) {
+            sel.classList.remove('hidden');
+            const nameEl = document.getElementById('sp-picker-sel-name');
+            if (nameEl) nameEl.textContent = p.name;
+        }
     }
 
     function clearSPPickerSelection() {
         _pickerSelectedSP = null;
-        document.getElementById('sp-picker-selected').classList.add('hidden');
-        document.getElementById('sp-picker-input').value = '';
+        const sel = document.getElementById('sp-picker-selected');
+        if (sel) sel.classList.add('hidden');
+        const input = document.getElementById('sp-picker-input');
+        if (input) input.value = '';
     }
 
     function addCustomETFToStaging() {
@@ -4294,19 +4398,70 @@
         updateBuilderTotals();
     }
 
-    function removeStagedItem(symbol) {
-        appState.portfolio = appState.portfolio.filter(i => i.symbol !== symbol);
-        recalculatePortfolioState();
-        updateBuilderTotals();
-        renderBuilderStagedView();
+    function autoResizeTextarea(el) {
+        el.style.height = 'auto';
+        el.style.height = Math.min(el.scrollHeight, 120) + 'px';
     }
 
-    function backToPortfolioTemplates() {
-        appState.portfolio = [];
-        appState.portfolioStructured = [];
-        appState.builderManuallyOpened = false;
-        _pickerSelectedETF = null;
-        _pickerSelectedSP = null;
+    function submitPortfolioText() {
+        const input = document.getElementById('portfolio-text-input');
+        const text = (input.value || '').trim();
+        if (!text) return;
+        const lines = text.split('\n').filter(l => l.trim());
+        let added = 0;
+        lines.forEach(line => {
+            const m = line.match(/([A-Z0-9\.]{2,10})\s+(?:(\d+)\s*(?:sh(?:are)?s?|units?)?)?\s*(?:@|at|cost|price)?\s*([\d,\.]+)?/i);
+            if (m) {
+                const sym = m[1].toUpperCase();
+                const qty = parseInt(m[2]) || 1000;
+                const cost = parseFloat(m[3]) || 0;
+                if (etfDatabase[sym]) {
+                    const existing = appState.portfolio.find(i => i.symbol === sym);
+                    if (existing) { existing.qty += qty; }
+                    else { appState.portfolio.push({ symbol: sym, qty, cost: cost || parseFloat(etfDatabase[sym].price.replace(/,/g, '')) }); }
+                    added++;
+                }
+            }
+        });
+        input.value = '';
+        if (added > 0) {
+            recalculatePortfolioState();
+            updateBuilderTotals();
+            renderBuilderStagedView();
+        }
+    }
+
+    function handlePortfolioFileUpload(input) {
+        const file = input.files && input.files[0];
+        if (!file) return;
+        const chip = document.getElementById('upload-file-chip');
+        const nameEl = document.getElementById('upload-file-name');
+        const statusEl = document.getElementById('upload-file-status');
+        const spinner = document.getElementById('upload-file-spinner');
+        chip.classList.remove('hidden');
+        nameEl.textContent = file.name;
+        statusEl.textContent = 'Parsing with AI...';
+        spinner.classList.remove('hidden');
+        // Simulate AI parsing delay
+        setTimeout(() => {
+            statusEl.textContent = 'Parsed 3 holdings';
+            spinner.classList.add('hidden');
+            // Auto-apply a sample template for demo
+            if (appState.portfolio.length === 0) {
+                applyPortfolioTemplate('tech');
+            }
+            input.value = '';
+        }, 1800);
+    }
+
+    function clearPortfolioUpload() {
+        document.getElementById('upload-file-chip').classList.add('hidden');
+        const input = document.getElementById('portfolio-file-input');
+        if (input) input.value = '';
+    }
+
+    function removeStagedItem(symbol) {
+        appState.portfolio = appState.portfolio.filter(i => i.symbol !== symbol);
         recalculatePortfolioState();
         updateBuilderTotals();
         renderBuilderStagedView();
@@ -4315,10 +4470,17 @@
     function clearDraftStaging() {
         appState.portfolio = [];
         appState.portfolioStructured = [];
-        appState.builderManuallyOpened = false;
         recalculatePortfolioState();
         updateBuilderTotals();
         renderBuilderStagedView();
+        // Hide tab nav again when returning to empty state
+        const tabNav = document.getElementById('portfolio-tab-nav');
+        if (tabNav) tabNav.classList.add('hidden');
+        // Lock tabs again
+        lockPortfolioTab('analysis');
+        lockPortfolioTab('recommend');
+        // Reset to holdings tab
+        switchPortfolioTab('holdings');
     }
 
     function updateBuilderTotals() {
@@ -4329,7 +4491,6 @@
             const fx = (item.symbol === '3001.HK') ? 7.8 : 1.0;
             totalValHKD += item.qty * price * fx;
         });
-
         const label = document.getElementById('builder-totals-val');
         if (label) {
             label.textContent = `HKD ${totalValHKD.toLocaleString('en-US', {maximumFractionDigits:0})}`;
@@ -4337,29 +4498,28 @@
     }
 
     function renderBuilderStagedView() {
-        const box = document.getElementById('ptab-holdings-list');
+        const listEl = document.getElementById('ptab-holdings-list');
         const runBtn = document.getElementById('ptab-run-btn');
         const container = document.getElementById('builder-holdings-rows');
-        const emptyEl = document.getElementById('ptab-holdings-empty');
-        const builderEl = document.getElementById('ptab-holdings-builder');
-        if (!box || !container) return;
+        const quickSection = document.getElementById('quick-example-section');
+        const quickChips = document.getElementById('quick-add-chips');
+        if (!container) return;
 
         const total = appState.portfolio.length + (appState.portfolioStructured || []).length;
-        const showBuilder = total > 0 || appState.builderManuallyOpened;
-        if (emptyEl) emptyEl.classList.toggle('hidden', showBuilder);
-        if (builderEl) builderEl.classList.toggle('hidden', !showBuilder);
+        const hasItems = total > 0;
 
-        if (total === 0) {
-            box.classList.add('hidden');
-            if (runBtn) runBtn.classList.add('hidden');
-            return;
-        }
+        // Show/hide portfolio list
+        if (listEl) listEl.classList.toggle('hidden', !hasItems);
+        // Show/hide CTA
+        if (runBtn) runBtn.classList.toggle('hidden', !hasItems);
+        // Show/hide quick example section (only when empty)
+        if (quickSection) quickSection.classList.toggle('hidden', hasItems);
+        // quick-add-chips always stay visible
 
-        box.classList.remove('hidden');
-        if (runBtn) runBtn.classList.remove('hidden');
+        if (!hasItems) return;
+
         container.innerHTML = '';
 
-        // Recompute weights before rendering
         recalculatePortfolioState();
         let totalMV = 0;
         appState.portfolio.forEach(i => { totalMV += (i.marketValueHKD || 0); });
@@ -4373,36 +4533,34 @@
             const pnlClass = pnl >= 0 ? 'text-emerald-600' : 'text-red-500';
             const pnlStr = (pnl >= 0 ? '+' : '') + pnl.toFixed(2) + '%';
             const ccy = item.currency || 'HKD';
-
             const div = document.createElement('div');
-            div.className = "px-3 py-2.5 text-xs border-b border-gray-50 last:border-0";
+            div.className = "px-4 py-3 text-xs border-b border-gray-50 last:border-0";
             div.innerHTML = `
                 <div class="flex justify-between items-start">
                     <div class="flex items-center gap-1.5 min-w-0">
-                        <span class="text-[9px] font-medium text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded shrink-0">ETF</span>
+                        <span class="text-[9px] font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded shrink-0">ETF</span>
                         <div class="min-w-0">
                             <span class="font-semibold text-gray-800 text-[11px]">${item.symbol}</span>
-                            <span class="text-[9px] text-gray-400 ml-1 truncate hidden sm:inline">${name}</span>
+                            <span class="text-[9px] text-gray-400 ml-1.5 truncate">${name}</span>
                         </div>
                     </div>
                     <button onclick="removeStagedItem('${item.symbol}')" class="text-gray-300 hover:text-rose-500 transition ml-2 shrink-0">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                 </div>
-                <div class="grid grid-cols-4 gap-1 mt-1.5 text-[9px]">
-                    <div><span class="text-gray-400 block">Qty</span><span class="font-medium text-gray-700">${item.qty.toLocaleString()}</span></div>
-                    <div><span class="text-gray-400 block">Cost</span><span class="font-medium text-gray-700">${item.cost.toFixed(2)} <span class="text-gray-400">${ccy}</span></span></div>
-                    <div><span class="text-gray-400 block">Mkt Value</span><span class="font-medium text-gray-700">HKD ${mv >= 1e6 ? (mv/1e6).toFixed(1)+'M' : mv.toLocaleString('en-US',{maximumFractionDigits:0})}</span></div>
-                    <div><span class="text-gray-400 block">Weight · P&L</span><span class="font-medium text-gray-700">${wt}% <span class="${pnlClass}">${pnlStr}</span></span></div>
+                <div class="grid grid-cols-4 gap-1 mt-2 text-[9px]">
+                    <div><span class="text-gray-400 block">Qty</span><span class="font-semibold text-gray-700">${item.qty.toLocaleString()}</span></div>
+                    <div><span class="text-gray-400 block">Cost</span><span class="font-semibold text-gray-700">${item.cost.toFixed(2)} <span class="text-gray-400">${ccy}</span></span></div>
+                    <div><span class="text-gray-400 block">Mkt Value</span><span class="font-semibold text-gray-700">HKD ${mv >= 1e6 ? (mv/1e6).toFixed(1)+'M' : mv.toLocaleString('en-US',{maximumFractionDigits:0})}</span></div>
+                    <div><span class="text-gray-400 block">Weight · P&L</span><span class="font-semibold text-gray-700">${wt}% <span class="${pnlClass}">${pnlStr}</span></span></div>
                 </div>
             `;
             container.appendChild(div);
         });
 
-        // Structured products rows
         (appState.portfolioStructured || []).forEach(sp => {
             const div = document.createElement('div');
-            div.className = "px-3 py-2.5 flex justify-between items-center text-xs";
+            div.className = "px-4 py-3 flex justify-between items-center text-xs border-b border-gray-50 last:border-0";
             div.innerHTML = `
                 <div class="flex flex-col flex-1 pr-2 min-w-0">
                     <div class="flex items-center gap-1.5">
@@ -4410,14 +4568,10 @@
                         <span class="font-semibold text-navyBlue text-[11px] truncate">${sp.name}</span>
                     </div>
                     <div class="flex items-center gap-2 text-[10px] text-gray-400 mt-1">
-                        <span>${sp.issuer}</span>
-                        <span>·</span>
-                        <span>${sp.type}</span>
-                        <span>·</span>
-                        <span>${sp.currency}</span>
+                        <span>${sp.issuer}</span><span>·</span><span>${sp.type}</span><span>·</span><span>${sp.currency}</span>
                     </div>
                 </div>
-                <button onclick="removeStagedSP('${sp.id}')" class="text-gray-400 hover:text-iosRed transition">
+                <button onclick="removeStagedSP('${sp.id}')" class="text-gray-400 hover:text-iosRed transition shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                 </button>
             `;
@@ -4500,7 +4654,8 @@
         const concScore   = Math.max(10, Math.min(100, Math.round(100 - m.hhi * 180)));
         const geoScore    = Math.max(20, Math.min(100, Math.round(100 - m.hkRegion * 0.7)));
         const fxScore     = Math.max(20, Math.min(100, Math.round(100 - m.hkdCurrency * 0.5)));
-        const feeScore    = 96, liqScore = 82;
+        const feeScore    = Math.max(30, Math.min(100, Math.round(100 - m.weightedAvgFee * 80)));
+        const liqScore    = Math.max(30, Math.min(100, Math.round(m.weightedAvgLiq)));
         const overall     = Math.round((diversScore + concScore + geoScore + fxScore + feeScore + liqScore) / 6);
         const overallLabel= overall >= 75 ? 'Good' : overall >= 55 ? 'Moderate Risk' : 'High Risk';
         const hhiLabel    = m.hhi < 0.15 ? 'Well-diversified' : m.hhi < 0.25 ? 'Moderate' : 'Concentrated';
@@ -4518,14 +4673,14 @@
 
         // Diagnosis issues
         const issues = [];
-        if (m.hhi > 0.25) issues.push({ sev:'High', title:'High concentration risk', detail:`HHI ${m.hhi.toFixed(3)} exceeds the 0.25 threshold. Your top holdings dominate the portfolio — a single adverse event would have an outsized impact.` });
-        else if (m.hhi > 0.15) issues.push({ sev:'Medium', title:'Moderate concentration', detail:`HHI ${m.hhi.toFixed(3)} is above the ideal 0.15 level. Consider adding 2–3 uncorrelated positions.` });
-        if (m.hkRegion > 70) issues.push({ sev:'High', title:'Geographic concentration — HK/China', detail:`${m.hkRegion.toFixed(0)}% exposure to Hong Kong/China amplifies single-market risk and regulatory event risk.` });
-        if (m.hkdCurrency > 70) issues.push({ sev:'Medium', title:'FX concentration — HKD', detail:`${m.hkdCurrency.toFixed(0)}% HKD exposure. Adding USD or multi-currency assets would reduce local monetary risk.` });
-        if (m.techSector > 35) issues.push({ sev:'Medium', title:'Technology sector overweight', detail:`${m.techSector.toFixed(0)}% tech allocation exceeds the 30% threshold. High-beta exposure amplifies drawdowns in risk-off markets.` });
-        if (m.fixedIncomeSector < 15) issues.push({ sev:'Low', title:'Insufficient defensive allocation', detail:`Fixed income / defensive allocation is ${m.fixedIncomeSector.toFixed(0)}%. A 15–25% target would dampen equity volatility and provide portfolio cushioning.` });
-        if (m.effectiveN < 3) issues.push({ sev:'High', title:'Insufficient diversification', detail:`Effective N = ${m.effectiveN.toFixed(1)} positions. The portfolio behaves like fewer than 3 equally-weighted ETFs. Target ≥ 5 effective positions.` });
-        if (issues.length === 0) issues.push({ sev:'Low', title:'Portfolio is well-balanced', detail:'No major concentration or exposure issues detected. Consider reviewing annually or after significant market events.' });
+        if (m.hhi > 0.25) issues.push({ sev:'High', title:'High concentration risk', detail:`HHI ${m.hhi.toFixed(3)} exceeds the 0.25 threshold. Your top holdings dominate the portfolio — a single adverse event would have an outsized impact.`, scoreType:'concentration' });
+        else if (m.hhi > 0.15) issues.push({ sev:'Medium', title:'Moderate concentration', detail:`HHI ${m.hhi.toFixed(3)} is above the ideal 0.15 level. Consider adding 2–3 uncorrelated positions.`, scoreType:'concentration' });
+        if (m.hkRegion > 70) issues.push({ sev:'High', title:'Geographic concentration — HK/China', detail:`${m.hkRegion.toFixed(0)}% exposure to Hong Kong/China amplifies single-market risk and regulatory event risk.`, scoreType:'geographic' });
+        if (m.hkdCurrency > 70) issues.push({ sev:'Medium', title:'FX concentration — HKD', detail:`${m.hkdCurrency.toFixed(0)}% HKD exposure. Adding USD or multi-currency assets would reduce local monetary risk.`, scoreType:'fx' });
+        if (m.techSector > 35) issues.push({ sev:'Medium', title:'Technology sector overweight', detail:`${m.techSector.toFixed(0)}% tech allocation exceeds the 30% threshold. High-beta exposure amplifies drawdowns in risk-off markets.`, scoreType:'diversification' });
+        if (m.fixedIncomeSector < 15) issues.push({ sev:'Low', title:'Insufficient defensive allocation', detail:`Fixed income / defensive allocation is ${m.fixedIncomeSector.toFixed(0)}%. A 15–25% target would dampen equity volatility and provide portfolio cushioning.`, scoreType:'diversification' });
+        if (m.effectiveN < 3) issues.push({ sev:'High', title:'Insufficient diversification', detail:`Effective N = ${m.effectiveN.toFixed(1)} positions. The portfolio behaves like fewer than 3 equally-weighted ETFs. Target ≥ 5 effective positions.`, scoreType:'diversification' });
+        if (issues.length === 0) issues.push({ sev:'Low', title:'Portfolio is well-balanced', detail:'No major concentration or exposure issues detected. Consider reviewing annually or after significant market events.', scoreType:null });
 
         const sevTag = (s) => {
             const c = s==='High' ? 'bg-red-50 text-red-700 border-red-100' : s==='Medium' ? 'bg-amber-50 text-amber-700 border-amber-100' : 'bg-gray-100 text-gray-600 border-gray-200';
@@ -4546,7 +4701,7 @@
                 <div class="flex items-end justify-between mb-2">
                     <div>
                         <div class="flex items-baseline gap-1.5">
-                            <span class="text-4xl font-bold text-navyBlue tracking-tight">${overall}</span>
+                            <button onclick="openScoreDetailSheet('overall')" class="text-4xl font-bold text-navyBlue tracking-tight hover:text-iosBlue transition cursor-pointer">${overall}</button>
                             <span class="text-sm text-gray-400">/100</span>
                         </div>
                         <span class="text-[10px] font-semibold text-gray-500">${overallLabel}</span>
@@ -4560,7 +4715,7 @@
 
                 <!-- Key metrics row -->
                 <div class="grid grid-cols-2 gap-2 mt-3 mb-3">
-                    <div class="bg-gray-50 rounded-lg p-2.5">
+                    <button onclick="openScoreDetailSheet('concentration')" class="bg-gray-50 hover:bg-iosBlue/5 rounded-lg p-2.5 text-left cursor-pointer transition active:scale-[0.98] border border-transparent hover:border-iosBlue/30">
                         <p class="text-[9px] text-gray-400 font-medium uppercase tracking-wider">HHI Score</p>
                         <div class="flex items-baseline gap-1 mt-0.5">
                             <span class="text-sm font-bold text-gray-800">${m.hhi.toFixed(3)}</span>
@@ -4572,8 +4727,8 @@
                             <div class="absolute inset-y-0 bg-gray-300 w-px" style="left:50%"></div>
                         </div>
                         <div class="flex justify-between text-[8px] text-gray-400 mt-0.5"><span>0</span><span>0.15</span><span>0.25+</span></div>
-                    </div>
-                    <div class="bg-gray-50 rounded-lg p-2.5">
+                    </button>
+                    <button onclick="openScoreDetailSheet('diversification')" class="bg-gray-50 hover:bg-iosBlue/5 rounded-lg p-2.5 text-left cursor-pointer transition active:scale-[0.98] border border-transparent hover:border-iosBlue/30">
                         <p class="text-[9px] text-gray-400 font-medium uppercase tracking-wider">Effective N</p>
                         <div class="flex items-baseline gap-1 mt-0.5">
                             <span class="text-sm font-bold text-gray-800">${m.effectiveN.toFixed(1)}</span>
@@ -4583,17 +4738,17 @@
                             <div class="absolute inset-y-0 left-0 bg-slate-600 rounded-full" style="width:${Math.min(100,m.effectiveN/10*100)}%"></div>
                         </div>
                         <div class="flex justify-between text-[8px] text-gray-400 mt-0.5"><span>1</span><span>Target ≥5</span><span>10</span></div>
-                    </div>
+                    </button>
                 </div>
 
                 <!-- Sub-score grid -->
                 <div class="grid grid-cols-3 gap-2">
-                    ${[['Diversification',diversScore],['Concentration',concScore],['Geographic',geoScore],['FX Balance',fxScore],['Fee Efficiency',feeScore],['Liquidity',liqScore]].map(([l,v]) => `
-                    <div class="bg-gray-50 rounded-lg p-2">
+                    ${[['Diversification','diversification',diversScore],['Concentration','concentration',concScore],['Geographic','geographic',geoScore],['FX Balance','fx',fxScore],['Fee Efficiency','fee',feeScore],['Liquidity','liquidity',liqScore]].map(([l,st,v]) => `
+                    <button onclick="openScoreDetailSheet('${st}')" class="bg-gray-50 hover:bg-iosBlue/5 rounded-lg p-2 text-left cursor-pointer transition active:scale-[0.98] border border-transparent hover:border-iosBlue/30">
                         <p class="text-[9px] text-gray-400 font-medium leading-tight">${l}</p>
                         <p class="text-xs font-semibold text-gray-800 mt-0.5">${v}<span class="text-[9px] text-gray-400 font-normal">/100</span></p>
                         ${scoreBar(v, true)}
-                    </div>`).join('')}
+                    </button>`).join('')}
                 </div>
 
             </div>
@@ -4722,11 +4877,292 @@
                 Generate Recommendations →
             </button>
         `;
+        // Attach click highlight to score cards — only when sheet opens
+        attachScoreCardHighlights();
+    }
+
+    function attachScoreCardHighlights() {
+        // Click a sub-score inside the sheet → re-open sheet with that type
+        document.querySelectorAll('[data-score-type]').forEach(card => {
+            card.onclick = null;
+            card.addEventListener('click', () => {
+                const type = card.getAttribute('data-score-type');
+                if (type) openScoreDetailSheet(type);
+            });
+        });
+    }
+
+    function openScoreDetailSheet(scoreType) {
+        const sheet = document.getElementById('score-detail-sheet');
+        const backdrop = document.getElementById('score-detail-backdrop');
+        const header = document.getElementById('score-detail-header');
+        const body = document.getElementById('score-detail-body');
+        if (!sheet || !backdrop || !header || !body) return;
+
+        const m = recalculatePortfolioState();
+        const spList = appState.portfolioStructured || [];
+        const spVal = spList.reduce((s, sp) => s + (sp.currency === 'USD' ? sp.value * 7.8 : sp.value), 0);
+        const totalVal = m.totalValHKD + spVal;
+
+        // All possible diagnosis items (recomputed so we have fresh data)
+        const issues = [];
+        if (m.hhi > 0.25) issues.push({ sev:'High', title:'High concentration risk', detail:`HHI ${m.hhi.toFixed(3)} exceeds the 0.25 threshold. Your top holdings dominate the portfolio — a single adverse event would have an outsized impact.`, scoreType:'concentration' });
+        else if (m.hhi > 0.15) issues.push({ sev:'Medium', title:'Moderate concentration', detail:`HHI ${m.hhi.toFixed(3)} is above the ideal 0.15 level. Consider adding 2–3 uncorrelated positions.`, scoreType:'concentration' });
+        if (m.hkRegion > 70) issues.push({ sev:'High', title:'Geographic concentration — HK/China', detail:`${m.hkRegion.toFixed(0)}% exposure to Hong Kong/China amplifies single-market risk and regulatory event risk.`, scoreType:'geographic' });
+        if (m.hkdCurrency > 70) issues.push({ sev:'Medium', title:'FX concentration — HKD', detail:`${m.hkdCurrency.toFixed(0)}% HKD exposure. Adding USD or multi-currency assets would reduce local monetary risk.`, scoreType:'fx' });
+        if (m.techSector > 35) issues.push({ sev:'Medium', title:'Technology sector overweight', detail:`${m.techSector.toFixed(0)}% tech allocation exceeds the 30% threshold. High-beta exposure amplifies drawdowns in risk-off markets.`, scoreType:'diversification' });
+        if (m.fixedIncomeSector < 15) issues.push({ sev:'Low', title:'Insufficient defensive allocation', detail:`Fixed income / defensive allocation is ${m.fixedIncomeSector.toFixed(0)}%. A 15–25% target would dampen equity volatility and provide portfolio cushioning.`, scoreType:'diversification' });
+        if (m.effectiveN < 3) issues.push({ sev:'High', title:'Insufficient diversification', detail:`Effective N = ${m.effectiveN.toFixed(1)} positions. The portfolio behaves like fewer than 3 equally-weighted ETFs. Target ≥ 5 effective positions.`, scoreType:'diversification' });
+
+        const sevTag = (s) => {
+            const c = s==='High' ? 'bg-red-50 text-red-700 border-red-100' : s==='Medium' ? 'bg-amber-50 text-amber-700 border-amber-100' : 'bg-gray-100 text-gray-600 border-gray-200';
+            return `<span class="text-[8px] font-semibold border px-1.5 py-0.5 rounded ${c} shrink-0">${s}</span>`;
+        };
+
+        const feeScoreVal    = Math.max(30, Math.min(100, Math.round(100 - m.weightedAvgFee * 80)));
+        const liqScoreVal    = Math.max(30, Math.min(100, Math.round(m.weightedAvgLiq)));
+        const divScoreVal    = Math.max(20, Math.min(100, Math.round((1 - m.hhi) * 100)));
+        const concScoreVal   = Math.max(10, Math.min(100, Math.round(100 - m.hhi * 180)));
+        const geoScoreVal   = Math.max(20, Math.min(100, Math.round(100 - m.hkRegion * 0.7)));
+        const fxScoreVal    = Math.max(20, Math.min(100, Math.round(100 - m.hkdCurrency * 0.5)));
+        const overallVal     = Math.round((divScoreVal + concScoreVal + geoScoreVal + fxScoreVal + feeScoreVal + liqScoreVal) / 6);
+
+        const scoreConfig = {
+            overall: {
+                title: 'Overall Portfolio Score',
+                score: overallVal,
+                description: 'Your overall portfolio health score is a weighted average of diversification, concentration, geographic exposure, FX balance, fee efficiency, and liquidity sub-scores. Click each sub-score to see its detailed attribution.',
+                breakdown: [
+                    { label:'Diversification', value: divScoreVal, scoreType:'diversification', diagnosisTitle:'Insufficient diversification' },
+                    { label:'Concentration', value: concScoreVal, scoreType:'concentration', diagnosisTitle:'High concentration risk' },
+                    { label:'Geographic', value: geoScoreVal, scoreType:'geographic', diagnosisTitle:'Geographic concentration — HK/China' },
+                    { label:'FX Balance', value: fxScoreVal, scoreType:'fx', diagnosisTitle:'FX concentration — HKD' },
+                    { label:'Fee Efficiency', value: feeScoreVal, scoreType:'fee', diagnosisTitle:null },
+                    { label:'Liquidity', value: liqScoreVal, scoreType:'liquidity', diagnosisTitle:null },
+                ],
+                relatedIssues: issues
+            },
+            diversification: {
+                title: 'Diversification Score',
+                score: divScoreVal,
+                description: `Diversification is measured by the Effective N — the number of equally-weighted positions that would produce the same HHI of ${m.hhi.toFixed(3)}. An Effective N of 1 means a single asset dominates your portfolio.`,
+                detailRows: [
+                    { label:'HHI Index', value: m.hhi.toFixed(4) },
+                    { label:'Effective N', value: m.effectiveN.toFixed(1) + ' positions' },
+                    { label:'Total Positions', value: (appState.portfolio.length + spList.length) + '' },
+                    { label:'Target Effective N', value: '≥ 5' },
+                    ...Object.entries(m.sectorW || {}).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k,v]) => ({ label:'Sector: ' + k, value: v.toFixed(1)+'%' }))
+                ],
+                relatedIssues: issues.filter(i => i.scoreType === 'diversification')
+            },
+            concentration: {
+                title: 'Concentration Score',
+                score: concScoreVal,
+                description: 'Concentration risk is quantified using the Herfindahl-Hirschman Index (HHI). HHI = Σ(weight_i²). A single-asset portfolio has HHI = 1.0; a perfectly diversified portfolio approaches 0.',
+                detailRows: [
+                    { label:'HHI Index', value: m.hhi.toFixed(4) },
+                    { label:'HHI Threshold (Warning)', value: '0.15' },
+                    { label:'HHI Threshold (High)', value: '0.25' },
+                    { label:'Your Top Holding', value: appState.portfolio.length ? (() => { const top = appState.portfolio.sort((a,b) => (b.marketValueHKD||0)-(a.marketValueHKD||0))[0]; return top ? top.symbol + ' (' + ((top.weight||0)*100).toFixed(1) + '%)' : 'N/A'; })() : 'N/A' },
+                ],
+                relatedIssues: issues.filter(i => i.scoreType === 'concentration')
+            },
+            geographic: {
+                title: 'Geographic Score',
+                score: geoScoreVal,
+                description: 'Geographic score penalizes heavy exposure to Hong Kong / China markets. Regional concentration amplifies single-market risk including regulatory changes and currency policy shifts.',
+                detailRows: [
+                    { label:'HK/China Exposure', value: m.hkRegion.toFixed(1) + '%' },
+                    { label:'Global/US Exposure', value: m.globalRegion.toFixed(1) + '%' },
+                    { label:'Threshold (Warning)', value: '70%' },
+                    ...Object.entries(m.regionW || {}).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k,v]) => ({ label:k, value: v.toFixed(1)+'%' }))
+                ],
+                relatedIssues: issues.filter(i => i.scoreType === 'geographic')
+            },
+            fx: {
+                title: 'FX Balance Score',
+                score: fxScoreVal,
+                description: 'FX Balance measures currency diversification. Heavy HKD concentration means your portfolio is exposed to the Linked Exchange Rate system and Hong Kong monetary policy.',
+                detailRows: [
+                    { label:'HKD Exposure', value: m.hkdCurrency.toFixed(1) + '%' },
+                    { label:'USD Exposure', value: m.usdCurrency.toFixed(1) + '%' },
+                    { label:'Threshold (Warning)', value: '70%' },
+                    ...Object.entries(m.currencyW || {}).sort((a,b)=>b[1]-a[1]).map(([k,v]) => ({ label:k, value: v.toFixed(1)+'%' }))
+                ],
+                relatedIssues: issues.filter(i => i.scoreType === 'fx')
+            },
+            fee: {
+                title: 'Fee Efficiency Score',
+                score: feeScoreVal,
+                description: 'Fee efficiency is based on weighted average Total Expense Ratio (TER) across your portfolio. Lower fees compound to meaningfully higher returns over time.',
+                detailRows: (() => {
+                    const rows = [
+                        { label:'Weighted Avg TER', value: m.weightedAvgFee.toFixed(2) + '%' },
+                        { label:'Max Acceptable TER', value: '0.50%' },
+                        { label:'Fee Drag (est. annual)', value: totalVal > 0 ? '~HKD ' + Math.round(totalVal * m.weightedAvgFee / 100).toLocaleString() : 'N/A' },
+                    ];
+                    appState.portfolio.forEach(item => {
+                        const db = etfDatabase[item.symbol];
+                        if (db) rows.push({ label: item.symbol + ' TER', value: db.fees });
+                    });
+                    return rows;
+                })(),
+                relatedIssues: []
+            },
+            liquidity: {
+                title: 'Liquidity Score',
+                score: liqScoreVal,
+                description: 'Liquidity score reflects the average daily trading volume and AUM of your holdings. Highly liquid ETFs allow you to rebalance with minimal market impact.',
+                detailRows: (() => {
+                    const rows = [
+                        { label:'Portfolio Liquidity', value: m.weightedAvgLiq >= 80 ? 'High' : m.weightedAvgLiq >= 60 ? 'Medium' : 'Low' },
+                        { label:'Avg AUM', value: totalVal > 0 ? 'HKD ' + (totalVal/1000).toFixed(0) + 'K+' : 'N/A' },
+                        { label:'Redemption Ease', value: 'T+2 settlement' },
+                    ];
+                    appState.portfolio.forEach(item => {
+                        const db = etfDatabase[item.symbol];
+                        if (db) rows.push({ label: item.symbol + ' Liquidity', value: db.liquidity });
+                    });
+                    return rows;
+                })(),
+                relatedIssues: []
+            }
+        };
+
+        const cfg = scoreConfig[scoreType] || scoreConfig.overall;
+        const scoreColor = cfg.score >= 75 ? 'text-emerald-600' : cfg.score >= 55 ? 'text-amber-500' : 'text-red-500';
+
+        header.innerHTML = `
+            <div class="flex items-center justify-between mb-3">
+                <div>
+                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Attribution</p>
+                    <h3 class="text-sm font-bold text-navyBlue mt-0.5">${cfg.title}</h3>
+                </div>
+                <div class="text-right">
+                    <p class="text-3xl font-bold ${scoreColor}">${cfg.score}</p>
+                    <p class="text-[9px] text-gray-400">/100</p>
+                </div>
+            </div>
+            <p class="text-[10px] text-gray-500 leading-relaxed">${cfg.description}</p>
+        `;
+
+        let bodyHTML = '';
+
+        if (cfg.detailRows && cfg.detailRows.length) {
+            bodyHTML += `<p class="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">Key Metrics</p>
+            <div class="bg-gray-50 rounded-lg p-3 space-y-1.5 mb-4">`;
+            cfg.detailRows.forEach(row => {
+                bodyHTML += `<div class="flex justify-between items-center">
+                    <span class="text-[10px] text-gray-500">${row.label}</span>
+                    <span class="text-[10px] font-semibold text-gray-800">${row.value}</span>
+                </div>`;
+            });
+            bodyHTML += `</div>`;
+        }
+
+        if (cfg.breakdown) {
+            bodyHTML += `<p class="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">Sub-score Breakdown</p>
+            <div class="space-y-1.5 mb-3">`;
+            cfg.breakdown.forEach(item => {
+                const barColor = item.value >= 75 ? 'bg-emerald-500' : item.value >= 55 ? 'bg-amber-400' : 'bg-red-400';
+                const hasIssue = item.diagnosisTitle && issues.some(i => i.title === item.diagnosisTitle);
+                const arrowIcon = hasIssue ? `<svg class="w-3 h-3 text-iosBlue shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>` : '';
+                bodyHTML += `<div onclick="openScoreDetailSheet('${item.scoreType}')" class="bg-gray-50 rounded-lg p-2.5 cursor-pointer hover:bg-iosBlue/5 transition active:scale-[0.98] border border-transparent hover:border-iosBlue/30">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-[10px] font-medium text-gray-700">${item.label}</span>
+                            ${arrowIcon}
+                        </div>
+                        <span class="text-[10px] font-bold ${item.value >= 75 ? 'text-emerald-600' : item.value >= 55 ? 'text-amber-600' : 'text-red-500'}">${item.value}/100</span>
+                    </div>
+                    <div class="h-1 bg-gray-200 rounded-full overflow-hidden"><div class="${barColor} h-full rounded-full" style="width:${item.value}%"></div></div>
+                    ${hasIssue ? `<p class="text-[8px] text-gray-400 mt-1">⚠ ${item.diagnosisTitle}</p>` : ''}
+                </div>`;
+            });
+            bodyHTML += `</div>`;
+        }
+
+        if (cfg.relatedIssues && cfg.relatedIssues.length) {
+            bodyHTML += `<p class="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">Related Diagnoses</p>
+            <div class="space-y-2 mb-4">`;
+            cfg.relatedIssues.forEach(iss => {
+                bodyHTML += `<div class="border border-gray-100 rounded-lg p-2.5">
+                    <div class="flex items-center gap-2 mb-1">
+                        ${sevTag(iss.sev)}
+                        <p class="text-[10px] font-semibold text-gray-800">${iss.title}</p>
+                    </div>
+                    <p class="text-[9px] text-gray-500 leading-relaxed">${iss.detail}</p>
+                </div>`;
+            });
+            bodyHTML += `</div>`;
+        }
+
+        body.innerHTML = bodyHTML;
+
+        // Highlight active card in dashboard
+        document.querySelectorAll('[data-active-score]').forEach(el => el.removeAttribute('data-active-score'));
+        const activeCards = document.querySelectorAll(`[onclick="openScoreDetailSheet('${scoreType}')"]`);
+        activeCards.forEach(el => el.setAttribute('data-active-score', 'true'));
+
+        // Position sheet inside the iPhone mockup container — anchor to BOTTOM of viewport
+        const viewport = document.getElementById('iphone-viewport');
+        const bgBlack = viewport ? viewport.parentElement : null;
+        if (bgBlack) {
+            sheet.style.position = 'absolute';
+            sheet.style.top = 'auto';
+            sheet.style.left = '0';
+            sheet.style.right = '0';
+            sheet.style.bottom = '0';
+            backdrop.style.position = 'absolute';
+            backdrop.style.top = '0';
+            backdrop.style.left = '0';
+            backdrop.style.right = '0';
+            backdrop.style.bottom = '0';
+        }
+
+        sheet.classList.remove('hidden');
+        backdrop.classList.remove('hidden');
+        setTimeout(() => {
+            sheet.style.transform = 'translateY(0)';
+            backdrop.style.opacity = '1';
+            attachScoreCardHighlights(); // wire up nested sub-score cards in sheet
+        }, 10);
+    }
+
+    function closeScoreDetailSheet() {
+        const sheet = document.getElementById('score-detail-sheet');
+        const backdrop = document.getElementById('score-detail-backdrop');
+        if (sheet) {
+            sheet.style.transform = 'translateY(100%)';
+            setTimeout(() => {
+                sheet.classList.add('hidden');
+                sheet.style.position = '';
+                sheet.style.top = '';
+                sheet.style.left = '';
+                sheet.style.right = '';
+                sheet.style.bottom = '';
+                sheet.style.width = '';
+                sheet.style.height = '';
+                document.querySelectorAll('[data-active-score]').forEach(el => el.removeAttribute('data-active-score'));
+            }, 300);
+        }
+        if (backdrop) {
+            backdrop.style.opacity = '0';
+            backdrop.classList.add('hidden');
+            backdrop.style.position = '';
+            backdrop.style.top = '';
+            backdrop.style.left = '';
+            backdrop.style.right = '';
+            backdrop.style.bottom = '';
+            backdrop.style.width = '';
+            backdrop.style.height = '';
+        }
     }
 
     function generateRecommendations() {
         unlockPortfolioTab('recommend');
         switchPortfolioTab('recommend');
+        document.getElementById('ptab-recommend-idle').classList.add('hidden');
         document.getElementById('ptab-recommend-loading').classList.remove('hidden');
         document.getElementById('ptab-recommend-results').classList.add('hidden');
         setTimeout(() => {
@@ -6086,9 +6522,10 @@
         if (!chartArea || !chartLabels) return;
         const data = p.scenarioChart || [];
         const maxAbs = Math.max(...data.map(d => Math.abs(d.val)), 1);
+        const activeScLower = (activeSc || '').toLowerCase();
         chartArea.innerHTML = data.map(d => {
             const h = Math.round((Math.abs(d.val) / maxAbs) * 80);
-            const isActive = d.label.toLowerCase() === activeSc;
+            const isActive = d.label.toLowerCase() === activeScLower;
             const isNeg = d.val < 0;
             const barClass = isNeg
                 ? (isActive ? 'bg-rose-400' : 'border border-dashed border-gray-300')
@@ -6099,7 +6536,7 @@
             </div>`;
         }).join('');
         chartLabels.innerHTML = data.map(d => {
-            const isActive = d.label.toLowerCase() === activeSc;
+            const isActive = d.label.toLowerCase() === activeScLower;
             return `<span class="flex-1 text-center text-[8px] font-${isActive ? 'bold text-navyBlue' : 'normal text-gray-400'}">${d.label}</span>`;
         }).join('');
     }
@@ -6130,7 +6567,7 @@
         if (!p || !p.scenarios) return;
 
         // Fix button highlight using classList (string.replace was broken)
-        ['bull','base','bear','custom'].forEach(k => {
+        ['bull','base','bear'].forEach(k => {
             const btn = document.getElementById('sc-btn-' + k);
             if (!btn) return;
             btn.classList.remove('bg-navyBlue','text-white','border-navyBlue','font-semibold');
@@ -6145,41 +6582,13 @@
         // Re-render chart with active bar highlighted
         renderScenarioChartWithActive(p, sc);
 
-        const customPanel = document.getElementById('sc-custom-panel');
-        if (customPanel) customPanel.classList.toggle('hidden', sc !== 'custom');
-
-        if (sc !== 'custom' && p.scenarios[sc]) {
+        if (p.scenarios[sc]) {
             const s = p.scenarios[sc];
             document.getElementById('sc-active-name').textContent = sc.charAt(0).toUpperCase() + sc.slice(1);
             document.getElementById('sc-payoff-pct').textContent = s.payoff_pct;
             document.getElementById('sc-probability').textContent = 'Probability: ' + s.probability;
             document.getElementById('sc-explanation').textContent = s.explanation;
-        } else if (sc === 'custom') {
-            document.getElementById('sc-active-name').textContent = 'Custom';
-            document.getElementById('sc-payoff-pct').textContent = '—';
-            document.getElementById('sc-probability').textContent = 'Drag the slider to set a hypothetical % move in the underlying asset.';
-            document.getElementById('sc-explanation').textContent = '';
-            updateCustomScenario(document.getElementById('sc-custom-slider')?.value || 10);
         }
-    }
-
-    function updateCustomScenario(val) {
-        const pct = parseFloat(val);
-        document.getElementById('sc-custom-val').textContent = (pct >= 0 ? '+' : '') + pct + '%';
-        const p = appState.activeProductId ? structuredProductsDB.find(x => x.id === appState.activeProductId) : null;
-        let result = '—';
-        if (p) {
-            if (p.participationSlope && p.capitalProtection) {
-                const gain = pct > 0 ? (pct * p.participationSlope).toFixed(1) + '%' : '0% (capital protected)';
-                result = pct > 0 ? '+' + gain : gain;
-            } else if (p.coupon && p.knockIn) {
-                const barrier = parseFloat(p.knockIn);
-                result = (pct > -(100 - barrier)) ? p.coupon + ' coupon' : 'Physical delivery risk';
-            } else {
-                result = (pct * 0.85).toFixed(1) + '%';
-            }
-        }
-        document.getElementById('sc-custom-result').textContent = result;
     }
 
     function closeProductDetail() {
