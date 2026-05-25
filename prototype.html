@@ -451,6 +451,10 @@
                             <button onclick="directNavigate('market-dashboard')" class="text-gray-500 hover:text-gray-800 transition shrink-0">
                                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                             </button>
+                            <button id="screener-admin-add-btn" onclick="openAdminModalOnETFTab()" class="hidden items-center gap-1 bg-rose-50 border border-rose-200 text-rose-600 text-[10px] font-semibold px-2.5 py-1.5 rounded-lg transition hover:bg-rose-100 shrink-0 whitespace-nowrap">
+                                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"></path></svg>
+                                Add ETF
+                            </button>
                             <div class="relative flex-1">
                                 <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
                                     <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -539,9 +543,6 @@
                                             <span id="detail-header-symbol" class="text-[10px] font-semibold text-gray-500">2800</span>
                                             <span class="text-gray-300">·</span>
                                             <span id="detail-exchange-tag" class="text-[10px] font-medium text-gray-500">HKEX</span>
-                                            <span class="inline-flex items-center bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded-full ml-0.5" title="Delayed HKEX data">
-                                                <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c2-3.5 4-3.5 6 0s4 3.5 6 0 4-3.5 6 0"></path></svg>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -671,6 +672,7 @@
                             </div>
                             <div id="detail-news-list" class="divide-y divide-gray-100"></div>
                             <p class="px-4 py-3 text-[9px] text-gray-400 font-medium leading-relaxed text-center">News summaries are illustrative for prototype use. No real-time wire feed is connected in M1.</p>
+                            <p class="px-4 pb-4 text-[9px] text-gray-400 leading-relaxed text-center border-t border-gray-50 pt-2">All news content is sourced from third-party providers. It is not produced, verified, or endorsed by Sunwah Fintech App and does not constitute investment advice.</p>
                         </div>
 
                         <!-- ===== Categories (tags) — always visible at bottom, below tab content ===== -->
@@ -682,7 +684,7 @@
 
                     <!-- ===== ETF Detail "More" Bottom Sheet (Market closed · Real-time data · Compare) ===== -->
                     <div id="detail-more-backdrop" class="absolute inset-0 bg-black/40 z-50 hidden opacity-0 transition-opacity duration-300" onclick="toggleDetailMoreSheet(false)"></div>
-                    <div id="detail-more-sheet" class="absolute inset-x-0 bottom-0 bg-white rounded-t-2xl z-50 transform translate-y-full transition-transform duration-300 max-h-[70%] flex flex-col shadow-2xl border-t border-gray-200 font-sans">
+                    <div id="detail-more-sheet" class="hidden absolute inset-x-0 bottom-0 bg-white rounded-t-2xl z-50 transform translate-y-full transition-transform duration-300 max-h-[70%] flex flex-col shadow-2xl border-t border-gray-200 font-sans">
                         <div class="w-10 h-1 bg-gray-200 rounded-full mx-auto my-3 shrink-0"></div>
                         <div class="px-5 pb-3 border-b border-gray-100 flex justify-between items-center shrink-0">
                             <h3 id="detail-more-symbol" class="text-sm font-semibold text-gray-900">2800</h3>
@@ -1025,6 +1027,12 @@
                             <!-- BUILDER STATE: add holdings + run analysis -->
                             <div id="ptab-holdings-builder" class="hidden p-4 space-y-3">
 
+                                <!-- Back to templates -->
+                                <button onclick="backToPortfolioTemplates()" class="flex items-center gap-1.5 text-[11px] font-medium text-gray-500 hover:text-navyBlue transition active:opacity-70 mb-1">
+                                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                    Back to starter templates
+                                </button>
+
                                 <!-- Add ETF -->
                                 <div class="bg-white rounded-xl border border-gray-150 p-3 space-y-2">
                                     <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Add ETF</p>
@@ -1232,34 +1240,47 @@
 
                         <!-- Chat feed -->
                         <div id="ai-chat-feed" class="flex-1 overflow-y-auto px-4 py-4 space-y-3 no-scrollbar">
-                            <div class="max-w-[88%] space-y-1">
-                                <div class="bg-white border border-gray-200 rounded-2xl px-3 py-2.5 text-xs text-gray-800 leading-relaxed">
-                                    Your sandbox portfolio is loaded. Ask me to diagnose concentration risk, model income yield, or explain any metric.
-                                </div>
+                            <!-- Sample questions shown initially, hidden once chat starts -->
+                            <div id="ai-sample-questions" class="flex flex-col items-center justify-center h-full space-y-2.5 pt-8">
+                                <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider text-center mb-1">Try asking</p>
+                                <button onclick="sendSampleQuestion('What is the concentration risk in my current portfolio?')" class="w-full text-center bg-white border border-gray-200 hover:border-navyBlue hover:bg-navyBlue/5 rounded-xl px-3 py-2.5 text-xs text-gray-700 transition active:scale-[0.99]">
+                                    What is the concentration risk in my current portfolio?
+                                </button>
+                                <button onclick="sendSampleQuestion('Which ETFs in my watchlist have the best risk-adjusted return?')" class="w-full text-center bg-white border border-gray-200 hover:border-navyBlue hover:bg-navyBlue/5 rounded-xl px-3 py-2.5 text-xs text-gray-700 transition active:scale-[0.99]">
+                                    Which ETFs in my watchlist have the best risk-adjusted return?
+                                </button>
+                                <button onclick="sendSampleQuestion('What are the main risks in a Capital Protected Note linked to HSI?')" class="w-full text-center bg-white border border-gray-200 hover:border-navyBlue hover:bg-navyBlue/5 rounded-xl px-3 py-2.5 text-xs text-gray-700 transition active:scale-[0.99]">
+                                    What are the main risks in a Capital Protected Note linked to HSI?
+                                </button>
                             </div>
                         </div>
 
-                        <!-- Quick prompts + Input bar (combined block) -->
+                        <!-- Input bar with portfolio knowledge toggle -->
                         <div class="bg-white border-t border-gray-100 shrink-0 px-3 pb-4 pt-2 space-y-2">
-                            <!-- Scrollable prompt pills -->
-                            <div class="flex gap-1.5 overflow-x-auto no-scrollbar">
-                                <button onclick="triggerAdvisorySelectionEntry()" class="px-3 py-1.5 bg-gray-50 border border-gray-200 hover:bg-gray-100 text-gray-700 text-[10px] font-medium rounded-lg shrink-0 transition whitespace-nowrap">
-                                    Portfolio audit
-                                </button>
-                                <button onclick="triggerAICustomPrompt('Income Harvest')" class="px-3 py-1.5 bg-gray-50 border border-gray-200 hover:bg-gray-100 text-gray-700 text-[10px] font-medium rounded-lg shrink-0 transition whitespace-nowrap">
-                                    Income yield
-                                </button>
-                                <button onclick="openAIExplanationDrawer('2800.HK', 'HHI_CORRELATION')" class="px-3 py-1.5 bg-gray-50 border border-gray-200 hover:bg-gray-100 text-gray-700 text-[10px] font-medium rounded-lg shrink-0 transition whitespace-nowrap">
-                                    Diversification
-                                </button>
-                                <button onclick="openAIExplanationDrawer('3001.HK', 'REALLOCATE_BONDS')" class="px-3 py-1.5 bg-gray-50 border border-gray-200 hover:bg-gray-100 text-gray-700 text-[10px] font-medium rounded-lg shrink-0 transition whitespace-nowrap">
-                                    Bond reallocation
+                            <!-- Attachment preview chip (shown when file attached) -->
+                            <div id="ai-attachment-preview" class="hidden flex items-center gap-1.5 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2">
+                                <svg id="ai-attachment-icon" class="w-3.5 h-3.5 text-navyBlue shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                                <span id="ai-attachment-name" class="text-[11px] font-medium text-gray-700 flex-1 truncate"></span>
+                                <button onclick="clearAIAttachment()" class="text-gray-400 hover:text-gray-700 transition shrink-0 ml-1">
+                                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                 </button>
                             </div>
 
+                            <!-- Portfolio context toggle -->
                             <div class="flex items-center gap-2">
+                                <button id="portfolio-context-toggle" onclick="togglePortfolioContext()" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-gray-200 text-[10px] font-medium text-gray-500 hover:bg-gray-50 transition shrink-0 portfolio-context-off">
+                                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path></svg>
+                                    <span id="portfolio-context-label">Portfolio context: Off</span>
+                                </button>
+                            </div>
+
+                            <div class="flex items-center gap-1.5">
+                                <!-- Upload button -->
+                                <button onclick="triggerAIChatUpload()" id="ai-upload-btn" class="w-8 h-8 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 text-gray-500 flex items-center justify-center shrink-0 transition active:scale-95" title="Upload image or PDF">
+                                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                                </button>
                                 <div class="relative flex-1">
-                                    <input type="text" id="ai-chat-input" onkeydown="handleAIChatKey(event)" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-navyBlue focus:bg-white transition" placeholder="Ask about your portfolio...">
+                                    <input type="text" id="ai-chat-input" onkeydown="handleAIChatKey(event)" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-navyBlue focus:bg-white transition" placeholder="Ask anything about markets or finance...">
                                     <button onclick="simulateSpeechInput()" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 transition">
                                         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 19v4M8 23h8"></path></svg>
                                     </button>
@@ -1491,6 +1512,15 @@
                                     </div>
                                 </div>
 
+                                <!-- AI Scenario Payoff -->
+                                <div>
+                                    <div class="flex items-center gap-1.5 mb-2">
+                                        <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">AI Scenario Payoff</p>
+                                        <span class="text-[8px] bg-navyBlue/10 text-navyBlue font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide">AI Extracted</span>
+                                    </div>
+                                    <div id="od-scenario-payoff-cards" class="space-y-2"></div>
+                                </div>
+
                                 <!-- Full term sheet -->
                                 <div>
                                     <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Term Sheet</p>
@@ -1556,7 +1586,10 @@
 
                                 <!-- Custom scenario input -->
                                 <div id="sc-custom-panel" class="hidden bg-white rounded-xl border border-gray-150 p-3 space-y-2">
-                                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Custom Underlying Move</p>
+                                    <div>
+                                        <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Model a Custom Move</p>
+                                        <p class="text-[9px] text-gray-400 mt-0.5 leading-relaxed">Drag the slider to set a hypothetical % change in the underlying asset and see the estimated payoff.</p>
+                                    </div>
                                     <div class="flex items-center gap-2">
                                         <input type="range" id="sc-custom-slider" min="-50" max="50" value="10" oninput="updateCustomScenario(this.value)" class="flex-1 accent-navyBlue">
                                         <span id="sc-custom-val" class="text-xs font-semibold text-navyBlue w-10 text-right">+10%</span>
@@ -1616,20 +1649,94 @@
 
                     <!-- ─── ADMIN UPLOAD MODAL (fixed inside viewport) ─── -->
                     <div id="admin-modal-backdrop" class="absolute inset-0 bg-black/50 z-50 hidden flex items-end font-sans" onclick="closeAdminModal()">
-                        <div onclick="event.stopPropagation()" class="bg-white w-full rounded-t-2xl flex flex-col max-h-[75%] shadow-2xl">
+                        <div onclick="event.stopPropagation()" class="bg-white w-full rounded-t-2xl flex flex-col max-h-[80%] shadow-2xl relative overflow-hidden">
                             <!-- Modal header -->
                             <div class="px-5 py-4 border-b border-gray-100 flex justify-between items-center shrink-0">
                                 <div>
-                                    <h3 class="text-sm font-semibold text-gray-900">Upload Term Sheet</h3>
-                                    <p class="text-[10px] text-gray-400 mt-0.5">PDF extraction · admin only</p>
+                                    <h3 class="text-sm font-semibold text-gray-900">Admin Panel</h3>
+                                    <p class="text-[10px] text-gray-400 mt-0.5">Manage products &amp; ETFs · admin only</p>
                                 </div>
                                 <button onclick="closeAdminModal()" class="text-gray-400 hover:text-gray-700 transition">
                                     <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                 </button>
                             </div>
 
+                            <!-- Admin Tab Switcher -->
+                            <div class="px-5 pt-3 pb-0 shrink-0">
+                                <div class="flex bg-gray-100 rounded-lg p-0.5 text-[10px]">
+                                    <button id="admin-tab-pdf" onclick="switchAdminTab('pdf')" class="flex-1 py-1.5 bg-white text-navyBlue font-bold rounded-md shadow-xs transition text-center">Upload Term Sheet</button>
+                                    <button id="admin-tab-etf" onclick="switchAdminTab('etf')" class="flex-1 py-1.5 text-gray-500 font-semibold rounded-md transition text-center hover:bg-gray-200">Add ETF by ID</button>
+                                </div>
+                            </div>
+
                             <!-- Modal body -->
                             <div class="flex-1 overflow-y-auto no-scrollbar px-5 py-4 space-y-4">
+
+                                <!-- ETF by ID panel -->
+                                <div id="admin-etf-panel" class="hidden space-y-4">
+                                    <div class="space-y-1">
+                                        <label class="block text-[9px] font-bold uppercase tracking-wider text-gray-400">ETF Ticker / ID</label>
+                                        <div class="flex gap-2">
+                                            <input type="text" id="admin-etf-id-input" placeholder="e.g. 3067.HK, SPY, VOO" class="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-navyBlue transition" />
+                                            <button onclick="adminFetchETFById()" class="bg-navyBlue text-white font-medium text-xs px-3 py-2 rounded-lg hover:bg-slate-900 transition shrink-0">Fetch</button>
+                                        </div>
+                                        <p class="text-[9px] text-gray-400">Connects to external subscribed data pool to retrieve ETF information.</p>
+                                    </div>
+
+                                    <!-- ETF fetch result -->
+                                    <div id="admin-etf-result" class="hidden space-y-3">
+                                        <div class="flex items-center gap-1.5">
+                                            <svg class="w-3.5 h-3.5 text-iosGreen shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                            <span class="text-[10px] text-gray-600 font-medium">ETF data retrieved from external pool</span>
+                                        </div>
+                                        <div class="border border-gray-150 rounded-xl overflow-hidden divide-y divide-gray-100 bg-white">
+                                            <div class="flex items-center">
+                                                <span class="text-[10px] text-gray-400 px-3 py-2 w-2/5 shrink-0 bg-gray-50/60">Symbol</span>
+                                                <span id="admin-etf-res-symbol" class="flex-1 text-[10px] font-semibold text-gray-900 px-3 py-2"></span>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <span class="text-[10px] text-gray-400 px-3 py-2 w-2/5 shrink-0 bg-gray-50/60">Name</span>
+                                                <span id="admin-etf-res-name" class="flex-1 text-[10px] font-medium text-gray-900 px-3 py-2"></span>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <span class="text-[10px] text-gray-400 px-3 py-2 w-2/5 shrink-0 bg-gray-50/60">Exchange</span>
+                                                <span id="admin-etf-res-exchange" class="flex-1 text-[10px] font-medium text-gray-900 px-3 py-2"></span>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <span class="text-[10px] text-gray-400 px-3 py-2 w-2/5 shrink-0 bg-gray-50/60">Asset Class</span>
+                                                <span id="admin-etf-res-class" class="flex-1 text-[10px] font-medium text-gray-900 px-3 py-2"></span>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <span class="text-[10px] text-gray-400 px-3 py-2 w-2/5 shrink-0 bg-gray-50/60">Expense Ratio</span>
+                                                <span id="admin-etf-res-er" class="flex-1 text-[10px] font-medium text-gray-900 px-3 py-2"></span>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <span class="text-[10px] text-gray-400 px-3 py-2 w-2/5 shrink-0 bg-gray-50/60">Price</span>
+                                                <span id="admin-etf-res-price" class="flex-1 text-[10px] font-semibold text-navyBlue px-3 py-2"></span>
+                                            </div>
+                                        </div>
+                                        <div class="flex gap-2 pt-1">
+                                            <button onclick="adminDiscardETF()" class="flex-1 border border-gray-200 text-gray-600 font-medium text-xs py-2.5 rounded-lg hover:bg-gray-50 transition">Discard</button>
+                                            <button onclick="adminPublishETF()" class="flex-1 bg-navyBlue text-white font-medium text-xs py-2.5 rounded-lg hover:bg-slate-900 transition">Add to Platform</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- ETF fetch loading -->
+                                    <div id="admin-etf-loading" class="hidden flex items-center gap-2.5 bg-gray-50 rounded-lg px-3 py-3 border border-gray-150">
+                                        <div class="w-3.5 h-3.5 border-2 border-navyBlue border-t-transparent rounded-full animate-spin shrink-0"></div>
+                                        <span class="text-xs text-gray-600 font-medium">Querying external data pool for ETF data...</span>
+                                    </div>
+
+                                    <!-- Added ETFs inline list -->
+                                    <div id="admin-etf-pool-section" class="hidden space-y-2">
+                                        <div class="flex items-center justify-between">
+                                            <p class="text-[9px] font-bold uppercase tracking-wider text-gray-400">Added to Platform</p>
+                                            <span id="admin-etf-pool-count" class="text-[9px] font-medium bg-navyBlue/8 text-navyBlue px-2 py-0.5 rounded-full">0 ETFs</span>
+                                        </div>
+                                        <div id="admin-etf-pool-list" class="border border-gray-150 rounded-xl overflow-hidden divide-y divide-gray-100"></div>
+                                    </div>
+
+                                </div>
 
                                 <!-- State: idle -->
                                 <div id="admin-state-idle">
@@ -1770,6 +1877,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -1814,17 +1922,6 @@
                             <p id="prof-section-account" class="text-[10px] uppercase tracking-wider font-semibold text-gray-400">Account</p>
                         </div>
                         <div class="bg-white border-y border-gray-100 divide-y divide-gray-100">
-                            <!-- Risk Tolerance -->
-                            <div class="px-4 py-3 flex items-center justify-between">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <svg class="w-4 h-4 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                                    <p id="prof-risk-label" class="text-sm text-gray-800 font-medium">Risk Tolerance</p>
-                                </div>
-                                <div class="flex items-center gap-1.5 shrink-0">
-                                    <p id="prof-risk-current" class="text-[11px] text-gray-400 font-normal">Balanced</p>
-                                    <svg class="w-3.5 h-3.5 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                                </div>
-                            </div>
                             <!-- Notifications -->
                             <div class="px-4 py-3 flex items-center justify-between">
                                 <div class="flex items-center gap-2.5">
@@ -1887,6 +1984,29 @@
                             </div>
                         </div>
 
+                        <!-- Admin Tools (visible in admin mode only) -->
+                        <div id="prof-admin-section" class="hidden mt-6">
+                            <div class="px-4 mb-1.5">
+                                <p class="text-[10px] uppercase tracking-wider font-semibold text-rose-500">Admin Tools</p>
+                            </div>
+                            <div class="bg-white border-y border-gray-100 divide-y divide-gray-100">
+                                <button onclick="openAdminModalOnETFTab()" class="w-full px-4 py-3 flex items-center justify-between text-sm transition active:bg-gray-50">
+                                    <div class="flex items-center gap-2.5">
+                                        <svg class="w-4 h-4 text-rose-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                                        <span class="font-medium text-gray-800">Add ETF by ID</span>
+                                    </div>
+                                    <svg class="w-3.5 h-3.5 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                </button>
+                                <button onclick="directNavigate('portfolio-direct'); setTimeout(() => switchTab('products'), 50); openAdminModal();" class="w-full px-4 py-3 flex items-center justify-between text-sm transition active:bg-gray-50">
+                                    <div class="flex items-center gap-2.5">
+                                        <svg class="w-4 h-4 text-rose-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                        <span class="font-medium text-gray-800">Upload Structured Product</span>
+                                    </div>
+                                    <svg class="w-3.5 h-3.5 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                </button>
+                            </div>
+                        </div>
+
                         <!-- Sign Out -->
                         <div class="mt-6 bg-white border-y border-gray-100">
                             <button onclick="handleSignOut()" class="w-full px-4 py-3 flex items-center justify-center text-sm font-medium text-iosRed transition active:bg-gray-50">
@@ -1933,6 +2053,19 @@
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                         <span class="text-[9px] mt-1 font-semibold">Profile</span>
                     </button>
+                </div>
+
+                <!-- ==========================================
+                     WATCHLIST TOAST NOTIFICATION
+                     ========================================== -->
+                <div id="watchlist-toast" class="hidden absolute inset-x-4 z-50 pointer-events-none" style="top: 12px;">
+                    <div class="bg-[#0A2540] rounded-2xl px-4 py-3 flex items-center justify-between gap-3 shadow-xl">
+                        <div class="flex items-center gap-2">
+                            <svg id="watchlist-toast-icon" class="w-4 h-4 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span id="watchlist-toast-text" class="text-xs font-semibold text-white">Added to Watchlist</span>
+                        </div>
+                        <button id="watchlist-toast-undo" onclick="undoWatchlistAction()" class="pointer-events-auto text-[11px] font-semibold text-white/60 hover:text-white transition shrink-0">Undo</button>
+                    </div>
                 </div>
 
                 <!-- ==========================================
@@ -2715,20 +2848,42 @@
     function applyAdminMode() {
         const trigger = document.getElementById('admin-panel-trigger');
         const tabProducts = document.getElementById('tab-products');
+        const screenerAddBtn = document.getElementById('screener-admin-add-btn');
+        const profBadge = document.getElementById('prof-tier-label');
+        const profAdminSection = document.getElementById('prof-admin-section');
+
         if (appState.isAdmin) {
             if (trigger) trigger.classList.remove('hidden');
+            if (screenerAddBtn) { screenerAddBtn.classList.remove('hidden'); screenerAddBtn.classList.add('flex'); }
+            if (profBadge) {
+                profBadge.textContent = 'ADMIN';
+                profBadge.className = 'text-[10px] text-rose-600 font-bold bg-rose-50 border border-rose-200 px-2 py-0.5 rounded shrink-0';
+            }
+            if (profAdminSection) profAdminSection.classList.remove('hidden');
             if (tabProducts) {
                 tabProducts.innerHTML = `
                     <div class="relative">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                        <span class="absolute -top-0.5 -right-1.5 w-2 h-2 bg-gray-500 rounded-full border border-white"></span>
+                        <span class="absolute -top-0.5 -right-1.5 w-2 h-2 bg-rose-500 rounded-full border border-white"></span>
                     </div>
                     <span class="text-[9px] mt-1 font-semibold">Structured</span>
                 `;
             }
         } else {
             if (trigger) trigger.classList.add('hidden');
+            if (screenerAddBtn) { screenerAddBtn.classList.add('hidden'); screenerAddBtn.classList.remove('flex'); }
+            if (profBadge) {
+                profBadge.textContent = 'PRO';
+                profBadge.className = 'text-[10px] text-navyBlue font-semibold bg-navyBlue/8 px-2 py-0.5 rounded shrink-0';
+            }
+            if (profAdminSection) profAdminSection.classList.add('hidden');
         }
+    }
+
+    function openAdminModalOnETFTab() {
+        openAdminModal();
+        switchAdminTab('etf');
+        renderAdminETFPool();
     }
 
     function triggerLoginErrorState() {
@@ -3225,6 +3380,7 @@
         const sheet = document.getElementById('detail-more-sheet');
         if (!backdrop || !sheet) return;
         if (show) {
+            sheet.classList.remove('hidden');
             backdrop.classList.remove('hidden');
             void backdrop.offsetWidth;
             backdrop.classList.remove('opacity-0');
@@ -3236,7 +3392,7 @@
             backdrop.classList.add('opacity-0');
             sheet.classList.remove('translate-y-0');
             sheet.classList.add('translate-y-full');
-            setTimeout(() => backdrop.classList.add('hidden'), 300);
+            setTimeout(() => { backdrop.classList.add('hidden'); sheet.classList.add('hidden'); }, 300);
         }
     }
 
@@ -3425,15 +3581,63 @@
         });
     }
 
+    let _watchlistToastTimer = null;
+    let _lastWatchlistAction = null;
+
     function toggleWatchlistStatus() {
         const symbol = appState.detailSymbol;
         const idx = appState.watchlist.indexOf(symbol);
-        if (idx > -1) {
-            appState.watchlist.splice(idx, 1);
+        const wasAdded = idx === -1;
+        if (wasAdded) {
+            appState.watchlist.push(symbol);
         } else {
+            appState.watchlist.splice(idx, 1);
+        }
+        _lastWatchlistAction = { symbol, wasAdded };
+        updateWatchlistBtnUI(symbol);
+        showWatchlistToast(wasAdded, symbol);
+    }
+
+    function showWatchlistToast(added, symbol) {
+        const toast = document.getElementById('watchlist-toast');
+        const text = document.getElementById('watchlist-toast-text');
+        const icon = document.getElementById('watchlist-toast-icon');
+        if (!toast || !text || !icon) return;
+
+        text.textContent = added ? `${symbol} added to Watchlist` : `${symbol} removed`;
+        const iconSvg = document.getElementById('watchlist-toast-icon');
+        if (iconSvg) {
+            iconSvg.className = `w-4 h-4 shrink-0 ${added ? 'text-emerald-400' : 'text-rose-400'}`;
+            iconSvg.innerHTML = added
+                ? '<polyline points="20 6 9 17 4 12"></polyline>'
+                : '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
+        }
+
+        toast.classList.remove('hidden');
+        toast.style.opacity = '1';
+
+        if (_watchlistToastTimer) clearTimeout(_watchlistToastTimer);
+        _watchlistToastTimer = setTimeout(() => dismissWatchlistToast(), 2500);
+    }
+
+    function dismissWatchlistToast() {
+        const toast = document.getElementById('watchlist-toast');
+        if (toast) toast.classList.add('hidden');
+        _lastWatchlistAction = null;
+    }
+
+    function undoWatchlistAction() {
+        if (!_lastWatchlistAction) return;
+        const { symbol, wasAdded } = _lastWatchlistAction;
+        const idx = appState.watchlist.indexOf(symbol);
+        if (wasAdded && idx > -1) {
+            appState.watchlist.splice(idx, 1);
+        } else if (!wasAdded && idx === -1) {
             appState.watchlist.push(symbol);
         }
         updateWatchlistBtnUI(symbol);
+        if (_watchlistToastTimer) clearTimeout(_watchlistToastTimer);
+        dismissWatchlistToast();
     }
 
     function updateWatchlistBtnUI(symbol) {
@@ -4092,6 +4296,17 @@
 
     function removeStagedItem(symbol) {
         appState.portfolio = appState.portfolio.filter(i => i.symbol !== symbol);
+        recalculatePortfolioState();
+        updateBuilderTotals();
+        renderBuilderStagedView();
+    }
+
+    function backToPortfolioTemplates() {
+        appState.portfolio = [];
+        appState.portfolioStructured = [];
+        appState.builderManuallyOpened = false;
+        _pickerSelectedETF = null;
+        _pickerSelectedSP = null;
         recalculatePortfolioState();
         updateBuilderTotals();
         renderBuilderStagedView();
@@ -5200,13 +5415,71 @@
         const feed = document.getElementById('ai-chat-feed');
         if (feed) {
             feed.innerHTML = `
-                <div class="max-w-[88%] space-y-1">
-                    <div class="bg-white border border-gray-200 rounded-2xl px-3 py-2.5 text-xs text-gray-800 leading-relaxed">
-                        Your sandbox portfolio is loaded. Ask me to diagnose concentration risk, model income yield, or explain any metric.
-                    </div>
+                <div id="ai-sample-questions" class="flex flex-col items-center justify-center h-full space-y-2.5 pt-8">
+                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider text-center mb-1">Try asking</p>
+                    <button onclick="sendSampleQuestion('What is the concentration risk in my current portfolio?')" class="w-full text-center bg-white border border-gray-200 hover:border-navyBlue hover:bg-navyBlue/5 rounded-xl px-3 py-2.5 text-xs text-gray-700 transition active:scale-[0.99]">What is the concentration risk in my current portfolio?</button>
+                    <button onclick="sendSampleQuestion('Which ETFs in my watchlist have the best risk-adjusted return?')" class="w-full text-center bg-white border border-gray-200 hover:border-navyBlue hover:bg-navyBlue/5 rounded-xl px-3 py-2.5 text-xs text-gray-700 transition active:scale-[0.99]">Which ETFs in my watchlist have the best risk-adjusted return?</button>
+                    <button onclick="sendSampleQuestion('What are the main risks in a Capital Protected Note linked to HSI?')" class="w-full text-center bg-white border border-gray-200 hover:border-navyBlue hover:bg-navyBlue/5 rounded-xl px-3 py-2.5 text-xs text-gray-700 transition active:scale-[0.99]">What are the main risks in a Capital Protected Note linked to HSI?</button>
                 </div>
             `;
         }
+    }
+
+    let _portfolioContextOn = false;
+
+    function togglePortfolioContext() {
+        _portfolioContextOn = !_portfolioContextOn;
+        const btn = document.getElementById('portfolio-context-toggle');
+        const lbl = document.getElementById('portfolio-context-label');
+        if (!btn || !lbl) return;
+        if (_portfolioContextOn) {
+            btn.classList.remove('border-gray-200', 'text-gray-500');
+            btn.classList.add('border-navyBlue', 'bg-navyBlue/5', 'text-navyBlue');
+            lbl.textContent = 'Portfolio context: On';
+        } else {
+            btn.classList.remove('border-navyBlue', 'bg-navyBlue/5', 'text-navyBlue');
+            btn.classList.add('border-gray-200', 'text-gray-500');
+            lbl.textContent = 'Portfolio context: Off';
+        }
+    }
+
+    function sendSampleQuestion(text) {
+        const sampleQs = document.getElementById('ai-sample-questions');
+        if (sampleQs) sampleQs.remove();
+        const input = document.getElementById('ai-chat-input');
+        if (input) input.value = text;
+        submitAIChatMessage();
+    }
+
+    let _pendingAttachment = null;
+
+    function triggerAIChatUpload() {
+        const fileTypes = ['market-report.pdf', 'portfolio-statement.pdf', 'hsbc-term-sheet.pdf', 'screenshot.png', 'chart.png'];
+        const filename = fileTypes[Math.floor(Math.random() * fileTypes.length)];
+        const isImage = filename.endsWith('.png');
+        _pendingAttachment = { filename, isImage };
+
+        const preview = document.getElementById('ai-attachment-preview');
+        const nameEl = document.getElementById('ai-attachment-name');
+        const iconEl = document.getElementById('ai-attachment-icon');
+        if (!preview || !nameEl || !iconEl) return;
+
+        nameEl.textContent = filename;
+        iconEl.innerHTML = isImage
+            ? '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>'
+            : '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline>';
+
+        preview.classList.remove('hidden');
+        preview.classList.add('flex');
+
+        const input = document.getElementById('ai-chat-input');
+        if (input) input.focus();
+    }
+
+    function clearAIAttachment() {
+        _pendingAttachment = null;
+        const preview = document.getElementById('ai-attachment-preview');
+        if (preview) { preview.classList.add('hidden'); preview.classList.remove('flex'); }
     }
 
     function toggleAIExplainDrawer(show) {
@@ -5247,6 +5520,12 @@
 
         input.value = '';
 
+        const sampleQs = document.getElementById('ai-sample-questions');
+        if (sampleQs) sampleQs.remove();
+
+        const attachment = _pendingAttachment ? { ..._pendingAttachment } : null;
+        clearAIAttachment();
+
         appendUserMessage(text);
         const ind = appendTypingIndicator();
 
@@ -5254,7 +5533,9 @@
             removeTypingIndicator();
             const lowerText = text.toLowerCase();
 
-            if (lowerText.includes('value') || lowerText.includes('growth') || lowerText.includes('hhi')) {
+            if (attachment) {
+                appendSystemMessage(`I've read **${attachment.filename}**. ${text ? `Based on your question: "${text}" — ` : ''}I can extract key data, summarise the ${attachment.isImage ? 'chart' : 'document'}, or answer specific questions about its contents.`);
+            } else if (lowerText.includes('value') || lowerText.includes('growth') || lowerText.includes('hhi')) {
                 renderStructuredAdvisoryResult("Optimized Volatility Audit Profile requested via manual message");
             } else if (lowerText.includes('income') || lowerText.includes('dividend') || lowerText.includes('bond')) {
                 renderStructuredAdvisoryResult("Maximize stable dividend flows requested via manual message");
@@ -5333,8 +5614,6 @@
         set('prof-section-lang', s.sectionLang);
         set('prof-lang-label', s.langLabel);
         set('prof-section-account', s.sectionAccount);
-        set('prof-risk-label', s.riskLabel);
-        set('prof-risk-current', s.riskCurrent);
         set('prof-notif-label', s.notifLabel);
         set('prof-security-label', s.securityLabel);
         set('prof-security-current', s.securityCurrent);
@@ -5658,6 +5937,63 @@
         });
     }
 
+    function renderScenarioPayoffCards(p) {
+        const container = document.getElementById('od-scenario-payoff-cards');
+        if (!container) return;
+        const s = p.scenarios || {};
+        const cards = [];
+
+        if (s.bull) cards.push({
+            type: 'good',
+            title: 'When returns are favourable',
+            payoff: s.bull.payoff_pct,
+            prob: s.bull.probability,
+            desc: s.bull.explanation,
+            bgClass: 'bg-emerald-50 border-emerald-100',
+            badgeClass: 'bg-emerald-100 text-emerald-700',
+            textClass: 'text-emerald-800',
+            dotClass: 'bg-emerald-400'
+        });
+        if (s.base) cards.push({
+            type: 'base',
+            title: 'Base case outcome',
+            payoff: s.base.payoff_pct,
+            prob: s.base.probability,
+            desc: s.base.explanation,
+            bgClass: 'bg-blue-50 border-blue-100',
+            badgeClass: 'bg-blue-100 text-blue-700',
+            textClass: 'text-blue-800',
+            dotClass: 'bg-blue-400'
+        });
+        if (s.bear) cards.push({
+            type: 'risk',
+            title: 'When risk is highest',
+            payoff: s.bear.payoff_pct,
+            prob: s.bear.probability,
+            desc: s.bear.explanation,
+            bgClass: 'bg-rose-50 border-rose-100',
+            badgeClass: 'bg-rose-100 text-rose-700',
+            textClass: 'text-rose-800',
+            dotClass: 'bg-rose-400'
+        });
+
+        container.innerHTML = cards.map(c => `
+            <div class="rounded-xl border ${c.bgClass} p-3 space-y-1.5">
+                <div class="flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full ${c.dotClass} shrink-0"></span>
+                        <p class="text-[10px] font-semibold ${c.textClass}">${c.title}</p>
+                    </div>
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <span class="text-[10px] font-bold ${c.textClass}">${c.payoff}</span>
+                        <span class="text-[9px] ${c.badgeClass} px-1.5 py-0.5 rounded-full font-medium">${c.prob} prob.</span>
+                    </div>
+                </div>
+                <p class="text-[10px] leading-relaxed ${c.textClass} opacity-80">${c.desc}</p>
+            </div>
+        `).join('');
+    }
+
     function openProductDetail(productId) {
         const p = (appState.adminProductPending?.id === productId)
             ? appState.adminProductPending
@@ -5694,6 +6030,9 @@
             `<tr><td class="px-3 py-2 text-[10px] text-gray-400 bg-gray-50/60 w-2/5">${r.label}</td><td class="px-3 py-2 text-[10px] font-medium text-gray-900">${r.value}</td></tr>`
         ).join('');
         document.getElementById('od-terms-table').innerHTML = termRows;
+
+        // AI Scenario Payoff cards
+        renderScenarioPayoffCards(p);
 
         // Disclaimer
         document.getElementById('od-disclaimer').textContent = p.disclaimer;
@@ -5741,25 +6080,33 @@
         if (activeBtn) activeBtn.className = 'flex-1 py-2.5 text-[10px] font-semibold text-navyBlue border-b-2 border-navyBlue transition';
     }
 
-    function renderScenarioTab(p) {
-        if (!p.scenarios) return;
-        // Chart bars
+    function renderScenarioChartWithActive(p, activeSc) {
         const chartArea = document.getElementById('sc-chart-area');
         const chartLabels = document.getElementById('sc-chart-labels');
+        if (!chartArea || !chartLabels) return;
         const data = p.scenarioChart || [];
         const maxAbs = Math.max(...data.map(d => Math.abs(d.val)), 1);
-        chartArea.innerHTML = data.map((d, i) => {
+        chartArea.innerHTML = data.map(d => {
             const h = Math.round((Math.abs(d.val) / maxAbs) * 80);
+            const isActive = d.label.toLowerCase() === activeSc;
             const isNeg = d.val < 0;
+            const barClass = isNeg
+                ? (isActive ? 'bg-rose-400' : 'border border-dashed border-gray-300')
+                : (isActive ? 'bg-navyBlue' : 'bg-gray-200');
             return `<div class="flex-1 flex flex-col items-center justify-end h-full gap-1">
-                ${isNeg ? `<div class="w-full rounded-t border border-dashed border-gray-300" style="height:${h}px"></div>` : ''}
-                ${!isNeg ? `<div class="w-full rounded-t bg-navyBlue" style="height:${Math.max(h,2)}px"></div>` : ''}
-                <span class="text-[8px] text-gray-700 font-medium">${d.val >= 0 ? '+' : ''}${d.val}%</span>
+                <div class="w-full rounded-t ${barClass}" style="height:${Math.max(h, 2)}px"></div>
+                <span class="text-[8px] font-medium ${isActive ? 'text-navyBlue font-bold' : 'text-gray-500'}">${d.val >= 0 ? '+' : ''}${d.val}%</span>
             </div>`;
         }).join('');
-        chartLabels.innerHTML = data.map(d =>
-            `<span class="flex-1 text-center text-[8px] text-gray-400">${d.label}</span>`
-        ).join('');
+        chartLabels.innerHTML = data.map(d => {
+            const isActive = d.label.toLowerCase() === activeSc;
+            return `<span class="flex-1 text-center text-[8px] font-${isActive ? 'bold text-navyBlue' : 'normal text-gray-400'}">${d.label}</span>`;
+        }).join('');
+    }
+
+    function renderScenarioTab(p) {
+        if (!p.scenarios) return;
+        renderScenarioChartWithActive(p, appState.activeScenario);
 
         // Scenario table
         const scTable = document.getElementById('sc-table');
@@ -5767,14 +6114,13 @@
         const keyLabels = { bull: 'Bull', base: 'Base', bear: 'Bear' };
         scTable.innerHTML = keys.filter(k => p.scenarios[k]).map(k => {
             const s = p.scenarios[k];
-            return `<tr class="${k === appState.activeScenario ? 'bg-gray-50' : ''}">
+            return `<tr class="${k === appState.activeScenario ? 'bg-navyBlue/5' : ''}">
                 <td class="px-3 py-2 font-medium text-gray-800">${keyLabels[k]}</td>
                 <td class="px-3 py-2 text-right font-semibold text-navyBlue">${s.payoff_pct}</td>
                 <td class="px-3 py-2 text-right text-gray-400">${s.probability}</td>
             </tr>`;
         }).join('');
 
-        // Active scenario detail
         selectScenario(appState.activeScenario, p);
     }
 
@@ -5783,14 +6129,21 @@
         const p = product || (appState.activeProductId ? structuredProductsDB.find(x => x.id === appState.activeProductId) || appState.adminProductPending : null);
         if (!p || !p.scenarios) return;
 
+        // Fix button highlight using classList (string.replace was broken)
         ['bull','base','bear','custom'].forEach(k => {
             const btn = document.getElementById('sc-btn-' + k);
-            if (btn) btn.className = btn.className
-                .replace('bg-navyBlue text-white border-navyBlue', 'bg-white text-gray-500 border-gray-200')
-                .replace('bg-white text-gray-500 border-gray-200', 'bg-white text-gray-500 border-gray-200');
+            if (!btn) return;
+            btn.classList.remove('bg-navyBlue','text-white','border-navyBlue','font-semibold');
+            btn.classList.add('bg-white','text-gray-500','border-gray-200','font-medium');
         });
         const activeBtn = document.getElementById('sc-btn-' + sc);
-        if (activeBtn) activeBtn.className = activeBtn.className.replace('bg-white text-gray-500 border-gray-200', 'bg-navyBlue text-white border-navyBlue');
+        if (activeBtn) {
+            activeBtn.classList.remove('bg-white','text-gray-500','border-gray-200','font-medium');
+            activeBtn.classList.add('bg-navyBlue','text-white','border-navyBlue','font-semibold');
+        }
+
+        // Re-render chart with active bar highlighted
+        renderScenarioChartWithActive(p, sc);
 
         const customPanel = document.getElementById('sc-custom-panel');
         if (customPanel) customPanel.classList.toggle('hidden', sc !== 'custom');
@@ -5804,7 +6157,7 @@
         } else if (sc === 'custom') {
             document.getElementById('sc-active-name').textContent = 'Custom';
             document.getElementById('sc-payoff-pct').textContent = '—';
-            document.getElementById('sc-probability').textContent = 'Move the slider to model a custom scenario.';
+            document.getElementById('sc-probability').textContent = 'Drag the slider to set a hypothetical % move in the underlying asset.';
             document.getElementById('sc-explanation').textContent = '';
             updateCustomScenario(document.getElementById('sc-custom-slider')?.value || 10);
         }
@@ -5835,11 +6188,18 @@
         appState.activeProductId = null;
     }
 
-    function openProductCompare() {
+    let _compareSecondId = null;
+
+    function openProductCompare(preselectedId) {
         const products = [...structuredProductsDB];
         if (appState.adminProductPending) products.unshift(appState.adminProductPending);
         const current = products.find(p => p.id === appState.activeProductId);
-        const others = products.filter(p => p.id !== appState.activeProductId).slice(0, 3);
+        const others = products.filter(p => p.id !== appState.activeProductId);
+
+        if (!_compareSecondId || !others.find(p => p.id === _compareSecondId)) {
+            _compareSecondId = preselectedId || (others[0]?.id || null);
+        }
+        if (preselectedId) _compareSecondId = preselectedId;
 
         const container = document.getElementById('compare-content');
         if (!container) return;
@@ -5869,10 +6229,18 @@
                 </div>
             </div>`;
 
-        const comparePair = others[0] ? [current, others[0]] : [current];
+        const second = others.find(p => p.id === _compareSecondId);
+        const pickerBtns = others.map(p => {
+            const isActive = p.id === _compareSecondId;
+            return `<button onclick="openProductCompare('${p.id}')" class="px-2.5 py-1 text-[9px] font-medium rounded-full border transition whitespace-nowrap shrink-0 ${isActive ? 'bg-navyBlue text-white border-navyBlue' : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'}">${p.name.length > 28 ? p.name.slice(0,28)+'…' : p.name}</button>`;
+        }).join('');
+
         container.innerHTML = `
-            <div class="flex gap-3">${comparePair.map(makeCol).join('<div class="w-px bg-gray-200 shrink-0"></div>')}</div>
-            ${others.length > 1 ? `<p class="text-[9px] text-gray-400 text-center">Showing 2 of ${products.length} products</p>` : ''}
+            <div class="bg-white rounded-xl border border-gray-150 p-3 space-y-2 mb-1">
+                <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Compare against</p>
+                <div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-0.5">${pickerBtns}</div>
+            </div>
+            ${second ? `<div class="flex gap-3">${[current, second].map(makeCol).join('<div class="w-px bg-gray-200 shrink-0 my-4"></div>')}</div>` : `<p class="text-xs text-gray-400 text-center py-8">No other products to compare.</p>`}
         `;
 
         const overlay = document.getElementById('product-compare-overlay');
@@ -5893,6 +6261,8 @@
     function closeAdminModal() {
         const modal = document.getElementById('admin-modal-backdrop');
         if (modal) modal.classList.add('hidden');
+        const sheet = document.getElementById('admin-etf-pool-sheet');
+        if (sheet) { sheet.classList.add('hidden'); _etfSheetExpanded = false; }
     }
 
     function simulatePDFUpload() {
@@ -5983,6 +6353,138 @@
     function adminDiscardExtraction() {
         document.getElementById('admin-state-review').classList.add('hidden');
         document.getElementById('admin-state-idle').classList.remove('hidden');
+    }
+
+    function switchAdminTab(tab) {
+        const isPdf = tab === 'pdf';
+        document.getElementById('admin-tab-pdf').className = isPdf
+            ? 'flex-1 py-1.5 bg-white text-navyBlue font-bold rounded-md shadow-xs transition text-center'
+            : 'flex-1 py-1.5 text-gray-500 font-semibold rounded-md transition text-center hover:bg-gray-200';
+        document.getElementById('admin-tab-etf').className = !isPdf
+            ? 'flex-1 py-1.5 bg-white text-navyBlue font-bold rounded-md shadow-xs transition text-center'
+            : 'flex-1 py-1.5 text-gray-500 font-semibold rounded-md transition text-center hover:bg-gray-200';
+        document.getElementById('admin-etf-panel').classList.toggle('hidden', isPdf);
+        const idleEl = document.getElementById('admin-state-idle');
+        const analyzeEl = document.getElementById('admin-state-analyzing');
+        const reviewEl = document.getElementById('admin-state-review');
+        if (isPdf) {
+            if (idleEl) idleEl.style.display = '';
+            if (analyzeEl && !analyzeEl.classList.contains('hidden')) analyzeEl.style.display = '';
+            if (reviewEl && !reviewEl.classList.contains('hidden')) reviewEl.style.display = '';
+        } else {
+            if (idleEl) idleEl.style.display = 'none';
+            if (analyzeEl) analyzeEl.style.display = 'none';
+            if (reviewEl) reviewEl.style.display = 'none';
+        }
+    }
+
+    let _adminETFPending = null;
+
+    function adminFetchETFById() {
+        const input = document.getElementById('admin-etf-id-input');
+        if (!input) return;
+        const id = input.value.trim().toUpperCase();
+        if (!id) return;
+
+        document.getElementById('admin-etf-result').classList.add('hidden');
+        document.getElementById('admin-etf-loading').classList.remove('hidden');
+
+        const mockData = {
+            '2800.HK': { name: 'Tracker Fund of Hong Kong', exchange: 'HKEX', assetClass: 'Equity - HK Index', er: '0.10%', price: '19.34 HKD' },
+            '3067.HK': { name: 'iShares Hang Seng TECH ETF', exchange: 'HKEX', assetClass: 'Equity - HK Tech', er: '0.25%', price: '7.82 HKD' },
+            '2840.HK': { name: 'SPDR Gold ETF', exchange: 'HKEX', assetClass: 'Commodity - Gold', er: '0.40%', price: '1,742.00 HKD' },
+        };
+
+        setTimeout(() => {
+            document.getElementById('admin-etf-loading').classList.add('hidden');
+            const base = mockData[id] || {
+                name: id + ' ETF (simulated)',
+                exchange: id.endsWith('.HK') ? 'HKEX' : 'NYSE / NASDAQ',
+                assetClass: 'Equity',
+                er: '0.20%',
+                price: (Math.random() * 100 + 20).toFixed(2) + (id.endsWith('.HK') ? ' HKD' : ' USD')
+            };
+            _adminETFPending = { symbol: id, ...base };
+            document.getElementById('admin-etf-res-symbol').textContent = id;
+            document.getElementById('admin-etf-res-name').textContent = base.name;
+            document.getElementById('admin-etf-res-exchange').textContent = base.exchange;
+            document.getElementById('admin-etf-res-class').textContent = base.assetClass;
+            document.getElementById('admin-etf-res-er').textContent = base.er;
+            document.getElementById('admin-etf-res-price').textContent = base.price;
+            document.getElementById('admin-etf-result').classList.remove('hidden');
+        }, 1400);
+    }
+
+    const _adminAddedETFs = [];
+
+    function adminPublishETF() {
+        if (!_adminETFPending) return;
+        const e = _adminETFPending;
+        const priceNum = parseFloat(e.price.replace(/[^0-9.]/g, '')) || 10;
+        etfDatabase[e.symbol] = {
+            symbol: e.symbol,
+            name: e.name,
+            assetClass: e.assetClass,
+            region: e.exchange.includes('HKEX') ? 'Hong Kong' : 'Global',
+            issuer: 'Admin Added',
+            price: priceNum.toFixed(2),
+            changeVal: '+0.00',
+            changePct: '+0.00%',
+            currency: e.price.includes('HKD') ? 'HKD' : 'USD',
+            return1d: '+0.00%', return1m: 'N/A', return3m: 'N/A', return1y: 'N/A',
+            vol: 'N/A', drawdown: 'N/A', sharpe: 'N/A',
+            exchange: e.exchange, fees: e.er, aum: 'N/A', liquidity: 'N/A',
+            chartData1Y: Array.from({length: 8}, (_,i) => priceNum * (0.9 + i * 0.015))
+        };
+        if (!_adminAddedETFs.find(x => x.symbol === e.symbol)) {
+            _adminAddedETFs.push({ symbol: e.symbol, name: e.name, exchange: e.exchange, price: e.price, er: e.er });
+        }
+        _adminETFPending = null;
+        document.getElementById('admin-etf-result').classList.add('hidden');
+        document.getElementById('admin-etf-id-input').value = '';
+        renderAdminETFPool();
+        renderProductsList();
+        runScreenerFilters();
+    }
+
+    function renderAdminETFPool() {
+        const section = document.getElementById('admin-etf-pool-section');
+        const list = document.getElementById('admin-etf-pool-list');
+        const count = document.getElementById('admin-etf-pool-count');
+        if (!section || !list || !count) return;
+
+        if (_adminAddedETFs.length === 0) {
+            section.classList.add('hidden');
+            return;
+        }
+
+        section.classList.remove('hidden');
+        count.textContent = _adminAddedETFs.length + ' ETF' + (_adminAddedETFs.length !== 1 ? 's' : '');
+        list.innerHTML = _adminAddedETFs.map(e => `
+            <div class="flex items-center gap-3 px-3 py-2.5 bg-white">
+                <span class="text-[10px] font-bold text-navyBlue bg-navyBlue/8 px-2 py-0.5 rounded shrink-0">${e.symbol}</span>
+                <span class="text-[10px] text-gray-500 truncate flex-1">${e.name}</span>
+                <span class="text-[10px] font-medium text-gray-700 shrink-0">${e.price}</span>
+                <button onclick="adminRemoveETF('${e.symbol}')" class="text-gray-300 hover:text-iosRed transition shrink-0">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+        `).join('');
+    }
+
+    function adminRemoveETF(symbol) {
+        const idx = _adminAddedETFs.findIndex(x => x.symbol === symbol);
+        if (idx > -1) _adminAddedETFs.splice(idx, 1);
+        delete etfDatabase[symbol];
+        renderAdminETFPool();
+        renderProductsList();
+        runScreenerFilters();
+    }
+
+    function adminDiscardETF() {
+        _adminETFPending = null;
+        document.getElementById('admin-etf-result').classList.add('hidden');
+        document.getElementById('admin-etf-id-input').value = '';
     }
 
     function simulateSpeechInput() {
