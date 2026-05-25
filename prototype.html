@@ -31,13 +31,20 @@
     </script>
     
     <style>
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        #ptree-sc::-webkit-scrollbar { display: none; }
+        #ptree-sc { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes ptree-pulse-g {
+            0%,100% { box-shadow:0 0 0 0 rgba(22,163,74,.5),0 2px 6px rgba(0,0,0,.4); }
+            55%      { box-shadow:0 0 0 5px rgba(22,163,74,0),0 2px 6px rgba(0,0,0,.4); }
         }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        @keyframes ptree-pulse-p {
+            0%,100% { box-shadow:0 0 0 0 rgba(147,51,234,.5),0 2px 6px rgba(0,0,0,.4); }
+            55%      { box-shadow:0 0 0 5px rgba(147,51,234,0),0 2px 6px rgba(0,0,0,.4); }
         }
+        .ptree-pill-user  { animation: ptree-pulse-g 2s ease-in-out infinite; }
+        .ptree-pill-admin { animation: ptree-pulse-p 2s ease-in-out infinite .3s; }
         .iphone-screen {
             height: 844px;
             width: 390px;
@@ -76,109 +83,68 @@
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center font-sans p-4 md:p-8">
 
-<div class="flex flex-col lg:flex-row gap-8 items-stretch justify-center max-w-6xl w-full">
+<div class="flex flex-col lg:flex-row gap-8 items-stretch justify-center max-w-[1300px] w-full">
     
-    <!-- Left: Developer Control Console to trigger all test cases -->
-    <div class="w-full lg:w-96 bg-slate-800 border border-slate-700 rounded-2xl p-6 flex flex-col justify-between shadow-2xl space-y-6 shrink-0">
-        <div>
-            <div class="flex items-center gap-2 mb-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span class="text-xs font-semibold tracking-wider text-slate-400 uppercase">Interactive Controller</span>
-            </div>
-            <h1 class="text-xl font-bold text-white mb-2">Sunwah Fintech iOS</h1>
-            <p class="text-xs text-slate-400 leading-relaxed mb-6">
-                Use this external panel to force state changes, switch segments, and audit edge cases directly inside the iOS mockup viewport.
-            </p>
+    <!-- Left: Page Tree Navigator -->
+    <div class="w-full lg:w-[750px] bg-slate-800 border border-slate-700 rounded-2xl p-5 flex flex-col shadow-2xl shrink-0" style="max-height:92vh">
+        <div class="flex items-center gap-2 mb-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-xs font-semibold tracking-wider text-slate-400 uppercase">Page Navigator</span>
+        </div>
+        <h1 class="text-xl font-bold text-white mb-1">Sunwah Fintech iOS</h1>
+        <p class="text-[11px] text-slate-400 leading-relaxed mb-3">
+            Click any node to jump to that screen. Hover nodes &amp; edges to see page descriptions and user journey context.
+        </p>
 
-            <!-- State Controllers -->
-            <div class="space-y-4">
-                <!-- Login State Switchers -->
-                <div class="bg-slate-850 p-4 rounded-xl border border-slate-750">
-                    <h3 class="text-xs font-bold text-slate-300 uppercase mb-2">1. Login Page Controls</h3>
-                    <div class="grid grid-cols-2 gap-2 text-xs">
-                        <button onclick="triggerLoginSuccess()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-1.5 px-3 rounded transition text-center">
-                            User Login
-                        </button>
-                        <button onclick="triggerAdminLogin()" class="bg-rose-700 hover:bg-rose-800 text-white font-medium py-1.5 px-3 rounded transition text-center">
-                            Admin Login
-                        </button>
-                        <button onclick="triggerLoginErrorState()" class="bg-rose-900/60 hover:bg-rose-900 text-rose-200 border border-rose-800 font-medium py-1.5 px-3 rounded transition text-center">
-                            Auth Error
-                        </button>
-                        <button onclick="triggerLoginNetworkErrorState()" class="bg-amber-900/60 hover:bg-amber-900 text-amber-200 border border-amber-800 font-medium py-1.5 px-3 rounded transition text-center">
-                            Network Fail
-                        </button>
-                    </div>
-                    <p class="text-[9px] text-slate-500 mt-2">Admin: <span class="font-mono text-slate-400">admin@sunwah.com.hk</span></p>
-                </div>
-
-                <!-- Market State Switchers -->
-                <div class="bg-slate-850 p-4 rounded-xl border border-slate-750">
-                    <h3 class="text-xs font-bold text-slate-300 uppercase mb-2">2. Market Dashboard Controls</h3>
-                    <div class="grid grid-cols-3 gap-1.5 text-xs">
-                        <button onclick="setMarketState('normal')" class="bg-slate-700 hover:bg-slate-600 text-white font-medium py-1.5 px-2 rounded transition">
-                            Normal
-                        </button>
-                        <button onclick="setMarketState('loading')" class="bg-slate-700 hover:bg-slate-600 text-white font-medium py-1.5 px-2 rounded transition">
-                            Skeleton
-                        </button>
-                        <button onclick="setMarketState('error')" class="bg-rose-950/80 hover:bg-rose-900 text-rose-200 border border-rose-800 font-medium py-1.5 px-2 rounded transition">
-                            Load Error
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Screener State Switchers -->
-                <div class="bg-slate-850 p-4 rounded-xl border border-slate-750">
-                    <h3 class="text-xs font-bold text-slate-300 uppercase mb-2">3. ETF Screener State</h3>
-                    <div class="grid grid-cols-2 gap-2 text-xs">
-                        <button onclick="triggerScreenerEmpty(true)" class="bg-slate-700 hover:bg-slate-600 text-white font-medium py-1.5 px-3 rounded transition">
-                            Force Empty State
-                        </button>
-                        <button onclick="triggerScreenerEmpty(false)" class="bg-slate-700 hover:bg-slate-600 text-white font-medium py-1.5 px-3 rounded transition">
-                            Reset Filters
-                        </button>
-                    </div>
-                </div>
-
-                <!-- AI Quick Prompts Controller Shortcut -->
-                <div class="bg-slate-850 p-4 rounded-xl border border-slate-750">
-                    <h3 class="text-xs font-bold text-slate-300 uppercase mb-2">4. AI Advisory Quick Triggers</h3>
-                    <div class="grid grid-cols-2 gap-2 text-xs">
-                        <button onclick="triggerAICustomPrompt('Value Audit')" class="bg-indigo-900/60 hover:bg-indigo-800 text-indigo-100 font-medium py-1.5 px-2 rounded transition text-center">
-                            Trigger Value Report
-                        </button>
-                        <button onclick="triggerAICustomPrompt('Income Harvest')" class="bg-emerald-900/60 hover:bg-emerald-800 text-emerald-100 font-medium py-1.5 px-2 rounded transition text-center">
-                            Trigger Income Report
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Direct View Jumper -->
-                <div class="bg-slate-850 p-4 rounded-xl border border-slate-750">
-                    <h3 class="text-xs font-bold text-slate-300 uppercase mb-2">5. Direct View Navigation</h3>
-                    <div class="grid grid-cols-2 gap-1.5 text-xs">
-                        <button onclick="directNavigate('login')" class="bg-indigo-900/40 hover:bg-indigo-950 border border-indigo-700/50 text-indigo-300 py-1 px-2 rounded">
-                            Go to Login
-                        </button>
-                        <button onclick="directNavigate('market-dashboard')" class="bg-indigo-900/40 hover:bg-indigo-950 border border-indigo-700/50 text-indigo-300 py-1 px-2 rounded">
-                            Go to Market
-                        </button>
-                        <button onclick="directNavigate('screener')" class="bg-indigo-900/40 hover:bg-indigo-950 border border-indigo-700/50 text-indigo-300 py-1 px-2 rounded">
-                            Go to All ETFs
-                        </button>
-                        <button onclick="directNavigate('portfolio-direct')" class="bg-indigo-900/40 hover:bg-indigo-950 border border-indigo-700/50 text-indigo-300 py-1 px-2 rounded col-span-2">
-                            Go to Portfolio Builder
-                        </button>
-                        <button onclick="directNavigate('ai-direct')" class="bg-purple-900/40 hover:bg-purple-950 border border-purple-700/50 text-purple-300 py-1 px-2 rounded col-span-2">
-                            Go to AI Advisory Chatbot
-                        </button>
-                        <button onclick="switchTab('profile')" class="bg-slate-700/60 hover:bg-slate-700 border border-slate-600/50 text-slate-300 py-1 px-2 rounded col-span-2">
-                            Go to Profile &amp; Settings
-                        </button>
-                    </div>
+        <!-- Tree canvas -->
+        <div class="relative rounded-xl bg-slate-900/60 border border-slate-700/50 overflow-hidden flex-1" style="min-height:420px">
+            <!-- Scrollable tree area (no visible scrollbar) -->
+            <div id="ptree-sc" class="overflow-x-auto overflow-y-auto w-full h-full"
+                 style="scroll-behavior:smooth" onscroll="ptreeUpdateScroll()">
+                <div style="width:710px;height:560px;position:relative;">
+                    <svg id="ptree-svg" width="710" height="560" style="position:absolute;top:0;left:0;pointer-events:none;"></svg>
+                    <div id="ptree-nodes" style="position:absolute;top:0;left:0;width:710px;height:560px;"></div>
                 </div>
             </div>
+            <!-- Left edge: fade + scroll button -->
+            <div id="ptree-fade-l" class="pointer-events-none absolute inset-y-0 left-0 w-14 opacity-0 transition-opacity duration-200"
+                 style="background:linear-gradient(90deg,rgba(10,15,28,.92) 0%,transparent 100%)"></div>
+            <button id="ptree-btn-l" onclick="ptreeScrollBy(-220)"
+                    class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full items-center justify-center
+                           bg-slate-700/90 border border-slate-600/70 text-slate-300 hover:bg-slate-600 hover:text-white
+                           transition-all duration-150 shadow-xl" style="display:none">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <!-- Right edge: fade + scroll button (visible initially) -->
+            <div id="ptree-fade-r" class="pointer-events-none absolute inset-y-0 right-0 w-16 transition-opacity duration-200"
+                 style="background:linear-gradient(270deg,rgba(10,15,28,.92) 0%,transparent 100%)"></div>
+            <button id="ptree-btn-r" onclick="ptreeScrollBy(220)"
+                    class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full flex items-center justify-center
+                           bg-slate-700/90 border border-slate-600/70 text-slate-300 hover:bg-slate-600 hover:text-white
+                           transition-all duration-150 shadow-xl">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <!-- Scroll progress indicator -->
+            <div class="absolute bottom-0 left-0 right-0 h-px bg-slate-700/40">
+                <div id="ptree-progress" class="h-full transition-all duration-100 rounded-full"
+                     style="width:0%;background:rgba(59,130,246,.55)"></div>
+            </div>
+        </div>
+        <!-- Tooltip (fixed so it escapes scroll container) -->
+        <div id="ptree-tip" style="position:fixed;z-index:9999;display:none;max-width:210px;pointer-events:none;"
+             class="bg-slate-700 border border-slate-500/80 text-white text-[11px] leading-relaxed rounded-xl px-3 py-2.5 shadow-2xl"></div>
+
+        <!-- Login state indicator -->
+        <div id="ptree-login-banner" class="hidden mt-2 text-xs text-center py-1 px-3 rounded-lg font-semibold"></div>
+
+        <!-- Legend -->
+        <div class="mt-3 flex flex-wrap gap-x-3 gap-y-1.5">
+            <span class="flex items-center gap-1.5 text-[10px] text-slate-400"><span class="inline-block w-2 h-2 rounded-sm" style="background:#2563eb"></span>Market Intel</span>
+            <span class="flex items-center gap-1.5 text-[10px] text-slate-400"><span class="inline-block w-2 h-2 rounded-sm" style="background:#16a34a"></span>Portfolio</span>
+            <span class="flex items-center gap-1.5 text-[10px] text-slate-400"><span class="inline-block w-2 h-2 rounded-sm" style="background:#9333ea"></span>AI Advisory</span>
+            <span class="flex items-center gap-1.5 text-[10px] text-slate-400"><span class="inline-block w-2 h-2 rounded-sm" style="background:#d97706"></span>Products</span>
+            <span class="flex items-center gap-1.5 text-[10px] text-slate-400"><span class="inline-block w-2 h-2 rounded-sm" style="background:#475569"></span>Account</span>
+            <span class="flex items-center gap-1.5 text-[10px] text-slate-400"><span class="inline-block w-2 h-2 rounded-sm" style="background:#e11d48"></span>Admin only</span>
         </div>
 
         <!-- Compliance boundaries disclaimer -->
@@ -946,6 +912,9 @@
                                 </button>
                                 <h1 class="text-xl font-bold text-navyBlue tracking-tight">Portfolio</h1>
                             </div>
+                            <button onclick="switchTab('products')" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-500 hover:text-navyBlue transition active:scale-95" title="Browse Structured Products">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                            </button>
                         </div>
 
                         <!-- TAB NAVIGATION — Analysis & Suggestions tabs are hidden until workflow runs -->
@@ -974,12 +943,12 @@
                             <div class="px-4">
                                 <div class="flex gap-2">
                                     <button onclick="document.getElementById('portfolio-file-input').click()" class="flex-1 bg-white border border-gray-200 rounded-2xl px-3 py-2.5 flex flex-col items-center gap-1.5 active:bg-gray-50 transition tap-highlight-none">
-                                        <svg class="w-5 h-5 text-blue-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                        <svg class="w-5 h-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                                         <span class="text-[10px] font-medium text-gray-700 text-center leading-tight">Photos</span>
                                         <span class="text-[9px] text-gray-400 text-center leading-tight">JPG, PNG</span>
                                     </button>
                                     <button onclick="document.getElementById('portfolio-file-input').click()" class="flex-1 bg-white border border-gray-200 rounded-2xl px-3 py-2.5 flex flex-col items-center gap-1.5 active:bg-gray-50 transition tap-highlight-none">
-                                        <svg class="w-5 h-5 text-red-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                                        <svg class="w-5 h-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
                                         <span class="text-[10px] font-medium text-gray-700 text-center leading-tight">Document</span>
                                         <span class="text-[9px] text-gray-400 text-center leading-tight">PDF, CSV</span>
                                     </button>
@@ -1025,8 +994,8 @@
                                     <svg class="w-4 h-4 text-navyBlue shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
                                     <span class="text-xs font-medium text-gray-700">Add ETF</span>
                                 </button>
-                                <button onclick="openManualAddPanel('sp')" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 flex items-center gap-3 active:bg-amber-50 transition tap-highlight-none">
-                                    <svg class="w-4 h-4 text-amber-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path></svg>
+                                <button onclick="openManualAddPanel('sp')" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 flex items-center gap-3 active:bg-gray-50 transition tap-highlight-none">
+                                    <svg class="w-4 h-4 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
                                     <span class="text-xs font-medium text-gray-700">Add Structured Product</span>
                                 </button>
                             </div>
@@ -1088,22 +1057,13 @@
                                 <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider text-center mb-3">Try an example</p>
                                 <div class="flex flex-col items-center space-y-2">
                                     <button onclick="applyPortfolioTemplate('tech')" class="w-full text-center bg-white border border-gray-200 hover:border-navyBlue hover:bg-navyBlue/5 rounded-xl px-4 py-3 text-xs text-gray-700 transition active:scale-[0.99] active:bg-navyBlue/5">
-                                        <span class="inline-flex items-center gap-2">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></span>
-                                            Tech portfolio (HK) · 3067.HK · 2800.HK · 3199.HK
-                                        </span>
+                                        Tech portfolio (HK) · 3067.HK · 2800.HK · 3199.HK
                                     </button>
                                     <button onclick="applyPortfolioTemplate('hk50')" class="w-full text-center bg-white border border-gray-200 hover:border-navyBlue hover:bg-navyBlue/5 rounded-xl px-4 py-3 text-xs text-gray-700 transition active:scale-[0.99] active:bg-navyBlue/5">
-                                        <span class="inline-flex items-center gap-2">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
-                                            Hang Seng 50 · 2800.HK · 2828.HK
-                                        </span>
+                                        Hang Seng 50 · 2800.HK · 2828.HK
                                     </button>
                                     <button onclick="applyPortfolioTemplate('china')" class="w-full text-center bg-white border border-gray-200 hover:border-navyBlue hover:bg-navyBlue/5 rounded-xl px-4 py-3 text-xs text-gray-700 transition active:scale-[0.99] active:bg-navyBlue/5">
-                                        <span class="inline-flex items-center gap-2">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-red-400 shrink-0"></span>
-                                            China + HK equity · 2800.HK · 2828.HK · 3001.HK
-                                        </span>
+                                        China + HK equity · 2800.HK · 2828.HK · 3001.HK
                                     </button>
                                 </div>
                             </div>
@@ -1706,7 +1666,7 @@
                             <!-- Admin Tab Switcher -->
                             <div class="px-5 pt-3 pb-0 shrink-0">
                                 <div class="flex bg-gray-100 rounded-lg p-0.5 text-[10px]">
-                                    <button id="admin-tab-pdf" onclick="switchAdminTab('pdf')" class="flex-1 py-1.5 bg-white text-navyBlue font-bold rounded-md shadow-xs transition text-center">Upload Term Sheet</button>
+                                    <button id="admin-tab-pdf" onclick="switchAdminTab('pdf')" class="flex-1 py-1.5 bg-white text-navyBlue font-bold rounded-md shadow-xs transition text-center">Upload Structured Product Sheet</button>
                                     <button id="admin-tab-etf" onclick="switchAdminTab('etf')" class="flex-1 py-1.5 text-gray-500 font-semibold rounded-md transition text-center hover:bg-gray-200">Add ETF by ID</button>
                                 </div>
                             </div>
@@ -1784,7 +1744,7 @@
                                 <div id="admin-state-idle">
                                     <div onclick="simulatePDFUpload()" class="border border-dashed border-gray-300 rounded-xl p-5 text-center cursor-pointer hover:border-gray-400 hover:bg-gray-50 transition select-none">
                                         <svg class="w-6 h-6 text-gray-400 mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                                        <p class="text-xs font-medium text-gray-700">Select PDF term sheet</p>
+                                        <p class="text-xs font-medium text-gray-700">Select PDF product sheet</p>
                                         <p class="text-[10px] text-gray-400 mt-0.5">Up to 50 MB · PDF only</p>
                                     </div>
                                     <p class="text-[9px] text-gray-400 text-center mt-2">Fields are extracted automatically and reviewed before publishing.</p>
@@ -5301,6 +5261,9 @@
         } else if (tabId === 'products') {
             document.getElementById('view-products').classList.remove('hidden');
             appState.activeView = 'products';
+            const _pdo = document.getElementById('product-detail-overlay');
+            if (_pdo) { _pdo.classList.add('hidden'); _pdo.classList.remove('flex'); }
+            appState.activeProductId = null;
             renderProductsList();
         } else if (tabId === 'profile') {
             document.getElementById('view-profile').classList.remove('hidden');
@@ -6922,6 +6885,367 @@
                 }, 400);
             }
         }, 35);
+    }
+
+    // ============================================================
+    // PAGE TREE NAVIGATOR
+    // ============================================================
+    // State declared before IIFE so it isn't in TDZ when IIFE runs
+    var ptreeLoggedIn = false;
+    var ptreeIsAdmin = false;
+    var ptreeDragged = false;
+    var PTREE_OPEN = ['login-user','login-admin','app-entry','login'];
+
+    (function initPageTree() {
+        const NW = 78, NHS = 30, NHD = 42; // node width, single-line height, double-line height
+        const NWS = 62; // narrow width for L3 nodes
+
+        const NODES = [
+            // Login quick-action shortcuts (pill-shaped, flanking the Login node)
+            { id:'login-user',  lines:['User'],  cx:90,  cy:98, w:64, h:22,
+              bg:'rgba(4,36,21,.85)', bdr:'#16a34a', fg:'#6ee7b7', br:11, action:() => ptreeSetLogin('user'),
+              desc:'<strong>User Story:</strong> As an everyday investor, I browse live ETF market data, manage my watchlist, build and analyse my portfolio, and receive AI-powered rebalancing suggestions through the chatbot.' },
+            { id:'login-admin', lines:['Admin'], cx:298, cy:98, w:64, h:22,
+              bg:'rgba(46,16,101,.85)', bdr:'#9333ea', fg:'#c4b5fd', br:11, action:() => ptreeSetLogin('admin'),
+              desc:'<strong>User Story:</strong> As a platform admin, I have all investor capabilities plus exclusive management tools: uploading new ETFs to the screener, publishing structured products, and editing platform content via the admin panel.' },
+
+            // Root — centred over the left-visible sub-trees (Market + Portfolio)
+            { id:'app-entry', lines:['Enter App'],             cx:193, cy:28,  w:NW,  h:NHS,
+              bg:'#1e293b', bdr:'#475569', fg:'#94a3b8', action:null,
+              desc:'User taps the Sunwah Fintech icon to open the app. The Login screen is always shown first to unauthenticated users.' },
+            { id:'login',     lines:['Login'],                  cx:193, cy:98,  w:NW,  h:NHS,
+              bg:'#1e293b', bdr:'#3b82f6', fg:'#93c5fd', action:() => directNavigate('login'),
+              desc:'Authentication screen. User enters email + password or uses Google / Microsoft enterprise SSO. Supports auth-error and network-failure edge states.' },
+
+            // Level-2: Main Tabs — spread from left; AI / Products / Profile reachable by scrolling right
+            { id:'market',    lines:['Market','Intelligence'],  cx:85,  cy:205, w:NW,  h:NHD,
+              bg:'#0f2744', bdr:'#2563eb', fg:'#60a5fa', action:() => directNavigate('market-dashboard'),
+              desc:'Default home tab after login. Shows live HSI / Tech / S&P indices, top ETF movers (gainers & losers toggle), and a watchlist preview.' },
+            { id:'portfolio', lines:['Portfolio','Builder'],    cx:301, cy:205, w:NW,  h:NHD,
+              bg:'#052e16', bdr:'#16a34a', fg:'#4ade80', action:() => directNavigate('portfolio-direct'),
+              desc:'AI-powered portfolio tool. Guides users through a 3-step workflow: input current holdings → get a risk / quality scorecard → receive ETF rebalancing suggestions.' },
+            { id:'ai',        lines:['AI','Advisory'],          cx:455, cy:205, w:NW,  h:NHD,
+              bg:'#2e1065', bdr:'#9333ea', fg:'#c4b5fd', action:() => directNavigate('ai-direct'),
+              desc:'Conversational AI chatbot for ETF research and portfolio advice. Supports Value Audit, Income Harvest, and free-form report-generation modes.' },
+            { id:'products',  lines:['Structured','Products'],  cx:555, cy:205, w:NW,  h:NHD,
+              bg:'#431407', bdr:'#d97706', fg:'#fcd34d', action:() => { appState.isLoggedIn=true; switchTab('products'); },
+              desc:'Curated structured investment product library. Browse, filter, and model payoff scenarios for capital-protected and enhanced-yield products.' },
+            { id:'profile',   lines:['Profile &','Settings'],   cx:635, cy:205, w:NW,  h:NHD,
+              bg:'#1e293b', bdr:'#475569', fg:'#94a3b8', action:() => { appState.isLoggedIn=true; switchTab('profile'); },
+              desc:'Account settings, language and notification preferences, and admin tools for content management (ETF data, product uploads).' },
+
+            // Level-3: Sub-pages
+            { id:'screener',        lines:['All ETFs'],           cx:43,  cy:318, w:NWS, h:NHS,
+              bg:'#0c1f38', bdr:'#1d4ed8', fg:'#93c5fd', action:() => directNavigate('screener'),
+              desc:'Full ETF screener with live search, category / issuer filters, and a sortable list of all HKEX-listed ETFs. Admins can add new ETFs here.' },
+            { id:'watchlist',       lines:['Watchlist'],          cx:127, cy:318, w:NWS, h:NHS,
+              bg:'#0c1f38', bdr:'#1d4ed8', fg:'#93c5fd', action:() => directNavigate('watchlist'),
+              desc:'Personalised list of starred ETFs. ETFs are added via the bookmark button on any ETF Detail page and appear here for quick price monitoring.' },
+            { id:'p-holdings',      lines:['Input','Holdings'],   cx:219, cy:318, w:NWS, h:NHD,
+              bg:'#042415', bdr:'#166534', fg:'#6ee7b7', action:() => directNavigate('portfolio-direct'),
+              desc:'Step 1 of the portfolio workflow. Upload a PDF / CSV / image, paste raw text, or add holdings manually by selecting ETFs and allocation percentages.' },
+            { id:'p-analysis',      lines:['Portfolio','Analysis'],cx:301, cy:318, w:NWS, h:NHD,
+              bg:'#042415', bdr:'#166534', fg:'#6ee7b7', action:() => { directNavigate('portfolio-direct'); setTimeout(()=>runPortfolioAnalysis(), 350); },
+              desc:'Step 2. AI-generated portfolio scorecard across four dimensions: Risk, Concentration, Quality, and Income. Tap any score tile to see a detailed diagnosis panel.' },
+            { id:'p-suggest',       lines:['AI','Suggestions'],   cx:383, cy:318, w:NWS, h:NHD,
+              bg:'#042415', bdr:'#166534', fg:'#6ee7b7', action:() => { directNavigate('portfolio-direct'); setTimeout(()=>generateRecommendations(), 350); },
+              desc:'Step 3. Personalised ETF rebalancing recommendations with full AI rationale for each suggested change, based on the analysis scorecard.' },
+            { id:'product-detail',  lines:['Product','Detail'],   cx:555, cy:318, w:NWS, h:NHD,
+              bg:'#361005', bdr:'#92400e', fg:'#fbbf24', action:() => { appState.isLoggedIn=true; switchTab('products'); setTimeout(()=>openProductDetail('SP-HSI-001'), 350); },
+              desc:'In-depth product view with three tabs: Overview (key terms & structure), Scenario (payoff modelling tool), and Pricing (live market pricing). Includes side-by-side comparison.' },
+
+            // Product Detail sub-tabs (level 4)
+            { id:'pd-overview', lines:['Overview'],  cx:490, cy:422, w:NWS, h:NHS,
+              bg:'#2a1000', bdr:'#78350f', fg:'#fcd34d',
+              action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); },
+              desc:'Overview tab — tenor progress bar, underlying asset details, payoff terms, AI-extracted scenario payoff summary cards, full term sheet, and risk disclosure.' },
+            { id:'pd-scenario', lines:['Scenario'],  cx:558, cy:422, w:NWS, h:NHS,
+              bg:'#2a1000', bdr:'#78350f', fg:'#fcd34d',
+              action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); switchProductTab('scenario'); },
+              desc:'Scenario tab — Bull / Base / Bear selector with animated SVG payoff chart, per-scenario explanation and probability, and a full scenarios comparison table.' },
+            { id:'pd-pricing',  lines:['Pricing'],   cx:626, cy:422, w:NWS, h:NHS,
+              bg:'#2a1000', bdr:'#78350f', fg:'#fcd34d',
+              action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); switchProductTab('pricing'); },
+              desc:'Pricing tab — indicative price level and implied yield, same-issuer product comparison list, and pricing disclaimer.' },
+
+            // Admin-only sub-page (locked for regular users)
+            { id:'admin-panel', lines:['Admin','Panel'], cx:635, cy:318, w:NW, h:NHD,
+              bg:'#1f0a1a', bdr:'#e11d48', fg:'#fda4af', adminOnly:true,
+              action:() => { appState.isLoggedIn=true; switchTab('products'); setTimeout(()=>openAdminModal(), 350); },
+              desc:'<strong>Admin only.</strong> Upload Structured Product Sheets (PDF → auto-extract fields) and add new ETFs by ticker ID. Accessible from the Products header or Profile page.' },
+
+            // Level-4 / 5
+            { id:'detail',   lines:['ETF Detail'],   cx:85,  cy:422, w:NW, h:NHS,
+              bg:'#172554', bdr:'#1d4ed8', fg:'#bfdbfe', action:() => directNavigate('detail-2800'),
+              desc:'Detailed ETF profile: interactive price chart (1W–1Y), key metrics, top holdings, dividend history, and AI analysis scores with expandable diagnosis panels.' },
+            { id:'compare',  lines:['ETF Compare'],  cx:85,  cy:512, w:NW, h:NHS,
+              bg:'#172554', bdr:'#1d4ed8', fg:'#bfdbfe', action:() => directNavigate('compare'),
+              desc:'Side-by-side comparison of 2–4 ETFs. Covers price performance, yield, expense ratio, and all AI-scored criteria in a single scrollable comparison grid.' },
+        ];
+
+        const EDGES = [
+            // Login shortcut edges — horizontal dashed lines to the side-flanking shortcut nodes
+            { f:'login', t:'login-user',  label:'Simulate User Login',
+              isH:true, isDash:true,
+              desc:'Shortcut: bypass the login form and instantly simulate a regular investor session. Used for prototyping.' },
+            { f:'login', t:'login-admin', label:'Simulate Admin Login',
+              isH:true, isDash:true,
+              desc:'Shortcut: bypass the login form and instantly simulate an admin session with management controls unlocked.' },
+            { f:'app-entry', t:'login',       label:'Launch app',          desc:'User opens the app — the Login screen is the first thing shown to any unauthenticated session.' },
+            { f:'login',     t:'market',       label:'Sign in',             desc:'After successful authentication the app navigates to Market Intelligence as the default home tab.' },
+            { f:'login',     t:'portfolio',    label:'Tap Portfolio tab',   desc:'User taps the Portfolio icon in the bottom tab bar to enter the portfolio builder module.' },
+            { f:'login',     t:'ai',           label:'Tap AI tab',          desc:'User taps the AI Advisory icon to open the chatbot interface and start an advisory session.' },
+            { f:'login',     t:'products',     label:'Tap Products tab',    desc:'User taps the Products icon to browse the structured investment product catalogue.' },
+            { f:'login',     t:'profile',      label:'Tap Profile tab',     desc:'User taps the Profile icon to access account settings, language, and notification preferences.' },
+            { f:'market',    t:'screener',     label:'Tap "All ETFs"',      desc:'User taps the "All ETFs" button in the Market dashboard header to open the full ETF screener.' },
+            { f:'market',    t:'watchlist',    label:'Tap "View all"',      desc:'User taps "View all" in the Watchlist Preview section to see all their starred ETFs.' },
+            { f:'screener',  t:'detail',       label:'Tap ETF row',         desc:'User taps any ETF row in the screener list to open that ETF\'s full detail page.' },
+            { f:'watchlist', t:'detail',       label:'Tap ETF row',         desc:'User taps a starred ETF from their watchlist to quickly review its current performance and metrics.' },
+            { f:'detail',    t:'compare',      label:'Tap Compare',         desc:'User taps Quick Compare on the ETF Detail page, then selects 1–3 more ETFs to compare side-by-side.' },
+            { f:'portfolio', t:'p-holdings',   label:'Enter module',        desc:'The Input Holdings page is always the entry point when navigating into the Portfolio Builder module.' },
+            { f:'p-holdings',t:'p-analysis',   label:'Run Analysis',        isH:true, desc:'After submitting holdings, the user taps "Run Analysis" and the AI scoring engine processes the portfolio.' },
+            { f:'p-analysis',t:'p-suggest',    label:'Get Suggestions',     isH:true, desc:'After reviewing the four-dimension scorecard, the user taps "Get Suggestions" for AI rebalancing advice.' },
+            { f:'products',  t:'product-detail',  label:'Tap product card',   desc:'User taps any product card in the Products list to open its full detail view with scenarios and pricing.' },
+            { f:'product-detail', t:'pd-overview', label:'Overview tab',    desc:'Key terms, tenor progress, underlying details, payoff structure, AI scenario payoff cards, full term sheet and risk disclosure.' },
+            { f:'product-detail', t:'pd-scenario', label:'Scenario tab',    desc:'Interactive Bull / Base / Bear scenario modelling with animated payoff chart and probability breakdown.' },
+            { f:'product-detail', t:'pd-pricing',  label:'Pricing tab',     desc:'Indicative market price, implied yield, same-issuer product comparison, and pricing disclaimer.' },
+            { f:'profile',   t:'admin-panel',   label:'Admin Panel',        desc:'Admin taps "Manage Products" in the Profile page to open the Admin Panel for uploading product sheets and adding ETFs.' },
+        ];
+
+        const nm = {};
+        NODES.forEach(n => nm[n.id] = n);
+
+        function cy2top(n) { return n.cy - n.h/2; }
+        function cy2bot(n) { return n.cy + n.h/2; }
+
+        // -- Draw SVG edges --
+        const svg = document.getElementById('ptree-svg');
+        if (!svg) return;
+        svg.setAttribute('width','710'); svg.setAttribute('height','560');
+
+        let svgHTML = `<defs>
+            <marker id="arr" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+                <path d="M0,0 L0,5 L5,2.5 z" fill="#475569"/>
+            </marker>
+        </defs>`;
+
+        EDGES.forEach((e, idx) => {
+            const fn = nm[e.f], tn = nm[e.t];
+            if (!fn || !tn) return;
+            let pathD;
+            if (e.isH) {
+                // Horizontal shortcut edge: connect Login sides to sibling pills
+                const goLeft = tn.cx < fn.cx;
+                const x1 = goLeft ? fn.cx - fn.w/2 : fn.cx + fn.w/2;
+                const x2 = goLeft ? tn.cx + tn.w/2 : tn.cx - tn.w/2;
+                pathD = `M${x1},${fn.cy} L${x2},${tn.cy}`;
+            } else {
+                const x1=fn.cx, y1=cy2bot(fn), x2=tn.cx, y2=cy2top(tn);
+                const my = y1 + (y2-y1)*0.45;
+                pathD = `M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}`;
+            }
+            const stroke = tn.bdr;
+            const dash = e.isDash ? 'stroke-dasharray="4 3"' : '';
+            svgHTML += `
+            <g class="ptree-edge" data-eidx="${idx}" style="cursor:default">
+                <path d="${pathD}" fill="none" stroke="${stroke}" stroke-width="1.5" opacity="0.6"
+                      ${dash} marker-end="url(#arr)" pointer-events="none"/>
+                <path d="${pathD}" fill="none" stroke="transparent" stroke-width="14"
+                      pointer-events="stroke" data-eidx="${idx}"/>
+            </g>`;
+        });
+        svg.innerHTML = svgHTML;
+        svg.style.pointerEvents = 'all';
+
+        svg.querySelectorAll('path[data-eidx]').forEach(p => {
+            const e = EDGES[+p.getAttribute('data-eidx')];
+            p.addEventListener('mouseenter', ev => showTip(ev, `<strong>${e.label}</strong><br>${e.desc}`));
+            p.addEventListener('mousemove',  moveTip);
+            p.addEventListener('mouseleave', hideTip);
+        });
+
+        // -- Draw HTML nodes --
+        const nc = document.getElementById('ptree-nodes');
+        if (!nc) return;
+        const OPEN_IDS = PTREE_OPEN; // uses the var declared above
+
+        NODES.forEach(n => {
+            const div = document.createElement('div');
+            const left = n.cx - n.w/2, top = n.cy - n.h/2;
+            div.setAttribute('data-ptree-id', n.id);
+            if (n.adminOnly) div.setAttribute('data-admin-only', 'true');
+            div.style.cssText = `position:absolute;left:${left}px;top:${top}px;width:${n.w}px;height:${n.h}px;
+                border-radius:${n.br||8}px;background:${n.bg};border:1.5px solid ${n.bdr};
+                display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px;
+                cursor:${n.action?'pointer':'default'};
+                transition:filter .12s,transform .12s,box-shadow .12s,opacity .25s;
+                box-shadow:0 2px 6px rgba(0,0,0,.4);user-select:none;`;
+            div.innerHTML = n.lines.map(l =>
+                `<span style="color:${n.fg};font-size:9.5px;font-weight:600;line-height:1.25;font-family:Inter,sans-serif;text-align:center;padding:0 4px;">${l}</span>`
+            ).join('');
+
+            // Pulse animation on the login shortcut pills
+            if (n.id === 'login-user')  div.classList.add('ptree-pill-user');
+            if (n.id === 'login-admin') div.classList.add('ptree-pill-admin');
+
+            div.addEventListener('mouseenter', ev => {
+                const locked = !ptreeLoggedIn && !OPEN_IDS.includes(n.id);
+                const adminLocked = n.adminOnly && !ptreeIsAdmin;
+                if (!locked && !adminLocked) {
+                    div.style.filter='brightness(1.35)';
+                    if(n.action){div.style.transform='scale(1.06)';div.style.boxShadow=`0 4px 14px ${n.bdr}55`;}
+                }
+                showTip(ev, locked
+                    ? 'Select <strong>User</strong> or <strong>Admin</strong> first to explore screens.'
+                    : adminLocked
+                        ? 'Select <strong>Admin</strong> to access this screen.'
+                        : n.desc);
+            });
+            div.addEventListener('mousemove', moveTip);
+            div.addEventListener('mouseleave', () => {
+                div.style.filter='';div.style.transform='';
+                div.style.boxShadow = n.id==='login-user'||n.id==='login-admin' ? '' : '0 2px 6px rgba(0,0,0,.4)';
+                hideTip();
+            });
+            if (n.action) {
+                div.addEventListener('click', () => {
+                    if (ptreeDragged) return;
+                    if (!ptreeLoggedIn && !OPEN_IDS.includes(n.id)) return;
+                    if (n.adminOnly && !ptreeIsAdmin) return;
+                    n.action();
+                });
+            }
+            nc.appendChild(div);
+        });
+
+        // Apply initial lock state (all non-open nodes dimmed)
+        ptreeApplyLockState();
+
+        setTimeout(ptreeUpdateScroll, 150);
+
+        // Drag-to-pan
+        initPtreeDrag();
+    })();
+
+    function showTip(ev, html) {
+        const t = document.getElementById('ptree-tip');
+        t.innerHTML = html; t.style.display='block'; moveTip(ev);
+    }
+    function moveTip(ev) {
+        const t = document.getElementById('ptree-tip');
+        if (!t || t.style.display==='none') return;
+        const tw=210, th=t.offsetHeight, ww=window.innerWidth, wh=window.innerHeight;
+        const x = ev.clientX+14, y = ev.clientY-8;
+        t.style.left = (x+tw>ww ? ev.clientX-tw-14 : x)+'px';
+        t.style.top  = (y+th>wh ? ev.clientY-th-8  : y)+'px';
+    }
+    function hideTip() { const t=document.getElementById('ptree-tip'); if(t) t.style.display='none'; }
+
+    function ptreeScrollBy(d) {
+        const c = document.getElementById('ptree-sc');
+        if (c) c.scrollBy({ left: d, behavior: 'smooth' });
+    }
+    // ---- Login gate helpers (ptreeLoggedIn / PTREE_OPEN declared above IIFE) ----
+
+    function ptreeSetLogin(type) {
+        ptreeLoggedIn = true;
+        ptreeIsAdmin = (type === 'admin');
+        document.querySelector('.ptree-pill-user')?.classList.remove('ptree-pill-user');
+        document.querySelector('.ptree-pill-admin')?.classList.remove('ptree-pill-admin');
+        ptreeApplyLockState();
+        const banner = document.getElementById('ptree-login-banner');
+        if (banner) {
+            banner.textContent = type === 'user' ? 'Viewing as: User' : 'Viewing as: Admin';
+            banner.className = type === 'user'
+                ? 'mt-2 text-xs text-center py-1 px-3 rounded-lg font-semibold bg-emerald-900/50 text-emerald-300 border border-emerald-700/50'
+                : 'mt-2 text-xs text-center py-1 px-3 rounded-lg font-semibold bg-purple-900/50 text-purple-300 border border-purple-700/50';
+        }
+        if (type === 'user') triggerLoginSuccess(); else triggerAdminLogin();
+    }
+
+    function ptreeApplyLockState() {
+        document.querySelectorAll('[data-ptree-id]').forEach(div => {
+            const nid = div.getAttribute('data-ptree-id');
+            const locked = !ptreeLoggedIn && !PTREE_OPEN.includes(nid);
+            const adminLocked = div.getAttribute('data-admin-only') === 'true' && !ptreeIsAdmin;
+            div.style.opacity = (locked || adminLocked) ? '0.22' : '1';
+            if (!locked && !adminLocked && (nid !== 'login-user' && nid !== 'login-admin')) {
+                div.style.boxShadow = '0 2px 6px rgba(0,0,0,.4)';
+            }
+        });
+    }
+
+    // ---- Smooth drag-to-pan ----
+    function initPtreeDrag() {
+        const el = document.getElementById('ptree-sc');
+        if (!el) return;
+        let dragging = false, startX = 0, scrollStart = 0;
+        let pendingX = null, rafId = null;
+
+        el.style.cursor = 'grab';
+
+        const applyScroll = () => {
+            if (pendingX === null) return;
+            el.scrollLeft = scrollStart - (pendingX - startX);
+            pendingX = null; rafId = null;
+        };
+
+        el.addEventListener('mousedown', e => {
+            if (e.button !== 0) return;
+            dragging = true;
+            ptreeDragged = false;
+            startX = e.clientX;
+            scrollStart = el.scrollLeft;
+            el.style.cursor = 'grabbing';
+            el.style.scrollBehavior = 'auto';
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', e => {
+            if (!dragging) return;
+            if (Math.abs(e.clientX - startX) > 4) ptreeDragged = true;
+            pendingX = e.clientX;
+            if (!rafId) rafId = requestAnimationFrame(applyScroll);
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (!dragging) return;
+            dragging = false;
+            el.style.cursor = 'grab';
+            el.style.scrollBehavior = 'smooth';
+            pendingX = null;
+            setTimeout(() => { ptreeDragged = false; }, 0);
+        });
+
+        // Touch — allow drag from anywhere including nodes
+        let tStartX = 0, tScrollStart = 0;
+        el.addEventListener('touchstart', e => {
+            tStartX = e.touches[0].clientX;
+            tScrollStart = el.scrollLeft;
+            el.style.scrollBehavior = 'auto';
+        }, { passive: true });
+        el.addEventListener('touchmove', e => {
+            el.scrollLeft = tScrollStart - (e.touches[0].clientX - tStartX);
+        }, { passive: true });
+        el.addEventListener('touchend', () => { el.style.scrollBehavior = 'smooth'; }, { passive: true });
+    }
+
+    function ptreeUpdateScroll() {
+        const c = document.getElementById('ptree-sc');
+        if (!c) return;
+        const max = c.scrollWidth - c.clientWidth;
+        const pct = max > 0 ? c.scrollLeft / max : 0;
+        const prog = document.getElementById('ptree-progress');
+        const btnL = document.getElementById('ptree-btn-l');
+        const btnR = document.getElementById('ptree-btn-r');
+        const fadeL = document.getElementById('ptree-fade-l');
+        const fadeR = document.getElementById('ptree-fade-r');
+        if (prog) prog.style.width = Math.round(pct * 100) + '%';
+        const atStart = c.scrollLeft < 6, atEnd = c.scrollLeft >= max - 6;
+        if (btnL) btnL.style.display = atStart ? 'none' : 'flex';
+        if (btnR) btnR.style.display = atEnd ? 'none' : 'flex';
+        if (fadeL) fadeL.style.opacity = atStart ? '0' : '1';
+        if (fadeR) fadeR.style.opacity = atEnd ? '0' : '1';
     }
 </script>
 </body>
