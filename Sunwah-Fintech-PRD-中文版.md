@@ -315,7 +315,7 @@
 
 ### 5.1 认证与登录
 
-![](screenshots/mermaid/flow-02-login-admin-access.png)
+<img src="screenshots/mermaid/flow-02-login-admin-access.png" width="560">
 
 | 要求 | 细则 | 优先级 |
 | --- | --- | --- |
@@ -410,6 +410,6 @@
 
 ### 5.9 个人设置
 
-| 截图 | 说明 |
-| :---: | --- |
-| ![](screenshots/prototype-pages/29-profile-settings.png) | **Profile & Settings** — 用户身份行（姓名 · 邮箱 · 头像首字母 · 会员标签）；Language 切换（EN / 繁中，即时生效）；Notifications 开关（iOS 原生样式）；Security & 2FA 状态行（Active/Inactive）；Base Currency 偏好；Terms · Privacy · About 法务入口；Sign Out；Admin 登录时底部展示 Admin Tools 快捷入口 |
+<img src="screenshots/prototype-pages/29-profile-settings.png" width="320">
+
+**Profile & Settings** — 用户身份行（姓名 · 邮箱 · 头像首字母 · 会员标签）；Language 切换（EN / 繁中，即时生效）；Notifications 开关（iOS 原生样式）；Security & 2FA 状态行（Active/Inactive）；Base Currency 偏好；Terms · Privacy · About 法务入口；Sign Out；Admin 登录时底部展示 Admin Tools 快捷入口
