@@ -2662,6 +2662,7 @@
         ],
         portfolioAuditState: 'unresolved',
         portfolioActiveTab: 'holdings',
+        portfolioDiagnosisSelections: {},
         builderManuallyOpened: false,
 
         // AI Advisory State parameters
@@ -4561,6 +4562,7 @@
     }
 
     function runPortfolioAnalysis() {
+        appState.portfolioDiagnosisSelections = {};
         unlockPortfolioTab('analysis');
         switchPortfolioTab('analysis');
         document.getElementById('ptab-analysis-loading').classList.remove('hidden');
@@ -4585,7 +4587,7 @@
                     document.getElementById('ptab-analysis-loading').classList.add('hidden');
                     renderAnalysisResults();
                     document.getElementById('ptab-analysis-results').classList.remove('hidden');
-                    unlockPortfolioTab('recommend');
+                    lockPortfolioTab('recommend');
                 }, 300);
                 return;
             }
@@ -4598,6 +4600,47 @@
             setTimeout(tick, 550);
         };
         setTimeout(tick, 200);
+    }
+
+    function getPortfolioDiagnosisIssues(m) {
+        const issues = [];
+        if (m.hhi > 0.25) issues.push({ id:'concentration-high', sev:'High', title:'High concentration risk', detail:`HHI ${m.hhi.toFixed(3)} exceeds the 0.25 threshold. Your top holdings dominate the portfolio — a single adverse event would have an outsized impact.`, scoreType:'concentration' });
+        else if (m.hhi > 0.15) issues.push({ id:'concentration-moderate', sev:'Medium', title:'Moderate concentration', detail:`HHI ${m.hhi.toFixed(3)} is above the ideal 0.15 level. Consider adding 2–3 uncorrelated positions.`, scoreType:'concentration' });
+        if (m.hkRegion > 70) issues.push({ id:'geographic-hk-china', sev:'High', title:'Geographic concentration — HK/China', detail:`${m.hkRegion.toFixed(0)}% exposure to Hong Kong/China amplifies single-market risk and regulatory event risk.`, scoreType:'geographic' });
+        if (m.hkdCurrency > 70) issues.push({ id:'fx-hkd', sev:'Medium', title:'FX concentration — HKD', detail:`${m.hkdCurrency.toFixed(0)}% HKD exposure. Adding USD or multi-currency assets would reduce local monetary risk.`, scoreType:'fx' });
+        if (m.techSector > 35) issues.push({ id:'sector-tech', sev:'Medium', title:'Technology sector overweight', detail:`${m.techSector.toFixed(0)}% tech allocation exceeds the 30% threshold. High-beta exposure amplifies drawdowns in risk-off markets.`, scoreType:'diversification' });
+        if (m.fixedIncomeSector < 15) issues.push({ id:'defensive-low', sev:'Low', title:'Insufficient defensive allocation', detail:`Fixed income / defensive allocation is ${m.fixedIncomeSector.toFixed(0)}%. A 15–25% target would dampen equity volatility and provide portfolio cushioning.`, scoreType:'diversification' });
+        if (m.effectiveN < 3) issues.push({ id:'diversification-low', sev:'High', title:'Insufficient diversification', detail:`Effective N = ${m.effectiveN.toFixed(1)} positions. The portfolio behaves like fewer than 3 equally-weighted ETFs. Target ≥ 5 effective positions.`, scoreType:'diversification' });
+        if (issues.length === 0) issues.push({ id:'balanced', sev:'Low', title:'Portfolio is well-balanced', detail:'No major concentration or exposure issues detected. Consider reviewing annually or after significant market events.', scoreType:null });
+        return issues;
+    }
+
+    function getAgreedDiagnosisIssues() {
+        const selections = appState.portfolioDiagnosisSelections || {};
+        return getPortfolioDiagnosisIssues(recalculatePortfolioState()).filter(iss => selections[iss.id] === 'accept');
+    }
+
+    function setDiagnosisSelection(issueId, selection) {
+        if (!appState.portfolioDiagnosisSelections) appState.portfolioDiagnosisSelections = {};
+        if (appState.portfolioDiagnosisSelections[issueId] === selection) delete appState.portfolioDiagnosisSelections[issueId];
+        else appState.portfolioDiagnosisSelections[issueId] = selection;
+        const resultsEl = document.getElementById('ptab-recommend-results');
+        const idleEl = document.getElementById('ptab-recommend-idle');
+        const loadingEl = document.getElementById('ptab-recommend-loading');
+        if (resultsEl) { resultsEl.innerHTML = ''; resultsEl.classList.add('hidden'); }
+        if (idleEl) idleEl.classList.remove('hidden');
+        if (loadingEl) loadingEl.classList.add('hidden');
+        lockPortfolioTab('recommend');
+        renderAnalysisResults();
+        const section = document.getElementById('portfolio-diagnosis-section');
+        if (section) section.scrollIntoView({ block: 'nearest' });
+    }
+
+    function showDiagnosisSelectionWarning() {
+        const warning = document.getElementById('diagnosis-selection-warning');
+        if (warning) warning.classList.remove('hidden');
+        const section = document.getElementById('portfolio-diagnosis-section');
+        if (section) section.scrollIntoView({ block: 'nearest' });
     }
 
     function renderAnalysisResults() {
@@ -4631,16 +4674,10 @@
             return `<div class="h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="${bg} h-full rounded-full" style="width:${Math.min(100,val)}%"></div></div>`;
         };
 
-        // Diagnosis issues
-        const issues = [];
-        if (m.hhi > 0.25) issues.push({ sev:'High', title:'High concentration risk', detail:`HHI ${m.hhi.toFixed(3)} exceeds the 0.25 threshold. Your top holdings dominate the portfolio — a single adverse event would have an outsized impact.`, scoreType:'concentration' });
-        else if (m.hhi > 0.15) issues.push({ sev:'Medium', title:'Moderate concentration', detail:`HHI ${m.hhi.toFixed(3)} is above the ideal 0.15 level. Consider adding 2–3 uncorrelated positions.`, scoreType:'concentration' });
-        if (m.hkRegion > 70) issues.push({ sev:'High', title:'Geographic concentration — HK/China', detail:`${m.hkRegion.toFixed(0)}% exposure to Hong Kong/China amplifies single-market risk and regulatory event risk.`, scoreType:'geographic' });
-        if (m.hkdCurrency > 70) issues.push({ sev:'Medium', title:'FX concentration — HKD', detail:`${m.hkdCurrency.toFixed(0)}% HKD exposure. Adding USD or multi-currency assets would reduce local monetary risk.`, scoreType:'fx' });
-        if (m.techSector > 35) issues.push({ sev:'Medium', title:'Technology sector overweight', detail:`${m.techSector.toFixed(0)}% tech allocation exceeds the 30% threshold. High-beta exposure amplifies drawdowns in risk-off markets.`, scoreType:'diversification' });
-        if (m.fixedIncomeSector < 15) issues.push({ sev:'Low', title:'Insufficient defensive allocation', detail:`Fixed income / defensive allocation is ${m.fixedIncomeSector.toFixed(0)}%. A 15–25% target would dampen equity volatility and provide portfolio cushioning.`, scoreType:'diversification' });
-        if (m.effectiveN < 3) issues.push({ sev:'High', title:'Insufficient diversification', detail:`Effective N = ${m.effectiveN.toFixed(1)} positions. The portfolio behaves like fewer than 3 equally-weighted ETFs. Target ≥ 5 effective positions.`, scoreType:'diversification' });
-        if (issues.length === 0) issues.push({ sev:'Low', title:'Portfolio is well-balanced', detail:'No major concentration or exposure issues detected. Consider reviewing annually or after significant market events.', scoreType:null });
+        const issues = getPortfolioDiagnosisIssues(m);
+        const agreed = issues.filter(iss => appState.portfolioDiagnosisSelections[iss.id] === 'accept');
+        const skipped = issues.filter(iss => appState.portfolioDiagnosisSelections[iss.id] === 'skip');
+        const unresolved = issues.filter(iss => !appState.portfolioDiagnosisSelections[iss.id]);
 
         const sevTag = (s) => {
             const c = s==='High' ? 'bg-red-50 text-red-700 border-red-100' : s==='Medium' ? 'bg-amber-50 text-amber-700 border-amber-100' : 'bg-gray-100 text-gray-600 border-gray-200';
@@ -4821,20 +4858,61 @@
             </div>
 
             <!-- ── SECTION 4: Diagnosis ───────────────────────────── -->
-            <div class="bg-white rounded-xl border border-gray-200 p-4 space-y-3">
-                <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Diagnosis — 问题诊断</p>
-                ${issues.map(iss => `
-                <div class="border border-gray-100 rounded-lg p-3 space-y-1.5">
-                    <div class="flex items-center gap-2">
-                        ${sevTag(iss.sev)}
-                        <p class="text-xs font-semibold text-gray-800 leading-tight">${iss.title}</p>
+            <div id="portfolio-diagnosis-section" class="bg-white rounded-xl border border-gray-200 p-4 space-y-3">
+                <div class="flex items-start justify-between gap-3">
+                    <div>
+                        <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Diagnosis — 问题诊断</p>
+                        <p class="text-[10px] text-gray-500 leading-relaxed mt-1">Review each diagnosis. Agree with the items you want recommendations to address; skip the ones you don’t accept.</p>
                     </div>
-                    <p class="text-[10px] text-gray-500 leading-relaxed">${iss.detail}</p>
-                </div>`).join('')}
+                    <span class="text-[9px] font-semibold text-gray-600 bg-gray-50 border border-gray-200 px-2 py-1 rounded-full shrink-0">${agreed.length}/${issues.length} agreed</span>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 bg-gray-50 rounded-xl p-2 border border-gray-100">
+                    <div class="text-center">
+                        <p class="text-sm font-bold text-gray-800">${issues.length}</p>
+                        <p class="text-[8px] text-gray-400 uppercase tracking-wide">Found</p>
+                    </div>
+                    <div class="text-center border-x border-gray-200">
+                        <p class="text-sm font-bold text-gray-800">${agreed.length}</p>
+                        <p class="text-[8px] text-gray-400 uppercase tracking-wide">Agreed</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm font-bold text-gray-800">${skipped.length}</p>
+                        <p class="text-[8px] text-gray-400 uppercase tracking-wide">Skipped</p>
+                    </div>
+                </div>
+
+                <div id="diagnosis-selection-warning" class="${agreed.length ? 'hidden' : ''} ${unresolved.length === issues.length ? 'hidden' : ''} bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-[10px] text-gray-500 leading-relaxed">
+                    Agree with at least one diagnosis to generate recommendations.
+                </div>
+
+                ${issues.map(iss => {
+                    const selected = appState.portfolioDiagnosisSelections[iss.id];
+                    const skipSelected = selected === 'skip';
+                    const agreeSelected = selected === 'accept';
+                    return `
+                <div class="border ${agreeSelected ? 'border-gray-400 bg-gray-50' : skipSelected ? 'border-gray-200 bg-gray-50/60' : 'border-gray-100 bg-white'} rounded-xl p-3 space-y-2 transition">
+                    <div class="flex items-start gap-2">
+                        ${sevTag(iss.sev)}
+                        <div class="flex-1 min-w-0">
+                            <p class="text-xs font-semibold text-gray-800 leading-tight">${iss.title}</p>
+                            <p class="text-[10px] text-gray-500 leading-relaxed mt-1">${iss.detail}</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 pt-1">
+                        <button onclick="setDiagnosisSelection('${iss.id}', 'accept')" class="py-2 rounded-lg border text-[10px] font-semibold transition ${agreeSelected ? 'bg-gray-800 border-gray-800 text-white shadow-sm' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-400'}">
+                            ${agreeSelected ? 'Agreed' : 'Agree'}
+                        </button>
+                        <button onclick="setDiagnosisSelection('${iss.id}', 'skip')" class="py-2 rounded-lg border text-[10px] font-semibold transition ${skipSelected ? 'bg-white border-gray-500 text-gray-800 shadow-sm' : 'bg-white border-gray-200 text-gray-500 hover:border-gray-400'}">
+                            ${skipSelected ? 'Skipped' : 'Skip'}
+                        </button>
+                    </div>
+                </div>`;
+                }).join('')}
             </div>
 
-            <button onclick="generateRecommendations()" class="w-full bg-navyBlue hover:bg-slate-900 text-white font-semibold py-3 rounded-xl text-xs transition">
-                Generate Recommendations →
+            <button onclick="${agreed.length ? 'generateRecommendations()' : 'showDiagnosisSelectionWarning()'}" class="w-full ${agreed.length ? 'bg-navyBlue hover:bg-slate-900 text-white shadow-sm' : 'bg-gray-200 text-gray-500'} font-semibold py-3 rounded-xl text-xs transition">
+                Generate Recommendations from ${agreed.length} Agreed →
             </button>
         `;
         // Attach click highlight to score cards — only when sheet opens
@@ -4864,15 +4942,7 @@
         const spVal = spList.reduce((s, sp) => s + (sp.currency === 'USD' ? sp.value * 7.8 : sp.value), 0);
         const totalVal = m.totalValHKD + spVal;
 
-        // All possible diagnosis items (recomputed so we have fresh data)
-        const issues = [];
-        if (m.hhi > 0.25) issues.push({ sev:'High', title:'High concentration risk', detail:`HHI ${m.hhi.toFixed(3)} exceeds the 0.25 threshold. Your top holdings dominate the portfolio — a single adverse event would have an outsized impact.`, scoreType:'concentration' });
-        else if (m.hhi > 0.15) issues.push({ sev:'Medium', title:'Moderate concentration', detail:`HHI ${m.hhi.toFixed(3)} is above the ideal 0.15 level. Consider adding 2–3 uncorrelated positions.`, scoreType:'concentration' });
-        if (m.hkRegion > 70) issues.push({ sev:'High', title:'Geographic concentration — HK/China', detail:`${m.hkRegion.toFixed(0)}% exposure to Hong Kong/China amplifies single-market risk and regulatory event risk.`, scoreType:'geographic' });
-        if (m.hkdCurrency > 70) issues.push({ sev:'Medium', title:'FX concentration — HKD', detail:`${m.hkdCurrency.toFixed(0)}% HKD exposure. Adding USD or multi-currency assets would reduce local monetary risk.`, scoreType:'fx' });
-        if (m.techSector > 35) issues.push({ sev:'Medium', title:'Technology sector overweight', detail:`${m.techSector.toFixed(0)}% tech allocation exceeds the 30% threshold. High-beta exposure amplifies drawdowns in risk-off markets.`, scoreType:'diversification' });
-        if (m.fixedIncomeSector < 15) issues.push({ sev:'Low', title:'Insufficient defensive allocation', detail:`Fixed income / defensive allocation is ${m.fixedIncomeSector.toFixed(0)}%. A 15–25% target would dampen equity volatility and provide portfolio cushioning.`, scoreType:'diversification' });
-        if (m.effectiveN < 3) issues.push({ sev:'High', title:'Insufficient diversification', detail:`Effective N = ${m.effectiveN.toFixed(1)} positions. The portfolio behaves like fewer than 3 equally-weighted ETFs. Target ≥ 5 effective positions.`, scoreType:'diversification' });
+        const issues = getPortfolioDiagnosisIssues(m).filter(iss => iss.id !== 'balanced');
 
         const sevTag = (s) => {
             const c = s==='High' ? 'bg-red-50 text-red-700 border-red-100' : s==='Medium' ? 'bg-amber-50 text-amber-700 border-amber-100' : 'bg-gray-100 text-gray-600 border-gray-200';
@@ -5120,6 +5190,15 @@
     }
 
     function generateRecommendations() {
+        if (getAgreedDiagnosisIssues().length === 0) {
+            unlockPortfolioTab('analysis');
+            switchPortfolioTab('analysis');
+            if (document.getElementById('ptab-analysis-results').children.length === 0) renderAnalysisResults();
+            document.getElementById('ptab-analysis-loading').classList.add('hidden');
+            document.getElementById('ptab-analysis-results').classList.remove('hidden');
+            showDiagnosisSelectionWarning();
+            return;
+        }
         unlockPortfolioTab('recommend');
         switchPortfolioTab('recommend');
         document.getElementById('ptab-recommend-idle').classList.add('hidden');
@@ -5142,8 +5221,47 @@
         const totVal = m.totalValHKD + spVal2;
         const totValStr = totVal >= 1e6 ? 'HKD ' + (totVal/1e6).toFixed(2) + 'M' : 'HKD ' + totVal.toLocaleString('en-US',{maximumFractionDigits:0});
         const curHealth = Math.max(30,Math.min(100,Math.round(100-(m.hhi*50)-(m.effectiveN<2?15:0))));
+        const agreedIssues = getAgreedDiagnosisIssues();
+        const agreedIssueIds = agreedIssues.map(iss => iss.id);
+        const projectionRows = [
+            `<tr class="bg-gray-50/40"><td class="px-3 py-2 text-gray-500">Total Value</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${totValStr}</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">${totValStr}</td><td class="px-3 py-2 text-center text-gray-400">—</td></tr>`,
+            `<tr><td class="px-3 py-2 text-gray-500">Agreed Risk Score</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${curHealth}/100</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">~82/100</td><td class="px-3 py-2 text-center font-semibold text-emerald-600">+${Math.max(0,82-curHealth)}</td></tr>`
+        ];
+        if (agreedIssueIds.some(id => ['concentration-high','concentration-moderate','diversification-low'].includes(id))) {
+            projectionRows.push(`<tr><td class="px-3 py-2 text-gray-500">HHI Score</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${m.hhi.toFixed(3)}</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">~0.140</td><td class="px-3 py-2 text-center font-semibold text-emerald-600">↓${Math.max(0,(m.hhi-0.14)).toFixed(3)}</td></tr>`);
+            projectionRows.push(`<tr><td class="px-3 py-2 text-gray-500">Effective N</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${m.effectiveN.toFixed(1)}</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">~7.1</td><td class="px-3 py-2 text-center font-semibold text-emerald-600">+${Math.max(0,(7.1-m.effectiveN)).toFixed(1)}</td></tr>`);
+        }
+        if (agreedIssueIds.includes('sector-tech')) projectionRows.push(`<tr><td class="px-3 py-2 text-gray-500">Tech sector</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${m.techSector.toFixed(0)}%</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">~22%</td><td class="px-3 py-2 text-center font-semibold ${m.techSector>22?'text-emerald-600':'text-gray-400'}">${m.techSector>22?'↓'+Math.abs(m.techSector-22).toFixed(0)+'pp':'—'}</td></tr>`);
+        if (agreedIssueIds.includes('defensive-low')) projectionRows.push(`<tr><td class="px-3 py-2 text-gray-500">Fixed income</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${m.fixedIncomeSector.toFixed(0)}%</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">~28%</td><td class="px-3 py-2 text-center font-semibold ${m.fixedIncomeSector<28?'text-emerald-600':'text-gray-400'}">${m.fixedIncomeSector<28?'↑'+Math.abs(28-m.fixedIncomeSector).toFixed(0)+'pp':'—'}</td></tr>`);
+        if (agreedIssueIds.includes('fx-hkd')) projectionRows.push(`<tr><td class="px-3 py-2 text-gray-500">USD exposure</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${(100-m.hkdCurrency).toFixed(0)}%</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">~35%</td><td class="px-3 py-2 text-center font-semibold text-emerald-600">↑${Math.max(0,(35-(100-m.hkdCurrency))).toFixed(0)}pp</td></tr>`);
+        if (agreedIssueIds.includes('geographic-hk-china')) projectionRows.push(`<tr><td class="px-3 py-2 text-gray-500">HK/China exposure</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${m.hkRegion.toFixed(0)}%</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">~58%</td><td class="px-3 py-2 text-center font-semibold text-emerald-600">↓${Math.max(0,(m.hkRegion-58)).toFixed(0)}pp</td></tr>`);
+        const recommendationActions = [
+            { action:'Increase', verb:'Add', symbol:'3001.HK', name:'iShares US Treasury Bond ETF', target:'25–30%', conf:94, issueIds:['defensive-low','diversification-low','concentration-high','concentration-moderate'], scoreTypes:['diversification','concentration'], rationale:'Your agreed diagnosis includes low defensive exposure or portfolio concentration. US Treasury bonds (3001.HK) carry negative correlation with HK equities, providing a cushion during HKEX drawdowns. A 25–30% allocation reduces portfolio volatility by an estimated 18% and lifts the Sharpe ratio from 0.92 to ~1.38.', impact:'HHI −0.12 · Volatility −18%' },
+            { action:'Reduce', verb:'Trim', symbol:'3067.HK', name:'iShares Hang Seng Tech ETF', target:'15–20%', conf:88, issueIds:['sector-tech'], scoreTypes:['diversification'], rationale:'You agreed with the technology sector overweight diagnosis. Tech ETFs currently represent ' + m.techSector.toFixed(0) + '% of your portfolio, which amplifies drawdown risk during sector rotations. Trimming to 15–20% reduces single-sector beta exposure and frees capital for defensive diversification without eliminating growth exposure.', impact:'Tech bias −' + Math.max(0,(m.techSector-20)).toFixed(0) + 'pp · Drawdown buffer +12%' },
+            { action:'Add', verb:'Add', symbol:'2840.HK', name:'SPDR Gold Trust ETF', target:'10–15%', conf:81, issueIds:['concentration-high','concentration-moderate','diversification-low','geographic-hk-china'], scoreTypes:['concentration','diversification','geographic'], rationale:'Your agreed diagnosis points to concentration or regional stress risk. Gold provides inflation hedging and can act as a safe-haven during regional geopolitical events, adding an uncorrelated return stream that typically helps during equity market sell-offs.', impact:'Inflation hedge +10pp · Correlation −0.18' },
+            { action:'Add', verb:'Consider', symbol:'3101.HK', name:'Vanguard FTSE Asia Pacific ETF', target:'8–10%', conf:76, issueIds:['geographic-hk-china','fx-hkd'], scoreTypes:['geographic','fx'], rationale:'You agreed with the geographic or HKD concentration diagnosis. Broader Asia-Pacific exposure through 3101.HK reduces reliance on Hong Kong / China while maintaining regional familiarity and introducing additional currency and market drivers.', impact:'Geographic HHI −0.08 · Region diversification +2' }
+        ];
+        const visibleRecommendations = recommendationActions.filter(r => r.issueIds.some(id => agreedIssueIds.includes(id)));
 
         container.innerHTML = `
+            <!-- Agreed diagnosis context -->
+            <div class="bg-white rounded-xl border border-gray-200 p-4 space-y-3">
+                <div class="flex items-center justify-between">
+                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Agreed diagnosis scope</p>
+                    <span class="text-[9px] font-semibold bg-gray-50 border border-gray-200 text-gray-600 px-2 py-1 rounded-full">${agreedIssues.length} agreed</span>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed">Recommendations are based only on the diagnosis items you agreed with.</p>
+                <div class="space-y-2">
+                    ${agreedIssues.map(iss => `<div class="bg-gray-50 border border-gray-100 rounded-lg p-2.5">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-[8px] font-semibold bg-white border border-gray-200 text-gray-500 px-1.5 py-0.5 rounded">${iss.sev}</span>
+                            <p class="text-[10px] font-semibold text-gray-800 leading-tight">${iss.title}</p>
+                        </div>
+                        <p class="text-[9px] text-gray-500 leading-relaxed">${iss.detail}</p>
+                    </div>`).join('')}
+                </div>
+            </div>
+
             <!-- Before / After -->
             <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
                 <div class="px-4 py-3 border-b border-gray-100 flex justify-between items-center">
@@ -5158,15 +5276,7 @@
                         <th class="px-3 py-2 text-center">Δ</th>
                     </tr></thead>
                     <tbody class="divide-y divide-gray-50 text-[11px]">
-                        <tr class="bg-gray-50/40"><td class="px-3 py-2 text-gray-500">Total Value</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${totValStr}</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">${totValStr}</td><td class="px-3 py-2 text-center text-gray-400">—</td></tr>
-                        <tr><td class="px-3 py-2 text-gray-500">Health Score</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${curHealth}/100</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">~82/100</td><td class="px-3 py-2 text-center font-semibold text-emerald-600">+${Math.max(0,82-curHealth)}</td></tr>
-                        <tr><td class="px-3 py-2 text-gray-500">HHI Score</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${m.hhi.toFixed(3)}</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">~0.140</td><td class="px-3 py-2 text-center font-semibold text-emerald-600">↓${Math.max(0,(m.hhi-0.14)).toFixed(3)}</td></tr>
-                        <tr><td class="px-3 py-2 text-gray-500">Effective N</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${m.effectiveN.toFixed(1)}</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">~7.1</td><td class="px-3 py-2 text-center font-semibold text-emerald-600">+${Math.max(0,(7.1-m.effectiveN)).toFixed(1)}</td></tr>
-                        <tr class="bg-gray-50/40"><td class="px-3 py-2 text-gray-500" colspan="4" class="text-[8px] text-gray-400 uppercase font-medium tracking-wider pt-1">Exposure shifts</td></tr>
-                        <tr><td class="px-3 py-2 text-gray-500">Tech sector</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${m.techSector.toFixed(0)}%</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">~22%</td><td class="px-3 py-2 text-center font-semibold ${m.techSector>22?'text-emerald-600':'text-gray-400'}">${m.techSector>22?'↓'+Math.abs(m.techSector-22).toFixed(0)+'pp':'—'}</td></tr>
-                        <tr><td class="px-3 py-2 text-gray-500">Fixed income</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${m.fixedIncomeSector.toFixed(0)}%</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">~28%</td><td class="px-3 py-2 text-center font-semibold ${m.fixedIncomeSector<28?'text-emerald-600':'text-gray-400'}">${m.fixedIncomeSector<28?'↑'+Math.abs(28-m.fixedIncomeSector).toFixed(0)+'pp':'—'}</td></tr>
-                        <tr><td class="px-3 py-2 text-gray-500">USD exposure</td><td class="px-3 py-2 text-center text-gray-700 font-medium">${(100-m.hkdCurrency).toFixed(0)}%</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">~35%</td><td class="px-3 py-2 text-center font-semibold text-emerald-600">↑${Math.max(0,(35-(100-m.hkdCurrency))).toFixed(0)}pp</td></tr>
-                        <tr><td class="px-3 py-2 text-gray-500">Est. Sharpe</td><td class="px-3 py-2 text-center text-gray-700 font-medium">~0.92</td><td class="px-3 py-2 text-center font-semibold text-navyBlue">~1.38</td><td class="px-3 py-2 text-center font-semibold text-emerald-600">+0.46</td></tr>
+                        ${projectionRows.join('')}
                     </tbody>
                 </table>
             </div>
@@ -5175,12 +5285,7 @@
             <div class="space-y-3">
                 <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Specific actions</p>
 
-                ${[
-                    { action:'Increase', verb:'Add', symbol:'3001.HK', name:'iShares US Treasury Bond ETF', target:'25–30%', conf:94, rationale:'Your fixed-income allocation is critically low at ' + m.fixedIncomeSector.toFixed(0) + '%. US Treasury bonds (3001.HK) carry negative correlation with HK equities, providing a cushion during HKEX drawdowns. A 25–30% allocation reduces portfolio volatility by an estimated 18% and lifts the Sharpe ratio from 0.92 to ~1.38.', impact:'HHI −0.12 · Volatility −18%' },
-                    { action:'Reduce', verb:'Trim', symbol:'3067.HK', name:'iShares Hang Seng Tech ETF', target:'15–20%', conf:88, rationale:'Tech ETFs currently represent ' + m.techSector.toFixed(0) + '% of your portfolio. This amplifies drawdown risk during sector rotations. Trimming to 15–20% reduces single-sector beta exposure and frees capital for defensive diversification without sacrificing growth exposure entirely.', impact:'Tech bias −' + Math.max(0,(m.techSector-20)).toFixed(0) + 'pp · Drawdown buffer +12%' },
-                    { action:'Add', verb:'Add', symbol:'2840.HK', name:'SPDR Gold Trust ETF', target:'10–15%', conf:81, rationale:'Gold provides inflation hedging and acts as a safe-haven during regional geopolitical stress — a material risk factor for HK-listed portfolios. A 10–15% allocation to 2840.HK introduces an uncorrelated return stream that typically gains during equity market sell-offs, improving overall portfolio resilience.', impact:'Inflation hedge +10pp · Correlation −0.18' },
-                    { action:'Add', verb:'Consider', symbol:'3101.HK', name:'Vanguard FTSE Asia Pacific ETF', target:'8–10%', conf:76, rationale:'Broader Asia-Pacific exposure through 3101.HK reduces your geographic concentration from ' + m.hkRegion.toFixed(0) + '% HK-only to a more balanced regional allocation. This captures growth in Japan, Australia, and ASEAN markets, reducing single-market risk while maintaining regional familiarity.', impact:'Geographic HHI −0.08 · Region diversification +2' }
-                ].map(r => `
+                ${visibleRecommendations.map(r => `
                 <div class="bg-white rounded-xl border border-gray-150 p-3.5 space-y-2">
                     <div class="flex justify-between items-start">
                         <div class="flex items-center gap-2">
