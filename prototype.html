@@ -360,15 +360,30 @@
 
                             <!-- ===== Sector Themes ===== -->
                             <div class="px-4">
-                                <div class="flex justify-between items-center mb-3">
-                                    <h3 class="text-[10px] font-extrabold uppercase tracking-wider text-gray-400">Sector Themes</h3>
+                                <div class="flex justify-between items-center mb-2">
+                                    <h3 class="text-[13px] font-extrabold text-gray-900 tracking-tight">Sectors</h3>
+                                    <span class="text-[9px] font-semibold text-gray-400">ETF basket move</span>
                                 </div>
-                                <div id="trending-themes-strip" class="grid grid-cols-2 gap-2"></div>
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="flex items-center justify-between mb-1.5">
+                                            <p class="text-[10px] font-bold uppercase tracking-wide text-gray-400">Default</p>
+                                        </div>
+                                        <div id="trending-themes-strip" class="flex gap-2 overflow-x-auto no-scrollbar pr-4 snap-x snap-mandatory"></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center justify-between mb-1.5">
+                                            <p class="text-[10px] font-bold uppercase tracking-wide text-gray-400">Daily Hot</p>
+                                            <span class="text-[9px] font-semibold text-gray-400">Today</span>
+                                        </div>
+                                        <div id="daily-hot-sector-strip" class="flex gap-2 overflow-x-auto no-scrollbar pr-4 snap-x snap-mandatory"></div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- ===== Market Index Summary (moved here) ===== -->
                             <div class="px-4">
-                                <h3 class="text-[10px] font-extrabold uppercase tracking-wider text-gray-400 mb-2">Market Indices</h3>
+                                <h3 class="text-[13px] font-extrabold text-gray-900 tracking-tight mb-2">Market Indices</h3>
                                 <div class="grid grid-cols-3 gap-2">
                                     <div class="bg-white p-2.5 rounded-lg border border-gray-100 shadow-xs flex flex-col justify-between">
                                         <span class="text-[9px] font-bold text-gray-400">Hang Seng</span>
@@ -3266,14 +3281,25 @@
     // ───────────────────────────────────────────────
 
     const SECTOR_GROUPS = [
-        { id: 'ai_tech',      name: 'AI & Technology',    subtitle: 'AI · Semiconductors · Internet',    etfs: ['3067.HK', '3199.HK', '3088.HK'] },
-        { id: 'banking',      name: 'Banking & Finance',  subtitle: 'Banks · Insurance · Brokers',        etfs: ['2800.HK', '2828.HK'] },
-        { id: 'china_a',      name: 'China A-Share',      subtitle: 'CSI 300 · A-Share Blue Chips',       etfs: ['3188.HK'] },
-        { id: 'real_estate',  name: 'Real Estate',        subtitle: 'HK Property · REITs · Developers',  etfs: ['2800.HK'] },
-        { id: 'energy',       name: 'Energy & Oil',       subtitle: 'Oil · Gas · Commodities',            etfs: ['2840.HK'] },
-        { id: 'fixed_income', name: 'Fixed Income',       subtitle: 'US Treasuries · IG Credit',         etfs: ['3001.HK'] },
-        { id: 'auto',         name: 'Automotive & EV',    subtitle: 'Electric Vehicles · Auto',           etfs: ['3067.HK', '3188.HK'] },
-        { id: 'global',       name: 'Global Markets',     subtitle: 'Asia Pacific · MSCI',                etfs: ['3101.HK', '3115.HK', '2801.HK'] },
+        { id: 'ai_tech',      name: 'AI & Technology',    shortName: 'AI Tech',  subtitle: 'AI · Semiconductors · Internet',   etfs: ['3067.HK', '3199.HK', '3088.HK'] },
+        { id: 'banking',      name: 'Banking & Finance',  shortName: 'Finance',  subtitle: 'Banks · Insurance · Brokers',       etfs: ['2800.HK', '2828.HK'] },
+        { id: 'china_a',      name: 'China A-Share',      shortName: 'China A',  subtitle: 'CSI 300 · A-Share Blue Chips',      etfs: ['3188.HK'] },
+        { id: 'real_estate',  name: 'Real Estate',        shortName: 'Property', subtitle: 'HK Property · REITs · Developers', etfs: ['2800.HK'] },
+        { id: 'energy',       name: 'Energy & Oil',       shortName: 'Energy',   subtitle: 'Oil · Gas · Commodities',           etfs: ['2840.HK'] },
+        { id: 'fixed_income', name: 'Fixed Income',       shortName: 'Bonds',    subtitle: 'US Treasuries · IG Credit',        etfs: ['3001.HK'] },
+        { id: 'auto',         name: 'Automotive & EV',    shortName: 'EV Auto',  subtitle: 'Electric Vehicles · Auto',          etfs: ['3067.HK', '3188.HK'] },
+        { id: 'global',       name: 'Global Markets',     shortName: 'Global',   subtitle: 'Asia Pacific · MSCI',               etfs: ['3101.HK', '3115.HK', '2801.HK'] },
+    ];
+
+    const DAILY_HOT_SECTORS = [
+        { id: 'semis',         name: 'Semiconductors',    shortName: 'Chips',    subtitle: 'Foundry · Equipment',       etfs: ['3067.HK', '3199.HK', '3088.HK'], sectorId: 'ai_tech' },
+        { id: 'internet',      name: 'Internet Platforms', shortName: 'Internet', subtitle: 'Platforms · E-commerce',    etfs: ['3067.HK', '3199.HK'], sectorId: 'ai_tech' },
+        { id: 'brokers',       name: 'Brokers',           shortName: 'Brokers',  subtitle: 'Securities · Exchanges',   etfs: ['2800.HK', '2828.HK'], sectorId: 'banking' },
+        { id: 'gold_miners',   name: 'Gold Miners',       shortName: 'Gold',     subtitle: 'Gold · Precious metals',   etfs: ['2840.HK'], sectorId: 'energy' },
+        { id: 'utilities',     name: 'Utilities',         shortName: 'Utility',  subtitle: 'Power · Defensive yield',   etfs: ['3001.HK'], sectorId: 'fixed_income' },
+        { id: 'healthcare',    name: 'Healthcare',        shortName: 'Health',   subtitle: 'Biotech · Pharma',         etfs: ['3101.HK', '3115.HK', '2801.HK'], sectorId: 'global' },
+        { id: 'property_reit', name: 'REIT Leaders',      shortName: 'REITs',    subtitle: 'Income · Property trusts', etfs: ['2800.HK'], sectorId: 'real_estate' },
+        { id: 'ev_supply',     name: 'EV Supply Chain',   shortName: 'EV Chain', subtitle: 'Battery · Components',      etfs: ['3067.HK', '3188.HK'], sectorId: 'auto' },
     ];
 
     const SECTOR_PLACEHOLDER_ETFS = {
@@ -3377,31 +3403,160 @@
         );
     }
 
-    function renderTrendingThemes() {
-        const grid = document.getElementById('trending-themes-strip');
+    function getSectorETFs(sg) {
+        return [...new Set(sg.etfs || [])].map(sym => etfDatabase[sym]).filter(Boolean);
+    }
+
+    function formatSectorPct(value) {
+        const sign = value >= 0 ? '+' : '';
+        return `${sign}${value.toFixed(2)}%`;
+    }
+
+    function averagePoints(rows) {
+        if (!rows.length) return [];
+        const length = Math.max(...rows.map(row => row.length));
+        return Array.from({ length }, (_, index) => {
+            const values = rows.map(row => row[index]).filter(value => Number.isFinite(value));
+            return values.reduce((sum, value) => sum + value, 0) / values.length;
+        });
+    }
+
+    function normalizeChartData(data) {
+        if (!data || data.length === 0) return [];
+        const first = data[0] || 1;
+        return data.map(value => (value / first) * 100);
+    }
+
+    function getSectorMovement(sg) {
+        const etfs = getSectorETFs(sg);
+        const changes = etfs.map(etf => parsePct(etf.changePct));
+        const avgChange = changes.length ? changes.reduce((sum, value) => sum + value, 0) / changes.length : 0;
+        const chartRows = etfs.map(etf => normalizeChartData(etf.chartData1M)).filter(row => row.length);
+        const sparkline = averagePoints(chartRows);
+        return {
+            changePct: formatSectorPct(avgChange),
+            sparkline: sparkline.length ? sparkline : [50, 50, 50, 50, 50, 50, 50, 50],
+            etfCount: etfs.length
+        };
+    }
+
+    function buildSectorSparkline(points, isUp, id) {
+        const width = 96;
+        const height = 34;
+        const min = Math.min(...points);
+        const max = Math.max(...points);
+        const range = max - min || 1;
+        const step = width / (points.length - 1 || 1);
+        const coords = points.map((point, index) => {
+            const x = index * step;
+            const y = height - ((point - min) / range * (height - 6)) - 3;
+            return `${x.toFixed(1)},${y.toFixed(1)}`;
+        });
+        const line = coords.join(' ');
+        const area = `0,${height} ${line} ${width},${height}`;
+        const stroke = isUp ? '#0F8F7E' : '#C92A3D';
+        const fillId = `sectorSpark-${id}`;
+        const lastPoint = coords[coords.length - 1].split(',');
+        return `
+            <svg class="w-full h-[34px] mt-1.5 overflow-visible" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                    <linearGradient id="${fillId}" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="${stroke}" stop-opacity="0.22" />
+                        <stop offset="100%" stop-color="${stroke}" stop-opacity="0" />
+                    </linearGradient>
+                </defs>
+                <polygon points="${area}" fill="url(#${fillId})"></polygon>
+                <polyline points="${line}" fill="none" stroke="${stroke}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polyline>
+                <circle cx="${lastPoint[0]}" cy="${lastPoint[1]}" r="3.5" fill="${stroke}"></circle>
+            </svg>
+        `;
+    }
+
+    function buildSectorTile(sg, { hot = false } = {}) {
+        const movement = getSectorMovement(sg);
+        const change = parsePct(movement.changePct);
+        const isUp = change >= 0;
+        const tone = isUp ? 'text-[#0F8F7E]' : 'text-[#C92A3D]';
+        const chipTone = isUp ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700';
+        const targetSectorId = sg.sectorId || sg.id;
+        const tile = document.createElement('div');
+        tile.className = 'bg-white border border-gray-100 rounded-xl cursor-pointer active:bg-gray-50 transition-all select-none overflow-hidden shrink-0 snap-start shadow-xs';
+        tile.style.cssText = 'padding: 9px 9px 7px; width: 112px; touch-action: pan-x;';
+        tile.dataset.sectorId = targetSectorId;
+        tile.setAttribute('role', 'button');
+        tile.setAttribute('tabindex', '0');
+        tile.setAttribute('aria-label', `${sg.name}, ETF basket ${movement.changePct} today`);
+        tile.onkeydown = (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openSectorPage(targetSectorId);
+            }
+        };
+
+        tile.innerHTML = `
+            <div class="flex items-start justify-between gap-1 min-w-0">
+                <div class="min-w-0">
+                    <div class="text-[11px] font-extrabold text-gray-900 leading-tight truncate">${sg.shortName || sg.name}</div>
+                </div>
+                ${hot ? `<span class="text-[7px] font-extrabold px-1.5 py-0.5 rounded-full ${chipTone} shrink-0">HOT</span>` : ''}
+            </div>
+            <div class="${tone} text-[14px] font-extrabold mt-2 tabular-nums whitespace-nowrap">${movement.changePct}</div>
+            <div class="text-[8px] text-gray-400 font-bold uppercase tracking-wide mt-0.5 whitespace-nowrap">ETF basket today</div>
+            ${buildSectorSparkline(movement.sparkline, isUp, sg.id)}
+        `;
+        return tile;
+    }
+
+    function enableDragScroll(row) {
+        if (row.dataset.dragScrollReady === 'true') return;
+        row.dataset.dragScrollReady = 'true';
+        let isDown = false;
+        let startX = 0;
+        let scrollLeft = 0;
+        let moved = false;
+        let pressedTile = null;
+
+        row.addEventListener('pointerdown', (event) => {
+            isDown = true;
+            moved = false;
+            pressedTile = event.target.closest('[data-sector-id]');
+            startX = event.clientX;
+            scrollLeft = row.scrollLeft;
+            row.setPointerCapture(event.pointerId);
+        });
+        row.addEventListener('pointermove', (event) => {
+            if (!isDown) return;
+            const delta = event.clientX - startX;
+            if (Math.abs(delta) > 4) {
+                moved = true;
+                row.dataset.dragging = 'true';
+                row.scrollLeft = scrollLeft - delta;
+            }
+        });
+        const endDrag = (event, openOnTap) => {
+            if (!isDown) return;
+            isDown = false;
+            if (row.hasPointerCapture(event.pointerId)) row.releasePointerCapture(event.pointerId);
+            if (!moved && openOnTap && pressedTile) openSectorPage(pressedTile.dataset.sectorId);
+            if (moved) setTimeout(() => { row.dataset.dragging = 'false'; }, 0);
+            pressedTile = null;
+        };
+        row.addEventListener('pointerup', (event) => endDrag(event, true));
+        row.addEventListener('pointercancel', (event) => endDrag(event, false));
+        row.addEventListener('pointerleave', (event) => endDrag(event, false));
+    }
+
+    function renderSectorTiles(items, targetId, options = {}) {
+        const grid = document.getElementById(targetId);
         if (!grid) return;
         grid.innerHTML = '';
+        items.forEach(item => grid.appendChild(buildSectorTile(item, options)));
+        enableDragScroll(grid);
+    }
 
-        SECTOR_GROUPS.forEach(sg => {
-            const uniqueSyms = [...new Set(sg.etfs)];
-            const etfs = uniqueSyms.map(sym => etfDatabase[sym]).filter(Boolean);
-            const etfCount = etfs.length;
-
-            const tile = document.createElement('div');
-            tile.className = 'bg-white border border-gray-100 rounded-xl cursor-pointer active:bg-gray-50 transition-all select-none';
-            tile.style.cssText = 'padding: 11px 12px 10px;';
-            tile.onclick = () => openSectorPage(sg.id);
-
-            tile.innerHTML = `
-                <div class="font-bold text-gray-900 leading-snug mb-0.5" style="font-size:12.5px">${sg.name}</div>
-                <div class="text-[10px] text-gray-400 leading-tight mb-2.5">${sg.subtitle}</div>
-                <div class="flex items-center justify-between">
-                    <span class="text-[10px] text-gray-400 font-medium">${etfCount} ETF${etfCount !== 1 ? 's' : ''}</span>
-                    <svg class="w-3.5 h-3.5 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </div>
-            `;
-            grid.appendChild(tile);
-        });
+    function renderTrendingThemes() {
+        renderSectorTiles(SECTOR_GROUPS, 'trending-themes-strip');
+        renderSectorTiles(DAILY_HOT_SECTORS, 'daily-hot-sector-strip', { hot: true });
     }
 
     // ── Sector full page ──────────────────────────
