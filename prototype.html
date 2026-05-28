@@ -332,43 +332,70 @@
 
                         <!-- Normal Render Dashboard Area -->
                         <div id="market-state-normal" class="space-y-5 mt-4">
-                            
-                            <!-- Macro Element: Market Index Summary (Weather Check) -->
+
+                            <!-- ===== ETF Market Overview (clickable → daily market detail) ===== -->
                             <div class="px-4">
-                                <h3 class="text-[10px] font-extrabold uppercase tracking-wider text-gray-400 mb-2">Market Index Summary</h3>
+                                <div onclick="directNavigate('market-overview')" class="bg-white border border-gray-100 rounded-2xl shadow-sm cursor-pointer active:bg-gray-50 transition select-none overflow-hidden">
+                                    <div class="px-4 pt-3.5 pb-2 flex items-start justify-between gap-3">
+                                        <div>
+                                            <h3 class="text-[15px] font-extrabold text-gray-900 leading-tight">ETF Market Overview</h3>
+                                            <p class="text-[9px] text-gray-400 font-semibold uppercase tracking-wide mt-0.5">Daily breadth · flows · rankings</p>
+                                        </div>
+                                    </div>
+                                    <div id="market-pulse-card" class="px-4 pb-1">
+                                        <!-- populated by renderMarketStats() -->
+                                    </div>
+                                    <div class="relative h-2 w-full bg-gray-100 my-2.5" id="breadth-bar-track">
+                                        <div id="breadth-bar-rising" class="absolute inset-y-0 left-0" style="background:#16A34A;opacity:0.8"></div>
+                                        <div id="breadth-bar-flat"   class="absolute inset-y-0" style="background:#D1D5DB"></div>
+                                        <div id="breadth-bar-falling" class="absolute inset-y-0 right-0" style="background:#EF4444;opacity:0.75"></div>
+                                    </div>
+                                    <div id="market-vol-row" class="px-4 pb-3 flex justify-between items-center">
+                                        <!-- populated by renderMarketStats() -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ===== Sector Themes ===== -->
+                            <div class="px-4">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h3 class="text-[10px] font-extrabold uppercase tracking-wider text-gray-400">Sector Themes</h3>
+                                </div>
+                                <div id="trending-themes-strip" class="grid grid-cols-2 gap-2"></div>
+                            </div>
+
+                            <!-- ===== Market Index Summary (moved here) ===== -->
+                            <div class="px-4">
+                                <h3 class="text-[10px] font-extrabold uppercase tracking-wider text-gray-400 mb-2">Market Indices</h3>
                                 <div class="grid grid-cols-3 gap-2">
-                                    <div class="bg-white p-2.5 rounded-lg border border-gray-150 shadow-xs flex flex-col justify-between">
-                                        <span class="text-[9px] font-bold text-gray-400">Hang Seng Index</span>
-                                        <span class="text-xs font-bold tracking-tight text-gray-955 mt-1">19,250.30</span>
+                                    <div class="bg-white p-2.5 rounded-lg border border-gray-100 shadow-xs flex flex-col justify-between">
+                                        <span class="text-[9px] font-bold text-gray-400">Hang Seng</span>
+                                        <span class="text-xs font-bold tracking-tight text-gray-900 mt-1">19,250.30</span>
                                         <span class="text-[9px] font-extrabold text-iosGreen">+1.24%</span>
                                     </div>
-                                    <div class="bg-white p-2.5 rounded-lg border border-gray-150 shadow-xs flex flex-col justify-between">
-                                        <span class="text-[9px] font-bold text-gray-400">Hang Seng Tech</span>
-                                        <span class="text-xs font-bold tracking-tight text-gray-955 mt-1">3,980.25</span>
+                                    <div class="bg-white p-2.5 rounded-lg border border-gray-100 shadow-xs flex flex-col justify-between">
+                                        <span class="text-[9px] font-bold text-gray-400">HS Tech</span>
+                                        <span class="text-xs font-bold tracking-tight text-gray-900 mt-1">3,980.25</span>
                                         <span class="text-[9px] font-extrabold text-iosGreen">+2.41%</span>
                                     </div>
-                                    <div class="bg-white p-2.5 rounded-lg border border-gray-150 shadow-xs flex flex-col justify-between">
-                                        <span class="text-[9px] font-bold text-gray-400">S&P 500 ETF</span>
-                                        <span class="text-xs font-bold tracking-tight text-gray-955 mt-1">482.15</span>
+                                    <div class="bg-white p-2.5 rounded-lg border border-gray-100 shadow-xs flex flex-col justify-between">
+                                        <span class="text-[9px] font-bold text-gray-400">S&amp;P 500</span>
+                                        <span class="text-xs font-bold tracking-tight text-gray-900 mt-1">482.15</span>
                                         <span class="text-[9px] font-extrabold text-iosRed">-0.08%</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Micro Element: Top Movers -->
-                            <div class="bg-white border-y border-gray-150 p-4">
-                                <div class="flex justify-between items-center mb-3">
-                                    <h3 class="text-[10px] font-extrabold uppercase tracking-wider text-gray-555">Top Movers</h3>
-                                    <!-- Mini Segment Toggle for Gainers / Losers -->
-                                    <div class="flex bg-gray-100 rounded-md p-0.5 text-[9px]">
-                                        <button id="movers-gainer-toggle" onclick="toggleMoversTab('gainers')" class="bg-white text-gray-900 font-bold px-2.5 py-0.5 rounded shadow-xs transition">Gainers (5)</button>
-                                        <button id="movers-loser-toggle" onclick="toggleMoversTab('losers')" class="text-gray-500 font-semibold px-2.5 py-0.5 rounded transition">Losers (5)</button>
-                                    </div>
-                                </div>
-
-                                <!-- Movers List Container (Exactly 5 items) -->
-                                <div id="movers-container" class="space-y-1.5"></div>
-                            </div>
+                            <!-- hidden stubs so existing movers code doesn't crash -->
+                            <div id="movers-container" class="hidden"></div>
+                            <div id="movers-gainer-toggle" class="hidden"></div>
+                            <div id="movers-loser-toggle" class="hidden"></div>
+                            <!-- distribution-chart + heatmap-svg stubs (rendered in Market Overview page) -->
+                            <div id="distribution-chart" class="hidden"></div>
+                            <div id="distribution-labels" class="hidden"></div>
+                            <div id="ranking-container" class="hidden"></div>
+                            <div id="rank-tab-change" class="hidden"></div>
+                            <div id="rank-tab-volume" class="hidden"></div>
 
                             <!-- Watchlist Preview -->
                             <div class="bg-white border-b border-gray-150 px-4 pb-4">
@@ -465,6 +492,86 @@
                     </div>
 
                     <!-- ==========================================
+                         VIEW 3a: MARKET OVERVIEW (盘口 full page)
+                         ========================================== -->
+                    <div id="view-market-overview" class="absolute inset-x-0 top-0 bottom-16 bg-white flex flex-col z-10 view-transition hidden font-sans overflow-y-auto no-scrollbar pb-6">
+                        <!-- Sticky header -->
+                        <div class="bg-white border-b border-gray-100 px-4 pt-3 pb-3 sticky top-0 z-20 flex items-center gap-3 shrink-0">
+                            <button onclick="directNavigate('market-dashboard')" class="text-gray-500 hover:text-gray-800 transition shrink-0">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                            </button>
+                            <div>
+                                <h2 class="text-base font-extrabold text-gray-900 leading-tight">ETF Market Overview</h2>
+                                <p class="text-[9px] text-gray-400 font-medium">HKEX · 15-min delayed · All ETFs</p>
+                            </div>
+                        </div>
+
+                        <!-- Distribution histogram -->
+                        <div class="px-4 pt-4 pb-0">
+                            <p class="text-[10px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Return Distribution</p>
+                            <div class="flex items-end justify-between gap-1" id="ov-distribution-chart" style="height:72px"></div>
+                            <div id="ov-distribution-labels" class="flex justify-between mt-1 text-[7px] text-gray-400 font-medium"></div>
+                        </div>
+
+
+                        <!-- ETF Ranking -->
+                        <div class="px-4 mt-5">
+                            <div class="flex justify-between items-center mb-3">
+                                <p class="text-[10px] font-extrabold uppercase tracking-wider text-gray-400">ETF Rankings</p>
+                                <div class="flex bg-gray-100 rounded-lg p-0.5 gap-0.5">
+                                    <button id="ov-rank-tab-change" onclick="switchOvRankTab('change')" class="flex items-center gap-1 px-2.5 py-1 rounded-md bg-white text-gray-900 font-bold shadow-xs transition text-[9px]">
+                                        Return <span class="flex flex-col leading-none text-[7px] -space-y-0.5"><span id="ov-rank-change-up">↑</span><span id="ov-rank-change-down">↓</span></span>
+                                    </button>
+                                    <button id="ov-rank-tab-volume" onclick="switchOvRankTab('volume')" class="flex items-center gap-1 px-2.5 py-1 rounded-md text-gray-500 font-medium transition text-[9px]">
+                                        Volume <span class="flex flex-col leading-none text-[7px] -space-y-0.5"><span id="ov-rank-volume-up">↑</span><span id="ov-rank-volume-down">↓</span></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="ov-ranking-container" class="divide-y divide-gray-50"></div>
+                            <button onclick="navigateToScreenerDirect()" class="w-full mt-3 py-2.5 rounded-xl border border-gray-200 text-[11px] font-semibold text-navyBlue bg-white active:bg-gray-50 transition flex items-center justify-center gap-1">
+                                View more ETFs
+                                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ==========================================
+                         VIEW 3b: SECTOR DETAIL
+                         ========================================== -->
+                    <div id="view-sector-detail" class="absolute inset-x-0 top-0 bottom-16 bg-white flex flex-col z-10 view-transition hidden font-sans">
+                        <!-- Sticky header -->
+                        <div class="bg-white border-b border-gray-100 sticky top-0 z-20 shrink-0">
+                            <div class="px-4 pt-3 pb-2 flex items-center gap-3">
+                                <button onclick="directNavigate('market-dashboard')" class="text-gray-500 hover:text-gray-800 transition shrink-0">
+                                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                </button>
+                                <div class="flex-1 min-w-0">
+                                    <h2 id="sector-detail-title" class="text-base font-extrabold text-gray-900 truncate leading-tight">AI & Technology</h2>
+                                    <p id="sector-detail-subtitle" class="text-[10px] text-gray-400 font-medium truncate">Artificial Intelligence · Semiconductors</p>
+                                </div>
+                            </div>
+                            <!-- Sort tabs -->
+                            <div class="px-4 pb-2 flex gap-1.5">
+                                <button id="sector-sort-change" onclick="sortSectorDetail('change')" class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[11px] font-bold bg-navyBlue text-white transition">
+                                    Return <span class="flex flex-col leading-none text-[7px] -space-y-0.5"><span id="sector-sort-change-up">↑</span><span id="sector-sort-change-down">↓</span></span>
+                                </button>
+                                <button id="sector-sort-volume" onclick="sortSectorDetail('volume')" class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[11px] font-medium text-gray-500 bg-gray-100 transition">
+                                    Volume <span class="flex flex-col leading-none text-[7px] -space-y-0.5"><span id="sector-sort-volume-up">↑</span><span id="sector-sort-volume-down">↓</span></span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- ETF list body (one per row) -->
+                        <div class="flex-1 overflow-y-auto no-scrollbar">
+                            <div id="sector-detail-grid" class="divide-y divide-gray-50"></div>
+                            <div id="sector-detail-empty" class="hidden flex flex-col items-center justify-center py-20 text-center">
+                                <svg class="w-10 h-10 text-gray-200 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+                                <p class="text-sm font-semibold text-gray-400">No ETFs available yet</p>
+                                <p class="text-xs text-gray-300 mt-1">ETFs for this sector are coming soon.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==========================================
                          VIEW 3b: WATCHLIST (full list of starred ETFs)
                          ========================================== -->
                     <div id="view-watchlist" class="absolute inset-x-0 top-0 bottom-16 bg-white flex flex-col z-10 view-transition hidden font-sans">
@@ -538,28 +645,31 @@
                             </div>
                         </div>
 
-                        <!-- ===== Chart area (edge-to-edge, no border) ===== -->
-                        <div class="px-4 pt-4 pb-2">
+                        <!-- ===== Chart area (professional candlestick view) ===== -->
+                        <div class="px-4 pt-4 pb-3 bg-white">
                             <div class="flex justify-between items-center mb-2">
                                 <span id="chart-change-badge" class="text-[10px] font-semibold text-gray-500"></span>
-                                <span class="text-[9px] text-gray-400 font-medium">Price history</span>
+                                <span class="text-[9px] text-gray-400 font-semibold uppercase tracking-wide">Candlestick · HKEX delayed</span>
                             </div>
-                            <div class="flex gap-1">
-                                <div id="chart-y-labels" class="flex flex-col justify-between text-right shrink-0 pb-4" style="width:36px">
-                                    <span id="chart-y-top" class="text-[8px] text-gray-400 font-medium leading-none"></span>
-                                    <span id="chart-y-mid" class="text-[8px] text-gray-400 font-medium leading-none"></span>
-                                    <span id="chart-y-bot" class="text-[8px] text-gray-400 font-medium leading-none"></span>
-                                </div>
-                                <div class="flex-1 flex flex-col">
-                                    <div class="relative" style="height:200px">
-                                        <svg id="detail-trend-svg" class="w-full h-full" viewBox="0 0 300 160" preserveAspectRatio="none"></svg>
-                                    </div>
-                                    <div id="chart-x-labels" class="flex justify-between mt-1 px-0.5">
-                                        <span class="text-[8px] text-gray-400 font-medium"></span>
-                                        <span class="text-[8px] text-gray-400 font-medium"></span>
-                                        <span class="text-[8px] text-gray-400 font-medium"></span>
-                                    </div>
-                                </div>
+                            <div class="flex items-center gap-2 text-[9px] font-semibold text-gray-500 mb-2 overflow-hidden whitespace-nowrap">
+                                <span>O <span id="chart-ohlc-open" class="text-gray-900">-</span></span>
+                                <span>H <span id="chart-ohlc-high" class="text-gray-900">-</span></span>
+                                <span>L <span id="chart-ohlc-low" class="text-gray-900">-</span></span>
+                                <span>C <span id="chart-ohlc-close" class="text-gray-900">-</span></span>
+                                <span class="ml-auto text-gray-400">Vol <span id="chart-volume-label">-</span></span>
+                            </div>
+                            <div id="chart-y-labels" class="hidden">
+                                <span id="chart-y-top"></span>
+                                <span id="chart-y-mid"></span>
+                                <span id="chart-y-bot"></span>
+                            </div>
+                            <div class="relative rounded-2xl border border-gray-100 bg-gradient-to-b from-gray-50/80 to-white overflow-hidden px-1.5 py-2" style="height:360px">
+                                <svg id="detail-trend-svg" class="w-full h-full" viewBox="0 0 340 280" preserveAspectRatio="none"></svg>
+                            </div>
+                            <div id="chart-x-labels" class="flex justify-between mt-1.5 px-1">
+                                <span class="text-[8px] text-gray-400 font-medium"></span>
+                                <span class="text-[8px] text-gray-400 font-medium"></span>
+                                <span class="text-[8px] text-gray-400 font-medium"></span>
                             </div>
                             <!-- Timeline strip -->
                             <div class="flex bg-gray-50 rounded-lg p-1 mt-3 gap-0.5">
@@ -2060,13 +2170,44 @@
                 <!-- ==========================================
                      WATCHLIST TOAST NOTIFICATION
                      ========================================== -->
-                <div id="watchlist-toast" class="hidden absolute inset-x-4 z-50 pointer-events-none" style="top: 12px;">
-                    <div class="bg-[#0A2540] rounded-2xl px-4 py-3 flex items-center justify-between gap-3 shadow-xl">
-                        <div class="flex items-center gap-2">
-                            <svg id="watchlist-toast-icon" class="w-4 h-4 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            <span id="watchlist-toast-text" class="text-xs font-semibold text-white">Added to Watchlist</span>
+                <div id="watchlist-toast" class="absolute inset-x-4 z-50 pointer-events-none"
+                     style="bottom: 76px; opacity: 0; transform: translateY(12px); transition: opacity 0.22s ease, transform 0.22s ease;">
+                    <div id="watchlist-toast-inner" class="rounded-2xl px-4 py-3 flex items-center justify-between gap-3 shadow-lg" style="background:#1C1C1E;">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <div id="watchlist-toast-dot" class="w-2 h-2 rounded-full shrink-0" style="background:#34C759;"></div>
+                            <span id="watchlist-toast-text" class="text-[12px] font-semibold text-white truncate">Added to Watchlist</span>
                         </div>
-                        <button id="watchlist-toast-undo" onclick="undoWatchlistAction()" class="pointer-events-auto text-[11px] font-semibold text-white/60 hover:text-white transition shrink-0">Undo</button>
+                        <button id="watchlist-toast-undo" onclick="undoWatchlistAction()" class="pointer-events-auto text-[11px] font-semibold shrink-0 transition" style="color:#636366;">Undo</button>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     TRENDING THEME DRILLDOWN BOTTOM SHEET
+                     ========================================== -->
+                <div id="theme-sheet-backdrop" class="absolute inset-0 bg-black/40 z-45 hidden opacity-0 transition-opacity duration-300" onclick="closeThemeSheet()"></div>
+                <div id="theme-sheet" class="hidden absolute inset-x-0 bottom-0 bg-white rounded-t-2xl z-50 transform translate-y-full transition-transform duration-300 flex flex-col shadow-2xl border-t border-gray-100 font-sans" style="height:90%">
+                    <div class="w-10 h-1 bg-gray-200 rounded-full mx-auto mt-3 mb-2 shrink-0"></div>
+                    <!-- Sheet header -->
+                    <div class="px-5 pb-3 border-b border-gray-100 shrink-0">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center gap-2 mb-0.5">
+                                    <span id="theme-sheet-name" class="text-base font-extrabold text-gray-900">HK Tech</span>
+                                    <span id="theme-sheet-badge" class="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-emerald-50 text-emerald-700">+2.33%</span>
+                                </div>
+                                <p id="theme-sheet-subtitle" class="text-[10px] text-gray-400 font-medium">Technology · AI · Internet</p>
+                            </div>
+                            <button onclick="closeThemeSheet()" class="text-[11px] font-semibold text-gray-400 hover:text-gray-900 transition px-2 py-1 rounded-lg hover:bg-gray-100">Close</button>
+                        </div>
+                    </div>
+                    <!-- Sheet body -->
+                    <div id="theme-sheet-list" class="flex-1 overflow-y-auto px-5 py-3 no-scrollbar"></div>
+                    <!-- Footer -->
+                    <div class="px-5 py-3 border-t border-gray-100 shrink-0 bg-gray-50/80">
+                        <button onclick="navigateToScreenerDirect(); closeThemeSheet();" class="w-full flex justify-center items-center gap-1.5 text-[12px] font-semibold text-navyBlue bg-white border border-gray-200 rounded-xl py-3 hover:bg-gray-50 transition shadow-xs">
+                            Browse all ETFs in Screener
+                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
                     </div>
                 </div>
 
@@ -2132,6 +2273,21 @@
                                 <button id="filter-region-HK" onclick="setFilter('region', 'Hong Kong')" class="py-2 text-[11px] font-medium border rounded-lg text-center transition border-gray-200 text-gray-600 bg-white hover:bg-gray-50">Hong Kong</button>
                                 <button id="filter-region-Global" onclick="setFilter('region', 'Global')" class="py-2 text-[11px] font-medium border rounded-lg text-center transition border-gray-200 text-gray-600 bg-white hover:bg-gray-50">Global</button>
                                 <button id="filter-region-Asia" onclick="setFilter('region', 'Asia')" class="py-2 text-[11px] font-medium border rounded-lg text-center transition border-gray-200 text-gray-600 bg-white hover:bg-gray-50">Asia-Pacific</button>
+                            </div>
+                        </div>
+
+                        <!-- Sector -->
+                        <div class="space-y-2">
+                            <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Sector</p>
+                            <div class="flex flex-wrap gap-1.5" id="filter-sector-chips">
+                                <button id="filter-sector-all" onclick="setFilter('sector','all')" class="py-1.5 px-3 text-[10px] font-semibold border rounded-lg transition bg-navyBlue border-navyBlue text-white">All</button>
+                                <button id="filter-sector-ai_tech" onclick="setFilter('sector','ai_tech')" class="py-1.5 px-3 text-[10px] font-medium border rounded-lg transition border-gray-200 text-gray-600 bg-white hover:bg-gray-50">AI & Tech</button>
+                                <button id="filter-sector-banking" onclick="setFilter('sector','banking')" class="py-1.5 px-3 text-[10px] font-medium border rounded-lg transition border-gray-200 text-gray-600 bg-white hover:bg-gray-50">Banking</button>
+                                <button id="filter-sector-china_a" onclick="setFilter('sector','china_a')" class="py-1.5 px-3 text-[10px] font-medium border rounded-lg transition border-gray-200 text-gray-600 bg-white hover:bg-gray-50">China A</button>
+                                <button id="filter-sector-real_estate" onclick="setFilter('sector','real_estate')" class="py-1.5 px-3 text-[10px] font-medium border rounded-lg transition border-gray-200 text-gray-600 bg-white hover:bg-gray-50">Real Estate</button>
+                                <button id="filter-sector-energy" onclick="setFilter('sector','energy')" class="py-1.5 px-3 text-[10px] font-medium border rounded-lg transition border-gray-200 text-gray-600 bg-white hover:bg-gray-50">Energy</button>
+                                <button id="filter-sector-fixed_income" onclick="setFilter('sector','fixed_income')" class="py-1.5 px-3 text-[10px] font-medium border rounded-lg transition border-gray-200 text-gray-600 bg-white hover:bg-gray-50">Fixed Income</button>
+                                <button id="filter-sector-global" onclick="setFilter('sector','global')" class="py-1.5 px-3 text-[10px] font-medium border rounded-lg transition border-gray-200 text-gray-600 bg-white hover:bg-gray-50">Global</button>
                             </div>
                         </div>
 
@@ -2646,8 +2802,14 @@
             asset: 'all',
             region: 'all',
             issuer: 'all',
-            currency: 'all'
+            currency: 'all',
+            sector: 'all'
         },
+        activeSectorId: null,
+        rankTab: 'change',
+        rankSortDirection: 'desc',
+        sectorSortBy: 'change',
+        sectorSortDirection: 'desc',
         watchlist: ['2800.HK', '3067.HK'],
         marketUIState: 'normal',
         
@@ -2683,6 +2845,8 @@
         updateClock();
         setInterval(updateClock, 30000);
         renderMoversList();
+        renderTrendingThemes();
+        renderMarketPulse();  // calls renderDistributionChart + renderMarketStats + drawHeatmap + renderRankingTable
         runScreenerFilters();
         directNavigate('login');
 
@@ -2713,7 +2877,8 @@
 
     function directNavigate(viewName) {
         const allViews = [
-            'view-login', 'view-market-dashboard', 'view-screener', 'view-watchlist', 'view-detail',
+            'view-login', 'view-market-dashboard', 'view-screener', 'view-watchlist',
+            'view-market-overview', 'view-sector-detail', 'view-detail',
             'view-compare', 'view-portfolio', 'view-ai',
             'view-products', 'view-profile'
         ];
@@ -2764,6 +2929,15 @@
                 document.getElementById('view-ai').classList.remove('hidden');
                 appState.activeView = 'ai';
                 switchTabHighlight('ai');
+            } else if (viewName === 'market-overview') {
+                document.getElementById('view-market-overview').classList.remove('hidden');
+                appState.activeView = 'market-overview';
+                switchTabHighlight('market');
+                renderMarketOverviewPage();
+            } else if (viewName === 'sector-detail') {
+                document.getElementById('view-sector-detail').classList.remove('hidden');
+                appState.activeView = 'sector-detail';
+                switchTabHighlight('market');
             }
         }
     }
@@ -3042,10 +3216,508 @@
         });
     }
 
+    // ───────────────────────────────────────────────
+    //  SECTOR THEMES & MARKET OVERVIEW
+    // ───────────────────────────────────────────────
+
+    const SECTOR_GROUPS = [
+        { id: 'ai_tech',      name: 'AI & Technology',    subtitle: 'AI · Semiconductors · Internet',    etfs: ['3067.HK', '3199.HK', '3088.HK'] },
+        { id: 'banking',      name: 'Banking & Finance',  subtitle: 'Banks · Insurance · Brokers',        etfs: ['2800.HK', '2828.HK'] },
+        { id: 'china_a',      name: 'China A-Share',      subtitle: 'CSI 300 · A-Share Blue Chips',       etfs: ['3188.HK'] },
+        { id: 'real_estate',  name: 'Real Estate',        subtitle: 'HK Property · REITs · Developers',  etfs: ['2800.HK'] },
+        { id: 'energy',       name: 'Energy & Oil',       subtitle: 'Oil · Gas · Commodities',            etfs: ['2840.HK'] },
+        { id: 'fixed_income', name: 'Fixed Income',       subtitle: 'US Treasuries · IG Credit',         etfs: ['3001.HK'] },
+        { id: 'auto',         name: 'Automotive & EV',    subtitle: 'Electric Vehicles · Auto',           etfs: ['3067.HK', '3188.HK'] },
+        { id: 'global',       name: 'Global Markets',     subtitle: 'Asia Pacific · MSCI',                etfs: ['3101.HK', '3115.HK', '2801.HK'] },
+    ];
+
+    const SECTOR_PLACEHOLDER_ETFS = {
+        ai_tech: [
+            { symbol: '3033.HK', name: 'Future Tech Leaders ETF', issuer: 'Sunwah AM', changePct: '+1.94%', volume: 365 },
+            { symbol: '3126.HK', name: 'Asia Semiconductor ETF', issuer: 'Mirae Asset', changePct: '+0.86%', volume: 248 }
+        ],
+        banking: [
+            { symbol: '2818.HK', name: 'HK Financial Leaders ETF', issuer: 'Hang Seng', changePct: '+0.74%', volume: 318 },
+            { symbol: '3070.HK', name: 'China Bank Dividend ETF', issuer: 'CSOP', changePct: '-0.18%', volume: 142 }
+        ],
+        china_a: [
+            { symbol: '2846.HK', name: 'A-Share Quality 100 ETF', issuer: 'ChinaAMC', changePct: '+0.42%', volume: 210 },
+            { symbol: '3110.HK', name: 'CSI Consumer ETF', issuer: 'E Fund', changePct: '-0.36%', volume: 118 }
+        ],
+        real_estate: [
+            { symbol: '3008.HK', name: 'HK Property Income ETF', issuer: 'BOCI', changePct: '+0.21%', volume: 96 },
+            { symbol: '3021.HK', name: 'Asia REIT Leaders ETF', issuer: 'Premia', changePct: '-0.44%', volume: 74 }
+        ],
+        energy: [
+            { symbol: '3091.HK', name: 'China Energy Majors ETF', issuer: 'CSOP', changePct: '+1.18%', volume: 185 },
+            { symbol: '3135.HK', name: 'Clean Power Transition ETF', issuer: 'Global X', changePct: '-0.27%', volume: 91 }
+        ],
+        fixed_income: [
+            { symbol: '3077.HK', name: 'Asia IG Bond ETF', issuer: 'iShares', changePct: '+0.08%', volume: 152 },
+            { symbol: '3141.HK', name: 'USD Short Duration Bond ETF', issuer: 'Premia', changePct: '-0.03%', volume: 83 }
+        ],
+        auto: [
+            { symbol: '3056.HK', name: 'China EV Supply Chain ETF', issuer: 'Global X', changePct: '+1.62%', volume: 224 },
+            { symbol: '3181.HK', name: 'Autonomous Mobility ETF', issuer: 'Mirae Asset', changePct: '-0.52%', volume: 107 }
+        ],
+        global: [
+            { symbol: '3095.HK', name: 'Global Quality Equity ETF', issuer: 'Vanguard', changePct: '+0.33%', volume: 168 },
+            { symbol: '3150.HK', name: 'US Mega Cap ETF', issuer: 'State Street', changePct: '-0.14%', volume: 132 }
+        ]
+    };
+
+    function parsePct(str) {
+        return parseFloat((str || '0').replace('%', '')) || 0;
+    }
+
+    function getRankedETFItems(sortBy, direction = 'desc') {
+        const dir = direction === 'asc' ? 1 : -1;
+        return Object.values(etfDatabase).sort((a, b) => {
+            const aVal = sortBy === 'volume' ? (etfCategoryMeta[a.symbol]?.volume || 0) : parsePct(a.changePct);
+            const bVal = sortBy === 'volume' ? (etfCategoryMeta[b.symbol]?.volume || 0) : parsePct(b.changePct);
+            return (aVal - bVal) * dir;
+        });
+    }
+
+    function buildETFListRow(etf, { metric = 'change', source = 'dashboard', compact = false, showTheme = false, placeholder = false } = {}) {
+        const isUp = (etf.changeVal || etf.changePct || '').startsWith('+');
+        const badge = isUp ? 'bg-emerald-50 text-emerald-800 border-emerald-100' : 'bg-rose-50 text-rose-800 border-rose-100';
+        const meta = etfCategoryMeta[etf.symbol] || {};
+        const rawVolume = placeholder ? etf.volume : meta.volume;
+        const vol = rawVolume ? `${rawVolume.toLocaleString()}M` : '—';
+        const metricValue = metric === 'volume' ? vol : etf.changePct;
+        const theme = placeholder ? 'Coming soon' : meta.theme;
+        const secondary = showTheme && theme ? `${theme} · Vol ${vol}` : `${etf.issuer} · Vol ${vol}`;
+        const row = document.createElement('div');
+        row.className = `flex justify-between items-center ${compact ? 'py-2.5' : 'py-3'} ${placeholder ? 'opacity-60' : 'cursor-pointer active:bg-gray-50'} rounded transition select-none`;
+        if (!placeholder) row.onclick = () => openETFDetail(etf.symbol, source);
+        row.innerHTML = `
+            <div class="flex items-center gap-3 min-w-0">
+                <span class="text-[9px] font-bold text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded shrink-0 min-w-[40px] text-center">${etf.symbol.replace('.HK','')}</span>
+                <div class="flex flex-col min-w-0">
+                    <span class="text-[12px] font-bold text-gray-900 truncate ${compact ? 'max-w-[156px]' : 'max-w-[175px]'}">${etf.name}</span>
+                    <span class="text-[9px] text-gray-400 font-medium truncate ${compact ? 'max-w-[156px]' : 'max-w-[185px]'}">${secondary}</span>
+                </div>
+            </div>
+            <div class="text-right shrink-0 ml-2">
+                <span class="text-[10px] font-bold px-2 py-1.5 rounded-lg border ${badge} min-w-[58px] text-center inline-block">${metricValue}</span>
+            </div>
+        `;
+        return row;
+    }
+
+    function updateDualSortUI(scope, sortBy, direction, activeClass, inactiveClass) {
+        const cTab = document.getElementById(`${scope}-change`);
+        const vTab = document.getElementById(`${scope}-volume`);
+        const cUp = document.getElementById(`${scope}-change-up`);
+        const cDown = document.getElementById(`${scope}-change-down`);
+        const vUp = document.getElementById(`${scope}-volume-up`);
+        const vDown = document.getElementById(`${scope}-volume-down`);
+        if (cTab) cTab.className = sortBy === 'change' ? activeClass : inactiveClass;
+        if (vTab) vTab.className = sortBy === 'volume' ? activeClass : inactiveClass;
+        const setArrow = (el, active) => { if (el) el.className = active ? 'text-gray-900' : 'text-gray-300'; };
+        setArrow(cUp, sortBy === 'change' && direction === 'asc');
+        setArrow(cDown, sortBy === 'change' && direction === 'desc');
+        setArrow(vUp, sortBy === 'volume' && direction === 'asc');
+        setArrow(vDown, sortBy === 'volume' && direction === 'desc');
+    }
+
+    function updateRankTabUI(sortBy, direction) {
+        updateDualSortUI(
+            'ov-rank',
+            sortBy,
+            direction,
+            'flex items-center gap-1 px-2.5 py-1 rounded-md bg-white text-gray-900 font-bold shadow-xs transition text-[9px]',
+            'flex items-center gap-1 px-2.5 py-1 rounded-md text-gray-500 font-medium transition text-[9px]'
+        );
+    }
+
+    function renderTrendingThemes() {
+        const grid = document.getElementById('trending-themes-strip');
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        SECTOR_GROUPS.forEach(sg => {
+            const uniqueSyms = [...new Set(sg.etfs)];
+            const etfs = uniqueSyms.map(sym => etfDatabase[sym]).filter(Boolean);
+            const etfCount = etfs.length;
+
+            const tile = document.createElement('div');
+            tile.className = 'bg-white border border-gray-100 rounded-xl cursor-pointer active:bg-gray-50 transition-all select-none';
+            tile.style.cssText = 'padding: 11px 12px 10px;';
+            tile.onclick = () => openSectorPage(sg.id);
+
+            tile.innerHTML = `
+                <div class="font-bold text-gray-900 leading-snug mb-0.5" style="font-size:12.5px">${sg.name}</div>
+                <div class="text-[10px] text-gray-400 leading-tight mb-2.5">${sg.subtitle}</div>
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] text-gray-400 font-medium">${etfCount} ETF${etfCount !== 1 ? 's' : ''}</span>
+                    <svg class="w-3.5 h-3.5 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+            `;
+            grid.appendChild(tile);
+        });
+    }
+
+    // ── Sector full page ──────────────────────────
+
+    function openSectorPage(sectorId) {
+        appState.activeSectorId = sectorId;
+        appState.sectorSortBy = 'change';
+        appState.sectorSortDirection = 'desc';
+        directNavigate('sector-detail');
+        renderSectorDetail(sectorId, 'change', 'desc');
+    }
+
+    function renderSectorDetail(sectorId, sortBy, directionOverride) {
+        const sg = SECTOR_GROUPS.find(s => s.id === sectorId);
+        if (!sg) return;
+        appState.activeSectorId = sectorId;
+
+        const titleEl = document.getElementById('sector-detail-title');
+        const subtitleEl = document.getElementById('sector-detail-subtitle');
+        if (titleEl) titleEl.textContent = sg.name;
+        if (subtitleEl) subtitleEl.textContent = sg.subtitle;
+
+        const direction = directionOverride || appState.sectorSortDirection || 'desc';
+        appState.sectorSortBy = sortBy;
+        appState.sectorSortDirection = direction;
+        updateDualSortUI(
+            'sector-sort',
+            sortBy,
+            direction,
+            'flex items-center gap-1 px-3 py-1.5 rounded-lg text-[11px] font-bold bg-white text-gray-900 shadow-xs transition',
+            'flex items-center gap-1 px-3 py-1.5 rounded-lg text-[11px] font-medium text-gray-500 bg-gray-100 transition'
+        );
+
+        const uniqueSyms = [...new Set(sg.etfs)];
+        let etfs = uniqueSyms.map(sym => etfDatabase[sym]).filter(Boolean);
+        const placeholders = (SECTOR_PLACEHOLDER_ETFS[sectorId] || []).map(p => ({ ...p, placeholder: true }));
+        const getValue = (item) => sortBy === 'volume'
+            ? (item.placeholder ? item.volume : (etfCategoryMeta[item.symbol]?.volume || 0))
+            : parsePct(item.changePct);
+        const dir = direction === 'asc' ? 1 : -1;
+        etfs.sort((a, b) => (getValue(a) - getValue(b)) * dir);
+        placeholders.sort((a, b) => (getValue(a) - getValue(b)) * dir);
+
+        const grid = document.getElementById('sector-detail-grid');
+        const emptyDiv = document.getElementById('sector-detail-empty');
+        if (!grid) return;
+
+        if (etfs.length === 0) {
+            grid.innerHTML = '';
+            if (emptyDiv) { emptyDiv.classList.remove('hidden'); }
+            return;
+        }
+        if (emptyDiv) emptyDiv.classList.add('hidden');
+
+        grid.innerHTML = '';
+        etfs.forEach(etf => {
+            const wrap = document.createElement('div');
+            wrap.className = 'px-4';
+            wrap.appendChild(buildETFListRow(etf, { metric: sortBy === 'volume' ? 'volume' : 'change', source: 'dashboard', showTheme: true }));
+            grid.appendChild(wrap);
+        });
+        placeholders.forEach(etf => {
+            const wrap = document.createElement('div');
+            wrap.className = 'px-4';
+            wrap.appendChild(buildETFListRow(etf, { metric: sortBy === 'volume' ? 'volume' : 'change', showTheme: true, placeholder: true }));
+            grid.appendChild(wrap);
+        });
+    }
+
+    function sortSectorDetail(sortBy) {
+        if (!appState.activeSectorId) return;
+        const nextDirection = appState.sectorSortBy === sortBy && appState.sectorSortDirection === 'desc' ? 'asc' : 'desc';
+        renderSectorDetail(appState.activeSectorId, sortBy, nextDirection);
+    }
+
+    // ── Market Overview / 盘口 ────────────────────
+
+    function renderMarketPulse() {
+        renderMarketStats();  // populates breadth banner on main page
+    }
+
+    function renderMarketOverviewPage() {
+        renderDistributionChart('ov-distribution-chart', 'ov-distribution-labels');
+        renderOvRankingTable(appState.rankTab || 'change', appState.rankSortDirection || 'desc');
+    }
+
+    function renderMarketPulseDetail() {
+        const el = document.getElementById('ov-market-pulse');
+        if (!el) return;
+        const allSyms = Object.keys(etfDatabase);
+        let rising = 0, falling = 0, flat = 0, totalVol = 0;
+        allSyms.forEach(sym => {
+            const chg = parsePct(etfDatabase[sym].changePct);
+            if (chg > 0) rising++; else if (chg < 0) falling++; else flat++;
+            totalVol += etfCategoryMeta[sym]?.volume || 0;
+        });
+        const total = allSyms.length || 1;
+        const volStr = (totalVol / 1000).toFixed(1) + 'B';
+        el.innerHTML = `
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-[13px] font-extrabold" style="color:#16A34A">↑ ${rising} Rising</span>
+                <span class="text-[13px] font-semibold text-gray-400">— ${flat} Flat</span>
+                <span class="text-[13px] font-extrabold" style="color:#EF4444">↓ ${falling} Falling</span>
+            </div>
+            <div class="relative h-2.5 bg-gray-200 rounded-full overflow-hidden mb-2">
+                <div class="absolute inset-y-0 left-0 rounded-l-full" style="width:${Math.round(rising/total*100)}%;background:#16A34A;"></div>
+                <div class="absolute inset-y-0 rounded-r-full" style="right:0;width:${Math.round(falling/total*100)}%;background:#EF4444;"></div>
+            </div>
+            <div class="flex justify-between text-[10px] text-gray-500">
+                <span>Vol today: <span class="font-bold text-gray-800">${volStr} HKD</span></span>
+                <span class="text-gray-400">HKEX · closed 16:00 HKT</span>
+            </div>
+        `;
+    }
+
+    function renderDistributionChart(chartId, labelsId) {
+        const container = document.getElementById(chartId || 'distribution-chart');
+        const labelsEl  = document.getElementById(labelsId || 'distribution-labels');
+        if (!container) return;
+
+        const buckets = [
+            { label: '≤-3%', min: -Infinity, max: -3,   color: '#EF4444' },
+            { label: '-3~-1', min: -3, max: -1,          color: '#F87171' },
+            { label: '-1~0',  min: -1, max: 0,           color: '#FCA5A5' },
+            { label: '0%',    min: 0, max: 0,            color: '#D1D5DB' },
+            { label: '0~1%',  min: 0, max: 1,            color: '#86EFAC' },
+            { label: '1~3%',  min: 1, max: 3,            color: '#4ADE80' },
+            { label: '≥3%',   min: 3, max: Infinity,     color: '#16A34A' },
+        ];
+
+        const counts = buckets.map(() => 0);
+        Object.values(etfDatabase).forEach(etf => {
+            const chg = parsePct(etf.changePct);
+            for (let i = 0; i < buckets.length; i++) {
+                const b = buckets[i];
+                const inBucket = i === 3
+                    ? (chg === 0)
+                    : i < 3
+                    ? (chg > b.min && chg <= b.max)
+                    : (chg > b.min && chg <= b.max);
+                if (inBucket) { counts[i]++; break; }
+            }
+        });
+        const maxCount = Math.max(...counts, 1);
+
+        container.innerHTML = '';
+        counts.forEach((count, i) => {
+            const barH = Math.round((count / maxCount) * 48) + 4;
+            const bar = document.createElement('div');
+            bar.className = 'flex flex-col items-center justify-end flex-1 gap-0.5';
+            bar.innerHTML = `
+                ${count > 0 ? `<span class="text-[8px] font-bold" style="color:${buckets[i].color}">${count}</span>` : '<span class="text-[8px]">&nbsp;</span>'}
+                <div class="w-full rounded-t-sm" style="height:${barH}px;background:${buckets[i].color};opacity:0.85;min-height:4px"></div>
+            `;
+            container.appendChild(bar);
+        });
+
+        if (labelsEl) {
+            labelsEl.innerHTML = buckets.map(b =>
+                `<span class="flex-1 text-center">${b.label}</span>`
+            ).join('');
+        }
+    }
+
+    function renderMarketStats() {
+        const allSyms = Object.keys(etfDatabase);
+        let rising = 0, falling = 0, flat = 0, totalVol = 0;
+        allSyms.forEach(sym => {
+            const chg = parsePct(etfDatabase[sym].changePct);
+            if (chg > 0) rising++; else if (chg < 0) falling++; else flat++;
+            totalVol += etfCategoryMeta[sym]?.volume || 0;
+        });
+        const total = allSyms.length || 1;
+        const volStr = (totalVol / 1000).toFixed(1) + 'B';
+        const risingW = Math.round(rising / total * 100);
+        const flatW   = Math.round(flat   / total * 100);
+        const fallingW= Math.round(falling / total * 100);
+
+        // Populate header stats row
+        const statsEl = document.getElementById('market-pulse-card');
+        if (statsEl) {
+            statsEl.innerHTML = `
+                <div class="flex justify-between items-baseline">
+                    <span class="text-[13px] font-extrabold" style="color:#16A34A">↑ ${rising} <span class="text-[10px] font-semibold">Rising</span></span>
+                    <span class="text-[12px] font-semibold text-gray-400">— ${flat} Flat</span>
+                    <span class="text-[13px] font-extrabold" style="color:#EF4444">↓ ${falling} <span class="text-[10px] font-semibold">Falling</span></span>
+                </div>
+            `;
+        }
+
+        // Populate color bar
+        const barRising  = document.getElementById('breadth-bar-rising');
+        const barFlat    = document.getElementById('breadth-bar-flat');
+        const barFalling = document.getElementById('breadth-bar-falling');
+        if (barRising)  barRising.style.width  = risingW + '%';
+        if (barFalling) barFalling.style.width  = fallingW + '%';
+        if (barFlat) {
+            barFlat.style.left  = risingW + '%';
+            barFlat.style.width = flatW + '%';
+        }
+
+        // Populate volume row
+        const volRow = document.getElementById('market-vol-row');
+        if (volRow) {
+            volRow.innerHTML = `
+                <span class="text-[10px] text-gray-500 font-medium">Today's volume: <span class="font-bold text-gray-800">${volStr} HKD</span></span>
+                <span class="text-[10px] font-semibold text-gray-400 flex items-center gap-0.5">View details <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
+            `;
+        }
+    }
+
+    function drawHeatmap(svgId) {
+        const svg = document.getElementById(svgId || 'heatmap-svg');
+        if (!svg) return;
+
+        const W = 340, H = 156, PAD = 2;
+        const items = Object.keys(etfDatabase)
+            .map(sym => ({
+                sym,
+                name: etfDatabase[sym].name.replace(/\b(ETF|Fund|Trust|Index)\b/gi, '').trim().slice(0, 18),
+                vol: etfCategoryMeta[sym]?.volume || 1,
+                chg: parsePct(etfDatabase[sym].changePct),
+            }))
+            .sort((a, b) => b.vol - a.vol);
+
+        const totalVol = items.reduce((s, d) => s + d.vol, 0);
+        const rects = [];
+        let x = 0, y = 0, rowH = 0, rowStartIdx = 0;
+
+        items.forEach((item, idx) => {
+            const w = Math.round((item.vol / totalVol) * W);
+            if (x + w > W && x > 0) {
+                // flush row
+                const scale = W / x;
+                for (let j = rowStartIdx; j < rects.length; j++) {
+                    rects[j].x = Math.round(rects[j].x * scale);
+                    rects[j].w = Math.round(rects[j].w * scale);
+                    rects[j].h = rowH;
+                    rects[j].y = y;
+                }
+                y += rowH;
+                x = 0; rowH = 0; rowStartIdx = rects.length;
+            }
+            const itemH = Math.max(30, Math.round((H - y) * (item.vol / items.slice(idx).reduce((s,d)=>s+d.vol,0))));
+            rowH = Math.max(rowH, Math.min(itemH, H - y));
+            rects.push({ x, y: 0, w, h: 0, ...item });
+            x += w;
+        });
+        // flush last row
+        if (rects.length > rowStartIdx) {
+            const scale = W / x;
+            for (let j = rowStartIdx; j < rects.length; j++) {
+                rects[j].x = Math.round(rects[j].x * scale);
+                rects[j].w = Math.round(rects[j].w * scale);
+                rects[j].h = Math.max(1, H - y);
+                rects[j].y = y;
+            }
+        }
+
+        const colorForChg = (chg) => {
+            const up = chg >= 0;
+            const intensity = Math.min(1, Math.abs(chg) / 3);
+            if (up) {
+                const g = Math.round(120 + intensity * 90);
+                return `rgb(${Math.round(22 - intensity*10)},${g},${Math.round(74 - intensity*20)})`;
+            } else {
+                const r = Math.round(180 + intensity * 55);
+                return `rgb(${r},${Math.round(29 - intensity*10)},${Math.round(36 - intensity*10)})`;
+            }
+        };
+
+        const rectsSvg = rects.map(r => {
+            const col = colorForChg(r.chg);
+            const x2 = r.x + PAD, y2 = r.y + PAD, w2 = Math.max(1, r.w - PAD*2), h2 = Math.max(1, r.h - PAD*2);
+            const showText = w2 > 28 && h2 > 22;
+            const showPct  = w2 > 36 && h2 > 34;
+            const pctStr   = (r.chg >= 0 ? '+' : '') + r.chg.toFixed(2) + '%';
+            return `<g onclick="openETFDetail('${r.sym}','dashboard')" style="cursor:pointer">
+                <rect x="${x2}" y="${y2}" width="${w2}" height="${h2}" rx="3" fill="${col}"/>
+                ${showText ? `<text x="${x2 + w2/2}" y="${y2 + (showPct ? h2/2 - 4 : h2/2 + 3)}" text-anchor="middle" fill="white" font-size="${Math.min(9, w2/4+4)}" font-weight="600" font-family="Inter,sans-serif">${r.name.slice(0,12)}</text>` : ''}
+                ${showPct  ? `<text x="${x2 + w2/2}" y="${y2 + h2/2 + 9}" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="8" font-weight="700" font-family="Inter,sans-serif">${pctStr}</text>` : ''}
+            </g>`;
+        }).join('');
+
+        svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+        svg.setAttribute('preserveAspectRatio', 'none');
+        svg.innerHTML = `<rect width="${W}" height="${H}" fill="#F9FAFB" rx="0"/>` + rectsSvg;
+    }
+
+    function renderRankingTable(sortBy) {
+        appState.rankTab = sortBy;
+        const container = document.getElementById('ranking-container');
+        if (!container) return;
+
+        const cTab = document.getElementById('rank-tab-change');
+        const vTab = document.getElementById('rank-tab-volume');
+        const actCls = 'px-2.5 py-1 rounded-md bg-white text-gray-900 font-bold shadow-xs transition text-[9px]';
+        const ictCls = 'px-2.5 py-1 rounded-md text-gray-500 font-medium transition text-[9px]';
+        if (cTab) cTab.className = sortBy === 'change' ? actCls : ictCls;
+        if (vTab) vTab.className = sortBy === 'volume' ? actCls : ictCls;
+
+        let items = Object.values(etfDatabase);
+        if (sortBy === 'change') {
+            items.sort((a, b) => Math.abs(parsePct(b.changePct)) - Math.abs(parsePct(a.changePct)));
+        } else {
+            items.sort((a, b) => (etfCategoryMeta[b.symbol]?.volume || 0) - (etfCategoryMeta[a.symbol]?.volume || 0));
+        }
+        items = items.slice(0, 6);
+
+        container.innerHTML = '';
+        items.forEach(etf => {
+            const isUp = etf.changeVal.startsWith('+');
+            const bgBadge = isUp ? 'bg-emerald-50 text-emerald-800 border-emerald-100' : 'bg-rose-50 text-rose-800 border-rose-100';
+            const meta = etfCategoryMeta[etf.symbol] || {};
+            const vol = meta.volume ? meta.volume + 'M' : '-';
+            const row = document.createElement('div');
+            row.className = 'flex justify-between items-center py-2 border-b border-gray-50 cursor-pointer active:bg-gray-50 rounded transition';
+            row.onclick = () => openETFDetail(etf.symbol, 'dashboard');
+            row.innerHTML = `
+                <div class="flex items-center gap-2 min-w-0">
+                    <span class="text-[9px] font-bold text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded shrink-0">${etf.symbol.replace('.HK','')}</span>
+                    <div class="flex flex-col min-w-0">
+                        <span class="text-[11px] font-bold text-gray-900 truncate max-w-[140px]">${etf.name}</span>
+                        <span class="text-[8px] text-gray-400 font-medium">Vol ${vol}</span>
+                    </div>
+                </div>
+                <span class="text-[10px] font-bold px-2 py-1 rounded-md border ${bgBadge} min-w-[52px] text-center ml-2 shrink-0">${etf.changePct}</span>
+            `;
+            container.appendChild(row);
+        });
+    }
+
+    function switchRankTab(sortBy) {
+        renderRankingTable(sortBy);
+    }
+
+    function renderOvRankingTable(sortBy, direction = appState.rankSortDirection || 'desc') {
+        appState.rankTab = sortBy;
+        appState.rankSortDirection = direction;
+        updateRankTabUI(sortBy, direction);
+
+        const items = getRankedETFItems(sortBy, direction);
+        const container = document.getElementById('ov-ranking-container');
+        if (!container) return;
+        container.innerHTML = '';
+        items.forEach(etf => {
+            container.appendChild(buildETFListRow(etf, { metric: sortBy === 'volume' ? 'volume' : 'change', source: 'dashboard' }));
+        });
+    }
+
+    function switchOvRankTab(sortBy) {
+        const nextDirection = appState.rankTab === sortBy && appState.rankSortDirection === 'desc' ? 'asc' : 'desc';
+        renderOvRankingTable(sortBy, nextDirection);
+    }
+
     function setFilter(type, value) {
         appState.screenerFilters[type] = value;
         const active   = 'py-2 text-[11px] font-semibold border rounded-lg text-center transition bg-navyBlue border-navyBlue text-white';
         const inactive = 'py-2 text-[11px] font-medium border rounded-lg text-center transition border-gray-200 text-gray-600 bg-white hover:bg-gray-50';
+        const activePill   = 'py-1.5 px-3 text-[10px] font-semibold border rounded-lg transition bg-navyBlue border-navyBlue text-white';
+        const inactivePill = 'py-1.5 px-3 text-[10px] font-medium border rounded-lg transition border-gray-200 text-gray-600 bg-white hover:bg-gray-50';
 
         if (type === 'asset') {
             [['all','all'],['Equity','Equity'],['Fixed Income','Fixed Income'],['Commodity','Commodity']].forEach(([item, id]) => {
@@ -3056,6 +3728,12 @@
             [['all','all'],['Hong Kong','HK'],['Global','Global'],['Asia','Asia']].forEach(([item, id]) => {
                 const el = document.getElementById('filter-region-' + id);
                 if (el) el.className = (item === value) ? active : inactive;
+            });
+        } else if (type === 'sector') {
+            const ids = ['all','ai_tech','banking','china_a','real_estate','energy','fixed_income','global'];
+            ids.forEach(id => {
+                const el = document.getElementById('filter-sector-' + id);
+                if (el) el.className = (id === value) ? activePill : inactivePill;
             });
         }
         runScreenerFilters();
@@ -3165,6 +3843,15 @@
             activeFiltersCount++;
         }
 
+        if (appState.screenerFilters.sector !== 'all') {
+            const sg = SECTOR_GROUPS.find(s => s.id === appState.screenerFilters.sector);
+            if (sg) {
+                const sectorSymbols = new Set(sg.etfs);
+                results = results.filter(etf => sectorSymbols.has(etf.symbol));
+                activeFiltersCount++;
+            }
+        }
+
         if (issuerVal !== 'all') {
             results = results.filter(etf => etf.issuer === issuerVal);
             activeFiltersCount++;
@@ -3211,32 +3898,10 @@
             listContainer.innerHTML = '';
 
             results.forEach((etf, i) => {
-                const returnVal = parseFloat(etf.return1y);
-                const returnColor = returnVal >= 0 ? 'text-iosGreen' : 'text-iosRed';
-                const borderTop = i === 0 ? '' : 'border-t border-gray-100';
-                const meta = etfCategoryMeta[etf.symbol] || {};
-                const themeChip = meta.theme ? `<span class="text-[9px] text-gray-500 font-medium bg-gray-100 px-1.5 py-0.5 rounded">${meta.theme}</span>` : '';
-                const volLabel = meta.volume ? `<span class="block text-[9px] text-gray-400 mt-0.5">Vol ${meta.volume.toLocaleString()}M</span>` : '';
-
-                const row = document.createElement('div');
-                row.className = `${borderTop} px-4 py-3 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition active:bg-gray-100`;
-                row.onclick = () => openETFDetail(etf.symbol);
-                row.innerHTML = `
-                    <div class="flex-1 min-w-0 pr-3">
-                        <div class="flex items-center gap-1.5 mb-0.5">
-                            <span class="text-[10px] font-semibold text-gray-800">${etf.symbol}</span>
-                            ${themeChip}
-                        </div>
-                        <p class="text-xs font-medium text-gray-700 truncate leading-tight">${etf.name}</p>
-                        <p class="text-[10px] text-gray-400 font-normal mt-0.5">${etf.issuer} · ${etf.region} · Fees ${etf.fees}</p>
-                    </div>
-                    <div class="text-right shrink-0">
-                        <p class="text-sm font-semibold text-gray-900">${etf.price}</p>
-                        <p class="text-[10px] ${returnColor} font-semibold mt-0.5">1Y ${etf.return1y}</p>
-                        ${volLabel}
-                    </div>
-                `;
-                listContainer.appendChild(row);
+                const wrap = document.createElement('div');
+                wrap.className = `${i === 0 ? '' : 'border-t border-gray-100'} px-4`;
+                wrap.appendChild(buildETFListRow(etf, { metric: sortVal === 'active' ? 'volume' : 'change', source: 'screener', showTheme: true }));
+                listContainer.appendChild(wrap);
             });
         }
     }
@@ -3533,9 +4198,12 @@
             row.appendChild(chip);
         });
         // Trading-feature tags (smaller, outline)
-        (meta.tags || []).forEach(tag => {
+        const tradingTags = ['T+0', ...(meta.tags || [])];
+        tradingTags.forEach(tag => {
             const chip = document.createElement('span');
-            chip.className = 'inline-flex items-center text-[9px] font-medium text-gray-500 bg-white border border-gray-200 px-1.5 py-0.5 rounded-md';
+            chip.className = tag === 'T+0'
+                ? 'inline-flex items-center text-[9px] font-bold text-sky-700 bg-sky-50 border border-sky-100 px-1.5 py-0.5 rounded-md'
+                : 'inline-flex items-center text-[9px] font-medium text-gray-500 bg-white border border-gray-200 px-1.5 py-0.5 rounded-md';
             chip.textContent = tag;
             row.appendChild(chip);
         });
@@ -3604,28 +4272,34 @@
     function showWatchlistToast(added, symbol) {
         const toast = document.getElementById('watchlist-toast');
         const text = document.getElementById('watchlist-toast-text');
-        const icon = document.getElementById('watchlist-toast-icon');
-        if (!toast || !text || !icon) return;
+        const dot = document.getElementById('watchlist-toast-dot');
+        const undoBtn = document.getElementById('watchlist-toast-undo');
+        if (!toast || !text) return;
 
-        text.textContent = added ? `${symbol} added to Watchlist` : `${symbol} removed`;
-        const iconSvg = document.getElementById('watchlist-toast-icon');
-        if (iconSvg) {
-            iconSvg.className = `w-4 h-4 shrink-0 ${added ? 'text-emerald-400' : 'text-rose-400'}`;
-            iconSvg.innerHTML = added
-                ? '<polyline points="20 6 9 17 4 12"></polyline>'
-                : '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
-        }
+        const shortSym = (symbol || '').replace('.HK', '');
+        text.textContent = added ? `${shortSym} added to Watchlist` : `${shortSym} removed from Watchlist`;
+        if (dot) dot.style.background = added ? '#34C759' : '#636366';
+        if (undoBtn) undoBtn.style.color = added ? '#30D158' : '#8E8E93';
 
-        toast.classList.remove('hidden');
+        // Slide in
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(12px)';
+        toast.style.pointerEvents = 'none';
+        void toast.offsetWidth; // force reflow
         toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+        toast.style.pointerEvents = 'auto';
 
         if (_watchlistToastTimer) clearTimeout(_watchlistToastTimer);
-        _watchlistToastTimer = setTimeout(() => dismissWatchlistToast(), 2500);
+        _watchlistToastTimer = setTimeout(() => dismissWatchlistToast(), 2800);
     }
 
     function dismissWatchlistToast() {
         const toast = document.getElementById('watchlist-toast');
-        if (toast) toast.classList.add('hidden');
+        if (!toast) return;
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(12px)';
+        toast.style.pointerEvents = 'none';
         _lastWatchlistAction = null;
     }
 
@@ -3675,99 +4349,159 @@
     }
 
     function drawSVGChart(dataArr, timeline) {
-        const svg = document.getElementById('detail-trend-svg');
-        if (!svg || !dataArr || dataArr.length === 0) return;
-
-        const W = 300, H = 160;
-        const padT = 8, padB = 8, padL = 4, padR = 4;
-        const plotW = W - padL - padR;
-        const plotH = H - padT - padB;
-
-        const maxVal = Math.max(...dataArr);
-        const minVal = Math.min(...dataArr);
-        const rawRange = maxVal - minVal;
-        const range = rawRange === 0 ? 1 : rawRange;
-
-        // Y-axis labels
-        const mid = (maxVal + minVal) / 2;
-        document.getElementById('chart-y-top').textContent = maxVal.toFixed(2);
-        document.getElementById('chart-y-mid').textContent = mid.toFixed(2);
-        document.getElementById('chart-y-bot').textContent = minVal.toFixed(2);
-
-        // X-axis labels — adjust label format and offsets based on timeline
+        const etf = etfDatabase[appState.detailSymbol];
         const tl = timeline || appState.chartTimeline || '1Y';
-        const now = new Date(2026, 4, 21); // May 21 2026
-        const xLabels = document.getElementById('chart-x-labels');
-        if (xLabels) {
-            const spans = xLabels.querySelectorAll('span');
-            const mn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        if (!etf) return;
+        drawCandlestickChart(getCandlestickDataForTimeline(etf, tl), tl, etf);
+    }
 
-            if (tl === '1D') {
-                spans[0].textContent = '09:30';
-                spans[1].textContent = '12:30';
-                spans[2].textContent = '16:00';
-            } else if (tl === '1W') {
-                const offsets = [6, 3, 0];
-                offsets.forEach((days, i) => {
-                    const d = new Date(now); d.setDate(d.getDate() - days);
-                    spans[i].textContent = mn[d.getMonth()] + ' ' + d.getDate();
-                });
-            } else if (tl === '5Y' || tl === '10Y') {
-                const yrs = tl === '5Y' ? [5, 2.5, 0] : [10, 5, 0];
-                yrs.forEach((y, i) => {
-                    const d = new Date(now); d.setMonth(d.getMonth() - Math.round(y * 12));
-                    spans[i].textContent = String(d.getFullYear());
-                });
-            } else {
-                const offsets = tl === '1M' ? [30, 15, 0] : tl === '3M' ? [90, 45, 0] : [365, 180, 0];
-                const fmt = (d) => mn[d.getMonth()] + ' ' + d.getFullYear().toString().slice(2);
-                offsets.forEach((days, i) => {
-                    const d = new Date(now); d.setDate(d.getDate() - days);
-                    spans[i].textContent = fmt(d);
-                });
-            }
-        }
+    function drawCandlestickChart(candles, timeline, etf) {
+        const svg = document.getElementById('detail-trend-svg');
+        if (!svg || !candles || candles.length === 0) return;
 
-        // Change badge
-        const pctChange = dataArr.length > 1 ? ((dataArr[dataArr.length-1] - dataArr[0]) / dataArr[0] * 100) : 0;
+        const validCandles = candles.filter(c =>
+            Number.isFinite(c.open) && Number.isFinite(c.high) && Number.isFinite(c.low) && Number.isFinite(c.close) &&
+            c.high >= c.low && c.open > 0 && c.close > 0
+        );
+        if (validCandles.length === 0) return;
+
+        const W = 340, H = 280;
+        const padT = 12, padB = 20, padL = 6, padR = 46;
+        const volumeH = 38, gap = 12;
+        const priceH = H - padT - padB - volumeH - gap;
+        const priceBottom = padT + priceH;
+        const volumeTop = priceBottom + gap;
+        const volumeBottom = H - padB;
+        const plotW = W - padL - padR;
+
+        const highs = validCandles.map(c => c.high);
+        const lows = validCandles.map(c => c.low);
+        const maxVal = Math.max(...highs);
+        const minVal = Math.min(...lows);
+        const rawRange = Math.max(maxVal - minVal, maxVal * 0.008);
+        const yMax = maxVal + rawRange * 0.06;
+        const yMin = Math.max(0, minVal - rawRange * 0.06);
+        const range = yMax - yMin || 1;
+
+        const topLabel = document.getElementById('chart-y-top');
+        const midLabel = document.getElementById('chart-y-mid');
+        const botLabel = document.getElementById('chart-y-bot');
+        if (topLabel) topLabel.textContent = formatChartPrice(yMax);
+        if (midLabel) midLabel.textContent = formatChartPrice((yMax + yMin) / 2);
+        if (botLabel) botLabel.textContent = formatChartPrice(yMin);
+
+        updateChartXAxisLabels(timeline);
+
+        const firstOpen = validCandles[0].open;
+        const last = validCandles[validCandles.length - 1];
+        const pctChange = firstOpen ? ((last.close - firstOpen) / firstOpen) * 100 : 0;
+        const isRangeUp = pctChange >= 0;
         const badge = document.getElementById('chart-change-badge');
         if (badge) {
-            badge.textContent = (pctChange >= 0 ? '+' : '') + pctChange.toFixed(1) + '% (' + tl + ')';
-            badge.className = 'ml-2 text-[9px] font-semibold ' + (pctChange >= 0 ? 'text-emerald-600' : 'text-red-500');
+            badge.textContent = `${isRangeUp ? '+' : ''}${pctChange.toFixed(1)}% (${timeline})`;
+            badge.className = 'text-[10px] font-semibold ' + (isRangeUp ? 'text-emerald-600' : 'text-red-500');
         }
 
-        const toX = (i) => padL + (i / (dataArr.length - 1)) * plotW;
-        const toY = (v) => padT + plotH - ((v - minVal) / range) * plotH;
+        const setText = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+        setText('chart-ohlc-open', formatChartPrice(last.open));
+        setText('chart-ohlc-high', formatChartPrice(last.high));
+        setText('chart-ohlc-low', formatChartPrice(last.low));
+        setText('chart-ohlc-close', formatChartPrice(last.close));
+        setText('chart-volume-label', formatVolumeValue(last.volume));
 
-        // Grid lines (3 horizontal)
-        const gridYs = [padT, padT + plotH / 2, padT + plotH];
-        let gridLines = gridYs.map(y =>
-            `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}" stroke="#E5E7EB" stroke-width="0.5" stroke-dasharray="3,2"/>`
-        ).join('');
+        const toY = (v) => padT + priceH - ((v - yMin) / range) * priceH;
+        const step = plotW / validCandles.length;
+        const bodyW = Math.max(1.25, Math.min(7, step * 0.58));
+        const maxVolume = Math.max(...validCandles.map(c => c.volume || 1), 1);
 
-        const points = dataArr.map((v, i) => `${toX(i).toFixed(1)},${toY(v).toFixed(1)}`).join(' ');
-        const closedPoly = `${padL},${(padT + plotH).toFixed(1)} ${points} ${(W - padR).toFixed(1)},${(padT + plotH).toFixed(1)}`;
+        const priceLevels = [0, 0.25, 0.5, 0.75, 1];
+        const gridLines = priceLevels.map(level => {
+            const y = padT + priceH * level;
+            const value = yMax - range * level;
+            return `
+                <line x1="${padL}" y1="${y.toFixed(1)}" x2="${(W - padR).toFixed(1)}" y2="${y.toFixed(1)}" stroke="#E5E7EB" stroke-width="0.55" stroke-dasharray="3,3"/>
+                <text x="${(W - padR + 4).toFixed(1)}" y="${(y + 3).toFixed(1)}" fill="#94A3B8" font-size="8" font-weight="600">${formatChartPrice(value)}</text>
+            `;
+        }).join('');
 
-        const isUp = dataArr[dataArr.length - 1] >= dataArr[0];
-        const strokeColor = isUp ? '#1C4E80' : '#B91C1C';
-        const gradStop = isUp ? 'rgba(28,78,128,0.10)' : 'rgba(185,28,28,0.10)';
+        const verticalGrid = [0, 0.25, 0.5, 0.75, 1].map(level => {
+            const x = padL + plotW * level;
+            return `<line x1="${x.toFixed(1)}" y1="${padT}" x2="${x.toFixed(1)}" y2="${volumeBottom}" stroke="#F1F5F9" stroke-width="0.55"/>`;
+        }).join('');
 
-        // Last data point indicator dot
-        const lastX = toX(dataArr.length - 1).toFixed(1);
-        const lastY = toY(dataArr[dataArr.length - 1]).toFixed(1);
+        const candleShapes = validCandles.map((c, i) => {
+            const x = padL + step * i + step / 2;
+            const up = c.close >= c.open;
+            const color = up ? '#16A34A' : '#EF4444';
+            const highY = toY(c.high);
+            const lowY = toY(c.low);
+            const openY = toY(c.open);
+            const closeY = toY(c.close);
+            const bodyTop = Math.min(openY, closeY);
+            const bodyH = Math.max(0.85, Math.abs(closeY - openY));
+            const volumeBarH = Math.max(1, ((c.volume || 1) / maxVolume) * volumeH);
+            const volumeY = volumeBottom - volumeBarH;
+
+            return `
+                <line x1="${x.toFixed(1)}" y1="${highY.toFixed(1)}" x2="${x.toFixed(1)}" y2="${lowY.toFixed(1)}" stroke="${color}" stroke-width="0.8" opacity="0.85"/>
+                <rect x="${(x - bodyW / 2).toFixed(1)}" y="${bodyTop.toFixed(1)}" width="${bodyW.toFixed(1)}" height="${bodyH.toFixed(1)}" rx="0.45" fill="${color}" opacity="0.92"/>
+                <rect x="${(x - bodyW / 2).toFixed(1)}" y="${volumeY.toFixed(1)}" width="${bodyW.toFixed(1)}" height="${volumeBarH.toFixed(1)}" rx="0.4" fill="${color}" opacity="0.26"/>
+            `;
+        }).join('');
+
+        const lastY = toY(last.close);
+        const lastColor = last.close >= last.open ? '#16A34A' : '#EF4444';
+        const lastPrice = formatChartPrice(last.close);
+        const tagW = 39;
+        const tagH = 13;
+        const tagX = W - padR + 3;
+        const tagY = Math.max(padT, Math.min(priceBottom - tagH, lastY - tagH / 2));
 
         svg.innerHTML = `
-            <defs>
-                <linearGradient id="cGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="${gradStop}"/>
-                    <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-                </linearGradient>
-            </defs>
+            <rect x="0" y="0" width="${W}" height="${H}" fill="transparent"/>
+            ${verticalGrid}
             ${gridLines}
-            <polygon points="${closedPoly}" fill="url(#cGrad)"/>
-            <polyline points="${points}" fill="none" stroke="${strokeColor}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="${lastX}" cy="${lastY}" r="2.5" fill="${strokeColor}" opacity="0.85"/>
+            <line x1="${padL}" y1="${volumeTop}" x2="${W - padR}" y2="${volumeTop}" stroke="#E5E7EB" stroke-width="0.6"/>
+            ${candleShapes}
+            <line x1="${padL}" y1="${lastY.toFixed(1)}" x2="${W - padR + 1}" y2="${lastY.toFixed(1)}" stroke="${lastColor}" stroke-width="0.75" stroke-dasharray="3,3" opacity="0.7"/>
+            <rect x="${tagX}" y="${tagY.toFixed(1)}" width="${tagW}" height="${tagH}" rx="4" fill="${lastColor}" opacity="0.94"/>
+            <text x="${(tagX + tagW / 2).toFixed(1)}" y="${(tagY + 9.3).toFixed(1)}" text-anchor="middle" fill="white" font-size="7.4" font-weight="800">${lastPrice}</text>
         `;
+    }
+
+    function updateChartXAxisLabels(timeline) {
+        const tl = timeline || appState.chartTimeline || '1Y';
+        const now = new Date(2026, 4, 21);
+        const xLabels = document.getElementById('chart-x-labels');
+        if (!xLabels) return;
+        const spans = xLabels.querySelectorAll('span');
+        if (spans.length < 3) return;
+        const mn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+        if (tl === '1D') {
+            spans[0].textContent = '09:30';
+            spans[1].textContent = '12:30';
+            spans[2].textContent = '16:00';
+        } else if (tl === '1W') {
+            const offsets = [6, 3, 0];
+            offsets.forEach((days, i) => {
+                const d = new Date(now); d.setDate(d.getDate() - days);
+                spans[i].textContent = mn[d.getMonth()] + ' ' + d.getDate();
+            });
+        } else if (tl === '5Y' || tl === '10Y') {
+            const yrs = tl === '5Y' ? [5, 2.5, 0] : [10, 5, 0];
+            yrs.forEach((y, i) => {
+                const d = new Date(now); d.setMonth(d.getMonth() - Math.round(y * 12));
+                spans[i].textContent = String(d.getFullYear());
+            });
+        } else {
+            const offsets = tl === '1M' ? [30, 15, 0] : tl === '3M' ? [90, 45, 0] : [365, 180, 0];
+            const fmt = (d) => mn[d.getMonth()] + ' ' + d.getFullYear().toString().slice(2);
+            offsets.forEach((days, i) => {
+                const d = new Date(now); d.setDate(d.getDate() - days);
+                spans[i].textContent = fmt(d);
+            });
+        }
     }
 
     function switchChartTimeline(timeline) {
@@ -3790,7 +4524,94 @@
         }
     }
 
-    // Returns the series for a given timeline. Uses hand-tuned arrays for 1M/3M/1Y,
+    function getCandlestickDataForTimeline(etf, timeline) {
+        const anchors = getChartDataForTimeline(etf, timeline).map(Number).filter(Number.isFinite);
+        const targetCount = getTimelineCandleCount(timeline);
+        const closes = expandCloseAnchors(anchors, targetCount, etf, timeline);
+        return deriveOHLCFromCloseSeries(closes, etf, timeline);
+    }
+
+    function getTimelineCandleCount(timeline) {
+        const counts = { '1D': 26, '1W': 24, '1M': 30, '3M': 42, '1Y': 52, '5Y': 60, '10Y': 84 };
+        return counts[timeline] || 52;
+    }
+
+    function expandCloseAnchors(anchors, targetCount, etf, timeline) {
+        const lastPrice = parseChartPrice(etf.price) || 1;
+        const safeAnchors = anchors.length >= 2 ? anchors : [lastPrice * 0.985, lastPrice];
+        const seed = chartSeed(etf, timeline);
+        const vol = Math.max(0.004, Math.min(0.035, parsePercentValue(etf.vol) / 240));
+        const closes = [];
+
+        for (let i = 0; i < targetCount; i++) {
+            const t = targetCount === 1 ? 1 : i / (targetCount - 1);
+            const anchorPosition = t * (safeAnchors.length - 1);
+            const leftIndex = Math.floor(anchorPosition);
+            const rightIndex = Math.min(safeAnchors.length - 1, leftIndex + 1);
+            const localT = anchorPosition - leftIndex;
+            const left = safeAnchors[leftIndex];
+            const right = safeAnchors[rightIndex];
+            const base = left * (1 - localT) + right * localT;
+            const waveA = Math.sin(seed * 0.011 + i * 1.37) * vol;
+            const waveB = Math.cos(seed * 0.017 + i * 0.71) * vol * 0.48;
+            closes.push(Math.max(base * (1 + waveA + waveB), lastPrice * 0.08));
+        }
+
+        closes[closes.length - 1] = lastPrice;
+        return closes;
+    }
+
+    function deriveOHLCFromCloseSeries(closes, etf, timeline) {
+        const seed = chartSeed(etf, timeline);
+        const lastPrice = parseChartPrice(etf.price) || closes[closes.length - 1] || 1;
+        const vol = Math.max(0.0025, Math.min(0.045, parsePercentValue(etf.vol) / 180));
+        const meta = etfCategoryMeta[etf.symbol] || {};
+        const baseVolume = Number(meta.volume) || 180;
+        const candles = [];
+
+        closes.forEach((rawClose, i) => {
+            const close = i === closes.length - 1 ? lastPrice : Math.max(rawClose, lastPrice * 0.08);
+            const prevClose = i === 0 ? close * (1 + Math.sin(seed * 0.019) * vol * 0.8) : candles[i - 1].close;
+            const gapFactor = timeline === '1D' ? 0.12 : 0.28;
+            const open = i === 0 ? prevClose : prevClose * (1 + Math.sin(seed * 0.023 + i * 1.17) * vol * gapFactor);
+            const wickUp = Math.abs(Math.sin(seed * 0.031 + i * 0.91)) * vol * 0.85 + vol * 0.18;
+            const wickDown = Math.abs(Math.cos(seed * 0.029 + i * 0.83)) * vol * 0.85 + vol * 0.18;
+            const high = Math.max(open, close) * (1 + wickUp);
+            const low = Math.max(0.01, Math.min(open, close) * (1 - wickDown));
+            const volume = baseVolume * (0.62 + Math.abs(Math.sin(seed * 0.041 + i * 0.77)) * 0.76 + Math.abs(close - open) / Math.max(close, 1) * 18);
+
+            candles.push({ open, high, low, close, volume });
+        });
+
+        return candles;
+    }
+
+    function chartSeed(etf, timeline) {
+        return `${etf.symbol || 'ETF'}${timeline || '1Y'}`.split('').reduce((sum, char, i) => sum + char.charCodeAt(0) * (i + 3), 0);
+    }
+
+    function parseChartPrice(value) {
+        return parseFloat(String(value || '0').replace(/,/g, '')) || 0;
+    }
+
+    function parsePercentValue(value) {
+        return Math.abs(parseFloat(String(value || '0').replace('%', ''))) / 100 || 0.12;
+    }
+
+    function formatChartPrice(value) {
+        if (!Number.isFinite(value)) return '-';
+        const abs = Math.abs(value);
+        const digits = abs >= 1000 ? 1 : abs >= 10 ? 2 : 3;
+        return value.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+    }
+
+    function formatVolumeValue(value) {
+        if (!Number.isFinite(value)) return '-';
+        if (value >= 1000) return `${(value / 1000).toFixed(2)}B`;
+        return `${value.toFixed(0)}M`;
+    }
+
+    // Returns the close-price anchor series for a given timeline. Uses hand-tuned arrays for 1M/3M/1Y,
     // synthesizes deterministically for 1D/1W/5Y/10Y from current price + symbol-derived seed.
     function getChartDataForTimeline(etf, timeline) {
         if (etf['chartData' + timeline]) return etf['chartData' + timeline];
