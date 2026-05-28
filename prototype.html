@@ -33,6 +33,8 @@
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .product-filter-row { display:flex; gap:0.375rem; overflow-x:scroll; overflow-y:hidden; overscroll-behavior-x:contain; touch-action:pan-x; -webkit-overflow-scrolling:touch; scroll-snap-type:x proximity; padding-right:2rem; padding-bottom:0.25rem; }
+        .product-filter-row > button { scroll-snap-align:start; flex:0 0 auto; }
         #ptree-sc::-webkit-scrollbar { display: none; }
         #ptree-sc { -ms-overflow-style: none; scrollbar-width: none; }
         @keyframes ptree-pulse-g {
@@ -102,7 +104,7 @@
             <div id="ptree-sc" class="overflow-x-auto overflow-y-auto w-full h-full"
                  style="scroll-behavior:smooth" onscroll="ptreeUpdateScroll()">
                 <div style="width:710px;height:560px;position:relative;">
-                    <svg id="ptree-svg" width="710" height="560" style="position:absolute;top:0;left:0;pointer-events:none;"></svg>
+                    <svg id="ptree-svg" width="710" height="640" style="position:absolute;top:0;left:0;pointer-events:none;"></svg>
                     <div id="ptree-nodes" style="position:absolute;top:0;left:0;width:710px;height:560px;"></div>
                 </div>
             </div>
@@ -1561,26 +1563,52 @@
                         <div class="bg-white px-4 pt-4 pb-3 border-b border-gray-100 shrink-0 flex justify-between items-center">
                             <div>
                                 <h1 class="text-xl font-bold text-navyBlue tracking-tight">Structured Products</h1>
-                                <p class="text-[9px] text-gray-400 font-medium uppercase tracking-tight mt-0.5">Private Placement · Term Sheet Catalogue</p>
+                                <p class="text-[9px] text-gray-400 font-medium uppercase tracking-tight mt-0.5">Discover by market view · issuer · risk structure</p>
                             </div>
                             <button id="admin-panel-trigger" onclick="openAdminModal()" class="hidden w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 transition" title="Manage Products">
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                             </button>
                         </div>
 
-                        <!-- Filter bar -->
-                        <div class="bg-white border-b border-gray-100 px-4 py-2 shrink-0">
-                            <div class="flex gap-1.5 overflow-x-auto no-scrollbar">
-                                <button id="pf-all" onclick="setProductFilter('type','all')" class="px-3 py-1 text-[10px] font-semibold rounded-full bg-navyBlue text-white border border-navyBlue whitespace-nowrap shrink-0 transition">All</button>
-                                <button id="pf-cp" onclick="setProductFilter('type','Capital Protected')" class="px-3 py-1 text-[10px] font-medium rounded-full bg-white text-gray-500 border border-gray-200 whitespace-nowrap shrink-0 transition">Protected</button>
-                                <button id="pf-eln" onclick="setProductFilter('type','Equity Linked Note')" class="px-3 py-1 text-[10px] font-medium rounded-full bg-white text-gray-500 border border-gray-200 whitespace-nowrap shrink-0 transition">ELN</button>
-                                <button id="pf-auto" onclick="setProductFilter('type','Autocall / Snowball')" class="px-3 py-1 text-[10px] font-medium rounded-full bg-white text-gray-500 border border-gray-200 whitespace-nowrap shrink-0 transition">Autocall</button>
-                                <button id="pf-commod" onclick="setProductFilter('type','Commodity Linked')" class="px-3 py-1 text-[10px] font-medium rounded-full bg-white text-gray-500 border border-gray-200 whitespace-nowrap shrink-0 transition">Commodity</button>
+                        <!-- Discovery filters -->
+                        <div class="bg-white border-b border-gray-100 px-4 py-3 shrink-0 space-y-2.5">
+                            <div>
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Issuer</p>
+                                    <div class="flex gap-1">
+                                        <button type="button" onclick="scrollProductFilterRow('product-issuer-filters', -1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">‹</button>
+                                        <button type="button" onclick="scrollProductFilterRow('product-issuer-filters', 1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">›</button>
+                                    </div>
+                                </div>
+                                <div id="product-issuer-filters" class="product-filter-row no-scrollbar"></div>
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Strategy</p>
+                                    <div class="flex gap-1">
+                                        <button type="button" onclick="scrollProductFilterRow('product-strategy-filters', -1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">‹</button>
+                                        <button type="button" onclick="scrollProductFilterRow('product-strategy-filters', 1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">›</button>
+                                    </div>
+                                </div>
+                                <div id="product-strategy-filters" class="product-filter-row no-scrollbar"></div>
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Risk structure</p>
+                                    <div class="flex gap-1">
+                                        <button type="button" onclick="scrollProductFilterRow('product-risk-filters', -1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">‹</button>
+                                        <button type="button" onclick="scrollProductFilterRow('product-risk-filters', 1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">›</button>
+                                    </div>
+                                </div>
+                                <div id="product-risk-filters" class="product-filter-row no-scrollbar"></div>
                             </div>
                         </div>
 
                         <!-- Product list -->
-                        <div id="products-list-container" class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-3 pb-4"></div>
+                        <div class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-3 pb-4">
+                            <div id="products-heat-overview" class="space-y-1.5"></div>
+                            <div id="products-list-container" class="space-y-3"></div>
+                        </div>
 
                         <!-- ─── PRODUCT DETAIL OVERLAY (full screen) ─── -->
                         <div id="product-detail-overlay" class="absolute inset-0 bg-white z-30 hidden flex-col">
@@ -1667,40 +1695,57 @@
                             <!-- Tab: Scenario Modelling -->
                             <div id="od-panel-scenario" class="hidden flex-1 overflow-y-auto no-scrollbar px-4 py-4 space-y-4 bg-gray-50">
 
-                                <!-- Scenario selector -->
-                                <div class="bg-white rounded-xl border border-gray-150 p-3">
-                                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Scenario</p>
-                                    <div class="flex gap-1.5">
-                                        <button id="sc-btn-bull" onclick="selectScenario('bull')" class="flex-1 py-1.5 text-[10px] font-semibold rounded-lg bg-navyBlue text-white border border-navyBlue transition">Bull</button>
-                                        <button id="sc-btn-base" onclick="selectScenario('base')" class="flex-1 py-1.5 text-[10px] font-medium rounded-lg bg-white text-gray-500 border border-gray-200 transition">Base</button>
-                                        <button id="sc-btn-bear" onclick="selectScenario('bear')" class="flex-1 py-1.5 text-[10px] font-medium rounded-lg bg-white text-gray-500 border border-gray-200 transition">Bear</button>
+                                <!-- Payoff story -->
+                                <div class="bg-white rounded-xl border border-gray-150 p-3 space-y-2">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <p class="text-sm font-bold text-navyBlue">Payoff Story</p>
+                                        <span class="text-[8px] font-semibold text-gray-400 uppercase tracking-wide">Earn / lose rules</span>
+                                    </div>
+                                    <p id="sc-story-summary" class="text-[11px] text-gray-700 leading-relaxed"></p>
+                                    <div class="space-y-1.5 pt-1">
+                                        <div class="flex gap-2 text-[10px] leading-relaxed"><span class="font-bold text-navyBlue shrink-0">Earn</span><p id="sc-story-earn" class="text-gray-600"></p></div>
+                                        <div class="flex gap-2 text-[10px] leading-relaxed"><span class="font-bold text-gray-500 shrink-0">Lose</span><p id="sc-story-lose" class="text-gray-600"></p></div>
+                                        <div class="flex gap-2 text-[10px] leading-relaxed"><span class="font-bold text-gray-500 shrink-0">Watch</span><p id="sc-story-watch" class="text-gray-600"></p></div>
                                     </div>
                                 </div>
 
-                                <!-- Payoff chart (SVG bar) -->
+                                <!-- Scenario selector -->
                                 <div class="bg-white rounded-xl border border-gray-150 p-3">
-                                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-3">Payoff Chart</p>
-                                    <div id="sc-chart-area" class="h-28 flex items-end gap-2 px-1 mb-2"></div>
-                                    <div id="sc-chart-labels" class="flex gap-2 px-1 text-[8px] text-gray-400 text-center"></div>
+                                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Outcome selector</p>
+                                    <div class="flex gap-1.5">
+                                        <button id="sc-btn-bull" onclick="selectScenario('bull')" class="flex-1 py-1.5 text-[10px] font-semibold rounded-lg bg-navyBlue text-white border border-navyBlue transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue">Earn coupon</button>
+                                        <button id="sc-btn-base" onclick="selectScenario('base')" class="flex-1 py-1.5 text-[10px] font-medium rounded-lg bg-white text-gray-500 border border-gray-200 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue">Observe</button>
+                                        <button id="sc-btn-bear" onclick="selectScenario('bear')" class="flex-1 py-1.5 text-[10px] font-medium rounded-lg bg-white text-gray-500 border border-gray-200 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue">Loss trigger</button>
+                                    </div>
+                                </div>
+
+                                <!-- Payoff chart (SVG line) -->
+                                <div class="bg-white rounded-xl border border-gray-150 p-3">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Payoff map</p>
+                                        <span class="text-[8px] text-gray-400">0% baseline</span>
+                                    </div>
+                                    <div id="sc-chart-area" class="h-36 mb-2"></div>
+                                    <div id="sc-chart-labels" class="grid grid-cols-3 gap-2 px-1 text-[8px] text-gray-400 text-center"></div>
                                 </div>
 
                                 <!-- Active scenario detail -->
                                 <div class="bg-white rounded-xl border border-gray-150 p-3 space-y-2">
-                                    <div class="flex justify-between items-baseline">
-                                        <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Selected: <span id="sc-active-name" class="text-navyBlue">Bull</span></p>
-                                        <p class="text-xs font-bold text-navyBlue"><span id="sc-payoff-pct">—</span> return</p>
+                                    <div class="flex justify-between items-baseline gap-3">
+                                        <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Selected: <span id="sc-active-name" class="text-navyBlue">Earn coupon</span></p>
+                                        <p class="text-xs font-bold text-navyBlue shrink-0"><span id="sc-payoff-pct">—</span></p>
                                     </div>
-                                    <p id="sc-probability" class="text-[10px] text-gray-500">Probability: —</p>
+                                    <p id="sc-probability" class="text-[10px] text-gray-500">Indicative probability: —</p>
                                     <p id="sc-explanation" class="text-xs text-gray-700 leading-relaxed"></p>
                                 </div>
 
-                                <!-- Probability table -->
+                                <!-- Rule table -->
                                 <div>
-                                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">All Scenarios</p>
+                                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Rule quick check</p>
                                     <div class="bg-white rounded-xl border border-gray-150 overflow-hidden">
                                         <table class="w-full text-xs">
                                             <thead><tr class="border-b border-gray-100 bg-gray-50/60">
-                                                <th class="px-3 py-2 text-left text-[9px] font-semibold text-gray-400 uppercase">Scenario</th>
+                                                <th class="px-3 py-2 text-left text-[9px] font-semibold text-gray-400 uppercase">Event</th>
                                                 <th class="px-3 py-2 text-right text-[9px] font-semibold text-gray-400 uppercase">Payoff</th>
                                                 <th class="px-3 py-2 text-right text-[9px] font-semibold text-gray-400 uppercase">Prob.</th>
                                             </tr></thead>
@@ -6982,7 +7027,26 @@
             id: 'SP-HSI-001',
             name: 'HSI 18M Capital Protected Note',
             issuer: 'HSBC Bank (HK) Ltd.',
+            issuerShort: 'HSBC',
             type: 'Capital Protected',
+            category: 'Capital Protected',
+            marketView: 'defensive',
+            strategyTags: ['防御保护', '看涨参与'],
+            riskTags: ['保本/部分保本', '宽安全垫'],
+            attractivenessScore: 78,
+            highlightReason: '到期100%保本 + 参与恒指上涨，适合先守本金再看上涨空间。',
+            story: {
+                earnWhen: '恒指到期高于初始水平，你按85%参与率分享上涨。',
+                loseWhen: '到期恒指没有上涨时不赚收益，但本金仍按发行人信用返还。',
+                watchOut: '保护只在到期生效，中途赎回和发行人信用风险仍要看。',
+                plainSummary: '这张票像“带安全带看涨”：市场涨你跟一部分，市场跌你主要守本金。'
+            },
+            payoffCurve: [
+                { underlyingMove: -30, payoff: 0, label: '保本区' },
+                { underlyingMove: 0, payoff: 0, label: '不赚不亏' },
+                { underlyingMove: 10, payoff: 8.5, label: '参与上涨' },
+                { underlyingMove: 25, payoff: 21.3, label: '强上涨' }
+            ],
             underlying: 'Hang Seng Index (HSI)',
             underlyingDetails: [
                 { label: 'Asset class', value: 'Equity index' },
@@ -7032,7 +7096,27 @@
             id: 'SP-ELN-002',
             name: 'Alibaba / Tencent Equity Linked Note',
             issuer: 'BNP Paribas Arbitrage SNC',
+            issuerShort: 'BNP',
             type: 'Equity Linked Note',
+            category: 'ELN',
+            marketView: 'income',
+            strategyTags: ['高息收息', '震荡收益'],
+            riskTags: ['低敲入', '实物交收风险'],
+            attractivenessScore: 84,
+            highlightReason: '12.5%票息较高，但要接受最差股票实物交收风险。',
+            story: {
+                earnWhen: '两只股票没有在到期低于敲入/行使条件，你收票息并拿回本金。',
+                loseWhen: '若触发敲入且最差股票到期低于行使价，你会承担该股票跌幅或收到股票。',
+                watchOut: '重点盯最差表现股票、75%敲入线和到期价。',
+                plainSummary: '这张票本质是用承担下跌风险换取高票息，市场横盘时最舒服。'
+            },
+            payoffCurve: [
+                { underlyingMove: -45, payoff: -45, label: '收股票/亏损' },
+                { underlyingMove: -25, payoff: -25, label: '敲入区' },
+                { underlyingMove: -10, payoff: 12.5, label: '守住障碍' },
+                { underlyingMove: 0, payoff: 12.5, label: '收息' },
+                { underlyingMove: 20, payoff: 12.5, label: '收益封顶' }
+            ],
             underlying: 'Alibaba (9988.HK) & Tencent (0700.HK)',
             underlyingDetails: [
                 { label: 'Asset class', value: 'Single stocks (HK listed)' },
@@ -7082,7 +7166,27 @@
             id: 'SP-AUTO-003',
             name: 'CSI 300 Autocall Snowball Note',
             issuer: 'Goldman Sachs International',
+            issuerShort: 'Goldman',
             type: 'Autocall / Snowball',
+            category: 'Autocall',
+            marketView: 'range',
+            strategyTags: ['震荡收益', '高息收息'],
+            riskTags: ['低敲入', '可提前赎回'],
+            attractivenessScore: 88,
+            highlightReason: '65%低敲入 + 15%年化票息，适合相信指数不再深跌的震荡判断。',
+            story: {
+                earnWhen: '指数在观察日回到100%自动赎回线，或期间守住65%敲入线继续累计票息。',
+                loseWhen: '指数跌破65%敲入线且到期未恢复，你按85%行使价承担下跌损失。',
+                watchOut: '每月观察日、100%赎回线、65%敲入线和85%行使价。',
+                plainSummary: '这张票像“收租但怕暴跌”：横盘或温和反弹赚票息，深跌且不修复会亏本金。'
+            },
+            payoffCurve: [
+                { underlyingMove: -45, payoff: -35, label: '深跌亏损' },
+                { underlyingMove: -35, payoff: -25, label: '跌破敲入' },
+                { underlyingMove: -20, payoff: 15, label: '守住安全线' },
+                { underlyingMove: 0, payoff: 15, label: '收票息' },
+                { underlyingMove: 12, payoff: 15, label: '自动赎回' }
+            ],
             underlying: 'CSI 300 Index',
             underlyingDetails: [
                 { label: 'Asset class', value: 'Equity index (China A-shares)' },
@@ -7132,7 +7236,26 @@
             id: 'SP-COMMOD-004',
             name: 'Gold / Silver Commodity Note',
             issuer: 'Morgan Stanley Finance LLC',
+            issuerShort: 'Morgan Stanley',
             type: 'Commodity Linked',
+            category: 'Commodity Linked',
+            marketView: 'bullish',
+            strategyTags: ['看涨参与', '防御保护'],
+            riskTags: ['保本/部分保本', '宽安全垫'],
+            attractivenessScore: 72,
+            highlightReason: '90%到期保护 + 商品上涨120%参与，适合想参与贵金属但限制最大亏损。',
+            story: {
+                earnWhen: '金银篮子上涨时，按120%参与率放大正收益。',
+                loseWhen: '篮子下跌时到期保护只保90%，最大亏损约10%。',
+                watchOut: '这是已到期样本，未来同类产品仍受商品波动和发行人信用影响。',
+                plainSummary: '这张票是“有限下跌、放大上涨”的商品参与样本。'
+            },
+            payoffCurve: [
+                { underlyingMove: -30, payoff: -10, label: '保护底线' },
+                { underlyingMove: 0, payoff: -10, label: '未上涨' },
+                { underlyingMove: 10.7, payoff: 12.8, label: '实际到期' },
+                { underlyingMove: 25, payoff: 30, label: '商品上涨' }
+            ],
             underlying: 'Gold & Silver Basket (50/50)',
             underlyingDetails: [
                 { label: 'Asset class', value: 'Commodities' },
@@ -7177,43 +7300,890 @@
             ],
             pricing: { level: '112.80%', impliedYield: '12.8% (final return)', date: '2025-08-01 (maturity)', source: 'Final NAV (matured)' },
             disclaimer: 'Matured product, shown for record only. 90% capital protection applied at maturity, subject to Morgan Stanley issuer credit risk. Past performance is not indicative of future results.'
+        },
+        {
+            id: 'SP-PHOENIX-005',
+            name: 'Tencent / Meituan Phoenix Memory Coupon Note',
+            issuer: 'UBS AG London Branch',
+            issuerShort: 'UBS',
+            type: 'Autocall / Snowball',
+            category: 'Phoenix Autocall',
+            marketView: 'range',
+            strategyTags: ['震荡收益', '高息收息'],
+            riskTags: ['低敲入', '可提前赎回', '实物交收风险'],
+            attractivenessScore: 91,
+            highlightReason: '60%低敲入 + 记忆票息，适合判断龙头科技股震荡不深跌。',
+            story: {
+                earnWhen: '观察日两只股票都在派息线以上，未派票息会记忆累积；若升回赎回线则提前拿回本金和票息。',
+                loseWhen: '最差股票跌破60%敲入线，并且到期仍低于行使价，亏损跟随最差股票跌幅。',
+                watchOut: '最差表现股票、60%敲入线、100%自动赎回线和记忆票息是否恢复支付。',
+                plainSummary: '这张票像“等反弹收租”：横盘能收息，反弹会提前赎回，深跌不修复才伤本金。'
+            },
+            payoffCurve: [
+                { underlyingMove: -50, payoff: -50, label: '最差股深跌' },
+                { underlyingMove: -40, payoff: -40, label: '敲入亏损' },
+                { underlyingMove: -15, payoff: 13.8, label: '守住派息线' },
+                { underlyingMove: 0, payoff: 13.8, label: '收记忆票息' },
+                { underlyingMove: 8, payoff: 13.8, label: '自动赎回' }
+            ],
+            underlying: 'Tencent (0700.HK) & Meituan (3690.HK)',
+            underlyingDetails: [
+                { label: 'Asset class', value: 'Worst-of HK equities' },
+                { label: 'Basket', value: 'Tencent · Meituan' },
+                { label: 'Observation', value: 'Monthly autocall, memory coupon' },
+                { label: 'Initial level', value: 'Set at trade date' }
+            ],
+            payoffTerms: [
+                { label: 'Structure', value: 'Phoenix autocall with memory coupon' },
+                { label: 'Capital protection', value: 'None' },
+                { label: 'Coupon', value: '13.8% p.a. conditional memory coupon' },
+                { label: 'Autocall level', value: '100% monthly from month 6' },
+                { label: 'Knock-in barrier', value: '60% continuous / maturity observed' },
+                { label: 'Settlement if KI triggered', value: 'Physical delivery of worst stock' }
+            ],
+            currency: 'HKD', tenor: '18 months',
+            issueDate: '2026-04-15', maturityDate: '2027-10-15',
+            capitalProtection: null, participationRate: null,
+            knockIn: '60%', knockOut: '100%', coupon: '13.8% p.a.',
+            minimumInvestment: 'HKD 1,000,000', riskLevel: 'High', riskScore: 5,
+            status: 'Active', totalTenorDays: 548, daysToMaturity: 506,
+            pnl: '+1.9%', positive: true,
+            scenarios: {
+                bull: { payoff_pct: '+6.9% to +13.8% p.a.', probability: '38%', explanation: 'Basket recovers to autocall level after month 6. Product redeems early at par plus accrued memory coupon.' },
+                base: { payoff_pct: '+13.8% p.a.', probability: '34%', explanation: 'Worst stock remains above coupon and knock-in levels. Coupons accrue or catch up through memory feature.' },
+                bear: { payoff_pct: '−25% to −50%', probability: '28%', explanation: 'Worst stock breaches 60% knock-in and finishes below strike. Investor receives worst stock or cash loss equivalent.' },
+                custom: null
+            },
+            scenarioChart: [
+                { label: 'KI loss', val: -40 }, { label: 'Coupon zone', val: 13.8 },
+                { label: 'Memory paid', val: 13.8 }, { label: 'Autocall', val: 13.8 }
+            ],
+            participationSlope: null,
+            terms: [
+                { label: 'Memory coupon', value: '13.8% p.a., paid if coupon condition met' },
+                { label: 'Autocall observation', value: 'Monthly from month 6' },
+                { label: 'Knock-in barrier', value: '60% of initial price' },
+                { label: 'Settlement', value: 'Physical or cash equivalent on worst performer' },
+                { label: 'Minimum investment', value: 'HKD 1,000,000' },
+                { label: 'Distributor', value: 'Sunwah Fintech' }
+            ],
+            pricing: { level: '99.70%', impliedYield: '14.1% p.a.', date: '2026-05-24 16:00 HKT', source: 'Sunwah Internal Desk (Indicative)' },
+            disclaimer: 'NOT capital protected. Memory coupon and autocall are conditional. If the worst-performing stock breaches the knock-in barrier and does not recover, principal is at risk and physical delivery may apply.'
+        },
+        {
+            id: 'SP-RANGE-006',
+            name: 'USD SOFR Range Accrual Note',
+            issuer: 'J.P. Morgan Structured Products B.V.',
+            issuerShort: 'JPM',
+            type: 'Range Accrual',
+            category: 'Range Accrual',
+            marketView: 'range',
+            strategyTags: ['震荡收益', '高息收息'],
+            riskTags: ['宽安全垫', '保本/部分保本'],
+            attractivenessScore: 76,
+            highlightReason: '收益取决于SOFR留在区间内，适合认为利率不会大幅跳出区间。',
+            story: {
+                earnWhen: '每天SOFR落在预设区间内，该日计入票息；区间内天数越多，票息越高。',
+                loseWhen: 'SOFR长时间跑出区间，票息会明显变少；若提前卖出仍可能低于本金。',
+                watchOut: '区间上下限、计息天数、提前赎回条款和发行人信用。',
+                plainSummary: '这张票像“利率待在跑道里就计分”：不赌方向，赌利率不要跑偏。'
+            },
+            payoffCurve: [
+                { underlyingMove: -2, payoff: 1.2, label: '低于区间' },
+                { underlyingMove: -0.5, payoff: 5.6, label: '部分计息' },
+                { underlyingMove: 0, payoff: 7.2, label: '区间内' },
+                { underlyingMove: 0.5, payoff: 5.6, label: '部分计息' },
+                { underlyingMove: 2, payoff: 1.2, label: '高于区间' }
+            ],
+            underlying: '3M SOFR Reference Rate',
+            underlyingDetails: [
+                { label: 'Asset class', value: 'Interest rates' },
+                { label: 'Reference rate', value: '3M SOFR' },
+                { label: 'Accrual range', value: '3.25% to 5.25%' },
+                { label: 'Observation', value: 'Daily range accrual' }
+            ],
+            payoffTerms: [
+                { label: 'Structure', value: 'Range accrual note' },
+                { label: 'Capital protection', value: '100% at maturity' },
+                { label: 'Maximum coupon', value: '7.2% p.a.' },
+                { label: 'Coupon condition', value: 'SOFR within 3.25% to 5.25%' },
+                { label: 'Knock-in barrier', value: 'None' },
+                { label: 'Issuer call', value: 'Quarterly callable after year 1' }
+            ],
+            currency: 'USD', tenor: '36 months',
+            issueDate: '2026-03-28', maturityDate: '2029-03-28',
+            capitalProtection: '100%', participationRate: null,
+            knockIn: null, knockOut: 'Issuer call', coupon: 'Up to 7.2% p.a.',
+            minimumInvestment: 'USD 200,000', riskLevel: 'Medium', riskScore: 2,
+            status: 'Active', totalTenorDays: 1096, daysToMaturity: 1035,
+            pnl: '+0.6%', positive: true,
+            scenarios: {
+                bull: { payoff_pct: '+7.2% p.a.', probability: '40%', explanation: 'SOFR stays inside the accrual range for most observation days. Maximum coupon is paid, principal returned at maturity.' },
+                base: { payoff_pct: '+4.8% p.a.', probability: '38%', explanation: 'SOFR spends part of the period outside the range, reducing coupon accrual but principal remains protected at maturity.' },
+                bear: { payoff_pct: '+0% to +2% p.a.', probability: '22%', explanation: 'SOFR stays outside the range for long periods. Coupon is low even though principal is protected at maturity.' },
+                custom: null
+            },
+            scenarioChart: [
+                { label: 'Out range', val: 1.2 }, { label: 'Partial', val: 4.8 },
+                { label: 'In range', val: 7.2 }, { label: 'Called', val: 7.2 }
+            ],
+            participationSlope: null,
+            terms: [
+                { label: 'Accrual range', value: '3.25% to 5.25%' },
+                { label: 'Maximum coupon', value: '7.2% p.a.' },
+                { label: 'Capital protection', value: '100% at maturity' },
+                { label: 'Call feature', value: 'Issuer callable quarterly after year 1' },
+                { label: 'Minimum investment', value: 'USD 200,000' },
+                { label: 'Distributor', value: 'Sunwah Fintech' }
+            ],
+            pricing: { level: '100.15%', impliedYield: '5.1% p.a. expected', date: '2026-05-24 16:00 HKT', source: 'Sunwah Internal Desk (Indicative)' },
+            disclaimer: 'Capital protection applies at maturity and is subject to issuer credit risk. Coupon is not fixed and depends on observed SOFR levels. Early sale may be below principal.'
+        },
+        {
+            id: 'SP-BUFFER-007',
+            name: 'S&P 500 20% Buffer Growth Note',
+            issuer: 'Citigroup Global Markets Funding Luxembourg',
+            issuerShort: 'Citi',
+            type: 'Buffer Note',
+            category: 'Buffer Note',
+            marketView: 'defensive',
+            strategyTags: ['防御保护', '看涨参与'],
+            riskTags: ['宽安全垫', '保本/部分保本'],
+            attractivenessScore: 82,
+            highlightReason: '20%下跌缓冲 + 上涨封顶参与，适合想看涨但害怕小幅回撤。',
+            story: {
+                earnWhen: '标普500到期上涨，你参与上涨但收益有上限。',
+                loseWhen: '指数到期跌幅超过20%缓冲后，超出部分会损失本金。',
+                watchOut: '20%缓冲不是保本，超过缓冲后的跌幅仍由投资者承担。',
+                plainSummary: '这张票像“带保险杠看涨”：小跌先由缓冲吸收，大跌才开始伤本金。'
+            },
+            payoffCurve: [
+                { underlyingMove: -40, payoff: -20, label: '超过缓冲' },
+                { underlyingMove: -20, payoff: 0, label: '缓冲边界' },
+                { underlyingMove: 0, payoff: 0, label: '持平' },
+                { underlyingMove: 15, payoff: 15, label: '参与上涨' },
+                { underlyingMove: 28, payoff: 22, label: '收益封顶' }
+            ],
+            underlying: 'S&P 500 Index',
+            underlyingDetails: [
+                { label: 'Asset class', value: 'US equity index' },
+                { label: 'Reference index', value: 'S&P 500 Index' },
+                { label: 'Buffer', value: 'First 20% downside at maturity' },
+                { label: 'Cap', value: '22% maximum return' }
+            ],
+            payoffTerms: [
+                { label: 'Structure', value: 'Buffered growth note' },
+                { label: 'Capital protection', value: '20% downside buffer only' },
+                { label: 'Participation rate', value: '100% upside, capped at 22%' },
+                { label: 'Downside buffer', value: 'First 20% index decline' },
+                { label: 'Knock-in barrier', value: 'None' },
+                { label: 'Coupon', value: 'None' }
+            ],
+            currency: 'USD', tenor: '24 months',
+            issueDate: '2026-02-12', maturityDate: '2028-02-12',
+            capitalProtection: '20% buffer', participationRate: '100% capped',
+            knockIn: null, knockOut: null, coupon: null,
+            minimumInvestment: 'USD 100,000', riskLevel: 'Medium', riskScore: 3,
+            status: 'Active', totalTenorDays: 731, daysToMaturity: 626,
+            pnl: '+2.4%', positive: true,
+            scenarios: {
+                bull: { payoff_pct: '+22.0% max', probability: '32%', explanation: 'Index rises more than the cap. Investor receives capped maximum return of 22% plus principal.' },
+                base: { payoff_pct: '+8% to +15%', probability: '43%', explanation: 'Index rises moderately. Investor participates in the upside until the cap.' },
+                bear: { payoff_pct: '0% to −25%', probability: '25%', explanation: 'First 20% decline is buffered. Loss begins only after the index decline exceeds the buffer.' },
+                custom: null
+            },
+            scenarioChart: [
+                { label: 'Deep loss', val: -20 }, { label: 'Buffer', val: 0 },
+                { label: 'Base', val: 12 }, { label: 'Cap', val: 22 }
+            ],
+            participationSlope: 1,
+            terms: [
+                { label: 'Buffer', value: '20% at maturity' },
+                { label: 'Upside cap', value: '22%' },
+                { label: 'Participation', value: '100% until cap' },
+                { label: 'Minimum investment', value: 'USD 100,000' },
+                { label: 'Settlement', value: 'Cash only' },
+                { label: 'Distributor', value: 'Sunwah Fintech' }
+            ],
+            pricing: { level: '101.10%', impliedYield: 'Scenario dependent', date: '2026-05-24 16:00 HKT', source: 'Sunwah Internal Desk (Indicative)' },
+            disclaimer: 'Buffer applies only at maturity and does not eliminate loss beyond the buffer. Return is capped. Product is subject to Citi issuer credit risk and secondary-market liquidity risk.'
+        },
+        {
+            id: 'SP-TWINWIN-008',
+            name: 'HSI Twin-Win Volatility Note',
+            issuer: 'Credit Suisse AG Singapore Branch',
+            issuerShort: 'Credit Suisse',
+            type: 'Equity Linked Note',
+            category: 'Twin-Win',
+            marketView: 'volatility',
+            strategyTags: ['震荡收益', '看涨参与'],
+            riskTags: ['宽安全垫', '低敲入'],
+            attractivenessScore: 74,
+            highlightReason: '指数温和上落都可能有正收益，但跌穿障碍后规则会反转。',
+            story: {
+                earnWhen: '恒指在安全区内，无论小涨小跌都可能按绝对变动计算正收益。',
+                loseWhen: '若跌破下方障碍并到期仍很低，保护机制失效，亏损跟随指数跌幅。',
+                watchOut: '下方障碍、参与率和到期是否仍在安全区内。',
+                plainSummary: '这张票不是只赌上涨，而是赌“有波动但别崩”。'
+            },
+            payoffCurve: [
+                { underlyingMove: -45, payoff: -45, label: '障碍失效' },
+                { underlyingMove: -25, payoff: 18, label: '下跌也赚' },
+                { underlyingMove: 0, payoff: 0, label: '持平' },
+                { underlyingMove: 18, payoff: 14.4, label: '上涨收益' },
+                { underlyingMove: 30, payoff: 24, label: '强波动' }
+            ],
+            underlying: 'Hang Seng Index (HSI)',
+            underlyingDetails: [
+                { label: 'Asset class', value: 'Equity index' },
+                { label: 'Reference index', value: 'Hang Seng Index' },
+                { label: 'Twin-win range', value: 'Above 70% downside barrier' },
+                { label: 'Participation', value: '80% absolute performance if barrier not breached' }
+            ],
+            payoffTerms: [
+                { label: 'Structure', value: 'Twin-win note with downside barrier' },
+                { label: 'Capital protection', value: 'None' },
+                { label: 'Participation rate', value: '80% of absolute index move if barrier intact' },
+                { label: 'Barrier', value: '70% of initial level' },
+                { label: 'Knock-out / Autocall', value: 'None' },
+                { label: 'Coupon', value: 'None' }
+            ],
+            currency: 'HKD', tenor: '18 months',
+            issueDate: '2026-01-30', maturityDate: '2027-07-30',
+            capitalProtection: null, participationRate: '80%',
+            knockIn: '70%', knockOut: null, coupon: null,
+            minimumInvestment: 'HKD 500,000', riskLevel: 'Medium', riskScore: 3,
+            status: 'Active', totalTenorDays: 546, daysToMaturity: 429,
+            pnl: '−0.8%', positive: false,
+            scenarios: {
+                bull: { payoff_pct: '+14% to +24%', probability: '28%', explanation: 'Index moves up strongly. Investor receives 80% of positive index performance.' },
+                base: { payoff_pct: '+8% to +18%', probability: '42%', explanation: 'Index moves down but stays above the 70% barrier. Absolute-return feature can still generate positive payoff.' },
+                bear: { payoff_pct: '−30% or worse', probability: '30%', explanation: 'Index breaches the 70% barrier and finishes low. Twin-win feature stops protecting the downside.' },
+                custom: null
+            },
+            scenarioChart: [
+                { label: 'Barrier fail', val: -35 }, { label: 'Down move win', val: 18 },
+                { label: 'Flat', val: 0 }, { label: 'Up move win', val: 24 }
+            ],
+            participationSlope: 0.8,
+            terms: [
+                { label: 'Barrier', value: '70% of initial HSI level' },
+                { label: 'Participation', value: '80% of absolute move if barrier intact' },
+                { label: 'Settlement', value: 'Cash only' },
+                { label: 'Minimum investment', value: 'HKD 500,000' },
+                { label: 'Listing', value: 'OTC (not listed)' },
+                { label: 'Distributor', value: 'Sunwah Fintech' }
+            ],
+            pricing: { level: '98.90%', impliedYield: 'Volatility dependent', date: '2026-05-24 16:00 HKT', source: 'Sunwah Internal Desk (Indicative)' },
+            disclaimer: 'NOT capital protected. Twin-win payoff depends on the downside barrier remaining intact. If the barrier is breached, investor may suffer index-linked losses.'
+        },
+        {
+            id: 'SP-FCN-009',
+            name: 'HK Bank Shares Fixed Coupon Note',
+            issuer: 'BNP Paribas Issuance B.V.',
+            issuerShort: 'BNP',
+            type: 'Equity Linked Note',
+            category: 'Fixed Coupon Note',
+            marketView: 'income',
+            strategyTags: ['高息收息', '震荡收益'],
+            riskTags: ['低敲入', '实物交收风险'],
+            attractivenessScore: 86,
+            highlightReason: '银行股篮子 + 固定票息，收益清楚但最差股下跌会影响本金。',
+            story: {
+                earnWhen: '银行股篮子维持在敲入线以上，你按期收固定票息。',
+                loseWhen: '最差银行股跌破敲入线且到期低于行使价，可能收股票并承担跌幅。',
+                watchOut: '最差表现银行股、72%敲入线和是否有实物交收。',
+                plainSummary: '这张票用银行股下跌风险换固定票息，适合相信银行股不会大跌。'
+            },
+            payoffCurve: [
+                { underlyingMove: -45, payoff: -45, label: '收股票亏损' },
+                { underlyingMove: -28, payoff: -28, label: '敲入亏损' },
+                { underlyingMove: -12, payoff: 10.2, label: '守住敲入' },
+                { underlyingMove: 0, payoff: 10.2, label: '收固定息' },
+                { underlyingMove: 20, payoff: 10.2, label: '收益封顶' }
+            ],
+            underlying: 'HSBC (0005.HK), BOC HK (2388.HK), AIA (1299.HK)',
+            underlyingDetails: [
+                { label: 'Asset class', value: 'Worst-of HK financial equities' },
+                { label: 'Basket', value: 'HSBC · BOC HK · AIA' },
+                { label: 'Coupon type', value: 'Fixed coupon' },
+                { label: 'Settlement risk', value: 'Worst stock delivery if barrier event occurs' }
+            ],
+            payoffTerms: [
+                { label: 'Structure', value: 'Fixed coupon note' },
+                { label: 'Capital protection', value: 'None' },
+                { label: 'Coupon', value: '10.2% p.a. fixed' },
+                { label: 'Knock-in barrier', value: '72% of initial price' },
+                { label: 'Autocall', value: 'None' },
+                { label: 'Settlement if KI triggered', value: 'Physical delivery of worst stock' }
+            ],
+            currency: 'HKD', tenor: '12 months',
+            issueDate: '2026-05-02', maturityDate: '2027-05-02',
+            capitalProtection: null, participationRate: null,
+            knockIn: '72%', knockOut: null, coupon: '10.2% p.a.',
+            minimumInvestment: 'HKD 500,000', riskLevel: 'High', riskScore: 4,
+            status: 'Active', totalTenorDays: 365, daysToMaturity: 340,
+            pnl: '+1.1%', positive: true,
+            scenarios: {
+                bull: { payoff_pct: '+10.2%', probability: '46%', explanation: 'All basket names remain above barrier and strike. Fixed coupon paid, principal returned.' },
+                base: { payoff_pct: '+10.2%', probability: '29%', explanation: 'Volatile path but worst stock recovers by maturity. Coupon remains the main return.' },
+                bear: { payoff_pct: '−20% to −45%', probability: '25%', explanation: 'Worst stock breaches the barrier and closes below strike. Investor receives the worst stock or suffers equivalent loss.' },
+                custom: null
+            },
+            scenarioChart: [
+                { label: 'Worst stock', val: -35 }, { label: 'Recovery', val: 10.2 },
+                { label: 'Coupon', val: 10.2 }, { label: 'Upside cap', val: 10.2 }
+            ],
+            participationSlope: null,
+            terms: [
+                { label: 'Coupon', value: '10.2% p.a. fixed' },
+                { label: 'Knock-in barrier', value: '72% of initial price' },
+                { label: 'Settlement', value: 'Physical delivery if barrier event applies' },
+                { label: 'Minimum investment', value: 'HKD 500,000' },
+                { label: 'Listing', value: 'OTC (not listed)' },
+                { label: 'Distributor', value: 'Sunwah Fintech' }
+            ],
+            pricing: { level: '100.05%', impliedYield: '10.1% p.a.', date: '2026-05-24 16:00 HKT', source: 'Sunwah Internal Desk (Indicative)' },
+            disclaimer: 'NOT capital protected. Fixed coupon does not remove downside risk. Physical delivery of the worst-performing stock may occur after a knock-in event.'
+        },
+        {
+            id: 'SP-REVERSE-010',
+            name: 'Apple Reverse Convertible Note',
+            issuer: 'Morgan Stanley Finance LLC',
+            issuerShort: 'Morgan Stanley',
+            type: 'Reverse Convertible',
+            category: 'Reverse Convertible',
+            marketView: 'bullish',
+            strategyTags: ['高息收息', '看涨参与'],
+            riskTags: ['实物交收风险'],
+            attractivenessScore: 69,
+            highlightReason: '单一股票高票息最直观，但下跌风险集中在Apple一只股票。',
+            story: {
+                earnWhen: 'Apple到期不低于障碍/行使条件，你收高票息并拿回本金。',
+                loseWhen: 'Apple跌破障碍且到期低于行使价，你承担股票跌幅或收到股票。',
+                watchOut: '单一股票波动、65%障碍和是否愿意接股票。',
+                plainSummary: '这张票是“愿意接Apple股票换高息”，不是保本产品。'
+            },
+            payoffCurve: [
+                { underlyingMove: -50, payoff: -50, label: '接股亏损' },
+                { underlyingMove: -35, payoff: -35, label: '障碍下方' },
+                { underlyingMove: -10, payoff: 16.5, label: '收高息' },
+                { underlyingMove: 0, payoff: 16.5, label: '收息' },
+                { underlyingMove: 25, payoff: 16.5, label: '收益封顶' }
+            ],
+            underlying: 'Apple Inc. (AAPL US)',
+            underlyingDetails: [
+                { label: 'Asset class', value: 'US single stock' },
+                { label: 'Reference stock', value: 'Apple Inc.' },
+                { label: 'Initial price', value: 'Set at trade date' },
+                { label: 'Settlement', value: 'Cash or Apple shares' }
+            ],
+            payoffTerms: [
+                { label: 'Structure', value: 'Reverse convertible note' },
+                { label: 'Capital protection', value: 'None' },
+                { label: 'Coupon', value: '16.5% p.a.' },
+                { label: 'Barrier', value: '65% of initial price' },
+                { label: 'Strike level', value: '100% of initial price' },
+                { label: 'Settlement if barrier event', value: 'Shares or cash equivalent' }
+            ],
+            currency: 'USD', tenor: '6 months',
+            issueDate: '2026-05-10', maturityDate: '2026-11-10',
+            capitalProtection: null, participationRate: null,
+            knockIn: '65%', knockOut: null, coupon: '16.5% p.a.',
+            minimumInvestment: 'USD 100,000', riskLevel: 'High', riskScore: 5,
+            status: 'Active', totalTenorDays: 184, daysToMaturity: 167,
+            pnl: '+0.9%', positive: true,
+            scenarios: {
+                bull: { payoff_pct: '+8.25%', probability: '52%', explanation: 'Apple remains above strike or barrier condition is not triggered. Investor receives six-month coupon and principal.' },
+                base: { payoff_pct: '+8.25%', probability: '22%', explanation: 'Apple dips but recovers above strike by maturity. Coupon remains fixed, upside is capped.' },
+                bear: { payoff_pct: '−25% to −55%', probability: '26%', explanation: 'Apple finishes below strike after barrier event. Investor receives shares or cash loss equivalent.' },
+                custom: null
+            },
+            scenarioChart: [
+                { label: 'Stock loss', val: -45 }, { label: 'Recover', val: 8.25 },
+                { label: 'Coupon', val: 8.25 }, { label: 'Capped', val: 8.25 }
+            ],
+            participationSlope: null,
+            terms: [
+                { label: 'Coupon', value: '16.5% p.a. paid at maturity' },
+                { label: 'Barrier', value: '65% of initial price' },
+                { label: 'Strike', value: '100% of initial price' },
+                { label: 'Settlement', value: 'Cash or Apple shares' },
+                { label: 'Minimum investment', value: 'USD 100,000' },
+                { label: 'Distributor', value: 'Sunwah Fintech' }
+            ],
+            pricing: { level: '99.95%', impliedYield: '16.6% p.a.', date: '2026-05-24 16:00 HKT', source: 'Sunwah Internal Desk (Indicative)' },
+            disclaimer: 'NOT capital protected. Reverse convertibles can lead to substantial loss or share delivery. Coupon is compensation for taking embedded equity downside risk.'
+        },
+        {
+            id: 'SP-AIRBAG-011',
+            name: 'Alibaba Airbag Equity Linked Investment',
+            issuer: 'HSBC Bank (HK) Ltd.',
+            issuerShort: 'HSBC',
+            type: 'Equity Linked Note',
+            category: 'Airbag ELI',
+            marketView: 'defensive',
+            strategyTags: ['防御保护', '看涨参与'],
+            riskTags: ['宽安全垫', '低敲入', '实物交收风险'],
+            attractivenessScore: 80,
+            highlightReason: 'Airbag结构降低轻度下跌伤害，但跌穿气囊线后仍可能接股票。',
+            story: {
+                earnWhen: 'Alibaba上涨或小幅下跌但未触发气囊线时，你可按规则获得票息或较温和结果。',
+                loseWhen: '股价跌穿气囊/敲入线且到期低于行使价，可能收股票并承担下跌。',
+                watchOut: '气囊线、行使价、到期价和实物交收安排。',
+                plainSummary: '这张票比普通ELI多一层垫子，但垫子破了仍然是股票下跌风险。'
+            },
+            payoffCurve: [
+                { underlyingMove: -45, payoff: -45, label: '气囊破裂' },
+                { underlyingMove: -30, payoff: -20, label: '敲入亏损' },
+                { underlyingMove: -10, payoff: 7.5, label: '气囊保护' },
+                { underlyingMove: 0, payoff: 7.5, label: '收息' },
+                { underlyingMove: 18, payoff: 7.5, label: '收益封顶' }
+            ],
+            underlying: 'Alibaba Group (9988.HK)',
+            underlyingDetails: [
+                { label: 'Asset class', value: 'HK listed single stock' },
+                { label: 'Reference stock', value: 'Alibaba Group' },
+                { label: 'Airbag level', value: '75% of initial price' },
+                { label: 'Settlement', value: 'Cash or shares' }
+            ],
+            payoffTerms: [
+                { label: 'Structure', value: 'Airbag equity linked investment' },
+                { label: 'Capital protection', value: 'None' },
+                { label: 'Coupon', value: '7.5% p.a. indicative' },
+                { label: 'Airbag / knock-in level', value: '75% of initial price' },
+                { label: 'Strike level', value: '100% of initial price' },
+                { label: 'Settlement if airbag lapses', value: 'Physical delivery may apply' }
+            ],
+            currency: 'HKD', tenor: '9 months',
+            issueDate: '2026-05-18', maturityDate: '2027-02-18',
+            capitalProtection: null, participationRate: null,
+            knockIn: '75%', knockOut: null, coupon: '7.5% p.a.',
+            minimumInvestment: 'HKD 200,000', riskLevel: 'Medium', riskScore: 3,
+            status: 'Active', totalTenorDays: 276, daysToMaturity: 267,
+            pnl: '+0.4%', positive: true,
+            scenarios: {
+                bull: { payoff_pct: '+5.6%', probability: '42%', explanation: 'Stock remains above strike or airbag condition remains intact. Investor receives indicative coupon and principal.' },
+                base: { payoff_pct: '+0% to +5.6%', probability: '33%', explanation: 'Stock is soft but airbag remains effective. Downside is cushioned by the structure rules.' },
+                bear: { payoff_pct: '−20% to −45%', probability: '25%', explanation: 'Airbag level is breached and stock closes below strike. Investor may receive shares with capital loss.' },
+                custom: null
+            },
+            scenarioChart: [
+                { label: 'Airbag fail', val: -35 }, { label: 'Cushion', val: 0 },
+                { label: 'Coupon', val: 5.6 }, { label: 'Stock up', val: 5.6 }
+            ],
+            participationSlope: null,
+            terms: [
+                { label: 'Airbag level', value: '75% of initial price' },
+                { label: 'Coupon', value: '7.5% p.a. indicative' },
+                { label: 'Settlement', value: 'Physical delivery if airbag condition fails' },
+                { label: 'Minimum investment', value: 'HKD 200,000' },
+                { label: 'Listing', value: 'OTC (not listed)' },
+                { label: 'Distributor', value: 'Sunwah Fintech' }
+            ],
+            pricing: { level: '100.20%', impliedYield: '7.3% p.a.', date: '2026-05-24 16:00 HKT', source: 'Sunwah Internal Desk (Indicative)' },
+            disclaimer: 'NOT capital protected. Airbag or knock-in feature can lapse if the reference stock falls beyond the specified level. Investor may receive shares and lose principal.'
+        },
+        {
+            id: 'SP-DUAL-012',
+            name: 'USD/CNH Dual Currency Investment',
+            issuer: 'DBS Bank Ltd.',
+            issuerShort: 'DBS',
+            type: 'Dual Currency',
+            category: 'Dual Currency',
+            marketView: 'fx',
+            strategyTags: ['汇率观点', '高息收息'],
+            riskTags: ['实物交收风险'],
+            attractivenessScore: 67,
+            highlightReason: '短期增强收益，但可能以较不利汇率转换成另一种货币。',
+            story: {
+                earnWhen: '到期汇率没有触发转换，你以原币拿回本金和增强收益。',
+                loseWhen: '汇率穿过转换价，你会以约定汇率收另一种货币，折回原币可能亏。',
+                watchOut: '转换价、到期即期汇率、是否愿意持有CNH或USD。',
+                plainSummary: '这张票像“拿高息换汇率选择权”：赚的是高息，风险是被换成另一种货币。'
+            },
+            payoffCurve: [
+                { underlyingMove: -5, payoff: -3.5, label: '被转换' },
+                { underlyingMove: -2, payoff: -1, label: '汇率不利' },
+                { underlyingMove: 0, payoff: 2.1, label: '收增强息' },
+                { underlyingMove: 2, payoff: 2.1, label: '未转换' },
+                { underlyingMove: 5, payoff: 2.1, label: '收益封顶' }
+            ],
+            underlying: 'USD/CNH exchange rate',
+            underlyingDetails: [
+                { label: 'Asset class', value: 'Foreign exchange' },
+                { label: 'Currency pair', value: 'USD/CNH' },
+                { label: 'Investment currency', value: 'USD' },
+                { label: 'Alternate currency', value: 'CNH' }
+            ],
+            payoffTerms: [
+                { label: 'Structure', value: 'Dual currency investment' },
+                { label: 'Capital protection', value: 'Not protected in base-currency terms' },
+                { label: 'Enhanced yield', value: '8.4% p.a. for 3 months' },
+                { label: 'Conversion trigger', value: 'USD/CNH below conversion strike' },
+                { label: 'Settlement', value: 'USD or CNH' },
+                { label: 'Knock-out / Autocall', value: 'None' }
+            ],
+            currency: 'USD', tenor: '3 months',
+            issueDate: '2026-05-25', maturityDate: '2026-08-25',
+            capitalProtection: null, participationRate: null,
+            knockIn: 'FX conversion strike', knockOut: null, coupon: '8.4% p.a.',
+            minimumInvestment: 'USD 50,000', riskLevel: 'Medium', riskScore: 3,
+            status: 'Active', totalTenorDays: 92, daysToMaturity: 90,
+            pnl: '+0.2%', positive: true,
+            scenarios: {
+                bull: { payoff_pct: '+2.1%', probability: '48%', explanation: 'USD/CNH remains above conversion strike. Investor receives USD principal plus enhanced yield.' },
+                base: { payoff_pct: '+2.1% before FX effect', probability: '27%', explanation: 'Currency settles near strike. Yield is earned, but final currency outcome needs FX conversion check.' },
+                bear: { payoff_pct: 'FX loss possible', probability: '25%', explanation: 'Conversion trigger is met. Investor receives CNH at the agreed strike and may lose value when converting back to USD.' },
+                custom: null
+            },
+            scenarioChart: [
+                { label: 'Converted', val: -3.5 }, { label: 'Near strike', val: 0 },
+                { label: 'Yield', val: 2.1 }, { label: 'No convert', val: 2.1 }
+            ],
+            participationSlope: null,
+            terms: [
+                { label: 'Enhanced yield', value: '8.4% p.a. for 3 months' },
+                { label: 'Conversion pair', value: 'USD/CNH' },
+                { label: 'Settlement', value: 'USD or CNH depending on final FX' },
+                { label: 'Minimum investment', value: 'USD 50,000' },
+                { label: 'Tenor', value: '3 months' },
+                { label: 'Distributor', value: 'Sunwah Fintech' }
+            ],
+            pricing: { level: '100.00%', impliedYield: '8.4% p.a.', date: '2026-05-24 16:00 HKT', source: 'Sunwah Internal Desk (Indicative)' },
+            disclaimer: 'Dual currency investments are not protected in base-currency terms. Investor may receive repayment in the alternate currency at an unfavorable exchange rate.'
+        },
+        {
+            id: 'SP-CREDIT-013',
+            name: 'Investment Grade Credit Linked Note',
+            issuer: 'Standard Chartered Bank',
+            issuerShort: 'Standard Chartered',
+            type: 'Credit Linked',
+            category: 'Credit Linked Note',
+            marketView: 'income',
+            strategyTags: ['高息收息', '防御保护'],
+            riskTags: ['宽安全垫'],
+            attractivenessScore: 71,
+            highlightReason: '收益来自承担参考债务信用事件风险，和股票涨跌关系较低。',
+            story: {
+                earnWhen: '参考实体没有发生信用事件，你按期收票息并到期拿回本金。',
+                loseWhen: '若发生破产、未能偿付或债务重组等信用事件，本金可能按回收价大幅缩水。',
+                watchOut: '参考实体信用、信用事件定义、回收率和发行人信用。',
+                plainSummary: '这张票不是赌股价，而是赌“这家公司不要出信用事故”。'
+            },
+            payoffCurve: [
+                { underlyingMove: -100, payoff: -60, label: '信用事件' },
+                { underlyingMove: -50, payoff: -25, label: '回收不确定' },
+                { underlyingMove: 0, payoff: 6.8, label: '无信用事件' },
+                { underlyingMove: 20, payoff: 6.8, label: '收息' },
+                { underlyingMove: 40, payoff: 6.8, label: '收益封顶' }
+            ],
+            underlying: 'Reference entity: A-rated Asia utility issuer',
+            underlyingDetails: [
+                { label: 'Asset class', value: 'Credit' },
+                { label: 'Reference entity', value: 'A-rated Asia utility issuer' },
+                { label: 'Credit events', value: 'Bankruptcy, failure to pay, restructuring' },
+                { label: 'Settlement', value: 'Cash settlement after credit event' }
+            ],
+            payoffTerms: [
+                { label: 'Structure', value: 'Credit linked note' },
+                { label: 'Capital protection', value: 'Conditional on no credit event' },
+                { label: 'Coupon', value: '6.8% p.a.' },
+                { label: 'Credit event', value: 'ISDA-style credit event definitions' },
+                { label: 'Recovery risk', value: 'Principal reduced after credit event' },
+                { label: 'Autocall', value: 'None' }
+            ],
+            currency: 'USD', tenor: '24 months',
+            issueDate: '2026-04-01', maturityDate: '2028-04-01',
+            capitalProtection: 'Conditional', participationRate: null,
+            knockIn: 'Credit event', knockOut: null, coupon: '6.8% p.a.',
+            minimumInvestment: 'USD 200,000', riskLevel: 'Medium', riskScore: 3,
+            status: 'Active', totalTenorDays: 731, daysToMaturity: 674,
+            pnl: '+0.7%', positive: true,
+            scenarios: {
+                bull: { payoff_pct: '+6.8% p.a.', probability: '70%', explanation: 'No credit event occurs. Investor receives coupon and principal at maturity, subject to issuer credit risk.' },
+                base: { payoff_pct: '+6.8% p.a.', probability: '20%', explanation: 'Credit spreads move wider but no credit event occurs. Mark-to-market may fluctuate while held.' },
+                bear: { payoff_pct: 'Recovery-value loss', probability: '10%', explanation: 'A credit event occurs. Principal is reduced according to settlement and recovery value.' },
+                custom: null
+            },
+            scenarioChart: [
+                { label: 'Credit event', val: -60 }, { label: 'Spread wider', val: 0 },
+                { label: 'No event', val: 6.8 }, { label: 'Maturity', val: 13.6 }
+            ],
+            participationSlope: null,
+            terms: [
+                { label: 'Coupon', value: '6.8% p.a.' },
+                { label: 'Reference entity', value: 'A-rated Asia utility issuer' },
+                { label: 'Credit event definitions', value: 'Bankruptcy, failure to pay, restructuring' },
+                { label: 'Minimum investment', value: 'USD 200,000' },
+                { label: 'Settlement', value: 'Cash settlement' },
+                { label: 'Distributor', value: 'Sunwah Fintech' }
+            ],
+            pricing: { level: '99.80%', impliedYield: '6.9% p.a.', date: '2026-05-24 16:00 HKT', source: 'Sunwah Internal Desk (Indicative)' },
+            disclaimer: 'Credit linked notes expose investors to both issuer credit risk and reference entity credit-event risk. Principal may be substantially reduced after a credit event.'
+        },
+        {
+            id: 'SP-COMMOD-AUTO-014',
+            name: 'Brent Oil Range Autocall Note',
+            issuer: 'Goldman Sachs International',
+            issuerShort: 'Goldman',
+            type: 'Commodity Linked',
+            category: 'Commodity Autocall',
+            marketView: 'range',
+            strategyTags: ['震荡收益', '高息收息'],
+            riskTags: ['低敲入', '可提前赎回'],
+            attractivenessScore: 79,
+            highlightReason: '商品波动给票息空间，但油价跌破障碍时本金风险会放大。',
+            story: {
+                earnWhen: 'Brent油价在观察日回到赎回线或持续高于敲入线，你收票息或提前赎回。',
+                loseWhen: '油价跌破65%敲入线且到期仍低，亏损跟随商品跌幅。',
+                watchOut: '油价跳空、65%敲入线、100%赎回线和商品流动性。',
+                plainSummary: '这张票用商品波动换高票息，横盘能收息，油价暴跌才是主要风险。'
+            },
+            payoffCurve: [
+                { underlyingMove: -45, payoff: -35, label: '油价深跌' },
+                { underlyingMove: -35, payoff: -25, label: '敲入亏损' },
+                { underlyingMove: -15, payoff: 12, label: '守住障碍' },
+                { underlyingMove: 0, payoff: 12, label: '收息' },
+                { underlyingMove: 10, payoff: 12, label: '提前赎回' }
+            ],
+            underlying: 'Brent Crude Oil Futures',
+            underlyingDetails: [
+                { label: 'Asset class', value: 'Commodity futures' },
+                { label: 'Reference', value: 'Brent crude oil front-month futures' },
+                { label: 'Observation', value: 'Monthly autocall' },
+                { label: 'Initial level', value: 'Set at trade date' }
+            ],
+            payoffTerms: [
+                { label: 'Structure', value: 'Commodity autocall note' },
+                { label: 'Capital protection', value: 'None' },
+                { label: 'Conditional coupon', value: '12.0% p.a.' },
+                { label: 'Autocall level', value: '100% monthly from month 3' },
+                { label: 'Knock-in barrier', value: '65% of initial level' },
+                { label: 'Settlement', value: 'Cash only' }
+            ],
+            currency: 'USD', tenor: '12 months',
+            issueDate: '2026-05-05', maturityDate: '2027-05-05',
+            capitalProtection: null, participationRate: null,
+            knockIn: '65%', knockOut: '100%', coupon: '12.0% p.a.',
+            minimumInvestment: 'USD 100,000', riskLevel: 'High', riskScore: 4,
+            status: 'Active', totalTenorDays: 365, daysToMaturity: 343,
+            pnl: '−1.6%', positive: false,
+            scenarios: {
+                bull: { payoff_pct: '+12.0% p.a.', probability: '36%', explanation: 'Oil rebounds to the autocall level on an observation date. Product redeems at par plus accrued coupon.' },
+                base: { payoff_pct: '+12.0% p.a.', probability: '35%', explanation: 'Oil stays above the knock-in barrier but below autocall level. Coupon continues while product remains alive.' },
+                bear: { payoff_pct: '−20% to −40%', probability: '29%', explanation: 'Oil breaches the 65% barrier and finishes weak. Investor takes commodity-linked loss.' },
+                custom: null
+            },
+            scenarioChart: [
+                { label: 'KI loss', val: -30 }, { label: 'Range', val: 12 },
+                { label: 'Coupon', val: 12 }, { label: 'Autocall', val: 12 }
+            ],
+            participationSlope: null,
+            terms: [
+                { label: 'Coupon', value: '12.0% p.a. conditional' },
+                { label: 'Autocall level', value: '100% of initial level' },
+                { label: 'Knock-in barrier', value: '65% of initial level' },
+                { label: 'Observation frequency', value: 'Monthly' },
+                { label: 'Minimum investment', value: 'USD 100,000' },
+                { label: 'Distributor', value: 'Sunwah Fintech' }
+            ],
+            pricing: { level: '98.70%', impliedYield: '12.4% p.a.', date: '2026-05-24 16:00 HKT', source: 'Sunwah Internal Desk (Indicative)' },
+            disclaimer: 'NOT capital protected. Commodity-linked notes can be highly volatile and may suffer large losses after barrier events. Coupon and autocall are conditional.'
         }
     ];
 
     appState.adminProductPending = null;
-    appState.productTypeFilter = 'all';
+    appState.productIssuerFilter = 'all';
+    appState.productStrategyFilter = 'all';
+    appState.productRiskFilter = 'all';
+    appState.productDiscoveryPreset = null;
     appState.activeProductId = null;
     appState.activeScenario = 'bull';
 
-    function setProductFilter(key, val) {
-        appState.productTypeFilter = val;
-        const inactive = 'px-3 py-1 text-[10px] font-medium rounded-full bg-white text-gray-500 border border-gray-200 whitespace-nowrap shrink-0 transition';
-        const active   = 'px-3 py-1 text-[10px] font-semibold rounded-full bg-navyBlue text-white border border-navyBlue whitespace-nowrap shrink-0 transition';
-        const map = { 'all':'all', 'Capital Protected':'cp', 'Equity Linked Note':'eln', 'Autocall / Snowball':'auto', 'Commodity Linked':'commod' };
-        Object.values(map).forEach(id => {
-            const btn = document.getElementById('pf-' + id);
-            if (btn) btn.className = inactive;
+    const productFilterOptions = {
+        issuer: [
+            ['all', 'All issuers'], ['HSBC', 'HSBC'], ['BNP', 'BNP'], ['Goldman', 'Goldman'],
+            ['Morgan Stanley', 'Morgan Stanley'], ['UBS', 'UBS'], ['Citi', 'Citi'], ['JPM', 'JPM'],
+            ['DBS', 'DBS'], ['Credit Suisse', 'Credit Suisse'], ['Standard Chartered', 'Standard Chartered'], ['Econotes', 'Econotes']
+        ],
+        strategy: [
+            ['all', 'All strategies'], ['震荡收益', 'Range income'], ['看涨参与', 'Bullish upside'],
+            ['防御保护', 'Defensive'], ['高息收息', 'High coupon'], ['汇率观点', 'FX view']
+        ],
+        risk: [
+            ['all', 'All risks'], ['低敲入', 'Low KI'], ['宽安全垫', 'Wide buffer'],
+            ['保本/部分保本', 'Protected / buffer'], ['可提前赎回', 'Autocallable'], ['实物交收风险', 'Physical delivery']
+        ]
+    };
+
+    function getProductDiscoveryMeta(p) {
+        const isProtected = !!p.capitalProtection;
+        const hasCoupon = !!p.coupon;
+        const isAutocall = !!p.knockOut || (p.type || '').toLowerCase().includes('autocall');
+        const issuerShort = p.issuerShort || (p.issuer || '').split(' ')[0] || 'Issuer';
+        const strategyTags = p.strategyTags || [hasCoupon ? '高息收息' : '看涨参与'];
+        const riskTags = p.riskTags || [isProtected ? '保本/部分保本' : p.knockIn ? '低敲入' : '宽安全垫'];
+        const marketView = p.marketView || (isAutocall ? 'range' : isProtected ? 'defensive' : hasCoupon ? 'income' : 'bullish');
+        const score = p.attractivenessScore ?? Math.max(58, Math.min(88, 70 + (hasCoupon ? 8 : 0) + (p.knockIn ? 4 : 0) - ((p.riskScore || 3) - 3) * 3));
+        return {
+            issuerShort,
+            marketView,
+            strategyTags,
+            riskTags,
+            category: p.category || p.type || 'Structured Product',
+            attractivenessScore: score,
+            highlightReason: p.highlightReason || 'Indicative scenario fit, not a recommendation.'
+        };
+    }
+
+    function getDiscoveryTagLabel(tag) {
+        const labels = {
+            '震荡收益': 'Range income',
+            '看涨参与': 'Bullish upside',
+            '防御保护': 'Defensive',
+            '高息收息': 'High coupon',
+            '汇率观点': 'FX view',
+            '低敲入': 'Low KI',
+            '宽安全垫': 'Wide buffer',
+            '保本/部分保本': 'Protected / buffer',
+            '可提前赎回': 'Autocallable',
+            '实物交收风险': 'Physical delivery'
+        };
+        return labels[tag] || tag;
+    }
+
+    function getProductHighlightText(p, meta) {
+        const lead = `${getDiscoveryTagLabel(meta.strategyTags[0])} · ${getDiscoveryTagLabel(meta.riskTags[0])}`;
+        const term = p.coupon ? `${p.coupon} coupon` : p.capitalProtection ? `${p.capitalProtection} protection` : 'capital-at-risk payoff';
+        const market = meta.marketView === 'range' ? 'designed for range-bound markets'
+            : meta.marketView === 'defensive' ? 'uses protection or buffer features'
+            : meta.marketView === 'bullish' ? 'participates in upside scenarios'
+            : meta.marketView === 'fx' ? 'expresses an FX view'
+            : meta.marketView === 'income' ? 'focuses on coupon income'
+            : 'uses scenario-dependent payoff rules';
+        return `${lead}: ${term}; ${market}.`;
+    }
+
+    function productMatchesPreset(p, preset) {
+        const meta = getProductDiscoveryMeta(p);
+        if (!preset) return true;
+        if (preset === 'hot') return meta.attractivenessScore >= 82;
+        if (preset === 'range') return meta.marketView === 'range' || meta.strategyTags.includes('震荡收益');
+        if (preset === 'defensive') return meta.marketView === 'defensive' || meta.riskTags.includes('宽安全垫') || meta.riskTags.includes('保本/部分保本');
+        if (preset === 'highCoupon') return !!p.coupon && (p.riskScore || 0) >= 4;
+        return true;
+    }
+
+    function getAllStructuredProducts() {
+        const products = [...structuredProductsDB];
+        if (appState.adminProductPending) products.unshift(appState.adminProductPending);
+        return products;
+    }
+
+    function filterStructuredProducts(products) {
+        return products.filter(p => {
+            const meta = getProductDiscoveryMeta(p);
+            const issuerOk = appState.productIssuerFilter === 'all' || meta.issuerShort === appState.productIssuerFilter;
+            const strategyOk = appState.productStrategyFilter === 'all' || meta.strategyTags.includes(appState.productStrategyFilter);
+            const riskOk = appState.productRiskFilter === 'all' || meta.riskTags.includes(appState.productRiskFilter);
+            const presetOk = productMatchesPreset(p, appState.productDiscoveryPreset);
+            return issuerOk && strategyOk && riskOk && presetOk;
         });
-        const activeId = 'pf-' + (map[val] || 'all');
-        const activeBtn = document.getElementById(activeId);
-        if (activeBtn) activeBtn.className = active;
+    }
+
+    function scrollProductFilterRow(containerId, direction) {
+        const row = document.getElementById(containerId);
+        if (!row) return;
+        row.scrollBy({ left: direction * Math.round(row.clientWidth * 0.7), behavior: 'smooth' });
+    }
+
+    function renderProductFilterPills(group, containerId, activeValue) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const inactive = 'px-3 py-1 text-[10px] font-medium rounded-full bg-white text-gray-500 border border-gray-200 whitespace-nowrap shrink-0 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue';
+        const active = 'px-3 py-1 text-[10px] font-semibold rounded-full bg-navyBlue text-white border border-navyBlue whitespace-nowrap shrink-0 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue';
+        container.innerHTML = (productFilterOptions[group] || []).map(([value, label]) =>
+            `<button type="button" onclick="setProductFilter('${group}','${value}')" class="${value === activeValue ? active : inactive}">${label}</button>`
+        ).join('');
+    }
+
+    function renderProductFilters() {
+        renderProductFilterPills('issuer', 'product-issuer-filters', appState.productIssuerFilter);
+        renderProductFilterPills('strategy', 'product-strategy-filters', appState.productStrategyFilter);
+        renderProductFilterPills('risk', 'product-risk-filters', appState.productRiskFilter);
+    }
+
+    function renderProductsHeatOverview(products) {
+        const container = document.getElementById('products-heat-overview');
+        if (!container) return;
+        const presets = [
+            { id: 'hot', title: 'Hot matches', subtitle: 'Catalogue match', filter: p => getProductDiscoveryMeta(p).attractivenessScore >= 82 },
+            { id: 'range', title: 'Range income', subtitle: 'Scenario fit', filter: p => getProductDiscoveryMeta(p).marketView === 'range' || getProductDiscoveryMeta(p).strategyTags.includes('震荡收益') },
+            { id: 'defensive', title: 'Defensive buffer', subtitle: 'Risk structure', filter: p => getProductDiscoveryMeta(p).marketView === 'defensive' || getProductDiscoveryMeta(p).riskTags.some(t => ['宽安全垫','保本/部分保本'].includes(t)) },
+            { id: 'highCoupon', title: 'High coupon risk', subtitle: 'Watchlist', filter: p => !!p.coupon && (p.riskScore || 0) >= 4 }
+        ];
+        const chips = presets.map(preset => {
+            const active = appState.productDiscoveryPreset === preset.id;
+            const classes = active
+                ? 'bg-navyBlue text-white border-navyBlue font-semibold'
+                : 'bg-white text-gray-500 border-gray-200 font-medium hover:border-gray-400';
+            return `<button type="button" onclick="setProductFilter('preset','${preset.id}')" class="px-3 py-1 text-[10px] rounded-full border whitespace-nowrap shrink-0 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue ${classes}">${preset.title}</button>`;
+        }).join('');
+        container.innerHTML = `
+            <div class="flex items-center justify-between">
+                <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Quick views</p>
+                <div class="flex gap-1">
+                    <button type="button" onclick="scrollProductFilterRow('product-quick-view-filters', -1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">‹</button>
+                    <button type="button" onclick="scrollProductFilterRow('product-quick-view-filters', 1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">›</button>
+                </div>
+            </div>
+            <div id="product-quick-view-filters" class="product-filter-row no-scrollbar">${chips}</div>
+        `;
+    }
+
+    function resetProductFilters() {
+        appState.productIssuerFilter = 'all';
+        appState.productStrategyFilter = 'all';
+        appState.productRiskFilter = 'all';
+        appState.productDiscoveryPreset = null;
+        renderProductsList();
+    }
+
+    function setProductFilter(key, val) {
+        if (key === 'issuer') appState.productIssuerFilter = val;
+        if (key === 'strategy') appState.productStrategyFilter = val;
+        if (key === 'risk') appState.productRiskFilter = val;
+        if (key === 'preset') {
+            appState.productIssuerFilter = 'all';
+            appState.productStrategyFilter = 'all';
+            appState.productRiskFilter = 'all';
+            appState.productDiscoveryPreset = appState.productDiscoveryPreset === val ? null : val;
+        } else {
+            appState.productDiscoveryPreset = null;
+        }
         renderProductsList();
     }
 
     function renderProductsList() {
         const container = document.getElementById('products-list-container');
         if (!container) return;
+        renderProductFilters();
+        const allProducts = getAllStructuredProducts();
+        renderProductsHeatOverview(allProducts);
         container.innerHTML = '';
-        let products = [...structuredProductsDB];
-        if (appState.adminProductPending) products.unshift(appState.adminProductPending);
-        if (appState.productTypeFilter !== 'all') {
-            products = products.filter(p => p.type === appState.productTypeFilter);
-        }
+        const products = filterStructuredProducts(allProducts);
         if (products.length === 0) {
-            container.innerHTML = '<p class="text-xs text-gray-400 text-center pt-8">No products match this filter.</p>';
+            container.innerHTML = `<div class="bg-white rounded-xl border border-gray-150 px-4 py-6 text-center">
+                <p class="text-xs font-semibold text-navyBlue">No matched products</p>
+                <p class="text-[10px] text-gray-400 mt-1">The active filter combination is too narrow.</p>
+                <button type="button" onclick="resetProductFilters()" class="mt-3 px-3 py-1.5 text-[10px] font-semibold rounded-full bg-navyBlue text-white">Reset filters</button>
+            </div>`;
             return;
         }
+        products.sort((a, b) => getProductDiscoveryMeta(b).attractivenessScore - getProductDiscoveryMeta(a).attractivenessScore);
         products.forEach(p => {
+            const meta = getProductDiscoveryMeta(p);
             const pnlColor = p.positive ? 'text-iosGreen' : 'text-iosRed';
             const statusClass = p.status === 'Matured' ? 'text-gray-400' : 'text-gray-600';
             const riskDots = Array.from({length:5}, (_,i) =>
@@ -7221,25 +8191,36 @@
             ).join('');
             const pct = p.status === 'Matured' ? 100 : Math.round(((p.totalTenorDays - p.daysToMaturity) / p.totalTenorDays) * 100);
             const keyTerm = p.coupon ? p.coupon : p.capitalProtection ? p.capitalProtection + ' protected' : 'No protection';
+            const strategyTag = getDiscoveryTagLabel(meta.strategyTags[0] || meta.marketView);
+            const riskTag = getDiscoveryTagLabel(meta.riskTags[0] || p.riskLevel);
+            const highlightText = getProductHighlightText(p, meta);
 
-            const card = document.createElement('div');
-            card.className = 'bg-white rounded-xl border border-gray-150 px-3.5 py-3 cursor-pointer hover:border-gray-300 transition active:scale-[0.99]';
+            const card = document.createElement('button');
+            card.type = 'button';
+            card.className = 'w-full text-left bg-white rounded-xl border border-gray-150 px-3.5 py-3 cursor-pointer hover:border-gray-300 transition active:scale-[0.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue';
             card.onclick = () => openProductDetail(p.id);
             card.innerHTML = `
-                <div class="flex justify-between items-start mb-2.5">
-                    <div class="flex-1 min-w-0 pr-2">
-                        <div class="flex items-center gap-1.5 mb-1.5">
-                            <span class="text-[9px] font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">${p.type}</span>
-                            <span class="text-[9px] font-medium ${statusClass}">${p.status}</span>
-                            ${p.id === 'SP-NEW' ? '<span class="text-[9px] font-medium text-gray-500 border border-gray-300 px-1.5 py-0.5 rounded">New</span>' : ''}
+                <div class="flex justify-between items-start mb-2.5 gap-2">
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-1.5 mb-1.5 overflow-hidden">
+                            <span class="text-[9px] font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded shrink-0">${meta.category}</span>
+                            <span class="text-[9px] font-medium ${statusClass} shrink-0">${p.status}</span>
+                            ${p.id === 'SP-NEW' ? '<span class="text-[9px] font-medium text-gray-500 border border-gray-300 px-1.5 py-0.5 rounded shrink-0">New</span>' : ''}
                         </div>
-                        <p class="text-xs font-semibold text-navyBlue leading-tight">${p.name}</p>
-                        <p class="text-[10px] text-gray-400 mt-0.5">${p.issuer}</p>
+                        <p class="text-xs font-semibold text-navyBlue leading-tight line-clamp-2">${p.name}</p>
+                        <p class="text-[10px] text-gray-400 mt-0.5 truncate">${meta.issuerShort} · ${p.underlying}</p>
                     </div>
                     <div class="text-right shrink-0">
-                        <p class="text-xs font-bold ${pnlColor}">${p.pnl}</p>
-                        <p class="text-[9px] text-gray-400 mt-0.5">${p.currency}</p>
+                        <p class="text-[9px] text-gray-400 uppercase tracking-wide">Match</p>
+                        <p class="text-sm font-bold text-navyBlue tabular-nums">${meta.attractivenessScore}</p>
                     </div>
+                </div>
+                <div class="rounded-lg bg-slate-50 border border-gray-100 px-2.5 py-2 mb-2.5">
+                    <div class="flex items-center gap-1.5 mb-1">
+                        <span class="text-[9px] font-semibold text-navyBlue bg-white border border-gray-150 px-1.5 py-0.5 rounded">${strategyTag}</span>
+                        <span class="text-[9px] font-semibold text-gray-500 bg-white border border-gray-150 px-1.5 py-0.5 rounded">${riskTag}</span>
+                    </div>
+                    <p class="text-[10px] text-gray-600 leading-snug line-clamp-2">${highlightText}</p>
                 </div>
                 <div class="mb-2.5">
                     <div class="flex justify-between text-[9px] text-gray-400 mb-1">
@@ -7250,12 +8231,16 @@
                         <div class="h-full ${p.status === 'Matured' ? 'bg-gray-300' : 'bg-navyBlue'} rounded-full" style="width:${pct}%"></div>
                     </div>
                 </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2 text-[9px] text-gray-500">
-                        <span>${keyTerm}</span>
-                        ${p.knockIn ? `<span class="text-gray-300">·</span><span>KI ${p.knockIn}</span>` : ''}
+                <div class="flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-1.5 text-[9px] text-gray-500 min-w-0 overflow-hidden">
+                        <span class="truncate">${keyTerm}</span>
+                        ${p.knockIn ? `<span class="text-gray-300 shrink-0">·</span><span class="shrink-0">KI ${p.knockIn}</span>` : ''}
+                        ${p.knockOut ? `<span class="text-gray-300 shrink-0">·</span><span class="shrink-0">KO ${p.knockOut}</span>` : ''}
                     </div>
-                    <div class="flex items-center gap-0.5">${riskDots}</div>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <span class="text-xs font-bold ${pnlColor}">${p.pnl}</span>
+                        <div class="flex items-center gap-0.5" aria-label="Risk score ${p.riskScore} of 5">${riskDots}</div>
+                    </div>
                 </div>
             `;
             container.appendChild(card);
@@ -7270,51 +8255,51 @@
 
         if (s.bull) cards.push({
             type: 'good',
-            title: 'When returns are favourable',
+            title: 'Earn outcome',
+            sub: 'Favourable outcome',
             payoff: s.bull.payoff_pct,
             prob: s.bull.probability,
             desc: s.bull.explanation,
-            bgClass: 'bg-emerald-50 border-emerald-100',
-            badgeClass: 'bg-emerald-100 text-emerald-700',
-            textClass: 'text-emerald-800',
-            dotClass: 'bg-emerald-400'
+            dotClass: 'bg-emerald-200',
+            payoffClass: 'text-emerald-700'
         });
         if (s.base) cards.push({
             type: 'base',
-            title: 'Base case outcome',
+            title: 'Base outcome',
+            sub: 'Base outcome',
             payoff: s.base.payoff_pct,
             prob: s.base.probability,
             desc: s.base.explanation,
-            bgClass: 'bg-blue-50 border-blue-100',
-            badgeClass: 'bg-blue-100 text-blue-700',
-            textClass: 'text-blue-800',
-            dotClass: 'bg-blue-400'
+            dotClass: 'bg-sky-200',
+            payoffClass: 'text-sky-700'
         });
         if (s.bear) cards.push({
             type: 'risk',
-            title: 'When risk is highest',
+            title: 'Loss outcome',
+            sub: 'Risk outcome',
             payoff: s.bear.payoff_pct,
             prob: s.bear.probability,
             desc: s.bear.explanation,
-            bgClass: 'bg-rose-50 border-rose-100',
-            badgeClass: 'bg-rose-100 text-rose-700',
-            textClass: 'text-rose-800',
-            dotClass: 'bg-rose-400'
+            dotClass: 'bg-rose-200',
+            payoffClass: 'text-rose-700'
         });
 
         container.innerHTML = cards.map(c => `
-            <div class="rounded-xl border ${c.bgClass} p-3 space-y-1.5">
+            <div class="rounded-xl border border-gray-150 bg-white p-3 space-y-1.5 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
                 <div class="flex items-center justify-between gap-2">
-                    <div class="flex items-center gap-1.5">
+                    <div class="flex items-center gap-1.5 min-w-0">
                         <span class="w-2 h-2 rounded-full ${c.dotClass} shrink-0"></span>
-                        <p class="text-[10px] font-semibold ${c.textClass}">${c.title}</p>
+                        <div class="min-w-0">
+                            <p class="text-[10px] font-semibold text-navyBlue truncate">${c.title}</p>
+                            <p class="text-[8px] text-gray-400 uppercase tracking-wide">${c.sub}</p>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-1.5 shrink-0">
-                        <span class="text-[10px] font-bold ${c.textClass}">${c.payoff}</span>
-                        <span class="text-[9px] ${c.badgeClass} px-1.5 py-0.5 rounded-full font-medium">${c.prob} prob.</span>
+                    <div class="text-right shrink-0">
+                        <p class="text-[11px] font-bold ${c.payoffClass}">${c.payoff}</p>
+                        <p class="text-[8px] text-gray-400">${c.prob} indicative</p>
                     </div>
                 </div>
-                <p class="text-[10px] leading-relaxed ${c.textClass} opacity-80">${c.desc}</p>
+                <p class="text-[10px] leading-relaxed text-gray-500">${c.desc}</p>
             </div>
         `).join('');
     }
@@ -7377,7 +8362,7 @@
         const sameIssuer = structuredProductsDB.filter(x => x.issuer === p.issuer && x.id !== p.id);
         const compareList = document.getElementById('od-compare-list');
         compareList.innerHTML = sameIssuer.length ? sameIssuer.map(x =>
-            `<button onclick="openProductCompare()" class="w-full text-left flex justify-between items-center text-[10px] py-1 hover:text-navyBlue transition">
+            `<button onclick="openProductCompare('${x.id}')" class="w-full text-left flex justify-between items-center text-[10px] py-1 hover:text-navyBlue transition">
                 <span class="text-gray-700 font-medium truncate pr-2">${x.name}</span>
                 <span class="text-gray-400 shrink-0">${x.type}</span>
             </button>`
@@ -7405,43 +8390,100 @@
         if (activeBtn) activeBtn.className = 'flex-1 py-2.5 text-[10px] font-semibold text-navyBlue border-b-2 border-navyBlue transition';
     }
 
+    function getScenarioStory(p) {
+        const english = {
+            earnWhen: p.scenarios?.bull?.explanation || (p.coupon ? `If key conditions hold, the main return is the ${p.coupon} coupon.` : 'If the underlying rises or meets the payoff condition, the structure can generate a positive return.'),
+            loseWhen: p.scenarios?.bear?.explanation || (p.knockIn ? `If the ${p.knockIn} knock-in / barrier is breached and not repaired by maturity, principal may be impaired.` : 'If the payoff condition is not met, return can be low and early sale may be below principal.'),
+            watchOut: [p.knockIn ? `${p.knockIn} KI / barrier` : null, p.knockOut ? `${p.knockOut} autocall line` : null, p.maturityDate ? `maturity ${p.maturityDate}` : null, 'issuer credit'].filter(Boolean).join(' · '),
+            plainSummary: p.scenarios?.base?.explanation || 'Read the earn condition first, then the loss trigger, then the worst-case settlement.'
+        };
+        return english;
+    }
+
+    function getScenarioLabels() {
+        return {
+            bull: { title: 'Earn coupon', event: 'Favourable conditions', take: 'Principal + coupon / positive payoff' },
+            base: { title: 'Observe', event: 'No major trigger', take: 'Hold or settle by base rules' },
+            bear: { title: 'Loss trigger', event: 'Barrier / loss line breached', take: 'Principal may be impaired' }
+        };
+    }
+
+    function getPayoffCurveData(p) {
+        if (Array.isArray(p.payoffCurve) && p.payoffCurve.length >= 2) return p.payoffCurve;
+        const data = p.scenarioChart || [];
+        if (!data.length) return [{ underlyingMove: -30, payoff: -10, label: 'Loss zone' }, { underlyingMove: 0, payoff: 0, label: 'Baseline' }, { underlyingMove: 30, payoff: 10, label: 'Gain zone' }];
+        const steps = data.map((d, idx) => ({ underlyingMove: -30 + idx * (60 / Math.max(data.length - 1, 1)), payoff: d.val, label: d.label }));
+        return steps;
+    }
+
     function renderScenarioChartWithActive(p, activeSc) {
         const chartArea = document.getElementById('sc-chart-area');
         const chartLabels = document.getElementById('sc-chart-labels');
         if (!chartArea || !chartLabels) return;
-        const data = p.scenarioChart || [];
-        const maxAbs = Math.max(...data.map(d => Math.abs(d.val)), 1);
-        const activeScLower = (activeSc || '').toLowerCase();
-        chartArea.innerHTML = data.map(d => {
-            const h = Math.round((Math.abs(d.val) / maxAbs) * 80);
-            const isActive = d.label.toLowerCase() === activeScLower;
-            const isNeg = d.val < 0;
-            const barClass = isNeg
-                ? (isActive ? 'bg-rose-400' : 'border border-dashed border-gray-300')
-                : (isActive ? 'bg-navyBlue' : 'bg-gray-200');
-            return `<div class="flex-1 flex flex-col items-center justify-end h-full gap-1">
-                <div class="w-full rounded-t ${barClass}" style="height:${Math.max(h, 2)}px"></div>
-                <span class="text-[8px] font-medium ${isActive ? 'text-navyBlue font-bold' : 'text-gray-500'}">${d.val >= 0 ? '+' : ''}${d.val}%</span>
-            </div>`;
-        }).join('');
-        chartLabels.innerHTML = data.map(d => {
-            const isActive = d.label.toLowerCase() === activeScLower;
-            return `<span class="flex-1 text-center text-[8px] font-${isActive ? 'bold text-navyBlue' : 'normal text-gray-400'}">${d.label}</span>`;
-        }).join('');
+        const data = getPayoffCurveData(p);
+        const width = 300;
+        const height = 132;
+        const pad = { left: 28, right: 12, top: 12, bottom: 24 };
+        const xs = data.map(d => d.underlyingMove);
+        const ys = data.map(d => d.payoff);
+        const minX = Math.min(...xs, -30);
+        const maxX = Math.max(...xs, 30);
+        const minY = Math.min(...ys, -20, 0);
+        const maxY = Math.max(...ys, 20, 0);
+        const xScale = x => pad.left + ((x - minX) / Math.max(maxX - minX, 1)) * (width - pad.left - pad.right);
+        const yScale = y => pad.top + ((maxY - y) / Math.max(maxY - minY, 1)) * (height - pad.top - pad.bottom);
+        const points = data.map(d => `${xScale(d.underlyingMove)},${yScale(d.payoff)}`).join(' ');
+        const zeroY = yScale(0);
+        const zeroX = xScale(0);
+        const activeMap = { bull: data.length - 1, base: Math.max(1, Math.floor(data.length / 2)), bear: 0 };
+        const activePoint = data[activeMap[activeSc] ?? 0] || data[0];
+        const activeX = xScale(activePoint.underlyingMove);
+        const activeY = yScale(activePoint.payoff);
+        const lossWidth = Math.max(0, activeSc === 'bear' ? activeX - pad.left : zeroX - pad.left);
+
+        chartArea.innerHTML = `
+            <svg viewBox="0 0 ${width} ${height}" class="w-full h-full overflow-visible" role="img" aria-label="Payoff line chart with zero-return baseline">
+                <rect x="${pad.left}" y="${pad.top}" width="${width - pad.left - pad.right}" height="${height - pad.top - pad.bottom}" rx="10" fill="#f8fafc"></rect>
+                <rect x="${pad.left}" y="${pad.top}" width="${lossWidth}" height="${height - pad.top - pad.bottom}" rx="10" fill="#fff1f2" opacity="0.85"></rect>
+                <line x1="${pad.left}" y1="${zeroY}" x2="${width - pad.right}" y2="${zeroY}" stroke="#cbd5e1" stroke-dasharray="4 4" stroke-width="1"></line>
+                <line x1="${zeroX}" y1="${pad.top}" x2="${zeroX}" y2="${height - pad.bottom}" stroke="#e2e8f0" stroke-width="1"></line>
+                <polyline points="${points}" fill="none" stroke="#0f2a44" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                ${data.map(d => `<circle cx="${xScale(d.underlyingMove)}" cy="${yScale(d.payoff)}" r="2.5" fill="${d.payoff < 0 ? '#fda4af' : '#0f2a44'}"></circle>`).join('')}
+                <circle cx="${activeX}" cy="${activeY}" r="5" fill="white" stroke="#0f2a44" stroke-width="2"></circle>
+                <text x="${pad.left}" y="${zeroY - 4}" fill="#94a3b8" font-size="8">0%</text>
+                <text x="${Math.min(width - 82, activeX + 6)}" y="${Math.max(12, activeY - 8)}" fill="#0f2a44" font-size="9" font-weight="700">${activePoint.payoff >= 0 ? '+' : ''}${activePoint.payoff}%</text>
+                <text x="${pad.left}" y="${height - 7}" fill="#94a3b8" font-size="8">Underlying down</text>
+                <text x="${width - 72}" y="${height - 7}" fill="#94a3b8" font-size="8">Underlying up</text>
+            </svg>
+        `;
+        chartLabels.innerHTML = `
+            <span>Loss zone</span>
+            <span>Coupon / buffer</span>
+            <span>Autocall / upside</span>
+        `;
     }
 
     function renderScenarioTab(p) {
         if (!p.scenarios) return;
+        const story = getScenarioStory(p);
+        const labels = getScenarioLabels();
+        const summaryEl = document.getElementById('sc-story-summary');
+        const earnEl = document.getElementById('sc-story-earn');
+        const loseEl = document.getElementById('sc-story-lose');
+        const watchEl = document.getElementById('sc-story-watch');
+        if (summaryEl) summaryEl.textContent = story.plainSummary;
+        if (earnEl) earnEl.textContent = story.earnWhen;
+        if (loseEl) loseEl.textContent = story.loseWhen;
+        if (watchEl) watchEl.textContent = story.watchOut;
         renderScenarioChartWithActive(p, appState.activeScenario);
 
-        // Scenario table
         const scTable = document.getElementById('sc-table');
         const keys = ['bull','base','bear'];
-        const keyLabels = { bull: 'Bull', base: 'Base', bear: 'Bear' };
         scTable.innerHTML = keys.filter(k => p.scenarios[k]).map(k => {
             const s = p.scenarios[k];
+            const rowLabel = labels[k];
             return `<tr class="${k === appState.activeScenario ? 'bg-navyBlue/5' : ''}">
-                <td class="px-3 py-2 font-medium text-gray-800">${keyLabels[k]}</td>
+                <td class="px-3 py-2 font-medium text-gray-800">${rowLabel.event}</td>
                 <td class="px-3 py-2 text-right font-semibold text-navyBlue">${s.payoff_pct}</td>
                 <td class="px-3 py-2 text-right text-gray-400">${s.probability}</td>
             </tr>`;
@@ -7452,10 +8494,11 @@
 
     function selectScenario(sc, product) {
         appState.activeScenario = sc;
-        const p = product || (appState.activeProductId ? structuredProductsDB.find(x => x.id === appState.activeProductId) || appState.adminProductPending : null);
+        const products = getAllStructuredProducts ? getAllStructuredProducts() : structuredProductsDB;
+        const p = product || (appState.activeProductId ? products.find(x => x.id === appState.activeProductId) : null);
         if (!p || !p.scenarios) return;
+        const labels = getScenarioLabels();
 
-        // Fix button highlight using classList (string.replace was broken)
         ['bull','base','bear'].forEach(k => {
             const btn = document.getElementById('sc-btn-' + k);
             if (!btn) return;
@@ -7468,16 +8511,35 @@
             activeBtn.classList.add('bg-navyBlue','text-white','border-navyBlue','font-semibold');
         }
 
-        // Re-render chart with active bar highlighted
         renderScenarioChartWithActive(p, sc);
+        renderScenarioTabRows(p, sc);
 
         if (p.scenarios[sc]) {
             const s = p.scenarios[sc];
-            document.getElementById('sc-active-name').textContent = sc.charAt(0).toUpperCase() + sc.slice(1);
+            document.getElementById('sc-active-name').textContent = labels[sc]?.title || sc;
             document.getElementById('sc-payoff-pct').textContent = s.payoff_pct;
-            document.getElementById('sc-probability').textContent = 'Probability: ' + s.probability;
+            document.getElementById('sc-probability').textContent = 'Indicative probability: ' + s.probability;
             document.getElementById('sc-explanation').textContent = s.explanation;
         }
+    }
+
+    function renderScenarioTabRows(p, activeSc) {
+        const scTable = document.getElementById('sc-table');
+        if (!scTable || !p.scenarios) return;
+        const labels = getScenarioLabels();
+        const keys = ['bull','base','bear'];
+        scTable.innerHTML = keys.filter(k => p.scenarios[k]).map(k => {
+            const s = p.scenarios[k];
+            const rowLabel = labels[k];
+            return `<tr class="${k === activeSc ? 'bg-navyBlue/5' : ''}">
+                <td class="px-3 py-2">
+                    <p class="font-semibold text-gray-800">${rowLabel.title}</p>
+                    <p class="text-[9px] text-gray-400 mt-0.5">${rowLabel.event}</p>
+                </td>
+                <td class="px-3 py-2 text-right font-semibold text-navyBlue">${s.payoff_pct}</td>
+                <td class="px-3 py-2 text-right text-gray-400">${s.probability}</td>
+            </tr>`;
+        }).join('');
     }
 
     function closeProductDetail() {
@@ -7528,21 +8590,25 @@
             </div>`;
 
         const second = others.find(p => p.id === _compareSecondId);
-        const pickerBtns = others.map(p => {
-            const isActive = p.id === _compareSecondId;
-            return `<button onclick="openProductCompare('${p.id}')" class="px-2.5 py-1 text-[9px] font-medium rounded-full border transition whitespace-nowrap shrink-0 ${isActive ? 'bg-navyBlue text-white border-navyBlue' : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'}">${p.name.length > 28 ? p.name.slice(0,28)+'…' : p.name}</button>`;
-        }).join('');
+        const options = others.map(p => `<option value="${p.id}" ${p.id === _compareSecondId ? 'selected' : ''}>${p.name} · ${p.issuerShort || p.issuer}</option>`).join('');
 
         container.innerHTML = `
             <div class="bg-white rounded-xl border border-gray-150 p-3 space-y-2 mb-1">
-                <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Compare against</p>
-                <div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-0.5">${pickerBtns}</div>
+                <label for="compare-product-select" class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Compare with</label>
+                <select id="compare-product-select" onchange="setCompareProduct(this.value)" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-[11px] font-medium text-navyBlue focus:outline-none focus:border-navyBlue">
+                    ${options}
+                </select>
             </div>
             ${second ? `<div class="flex gap-3">${[current, second].map(makeCol).join('<div class="w-px bg-gray-200 shrink-0 my-4"></div>')}</div>` : `<p class="text-xs text-gray-400 text-center py-8">No other products to compare.</p>`}
         `;
 
         const overlay = document.getElementById('product-compare-overlay');
         if (overlay) { overlay.classList.remove('hidden'); overlay.classList.add('flex'); }
+    }
+
+    function setCompareProduct(productId) {
+        _compareSecondId = productId;
+        openProductCompare(productId);
     }
 
     function closeProductCompare() {
@@ -7598,7 +8664,26 @@
             id: 'SP-NEW',
             name: 'HSI Participation Note (Econotes)',
             issuer: 'Econotes Ltd.',
+            issuerShort: 'Econotes',
             type: 'Capital Protected',
+            category: 'Capital Protected',
+            marketView: 'defensive',
+            strategyTags: ['防御保护', '看涨参与'],
+            riskTags: ['保本/部分保本', '宽安全垫'],
+            attractivenessScore: 75,
+            highlightReason: '后台上传样本：到期100%保本 + 80%参与恒指上涨。',
+            story: {
+                earnWhen: '恒指到期高于初始水平，你按80%参与率分享上涨。',
+                loseWhen: '恒指下跌时没有正收益，但到期本金按发行人信用返还。',
+                watchOut: '保护只在到期有效，提前卖出可能低于本金。',
+                plainSummary: '这张票是上传后生成的保本参与样本：先守本金，再看指数上涨。'
+            },
+            payoffCurve: [
+                { underlyingMove: -30, payoff: 0, label: '保本区' },
+                { underlyingMove: 0, payoff: 0, label: '不赚不亏' },
+                { underlyingMove: 10, payoff: 8, label: '参与上涨' },
+                { underlyingMove: 30, payoff: 24, label: '强上涨' }
+            ],
             underlying: 'Hang Seng Index (HSI)',
             underlyingDetails: [
                 { label: 'Asset class', value: 'Equity index' },
@@ -7645,6 +8730,10 @@
         document.getElementById('admin-state-review').classList.add('hidden');
         document.getElementById('admin-state-idle').classList.remove('hidden');
         closeAdminModal();
+        appState.productIssuerFilter = 'all';
+        appState.productStrategyFilter = 'all';
+        appState.productRiskFilter = 'all';
+        appState.productDiscoveryPreset = null;
         renderProductsList();
     }
 
@@ -7846,65 +8935,77 @@
             // Level-2: Main Tabs — spread from left; AI / Products / Profile reachable by scrolling right
             { id:'market',    lines:['Market','Intelligence'],  cx:85,  cy:205, w:NW,  h:NHD,
               bg:'#0f2744', bdr:'#2563eb', fg:'#60a5fa', action:() => directNavigate('market-dashboard'),
-              desc:'Default home tab after login. Shows live HSI / Tech / S&P indices, top ETF movers (gainers & losers toggle), and a watchlist preview.' },
-            { id:'portfolio', lines:['Portfolio','Builder'],    cx:301, cy:205, w:NW,  h:NHD,
+              desc:'Default home tab after login. Shows the daily market overview, live HSI / Tech / S&P index cards, sector themes, ETF movers, and watchlist preview.' },
+            { id:'portfolio', lines:['Portfolio','Builder'],    cx:245, cy:205, w:NW,  h:NHD,
               bg:'#052e16', bdr:'#16a34a', fg:'#4ade80', action:() => directNavigate('portfolio-direct'),
               desc:'AI-powered portfolio tool. Guides users through a 3-step workflow: input current holdings → get a risk / quality scorecard → receive ETF rebalancing suggestions.' },
-            { id:'ai',        lines:['AI','Advisory'],          cx:455, cy:205, w:NW,  h:NHD,
+            { id:'ai',        lines:['AI','Advisory'],          cx:385, cy:205, w:NW,  h:NHD,
               bg:'#2e1065', bdr:'#9333ea', fg:'#c4b5fd', action:() => directNavigate('ai-direct'),
               desc:'Conversational AI chatbot for ETF research and portfolio advice. Supports Value Audit, Income Harvest, and free-form report-generation modes.' },
-            { id:'products',  lines:['Structured','Products'],  cx:555, cy:205, w:NW,  h:NHD,
+            { id:'products',  lines:['Structured','Products'],  cx:525, cy:205, w:NW,  h:NHD,
               bg:'#431407', bdr:'#d97706', fg:'#fcd34d', action:() => { appState.isLoggedIn=true; switchTab('products'); },
-              desc:'Curated structured investment product library. Browse, filter, and model payoff scenarios for capital-protected and enhanced-yield products.' },
+              desc:'Structured product discovery hub. Users browse heat cards, filter by issuer / strategy / risk structure, open products, compare alternatives, and model payoff stories.' },
             { id:'profile',   lines:['Profile &','Settings'],   cx:635, cy:205, w:NW,  h:NHD,
               bg:'#1e293b', bdr:'#475569', fg:'#94a3b8', action:() => { appState.isLoggedIn=true; switchTab('profile'); },
               desc:'Account settings, language and notification preferences, and admin tools for content management (ETF data, product uploads).' },
 
             // Level-3: Sub-pages
-            { id:'screener',        lines:['All ETFs'],           cx:43,  cy:318, w:NWS, h:NHS,
+            { id:'daily-overview',  lines:['Daily','Overview'],   cx:28,  cy:318, w:NWS, h:NHD,
+              bg:'#0c1f38', bdr:'#1d4ed8', fg:'#93c5fd', action:() => directNavigate('market-dashboard'),
+              desc:'Daily Market Overview on the Market Intelligence home screen. Summarises major index direction, market mood, and the key context users should read before selecting ETFs.' },
+            { id:'sector-themes',   lines:['Sector','Themes'],    cx:98,  cy:318, w:NWS, h:NHD,
+              bg:'#0c1f38', bdr:'#1d4ed8', fg:'#93c5fd', action:() => directNavigate('market-dashboard'),
+              desc:'Sector Themes module on the Market Intelligence home screen. Highlights thematic sector opportunities and lets users jump from macro narrative into ETF ideas.' },
+            { id:'screener',        lines:['All ETFs'],           cx:45,  cy:410, w:NWS, h:NHS,
               bg:'#0c1f38', bdr:'#1d4ed8', fg:'#93c5fd', action:() => directNavigate('screener'),
               desc:'Full ETF screener with live search, category / issuer filters, and a sortable list of all HKEX-listed ETFs. Admins can add new ETFs here.' },
-            { id:'watchlist',       lines:['Watchlist'],          cx:127, cy:318, w:NWS, h:NHS,
+            { id:'watchlist',       lines:['Watchlist'],          cx:125, cy:410, w:NWS, h:NHS,
               bg:'#0c1f38', bdr:'#1d4ed8', fg:'#93c5fd', action:() => directNavigate('watchlist'),
               desc:'Personalised list of starred ETFs. ETFs are added via the bookmark button on any ETF Detail page and appear here for quick price monitoring.' },
-            { id:'p-holdings',      lines:['Input','Holdings'],   cx:219, cy:318, w:NWS, h:NHD,
+            { id:'p-holdings',      lines:['Input','Holdings'],   cx:205, cy:318, w:NWS, h:NHD,
               bg:'#042415', bdr:'#166534', fg:'#6ee7b7', action:() => directNavigate('portfolio-direct'),
               desc:'Step 1 of the portfolio workflow. Upload a PDF / CSV / image, paste raw text, or add holdings manually by selecting ETFs and allocation percentages.' },
-            { id:'p-analysis',      lines:['Portfolio','Analysis'],cx:301, cy:318, w:NWS, h:NHD,
+            { id:'p-analysis',      lines:['Portfolio','Analysis'],cx:285, cy:318, w:NWS, h:NHD,
               bg:'#042415', bdr:'#166534', fg:'#6ee7b7', action:() => { directNavigate('portfolio-direct'); setTimeout(()=>runPortfolioAnalysis(), 350); },
               desc:'Step 2. AI-generated portfolio scorecard across four dimensions: Risk, Concentration, Quality, and Income. Tap any score tile to see a detailed diagnosis panel.' },
-            { id:'p-suggest',       lines:['AI','Suggestions'],   cx:383, cy:318, w:NWS, h:NHD,
+            { id:'p-suggest',       lines:['AI','Suggestions'],   cx:365, cy:318, w:NWS, h:NHD,
               bg:'#042415', bdr:'#166534', fg:'#6ee7b7', action:() => { directNavigate('portfolio-direct'); setTimeout(()=>generateRecommendations(), 350); },
               desc:'Step 3. Personalised ETF rebalancing recommendations with full AI rationale for each suggested change, based on the analysis scorecard.' },
-            { id:'product-detail',  lines:['Product','Detail'],   cx:555, cy:318, w:NWS, h:NHD,
+            { id:'product-discovery', lines:['Product','Discovery'], cx:445, cy:318, w:NWS, h:NHD,
+              bg:'#361005', bdr:'#92400e', fg:'#fbbf24', action:() => { appState.isLoggedIn=true; switchTab('products'); },
+              desc:'Structured Products home view with heat cards plus issuer, strategy, and risk-structure filters. Product cards show match score, payoff type, barriers, and key terms.' },
+            { id:'product-detail',  lines:['Product','Detail'],   cx:525, cy:318, w:NWS, h:NHD,
               bg:'#361005', bdr:'#92400e', fg:'#fbbf24', action:() => { appState.isLoggedIn=true; switchTab('products'); setTimeout(()=>openProductDetail('SP-HSI-001'), 350); },
-              desc:'In-depth product view with three tabs: Overview (key terms & structure), Scenario (payoff modelling tool), and Pricing (live market pricing). Includes side-by-side comparison.' },
+              desc:'In-depth product view with Overview, Scenario, and Pricing tabs. Includes key terms, AI payoff summary, payoff story, pricing, and product comparison entry.' },
+            { id:'product-compare', lines:['Product','Compare'],  cx:605, cy:318, w:NWS, h:NHD,
+              bg:'#361005', bdr:'#92400e', fg:'#fbbf24', action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); setTimeout(()=>openProductCompare(), 250); },
+              desc:'Compare overlay for structured products. User selects a second product from a dropdown and compares type, currency, tenor, protection, barriers, coupon, risk, status, and P&L.' },
 
             // Product Detail sub-tabs (level 4)
-            { id:'pd-overview', lines:['Overview'],  cx:490, cy:422, w:NWS, h:NHS,
+            { id:'pd-overview', lines:['Overview'],  cx:445, cy:430, w:NWS, h:NHS,
               bg:'#2a1000', bdr:'#78350f', fg:'#fcd34d',
               action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); },
               desc:'Overview tab — tenor progress bar, underlying asset details, payoff terms, AI-extracted scenario payoff summary cards, full term sheet, and risk disclosure.' },
-            { id:'pd-scenario', lines:['Scenario'],  cx:558, cy:422, w:NWS, h:NHS,
+            { id:'pd-scenario', lines:['Payoff','Story'],  cx:525, cy:430, w:NWS, h:NHD,
               bg:'#2a1000', bdr:'#78350f', fg:'#fcd34d',
               action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); switchProductTab('scenario'); },
-              desc:'Scenario tab — Bull / Base / Bear selector with animated SVG payoff chart, per-scenario explanation and probability, and a full scenarios comparison table.' },
-            { id:'pd-pricing',  lines:['Pricing'],   cx:626, cy:422, w:NWS, h:NHS,
+              desc:'Scenario tab redesigned as a payoff story: earn/loss triggers, 0% baseline payoff map, outcome selector, and rules quick-check table.' },
+            { id:'pd-pricing',  lines:['Pricing'],   cx:605, cy:430, w:NWS, h:NHS,
               bg:'#2a1000', bdr:'#78350f', fg:'#fcd34d',
               action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); switchProductTab('pricing'); },
               desc:'Pricing tab — indicative price level and implied yield, same-issuer product comparison list, and pricing disclaimer.' },
 
             // Admin-only sub-page (locked for regular users)
-            { id:'admin-panel', lines:['Admin','Panel'], cx:635, cy:318, w:NW, h:NHD,
+            { id:'admin-panel', lines:['Admin','Panel'], cx:635, cy:505, w:NW, h:NHD,
               bg:'#1f0a1a', bdr:'#e11d48', fg:'#fda4af', adminOnly:true,
               action:() => { appState.isLoggedIn=true; switchTab('products'); setTimeout(()=>openAdminModal(), 350); },
               desc:'<strong>Admin only.</strong> Upload Structured Product Sheets (PDF → auto-extract fields) and add new ETFs by ticker ID. Accessible from the Products header or Profile page.' },
 
             // Level-4 / 5
-            { id:'detail',   lines:['ETF Detail'],   cx:85,  cy:422, w:NW, h:NHS,
+            { id:'detail',   lines:['ETF Detail'],   cx:85,  cy:500, w:NW, h:NHS,
               bg:'#172554', bdr:'#1d4ed8', fg:'#bfdbfe', action:() => directNavigate('detail-2800'),
               desc:'Detailed ETF profile: interactive price chart (1W–1Y), key metrics, top holdings, dividend history, and AI analysis scores with expandable diagnosis panels.' },
-            { id:'compare',  lines:['ETF Compare'],  cx:85,  cy:512, w:NW, h:NHS,
+            { id:'compare',  lines:['ETF Compare'],  cx:85,  cy:580, w:NW, h:NHS,
               bg:'#172554', bdr:'#1d4ed8', fg:'#bfdbfe', action:() => directNavigate('compare'),
               desc:'Side-by-side comparison of 2–4 ETFs. Covers price performance, yield, expense ratio, and all AI-scored criteria in a single scrollable comparison grid.' },
         ];
@@ -7923,17 +9024,21 @@
             { f:'login',     t:'ai',           label:'Tap AI tab',          desc:'User taps the AI Advisory icon to open the chatbot interface and start an advisory session.' },
             { f:'login',     t:'products',     label:'Tap Products tab',    desc:'User taps the Products icon to browse the structured investment product catalogue.' },
             { f:'login',     t:'profile',      label:'Tap Profile tab',     desc:'User taps the Profile icon to access account settings, language, and notification preferences.' },
+            { f:'market',    t:'daily-overview', label:'Read daily brief',  desc:'User starts from the daily market overview to understand market direction before drilling into ETF ideas.' },
+            { f:'market',    t:'sector-themes',  label:'Browse themes',     desc:'User reviews sector themes to connect macro narratives with ETF opportunities.' },
             { f:'market',    t:'screener',     label:'Tap "All ETFs"',      desc:'User taps the "All ETFs" button in the Market dashboard header to open the full ETF screener.' },
-            { f:'market',    t:'watchlist',    label:'Tap "View all"',      desc:'User taps "View all" in the Watchlist Preview section to see all their starred ETFs.' },
+            { f:'market',    t:'watchlist',    label:'Tap "View all"', route:'market-watchlist', desc:'User taps "View all" in the Watchlist Preview section to see all their starred ETFs.' },
             { f:'screener',  t:'detail',       label:'Tap ETF row',         desc:'User taps any ETF row in the screener list to open that ETF\'s full detail page.' },
             { f:'watchlist', t:'detail',       label:'Tap ETF row',         desc:'User taps a starred ETF from their watchlist to quickly review its current performance and metrics.' },
             { f:'detail',    t:'compare',      label:'Tap Compare',         desc:'User taps Quick Compare on the ETF Detail page, then selects 1–3 more ETFs to compare side-by-side.' },
             { f:'portfolio', t:'p-holdings',   label:'Enter module',        desc:'The Input Holdings page is always the entry point when navigating into the Portfolio Builder module.' },
             { f:'p-holdings',t:'p-analysis',   label:'Run Analysis',        isH:true, desc:'After submitting holdings, the user taps "Run Analysis" and the AI scoring engine processes the portfolio.' },
             { f:'p-analysis',t:'p-suggest',    label:'Get Suggestions',     isH:true, desc:'After reviewing the four-dimension scorecard, the user taps "Get Suggestions" for AI rebalancing advice.' },
-            { f:'products',  t:'product-detail',  label:'Tap product card',   desc:'User taps any product card in the Products list to open its full detail view with scenarios and pricing.' },
+            { f:'products',  t:'product-discovery', label:'Browse catalogue', desc:'User lands on Product Discovery, then uses heat cards and issuer / strategy / risk filters to narrow the catalogue.' },
+            { f:'product-discovery', t:'product-detail', label:'Tap product card', isH:true, desc:'User taps a structured product card to open its full detail view with terms, payoff story, pricing, and compare entry.' },
+            { f:'product-detail', t:'product-compare', label:'Tap Compare', isH:true, desc:'User opens the Compare overlay and selects a second structured product from the dropdown.' },
             { f:'product-detail', t:'pd-overview', label:'Overview tab',    desc:'Key terms, tenor progress, underlying details, payoff structure, AI scenario payoff cards, full term sheet and risk disclosure.' },
-            { f:'product-detail', t:'pd-scenario', label:'Scenario tab',    desc:'Interactive Bull / Base / Bear scenario modelling with animated payoff chart and probability breakdown.' },
+            { f:'product-detail', t:'pd-scenario', label:'Payoff Story tab', desc:'Interactive payoff story showing when the user earns, when losses trigger, and how payoff compares with the 0% baseline.' },
             { f:'product-detail', t:'pd-pricing',  label:'Pricing tab',     desc:'Indicative market price, implied yield, same-issuer product comparison, and pricing disclaimer.' },
             { f:'profile',   t:'admin-panel',   label:'Admin Panel',        desc:'Admin taps "Manage Products" in the Profile page to open the Admin Panel for uploading product sheets and adding ETFs.' },
         ];
@@ -7947,7 +9052,7 @@
         // -- Draw SVG edges --
         const svg = document.getElementById('ptree-svg');
         if (!svg) return;
-        svg.setAttribute('width','710'); svg.setAttribute('height','560');
+        svg.setAttribute('width','710'); svg.setAttribute('height','640');
 
         let svgHTML = `<defs>
             <marker id="arr" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
@@ -7965,6 +9070,10 @@
                 const x1 = goLeft ? fn.cx - fn.w/2 : fn.cx + fn.w/2;
                 const x2 = goLeft ? tn.cx + tn.w/2 : tn.cx - tn.w/2;
                 pathD = `M${x1},${fn.cy} L${x2},${tn.cy}`;
+            } else if (e.route === 'market-watchlist') {
+                const x1 = fn.cx, y1 = cy2bot(fn), x2 = tn.cx, y2 = cy2top(tn);
+                const midY = y2 - 24;
+                pathD = `M${x1},${y1} C${x1},${midY} ${x2},${midY} ${x2},${y2}`;
             } else {
                 const x1=fn.cx, y1=cy2bot(fn), x2=tn.cx, y2=cy2top(tn);
                 const my = y1 + (y2-y1)*0.45;
