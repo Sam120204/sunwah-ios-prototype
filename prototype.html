@@ -1578,18 +1578,24 @@
                         <div class="bg-white px-4 pt-4 pb-3 border-b border-gray-100 shrink-0 flex justify-between items-center">
                             <div>
                                 <h1 class="text-xl font-bold text-navyBlue tracking-tight">Structured Products</h1>
-                                <p class="text-[9px] text-gray-400 font-medium uppercase tracking-tight mt-0.5">Discover by market view · issuer · risk structure</p>
+                                <p class="text-[9px] text-gray-400 font-medium uppercase tracking-tight mt-0.5">Browse issuer catalogues · filter terms · compare same issuer</p>
                             </div>
-                            <button id="admin-panel-trigger" onclick="openAdminModal()" class="hidden w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 transition" title="Manage Products">
-                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                            </button>
+                            <div class="flex items-center gap-2">
+                                <button id="product-advanced-toggle" type="button" onclick="openProductAdvancedSheet()" class="relative w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 transition" title="Advanced search" aria-label="Advanced search">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                                    <span id="product-advanced-badge" class="hidden absolute -top-1 -right-1 bg-navyBlue text-white text-[8px] min-w-4 h-4 px-1 rounded-full font-semibold items-center justify-center"></span>
+                                </button>
+                                <button id="admin-panel-trigger" onclick="openAdminModal()" class="hidden w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 transition" title="Manage Products">
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Discovery filters -->
-                        <div class="bg-white border-b border-gray-100 px-4 py-3 shrink-0 space-y-2.5">
+                        <div class="bg-white border-b border-gray-100 px-4 py-3 shrink-0 space-y-3">
                             <div>
                                 <div class="flex items-center justify-between mb-1.5">
-                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Issuer</p>
+                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Issuer catalogue</p>
                                     <div class="flex gap-1">
                                         <button type="button" onclick="scrollProductFilterRow('product-issuer-filters', -1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">‹</button>
                                         <button type="button" onclick="scrollProductFilterRow('product-issuer-filters', 1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">›</button>
@@ -1599,30 +1605,28 @@
                             </div>
                             <div>
                                 <div class="flex items-center justify-between mb-1.5">
-                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Strategy</p>
-                                    <div class="flex gap-1">
-                                        <button type="button" onclick="scrollProductFilterRow('product-strategy-filters', -1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">‹</button>
-                                        <button type="button" onclick="scrollProductFilterRow('product-strategy-filters', 1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">›</button>
-                                    </div>
+                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Smart filters</p>
+                                    <button type="button" onclick="resetProductDiscoveryFilters()" class="text-[9px] font-semibold text-gray-400 hover:text-navyBlue">Reset</button>
                                 </div>
-                                <div id="product-strategy-filters" class="product-filter-row no-scrollbar"></div>
-                            </div>
-                            <div>
-                                <div class="flex items-center justify-between mb-1.5">
-                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Risk structure</p>
-                                    <div class="flex gap-1">
-                                        <button type="button" onclick="scrollProductFilterRow('product-risk-filters', -1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">‹</button>
-                                        <button type="button" onclick="scrollProductFilterRow('product-risk-filters', 1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">›</button>
-                                    </div>
-                                </div>
-                                <div id="product-risk-filters" class="product-filter-row no-scrollbar"></div>
+                                <div id="product-smart-filters" class="grid grid-cols-3 gap-2 relative z-20"></div>
                             </div>
                         </div>
 
                         <!-- Product list -->
                         <div class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-3 pb-4">
-                            <div id="products-heat-overview" class="space-y-1.5"></div>
                             <div id="products-list-container" class="space-y-3"></div>
+                        </div>
+
+                        <!-- Structured product advanced search sheet -->
+                        <div id="product-advanced-backdrop" class="absolute inset-0 bg-black/40 z-45 hidden opacity-0 transition-opacity duration-300" onclick="closeProductAdvancedSheet()"></div>
+                        <div id="product-advanced-sheet" class="absolute inset-x-0 bottom-0 bg-white rounded-t-2xl z-50 transform translate-y-full transition-transform duration-300 max-h-[78%] flex flex-col shadow-2xl border-t border-gray-200 font-sans">
+                            <div class="w-10 h-1 bg-gray-200 rounded-full mx-auto my-3 shrink-0"></div>
+                            <div class="px-5 pb-3 border-b border-gray-100 flex justify-between items-center shrink-0">
+                                <button onclick="resetAdvancedProductFilters()" class="text-xs font-medium text-gray-400 hover:text-gray-700 transition">Clear</button>
+                                <h3 class="text-sm font-semibold text-gray-900">Advanced Search</h3>
+                                <button onclick="closeProductAdvancedSheet()" class="text-xs font-semibold text-navyBlue hover:opacity-80 transition">Done</button>
+                            </div>
+                            <div id="product-advanced-search-panel" class="flex-1 overflow-y-auto px-5 py-4 space-y-5 no-scrollbar pb-8 text-left text-gray-900"></div>
                         </div>
 
                         <!-- ─── PRODUCT DETAIL OVERLAY (full screen) ─── -->
@@ -1641,10 +1645,11 @@
                             </div>
 
                             <!-- Tab bar -->
-                            <div class="bg-white border-b border-gray-100 flex shrink-0">
-                                <button id="od-tab-overview" onclick="switchProductTab('overview')" class="flex-1 py-2.5 text-[10px] font-semibold text-navyBlue border-b-2 border-navyBlue transition">Overview</button>
-                                <button id="od-tab-scenario" onclick="switchProductTab('scenario')" class="flex-1 py-2.5 text-[10px] font-medium text-gray-400 border-b-2 border-transparent transition">Scenario</button>
-                                <button id="od-tab-pricing" onclick="switchProductTab('pricing')" class="flex-1 py-2.5 text-[10px] font-medium text-gray-400 border-b-2 border-transparent transition">Pricing</button>
+                            <div class="bg-white border-b border-gray-100 flex shrink-0 overflow-x-auto no-scrollbar">
+                                <button id="od-tab-overview" onclick="switchProductTab('overview')" class="min-w-[72px] flex-1 py-2.5 text-[10px] font-semibold text-navyBlue border-b-2 border-navyBlue transition">Overview</button>
+                                <button id="od-tab-performance" onclick="switchProductTab('performance')" class="min-w-[78px] flex-1 py-2.5 text-[10px] font-medium text-gray-400 border-b-2 border-transparent transition">Performance</button>
+                                <button id="od-tab-events" onclick="switchProductTab('events')" class="min-w-[78px] flex-1 py-2.5 text-[10px] font-medium text-gray-400 border-b-2 border-transparent transition">Note Events</button>
+                                <button id="od-tab-documents" onclick="switchProductTab('documents')" class="min-w-[72px] flex-1 py-2.5 text-[10px] font-medium text-gray-400 border-b-2 border-transparent transition">Documents</button>
                             </div>
 
                             <!-- Tab: Overview -->
@@ -1707,8 +1712,10 @@
                                 <p class="text-[8px] text-gray-400 text-center leading-relaxed pb-2">For information only. No trading execution. Suitability assessment required.</p>
                             </div>
 
-                            <!-- Tab: Scenario Modelling -->
-                            <div id="od-panel-scenario" class="hidden flex-1 overflow-y-auto no-scrollbar px-4 py-4 space-y-4 bg-gray-50">
+                            <div id="od-panel-performance" class="hidden flex-1 overflow-y-auto no-scrollbar px-4 py-4 space-y-4 bg-gray-50"></div>
+
+                            <!-- Tab: Note Events -->
+                            <div id="od-panel-events" class="hidden flex-1 overflow-y-auto no-scrollbar px-4 py-4 space-y-4 bg-gray-50">
 
                                 <!-- Payoff story -->
                                 <div class="bg-white rounded-xl border border-gray-150 p-3 space-y-2">
@@ -1769,39 +1776,7 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Tab: Indicative Pricing -->
-                            <div id="od-panel-pricing" class="hidden flex-1 overflow-y-auto no-scrollbar px-4 py-4 space-y-4 bg-gray-50">
-
-                                <!-- Price level -->
-                                <div class="bg-white rounded-xl border border-gray-150 p-4">
-                                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-3">Indicative Price</p>
-                                    <div class="flex items-baseline gap-2 mb-1">
-                                        <span id="od-price-level" class="text-2xl font-bold text-navyBlue">101.20%</span>
-                                        <span class="text-xs text-gray-400">of par</span>
-                                    </div>
-                                    <p id="od-implied-yield" class="text-xs text-gray-600 font-medium">Implied yield: —</p>
-                                    <div class="mt-3 pt-3 border-t border-gray-100 space-y-1 text-[10px] text-gray-500">
-                                        <div class="flex justify-between"><span>Price date</span><span id="od-price-date" class="font-medium text-gray-700">—</span></div>
-                                        <div class="flex justify-between"><span>Source</span><span id="od-price-source" class="font-medium text-gray-700">—</span></div>
-                                    </div>
-                                </div>
-
-                                <!-- Product compare: same-issuer -->
-                                <div id="od-compare-preview" class="bg-white rounded-xl border border-gray-150 p-3">
-                                    <div class="flex justify-between items-center mb-2">
-                                        <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Same-issuer products</p>
-                                        <button onclick="openProductCompare()" class="text-[10px] font-medium text-navyBlue hover:underline">Compare all</button>
-                                    </div>
-                                    <div id="od-compare-list" class="space-y-1.5"></div>
-                                </div>
-
-                                <!-- Disclaimer -->
-                                <div class="bg-white rounded-xl border border-gray-150 px-3 py-3">
-                                    <p class="text-[9px] font-semibold text-gray-500 uppercase tracking-wider mb-1">Pricing Disclaimer</p>
-                                    <p id="od-pricing-disclaimer" class="text-[10px] text-gray-400 leading-relaxed">Prices are indicative only, provided for reference and subject to change without notice. Not a firm quote or offer to transact.</p>
-                                </div>
-                            </div>
+                            <div id="od-panel-documents" class="hidden flex-1 overflow-y-auto no-scrollbar px-4 py-4 space-y-4 bg-gray-50"></div>
                         </div>
 
                         <!-- ─── PRODUCT COMPARE OVERLAY ─── -->
@@ -2921,6 +2896,10 @@
             const spDrop = document.getElementById('sp-picker-dropdown');
             if (spDrop && !spDrop.contains(e.target) && e.target !== spInput) {
                 spDrop.classList.add('hidden');
+            }
+            const smartFilters = document.getElementById('product-smart-filters');
+            if (smartFilters && !smartFilters.contains(e.target)) {
+                closeSmartFilterMenus();
             }
         });
     });
@@ -8150,13 +8129,84 @@
         }
     ];
 
+    structuredProductsDB.push(
+        {
+            ...structuredProductsDB.find(p => p.id === 'SP-HSI-001'),
+            id: 'SP-HSBC-AUTO-015',
+            name: 'HSBC HSI Autocallable Income Note',
+            type: 'Autocall / Snowball',
+            category: 'Autocall',
+            marketView: 'range',
+            strategyTags: ['震荡收益', '高息收息'],
+            riskTags: ['低敲入', '可提前赎回'],
+            attractivenessScore: 83,
+            highlightReason: 'Same-issuer mock note for comparing HSBC protected and autocall structures.',
+            capitalProtection: null,
+            participationRate: null,
+            knockIn: '70%', knockOut: '100%', coupon: '9.6% p.a.',
+            tenor: '24 months', issueDate: '2026-05-30', maturityDate: '2028-05-30',
+            totalTenorDays: 731, daysToMaturity: 731,
+            riskLevel: 'Medium', riskScore: 3,
+            pnl: '+0.3%', positive: true,
+            payoffTerms: [
+                { label: 'Structure', value: 'Autocallable income note' },
+                { label: 'Capital protection', value: 'None' },
+                { label: 'Coupon', value: '9.6% p.a. conditional' },
+                { label: 'Autocall level', value: '100% semi-annually' },
+                { label: 'Knock-in barrier', value: '70% of initial level' }
+            ],
+            pricing: { level: '100.10%', impliedYield: '9.5% p.a.', date: '2026-05-24 16:00 HKT', source: 'Sunwah Internal Desk (Indicative)' },
+            disclaimer: 'Mock same-issuer comparison note. NOT capital protected; coupon and autocall are conditional.'
+        },
+        {
+            ...structuredProductsDB.find(p => p.id === 'SP-ELN-002'),
+            id: 'SP-BNP-AUTO-016',
+            name: 'BNP HK Tech Autocallable Note',
+            type: 'Autocall / Snowball',
+            category: 'Autocall',
+            marketView: 'range',
+            strategyTags: ['震荡收益', '高息收息'],
+            riskTags: ['低敲入', '可提前赎回', '实物交收风险'],
+            attractivenessScore: 87,
+            highlightReason: 'Same-issuer mock note for comparing BNP ELN and autocall structures.',
+            underlying: 'Tencent (0700.HK) & Alibaba (9988.HK)',
+            knockIn: '68%', knockOut: '100%', coupon: '13.2% p.a.',
+            tenor: '18 months', issueDate: '2026-06-03', maturityDate: '2027-12-03',
+            totalTenorDays: 548, daysToMaturity: 548,
+            riskLevel: 'High', riskScore: 4,
+            pnl: '+0.1%', positive: true,
+            payoffTerms: [
+                { label: 'Structure', value: 'Worst-of autocallable note' },
+                { label: 'Capital protection', value: 'None' },
+                { label: 'Coupon', value: '13.2% p.a. conditional memory coupon' },
+                { label: 'Autocall level', value: '100% quarterly' },
+                { label: 'Knock-in barrier', value: '68% of initial price' }
+            ],
+            pricing: { level: '99.90%', impliedYield: '13.4% p.a.', date: '2026-05-24 16:00 HKT', source: 'Sunwah Internal Desk (Indicative)' },
+            disclaimer: 'Mock same-issuer comparison note. NOT capital protected; physical delivery may apply after barrier events.'
+        }
+    );
+
     appState.adminProductPending = null;
     appState.productIssuerFilter = 'all';
     appState.productStrategyFilter = 'all';
     appState.productRiskFilter = 'all';
     appState.productDiscoveryPreset = null;
+    appState.productAdvancedOpen = false;
+    appState.productAdvancedFilters = {};
+    appState.productQuickViewFilter = 'all';
     appState.activeProductId = null;
+    appState.activeProductDetailTab = 'overview';
     appState.activeScenario = 'bull';
+
+    const productAdvancedDefaultFilters = {
+        productType: 'all', productClass: 'all', underlyingInterestType: 'all', structureType: 'all',
+        barrierBufferLevel: 'all', paymentFrequency: 'all', investmentObjective: 'all', sector: 'all',
+        currency: 'all', geography: 'all', currentStatus: 'all', availableUntilFrom: '', availableUntilTo: '',
+        issueDateFrom: '', issueDateTo: '', maturityDateFrom: '', maturityDateTo: '', termYearsFrom: '', termYearsTo: ''
+    };
+
+    appState.productAdvancedFilters = { ...productAdvancedDefaultFilters };
 
     const productFilterOptions = {
         issuer: [
@@ -8165,14 +8215,107 @@
             ['DBS', 'DBS'], ['Credit Suisse', 'Credit Suisse'], ['Standard Chartered', 'Standard Chartered'], ['Econotes', 'Econotes']
         ],
         strategy: [
-            ['all', 'All strategies'], ['震荡收益', 'Range income'], ['看涨参与', 'Bullish upside'],
+            ['all', 'Strategy'], ['震荡收益', 'Range income'], ['看涨参与', 'Bullish upside'],
             ['防御保护', 'Defensive'], ['高息收息', 'High coupon'], ['汇率观点', 'FX view']
         ],
         risk: [
-            ['all', 'All risks'], ['低敲入', 'Low KI'], ['宽安全垫', 'Wide buffer'],
+            ['all', 'Risk structure'], ['低敲入', 'Low KI'], ['宽安全垫', 'Wide buffer'],
             ['保本/部分保本', 'Protected / buffer'], ['可提前赎回', 'Autocallable'], ['实物交收风险', 'Physical delivery']
-        ]
+        ],
+        quickView: [
+            ['all', 'Quick view'], ['hot', 'Hot matches'], ['range', 'Range income'], ['defensive', 'Defensive buffer'], ['highCoupon', 'High coupon']
+        ],
+        advanced: {
+            productType: [['all', 'All product types'], ['Principal-At-Risk Notes', 'Principal-At-Risk Notes'], ['Principal Protected Notes', 'Principal Protected Notes'], ['Interest Rate Notes', 'Interest Rate Notes']],
+            productClass: [['all', 'All classes'], ['A-Class', 'A-Class'], ['F-Class', 'F-Class']],
+            underlyingInterestType: [['all', 'All underlying types'], ['Index-Linked', 'Index-Linked'], ['Equity-Linked', 'Equity-Linked'], ['Commodity-Linked', 'Commodity-Linked'], ['Currency-Linked', 'Currency-Linked'], ['Credit-Linked', 'Credit-Linked'], ['Interest Rate-Linked', 'Interest Rate-Linked']],
+            structureType: [['all', 'All structures'], ['Auto-callable', 'Auto-callable'], ['Capital Protected', 'Capital Protected'], ['Reverse Convertible', 'Reverse Convertible'], ['Phoenix Autocall', 'Phoenix Autocall'], ['Range Accrual', 'Range Accrual'], ['Buffer Note', 'Buffer Note'], ['Twin Win', 'Twin Win'], ['Fixed Coupon Note', 'Fixed Coupon Note'], ['Dual Currency', 'Dual Currency'], ['Credit-Linked', 'Credit-Linked']],
+            barrierBufferLevel: [['all', 'All barrier/buffer levels'], ['none', 'No barrier'], ['lt70', 'Below 70%'], ['70to80', '70%–80%'], ['gt80', 'Above 80%']],
+            paymentFrequency: [['all', 'All payment frequencies'], ['Monthly', 'Monthly'], ['Quarterly', 'Quarterly'], ['Semi-Annually', 'Semi-Annually'], ['Annually', 'Annually'], ['At Maturity', 'At Maturity']],
+            investmentObjective: [['all', 'All objectives'], ['Capital Appreciation', 'Capital Appreciation'], ['Capital Preservation', 'Capital Preservation'], ['Enhanced Yield', 'Enhanced Yield'], ['Income', 'Income'], ['Yield Enhancement', 'Yield Enhancement']],
+            sector: [['all', 'All sectors'], ['Diversified', 'Diversified'], ['Technology', 'Technology'], ['Financials', 'Financials'], ['Commodities', 'Commodities'], ['Energy', 'Energy'], ['Credit', 'Credit'], ['FX', 'FX']],
+            currency: [['all', 'All currencies'], ['HKD', 'HKD'], ['USD', 'USD'], ['CAD', 'CAD'], ['CNH', 'CNH']],
+            geography: [['all', 'All geographies'], ['Hong Kong', 'Hong Kong'], ['China', 'China'], ['US', 'US'], ['Asia', 'Asia'], ['International', 'International']],
+            currentStatus: [['all', 'All statuses'], ['Active', 'Active'], ['Closing Soon', 'Closing Soon'], ['Launched', 'Launched'], ['Matured', 'Matured']]
+        }
     };
+
+    const productTDProfileOverrides = {
+        'SP-HSI-001': { fundservCode: 'HSB1842', cusip: '40434HP18', ism: 'X91HSI', availableUntil: '2026-06-18', initialValuationDate: '2025-12-01', termYears: 1.5, productType: 'Principal Protected Notes', productClass: 'A-Class', structureType: 'Capital Protected', underlyingInterestType: 'Index-Linked', underlier: 'Hang Seng Index', sector: 'Diversified', geography: 'Hong Kong', investmentObjective: 'Capital Preservation', accountEligibility: 'Cash, Margin, RRSP, TFSA', salesCommission: '1.25%', issuerRating: 'AA- by S&P; Aa3 by Moody’s', currentStatus: 'Active', autoCallThreshold: 'None', callFrequency: 'None', barrierLevel: '100% capital protection', fixedReturns: '85% upside participation', paymentFrequency: 'At Maturity' },
+        'SP-ELN-002': { fundservCode: 'BNP5125', cusip: '05567QAL2', ism: 'BABA70', availableUntil: '2026-06-03', initialValuationDate: '2026-05-20', termYears: 1, productType: 'Principal-At-Risk Notes', productClass: 'F-Class', structureType: 'Reverse Convertible', underlyingInterestType: 'Equity-Linked', underlier: 'Alibaba (9988.HK) / Tencent (0700.HK)', sector: 'Technology', geography: 'Hong Kong', investmentObjective: 'Enhanced Yield', accountEligibility: 'Cash, Margin', salesCommission: '2.0%', issuerRating: 'A+ by S&P; Aa3 by Moody’s', currentStatus: 'Active', autoCallThreshold: 'None', callFrequency: 'None', barrierLevel: '75%', fixedReturns: '12.5% p.a. conditional coupon', paymentFrequency: 'At Maturity' },
+        'SP-AUTO-003': { fundservCode: 'GS1500', cusip: '38149W300', ism: 'CSI65', availableUntil: '2026-05-31', initialValuationDate: '2024-08-10', termYears: 2, productType: 'Principal-At-Risk Notes', productClass: 'A-Class', structureType: 'Auto-callable', underlyingInterestType: 'Index-Linked', underlier: 'CSI 300 Index', sector: 'Diversified', geography: 'China', investmentObjective: 'Income', accountEligibility: 'Cash, Margin, RRSP, TFSA', salesCommission: '2.5%', issuerRating: 'A+ by S&P; Aa3 by Moody’s', currentStatus: 'Closing Soon', autoCallThreshold: '100%', callFrequency: 'Monthly', barrierLevel: '65%', fixedReturns: '15.0% p.a. conditional coupon', paymentFrequency: 'Monthly' },
+        'SP-COMMOD-004': { fundservCode: 'MS1208', cusip: '61747YQ40', ism: 'XAUAG', availableUntil: '2024-08-01', initialValuationDate: '2024-08-01', termYears: 1, productType: 'Principal Protected Notes', productClass: 'A-Class', structureType: 'Capital Protected', underlyingInterestType: 'Commodity-Linked', underlier: 'Gold & Silver Basket', sector: 'Commodities', geography: 'International', investmentObjective: 'Capital Appreciation', accountEligibility: 'Cash, Margin', salesCommission: '1.5%', issuerRating: 'A- by S&P; A1 by Moody’s', currentStatus: 'Matured', autoCallThreshold: 'None', callFrequency: 'None', barrierLevel: '90% protection floor', fixedReturns: '120% upside participation', paymentFrequency: 'At Maturity' },
+        'SP-PHOENIX-005': { fundservCode: 'UBS1612', cusip: '902674P55', ism: 'NDXPHX', availableUntil: '2026-06-14', initialValuationDate: '2026-04-12', termYears: 3, productType: 'Principal-At-Risk Notes', productClass: 'F-Class', structureType: 'Phoenix Autocall', underlyingInterestType: 'Index-Linked', underlier: 'NASDAQ-100 Index', sector: 'Technology', geography: 'US', investmentObjective: 'Enhanced Yield', accountEligibility: 'Cash, Margin, TFSA', salesCommission: '2.25%', issuerRating: 'A+ by S&P; Aa3 by Moody’s', currentStatus: 'Active', autoCallThreshold: '100%', callFrequency: 'Quarterly', barrierLevel: '70%', fixedReturns: '16.0% p.a. memory coupon', paymentFrequency: 'Quarterly' },
+        'SP-RANGE-006': { fundservCode: 'JPM0720', cusip: '48133PSFR', ism: 'SOFRRA', availableUntil: '2026-06-08', initialValuationDate: '2026-03-28', termYears: 3, productType: 'Interest Rate Notes', productClass: 'A-Class', structureType: 'Range Accrual', underlyingInterestType: 'Interest Rate-Linked', underlier: '3M SOFR Reference Rate', sector: 'Financials', geography: 'US', investmentObjective: 'Income', accountEligibility: 'Cash, Margin', salesCommission: '1.0%', issuerRating: 'A by S&P; Aa2 by Moody’s', currentStatus: 'Active', autoCallThreshold: 'Issuer call', callFrequency: 'Quarterly after year 1', barrierLevel: 'SOFR 3.25%–5.25% range', fixedReturns: 'Up to 7.2% p.a.', paymentFrequency: 'Monthly' },
+        'SP-BUFFER-007': { fundservCode: 'CITI1015', cusip: '17330P928', ism: 'SPXBUF', availableUntil: '2026-06-21', initialValuationDate: '2025-10-15', termYears: 2, productType: 'Principal-At-Risk Notes', productClass: 'A-Class', structureType: 'Buffer Note', underlyingInterestType: 'Index-Linked', underlier: 'S&P 500 Index', sector: 'Diversified', geography: 'US', investmentObjective: 'Capital Appreciation', accountEligibility: 'Cash, Margin, RRSP, TFSA', salesCommission: '1.75%', issuerRating: 'A+ by S&P; A1 by Moody’s', currentStatus: 'Active', autoCallThreshold: 'None', callFrequency: 'None', barrierLevel: '85% buffer', fixedReturns: '125% upside participation', paymentFrequency: 'At Maturity' },
+        'SP-TWINWIN-008': { fundservCode: 'CS8802', cusip: '22550LHSI', ism: 'HSI2WIN', availableUntil: '2026-06-10', initialValuationDate: '2026-01-30', termYears: 1.5, productType: 'Principal-At-Risk Notes', productClass: 'F-Class', structureType: 'Twin Win', underlyingInterestType: 'Index-Linked', underlier: 'Hang Seng Index', sector: 'Diversified', geography: 'Hong Kong', investmentObjective: 'Capital Appreciation', accountEligibility: 'Cash, Margin', salesCommission: '2.0%', issuerRating: 'A by S&P; A2 by Moody’s', currentStatus: 'Active', autoCallThreshold: 'None', callFrequency: 'None', barrierLevel: '70%', fixedReturns: '80% absolute performance if barrier intact', paymentFrequency: 'At Maturity' },
+        'SP-FCN-009': { fundservCode: 'BNP0922', cusip: '05567QFC9', ism: 'BANKFCN', availableUntil: '2026-06-05', initialValuationDate: '2026-02-22', termYears: 1.5, productType: 'Principal-At-Risk Notes', productClass: 'A-Class', structureType: 'Fixed Coupon Note', underlyingInterestType: 'Equity-Linked', underlier: 'Hong Kong Bank Basket', sector: 'Financials', geography: 'Hong Kong', investmentObjective: 'Yield Enhancement', accountEligibility: 'Cash, Margin', salesCommission: '2.0%', issuerRating: 'A+ by S&P; Aa3 by Moody’s', currentStatus: 'Active', autoCallThreshold: '100%', callFrequency: 'Quarterly', barrierLevel: '72%', fixedReturns: '10.2% p.a. fixed coupon', paymentFrequency: 'Quarterly' },
+        'SP-REVERSE-010': { fundservCode: 'MS1650', cusip: '61747YAAP', ism: 'AAPLRC', availableUntil: '2026-06-02', initialValuationDate: '2026-05-10', termYears: 0.5, productType: 'Principal-At-Risk Notes', productClass: 'F-Class', structureType: 'Reverse Convertible', underlyingInterestType: 'Equity-Linked', underlier: 'Apple Inc. (AAPL US)', sector: 'Technology', geography: 'US', investmentObjective: 'Enhanced Yield', accountEligibility: 'Cash, Margin', salesCommission: '1.75%', issuerRating: 'A- by S&P; A1 by Moody’s', currentStatus: 'Active', autoCallThreshold: 'None', callFrequency: 'None', barrierLevel: '65%', fixedReturns: '16.5% p.a. coupon', paymentFrequency: 'At Maturity' },
+        'SP-AIRBAG-011': { fundservCode: 'HSB0750', cusip: '40434HABA', ism: 'BABAIR', availableUntil: '2026-06-12', initialValuationDate: '2026-05-18', termYears: 0.75, productType: 'Principal-At-Risk Notes', productClass: 'A-Class', structureType: 'Airbag ELI', underlyingInterestType: 'Equity-Linked', underlier: 'Alibaba Group (9988.HK)', sector: 'Technology', geography: 'Hong Kong', investmentObjective: 'Enhanced Yield', accountEligibility: 'Cash, Margin, RRSP, TFSA', salesCommission: '1.8%', issuerRating: 'AA- by S&P; Aa3 by Moody’s', currentStatus: 'Active', autoCallThreshold: 'None', callFrequency: 'None', barrierLevel: '75% airbag / knock-in level', fixedReturns: '7.5% p.a. indicative coupon', paymentFrequency: 'At Maturity' },
+        'SP-DUAL-012': { fundservCode: 'DBS0840', cusip: '23304YUSD', ism: 'USDCNH', availableUntil: '2026-06-06', initialValuationDate: '2026-05-25', termYears: 0.25, productType: 'Interest Rate Notes', productClass: 'A-Class', structureType: 'Dual Currency', underlyingInterestType: 'Currency-Linked', underlier: 'USD/CNH exchange rate', sector: 'FX', geography: 'Asia', investmentObjective: 'Yield Enhancement', accountEligibility: 'Cash, Margin', salesCommission: '0.75%', issuerRating: 'AA- by S&P; Aa1 by Moody’s', currentStatus: 'Active', autoCallThreshold: 'None', callFrequency: 'None', barrierLevel: 'FX conversion strike', fixedReturns: '8.4% p.a. enhanced yield', paymentFrequency: 'At Maturity' },
+        'SP-CREDIT-013': { fundservCode: 'SCB0928', cusip: '853254CLN', ism: 'ASIGCLN', availableUntil: '2026-06-17', initialValuationDate: '2025-11-28', termYears: 3, productType: 'Principal-At-Risk Notes', productClass: 'F-Class', structureType: 'Credit-Linked', underlyingInterestType: 'Credit-Linked', underlier: 'Asia IG Credit Basket', sector: 'Credit', geography: 'Asia', investmentObjective: 'Income', accountEligibility: 'Cash, Margin', salesCommission: '1.5%', issuerRating: 'A by S&P; A1 by Moody’s', currentStatus: 'Active', autoCallThreshold: 'None', callFrequency: 'None', barrierLevel: 'Credit event trigger', fixedReturns: '7.0% p.a. coupon', paymentFrequency: 'Semi-Annually' },
+        'SP-COMMOD-AUTO-014': { fundservCode: 'GS1200', cusip: '38149WOIL', ism: 'WTI65', availableUntil: '2026-06-09', initialValuationDate: '2025-12-05', termYears: 2, productType: 'Principal-At-Risk Notes', productClass: 'A-Class', structureType: 'Auto-callable', underlyingInterestType: 'Commodity-Linked', underlier: 'WTI Crude Oil Futures', sector: 'Energy', geography: 'International', investmentObjective: 'Income', accountEligibility: 'Cash, Margin', salesCommission: '2.25%', issuerRating: 'A+ by S&P; Aa3 by Moody’s', currentStatus: 'Active', autoCallThreshold: '100%', callFrequency: 'Monthly', barrierLevel: '65%', fixedReturns: '12.0% p.a. conditional coupon', paymentFrequency: 'Monthly' },
+        'SP-NEW': { fundservCode: 'ECO1000', cusip: '26875EHSI', ism: 'UPLD01', availableUntil: '2026-06-30', initialValuationDate: '2023-10-01', termYears: 3, productType: 'Principal Protected Notes', productClass: 'A-Class', structureType: 'Capital Protected', underlyingInterestType: 'Index-Linked', underlier: 'Hang Seng Index', sector: 'Diversified', geography: 'Hong Kong', investmentObjective: 'Capital Preservation', accountEligibility: 'Cash, Margin', salesCommission: '1.0%', issuerRating: 'Not rated', currentStatus: 'Active', autoCallThreshold: 'None', callFrequency: 'None', barrierLevel: '100% capital protection', fixedReturns: '80% upside participation', paymentFrequency: 'At Maturity' },
+        'SP-HSBC-AUTO-015': { fundservCode: 'HSB0960', cusip: '40434HA15', ism: 'HSIA15', availableUntil: '2026-06-20', initialValuationDate: '2026-05-30', termYears: 2, productType: 'Principal-At-Risk Notes', productClass: 'A-Class', structureType: 'Auto-callable', underlyingInterestType: 'Index-Linked', underlier: 'Hang Seng Index', sector: 'Diversified', geography: 'Hong Kong', investmentObjective: 'Income', accountEligibility: 'Cash, Margin, RRSP, TFSA', salesCommission: '2.0%', issuerRating: 'AA- by S&P; Aa3 by Moody’s', currentStatus: 'Active', autoCallThreshold: '100%', callFrequency: 'Semi-Annually', barrierLevel: '70%', fixedReturns: '9.6% p.a. conditional coupon', paymentFrequency: 'Semi-Annually' },
+        'SP-BNP-AUTO-016': { fundservCode: 'BNP1320', cusip: '05567QA16', ism: 'HKTA16', availableUntil: '2026-06-18', initialValuationDate: '2026-06-03', termYears: 1.5, productType: 'Principal-At-Risk Notes', productClass: 'F-Class', structureType: 'Auto-callable', underlyingInterestType: 'Equity-Linked', underlier: 'Tencent / Alibaba Worst-of Basket', sector: 'Technology', geography: 'Hong Kong', investmentObjective: 'Enhanced Yield', accountEligibility: 'Cash, Margin', salesCommission: '2.25%', issuerRating: 'A+ by S&P; Aa3 by Moody’s', currentStatus: 'Active', autoCallThreshold: '100%', callFrequency: 'Quarterly', barrierLevel: '68%', fixedReturns: '13.2% p.a. conditional memory coupon', paymentFrequency: 'Quarterly' }
+    };
+
+    function parseTenorYears(tenor) {
+        const text = String(tenor || '').toLowerCase();
+        const num = parseFloat(text);
+        if (!Number.isFinite(num)) return null;
+        return text.includes('month') ? Math.round((num / 12) * 10) / 10 : num;
+    }
+
+    function getProductDocuments(p, profile) {
+        if (Array.isArray(p.documents) && p.documents.length) return p.documents;
+        const code = profile.fundservCode || p.id;
+        return [
+            { title: 'Pricing Supplement / Prospectus', type: 'PDF', date: profile.availableUntil || p.issueDate || '—', pages: 18, url: '#', previewTitle: `${code} pricing supplement` },
+            { title: 'Final Terms', type: 'PDF', date: profile.issueDate || p.issueDate || '—', pages: 8, url: '#', previewTitle: `${code} final terms` }
+        ];
+    }
+
+    function getTDProductProfile(p) {
+        const override = productTDProfileOverrides[p.id] || {};
+        const meta = getProductDiscoveryMeta(p);
+        const structure = override.structureType || p.type || meta.category || 'Structured Note';
+        const isProtected = !!p.capitalProtection || /protected/i.test(structure);
+        const hasCoupon = !!p.coupon || /coupon|income|yield/i.test(override.investmentObjective || '');
+        const termYears = override.termYears ?? parseTenorYears(p.tenor);
+        const productType = override.productType || (isProtected ? 'Principal Protected Notes' : 'Principal-At-Risk Notes');
+        const profile = {
+            fundservCode: override.fundservCode || `${meta.issuerShort || 'SN'}${String(p.id || '').replace(/\D/g, '').slice(-4).padStart(4, '0')}`,
+            cusip: override.cusip || '—',
+            ism: override.ism || '—',
+            availableUntil: override.availableUntil || p.availableUntil || p.issueDate || '—',
+            initialValuationDate: override.initialValuationDate || p.initialValuationDate || p.issueDate || '—',
+            issueDate: override.issueDate || p.issueDate || '—',
+            maturityDate: override.maturityDate || p.maturityDate || '—',
+            termYears: termYears ?? '—',
+            productType,
+            productClass: override.productClass || (hasCoupon ? 'F-Class' : 'A-Class'),
+            structureType: structure,
+            underlyingInterestType: override.underlyingInterestType || ((p.underlying || '').includes('FX') ? 'Currency-Linked' : 'Index-Linked'),
+            underlier: override.underlier || p.underlying || '—',
+            sector: override.sector || 'Diversified',
+            geography: override.geography || 'International',
+            investmentObjective: override.investmentObjective || (isProtected ? 'Capital Preservation' : hasCoupon ? 'Enhanced Yield' : 'Capital Appreciation'),
+            accountEligibility: override.accountEligibility || 'Cash, Margin',
+            currency: override.currency || p.currency || '—',
+            salesCommission: override.salesCommission || '—',
+            issuer: p.issuer || '—',
+            issuerRating: override.issuerRating || '—',
+            currentStatus: override.currentStatus || p.status || '—',
+            autoCallThreshold: override.autoCallThreshold || (p.knockOut ? p.knockOut : 'None'),
+            callFrequency: override.callFrequency || (p.knockOut ? 'Observation dates' : 'None'),
+            barrierLevel: override.barrierLevel || p.knockIn || p.capitalProtection || 'None',
+            fixedReturns: override.fixedReturns || p.coupon || (p.participationRate ? `${p.participationRate} participation` : '—'),
+            paymentFrequency: override.paymentFrequency || (p.coupon ? 'At Maturity' : 'At Maturity')
+        };
+        profile.documents = getProductDocuments(p, profile);
+        return profile;
+    }
 
     function getProductDiscoveryMeta(p) {
         const isProtected = !!p.capitalProtection;
@@ -8238,14 +8381,85 @@
         return products;
     }
 
+    function htmlEscape(value) {
+        return String(value ?? '—').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+    }
+
+    function parseDateValue(value) {
+        if (!value || value === '—') return null;
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? null : date;
+    }
+
+    function parsePercentValue(value) {
+        const match = String(value || '').match(/\d+(?:\.\d+)?/);
+        return match ? parseFloat(match[0]) : null;
+    }
+
+    function productBarrierBucket(profile) {
+        const text = String(profile.barrierLevel || '').toLowerCase();
+        if (!text || text.includes('none') || text.includes('no barrier') || text.includes('capital protection')) return 'none';
+        const pct = parsePercentValue(text);
+        if (pct == null) return 'gt80';
+        if (pct < 70) return 'lt70';
+        if (pct <= 80) return '70to80';
+        return 'gt80';
+    }
+
+    function valueMatchesFilter(actual, selected) {
+        return !selected || selected === 'all' || String(actual || '').toLowerCase() === String(selected).toLowerCase();
+    }
+
+    function dateMatchesRange(value, from, to) {
+        const date = parseDateValue(value);
+        const fromDate = parseDateValue(from);
+        const toDate = parseDateValue(to);
+        if (!date && (fromDate || toDate)) return false;
+        if (fromDate && date < fromDate) return false;
+        if (toDate && date > toDate) return false;
+        return true;
+    }
+
+    function termMatchesRange(value, from, to) {
+        const term = parseFloat(value);
+        const min = from === '' ? null : parseFloat(from);
+        const max = to === '' ? null : parseFloat(to);
+        if (!Number.isFinite(term) && (Number.isFinite(min) || Number.isFinite(max))) return false;
+        if (Number.isFinite(min) && term < min) return false;
+        if (Number.isFinite(max) && term > max) return false;
+        return true;
+    }
+
+    function matchesAdvancedProductFilters(p, filters) {
+        const profile = getTDProductProfile(p);
+        const checks = [
+            ['productType', profile.productType],
+            ['productClass', profile.productClass],
+            ['underlyingInterestType', profile.underlyingInterestType],
+            ['structureType', profile.structureType],
+            ['paymentFrequency', profile.paymentFrequency],
+            ['investmentObjective', profile.investmentObjective],
+            ['sector', profile.sector],
+            ['currency', profile.currency],
+            ['geography', profile.geography],
+            ['currentStatus', profile.currentStatus]
+        ];
+        const selectOk = checks.every(([key, actual]) => valueMatchesFilter(actual, filters[key]));
+        const barrierOk = !filters.barrierBufferLevel || filters.barrierBufferLevel === 'all' || productBarrierBucket(profile) === filters.barrierBufferLevel;
+        return selectOk && barrierOk
+            && dateMatchesRange(profile.availableUntil, filters.availableUntilFrom, filters.availableUntilTo)
+            && dateMatchesRange(profile.issueDate, filters.issueDateFrom, filters.issueDateTo)
+            && dateMatchesRange(profile.maturityDate, filters.maturityDateFrom, filters.maturityDateTo)
+            && termMatchesRange(profile.termYears, filters.termYearsFrom, filters.termYearsTo);
+    }
+
     function filterStructuredProducts(products) {
         return products.filter(p => {
             const meta = getProductDiscoveryMeta(p);
             const issuerOk = appState.productIssuerFilter === 'all' || meta.issuerShort === appState.productIssuerFilter;
             const strategyOk = appState.productStrategyFilter === 'all' || meta.strategyTags.includes(appState.productStrategyFilter);
             const riskOk = appState.productRiskFilter === 'all' || meta.riskTags.includes(appState.productRiskFilter);
-            const presetOk = productMatchesPreset(p, appState.productDiscoveryPreset);
-            return issuerOk && strategyOk && riskOk && presetOk;
+            return issuerOk && strategyOk && riskOk && productMatchesPreset(p, appState.productDiscoveryPreset) && matchesAdvancedProductFilters(p, appState.productAdvancedFilters || productAdvancedDefaultFilters);
         });
     }
 
@@ -8261,42 +8475,132 @@
         const inactive = 'px-3 py-1 text-[10px] font-medium rounded-full bg-white text-gray-500 border border-gray-200 whitespace-nowrap shrink-0 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue';
         const active = 'px-3 py-1 text-[10px] font-semibold rounded-full bg-navyBlue text-white border border-navyBlue whitespace-nowrap shrink-0 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue';
         container.innerHTML = (productFilterOptions[group] || []).map(([value, label]) =>
-            `<button type="button" onclick="setProductFilter('${group}','${value}')" class="${value === activeValue ? active : inactive}">${label}</button>`
+            `<button type="button" onclick="setProductFilter('${group}','${value}')" class="${value === activeValue ? active : inactive}">${htmlEscape(label)}</button>`
         ).join('');
+    }
+
+    function renderSelectOptions(options, activeValue) {
+        return (options || []).map(([value, label]) => `<option value="${htmlEscape(value)}" ${value === activeValue ? 'selected' : ''}>${htmlEscape(label)}</option>`).join('');
+    }
+
+    function renderAdvancedSelect(key, label) {
+        const value = appState.productAdvancedFilters[key] ?? productAdvancedDefaultFilters[key];
+        return `<label class="space-y-1"><span class="block text-[9px] font-semibold uppercase tracking-wider text-gray-400">${label}</span><select onchange="setAdvancedProductFilter('${key}', this.value)" class="w-full bg-white border border-gray-200 rounded-lg px-2.5 py-2 text-[10px] font-medium text-navyBlue focus:outline-none focus:border-navyBlue">${renderSelectOptions(productFilterOptions.advanced[key], value)}</select></label>`;
+    }
+
+    function renderAdvancedDate(key, label) {
+        const value = appState.productAdvancedFilters[key] || '';
+        return `<label class="space-y-1"><span class="block text-[9px] font-semibold uppercase tracking-wider text-gray-400">${label}</span><input type="date" value="${htmlEscape(value)}" onchange="setAdvancedProductFilter('${key}', this.value)" class="w-full bg-white border border-gray-200 rounded-lg px-2.5 py-2 text-[10px] font-medium text-navyBlue focus:outline-none focus:border-navyBlue" /></label>`;
+    }
+
+    function renderAdvancedNumber(key, label) {
+        const value = appState.productAdvancedFilters[key] || '';
+        return `<label class="space-y-1"><span class="block text-[9px] font-semibold uppercase tracking-wider text-gray-400">${label}</span><input type="number" min="0" step="0.25" value="${htmlEscape(value)}" onchange="setAdvancedProductFilter('${key}', this.value)" class="w-full bg-white border border-gray-200 rounded-lg px-2.5 py-2 text-[10px] font-medium text-navyBlue focus:outline-none focus:border-navyBlue" placeholder="Years" /></label>`;
+    }
+
+    function getActiveAdvancedFilterCount() {
+        const filters = appState.productAdvancedFilters || productAdvancedDefaultFilters;
+        return Object.keys(productAdvancedDefaultFilters).filter(key => filters[key] !== productAdvancedDefaultFilters[key]).length;
+    }
+
+    function renderProductAdvancedSearchPanel() {
+        const panel = document.getElementById('product-advanced-search-panel');
+        const toggle = document.getElementById('product-advanced-toggle');
+        const summary = document.getElementById('product-advanced-summary');
+        const badge = document.getElementById('product-advanced-badge');
+        const activeCount = getActiveAdvancedFilterCount();
+        if (toggle) toggle.title = activeCount ? `${activeCount} advanced filter${activeCount === 1 ? '' : 's'} active` : 'Advanced search';
+        if (summary) summary.textContent = activeCount ? `${activeCount} advanced filter${activeCount === 1 ? '' : 's'} active.` : 'Filter product type, structure, dates, term, currency and status.';
+        if (badge) {
+            badge.textContent = activeCount;
+            badge.classList.toggle('hidden', activeCount === 0);
+        }
+        if (!panel) return;
+        panel.innerHTML = `
+            <div class="space-y-2">
+                <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Product profile</p>
+                <div class="grid grid-cols-2 gap-2">
+                    ${renderAdvancedSelect('productType', 'Product Type')}
+                    ${renderAdvancedSelect('productClass', 'Product Class')}
+                    ${renderAdvancedSelect('underlyingInterestType', 'Underlying Type')}
+                    ${renderAdvancedSelect('structureType', 'Structure Type')}
+                    ${renderAdvancedSelect('barrierBufferLevel', 'Barrier / Buffer')}
+                    ${renderAdvancedSelect('paymentFrequency', 'Payment Frequency')}
+                    ${renderAdvancedSelect('investmentObjective', 'Investment Objective')}
+                    ${renderAdvancedSelect('sector', 'Sector')}
+                    ${renderAdvancedSelect('currency', 'Currency')}
+                    ${renderAdvancedSelect('geography', 'Geography')}
+                    ${renderAdvancedSelect('currentStatus', 'Current Status')}
+                </div>
+            </div>
+            <div class="space-y-2">
+                <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Dates and term</p>
+                <div class="grid grid-cols-2 gap-2">
+                    ${renderAdvancedDate('availableUntilFrom', 'Available Until From')}
+                    ${renderAdvancedDate('availableUntilTo', 'Available Until To')}
+                    ${renderAdvancedDate('issueDateFrom', 'Issue Date From')}
+                    ${renderAdvancedDate('issueDateTo', 'Issue Date To')}
+                    ${renderAdvancedDate('maturityDateFrom', 'Maturity From')}
+                    ${renderAdvancedDate('maturityDateTo', 'Maturity To')}
+                    ${renderAdvancedNumber('termYearsFrom', 'Term From')}
+                    ${renderAdvancedNumber('termYearsTo', 'Term To')}
+                </div>
+            </div>
+            <button type="button" onclick="closeProductAdvancedSheet()" class="w-full bg-navyBlue hover:bg-slate-900 text-white font-medium py-3 px-4 rounded-xl text-xs transition">Show results</button>
+        `;
+    }
+
+    function getOptionLabel(options, value) {
+        return (options || []).find(([v]) => v === value)?.[1] || (options || [])[0]?.[1] || 'All';
+    }
+
+    function smartFilterConfig() {
+        return [
+            { key: 'strategy', title: 'Strategy', value: appState.productStrategyFilter, options: productFilterOptions.strategy },
+            { key: 'risk', title: 'AI Risk', value: appState.productRiskFilter, options: productFilterOptions.risk },
+            { key: 'preset', title: 'Quick view', value: appState.productQuickViewFilter || 'all', options: productFilterOptions.quickView }
+        ];
+    }
+
+    function renderProductDiscoverySelects() {
+        const container = document.getElementById('product-smart-filters');
+        if (!container) return;
+        container.innerHTML = smartFilterConfig().map(cfg => {
+            const active = cfg.value && cfg.value !== 'all';
+            const label = getOptionLabel(cfg.options, cfg.value);
+            return `<div class="relative min-w-0">
+                <button type="button" onclick="toggleSmartFilterMenu('${cfg.key}')" class="w-full rounded-full border ${active ? 'border-navyBlue bg-navyBlue text-white' : 'border-gray-200 bg-white text-navyBlue'} px-3 py-2 flex items-center justify-between gap-2 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                    <span class="text-[10px] font-semibold truncate">${htmlEscape(label)}</span>
+                    <svg class="w-3 h-3 ${active ? 'text-white/70' : 'text-gray-400'} shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div id="smart-filter-menu-${cfg.key}" class="hidden absolute top-[calc(100%+0.35rem)] left-0 right-0 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden z-40 min-w-[132px]">
+                    ${cfg.options.map(([value, optionLabel]) => `<button type="button" onclick="selectSmartFilter('${cfg.key}', '${value}')" class="w-full text-left px-3 py-2 text-[10px] font-medium ${value === cfg.value ? 'bg-navyBlue text-white' : 'text-gray-600 hover:bg-gray-50'}">${htmlEscape(optionLabel)}</button>`).join('')}
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    function closeSmartFilterMenus() {
+        document.querySelectorAll('[id^="smart-filter-menu-"]').forEach(menu => menu.classList.add('hidden'));
+    }
+
+    function toggleSmartFilterMenu(key) {
+        const menu = document.getElementById('smart-filter-menu-' + key);
+        if (!menu) return;
+        const willOpen = menu.classList.contains('hidden');
+        closeSmartFilterMenus();
+        if (willOpen) menu.classList.remove('hidden');
+    }
+
+    function selectSmartFilter(key, value) {
+        setProductFilter(key, value);
+        closeSmartFilterMenus();
     }
 
     function renderProductFilters() {
         renderProductFilterPills('issuer', 'product-issuer-filters', appState.productIssuerFilter);
-        renderProductFilterPills('strategy', 'product-strategy-filters', appState.productStrategyFilter);
-        renderProductFilterPills('risk', 'product-risk-filters', appState.productRiskFilter);
-    }
-
-    function renderProductsHeatOverview(products) {
-        const container = document.getElementById('products-heat-overview');
-        if (!container) return;
-        const presets = [
-            { id: 'hot', title: 'Hot matches', subtitle: 'Catalogue match', filter: p => getProductDiscoveryMeta(p).attractivenessScore >= 82 },
-            { id: 'range', title: 'Range income', subtitle: 'Scenario fit', filter: p => getProductDiscoveryMeta(p).marketView === 'range' || getProductDiscoveryMeta(p).strategyTags.includes('震荡收益') },
-            { id: 'defensive', title: 'Defensive buffer', subtitle: 'Risk structure', filter: p => getProductDiscoveryMeta(p).marketView === 'defensive' || getProductDiscoveryMeta(p).riskTags.some(t => ['宽安全垫','保本/部分保本'].includes(t)) },
-            { id: 'highCoupon', title: 'High coupon risk', subtitle: 'Watchlist', filter: p => !!p.coupon && (p.riskScore || 0) >= 4 }
-        ];
-        const chips = presets.map(preset => {
-            const active = appState.productDiscoveryPreset === preset.id;
-            const classes = active
-                ? 'bg-navyBlue text-white border-navyBlue font-semibold'
-                : 'bg-white text-gray-500 border-gray-200 font-medium hover:border-gray-400';
-            return `<button type="button" onclick="setProductFilter('preset','${preset.id}')" class="px-3 py-1 text-[10px] rounded-full border whitespace-nowrap shrink-0 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue ${classes}">${preset.title}</button>`;
-        }).join('');
-        container.innerHTML = `
-            <div class="flex items-center justify-between">
-                <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Quick views</p>
-                <div class="flex gap-1">
-                    <button type="button" onclick="scrollProductFilterRow('product-quick-view-filters', -1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">‹</button>
-                    <button type="button" onclick="scrollProductFilterRow('product-quick-view-filters', 1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">›</button>
-                </div>
-            </div>
-            <div id="product-quick-view-filters" class="product-filter-row no-scrollbar">${chips}</div>
-        `;
+        renderProductDiscoverySelects();
+        renderProductAdvancedSearchPanel();
     }
 
     function resetProductFilters() {
@@ -8304,6 +8608,21 @@
         appState.productStrategyFilter = 'all';
         appState.productRiskFilter = 'all';
         appState.productDiscoveryPreset = null;
+        appState.productQuickViewFilter = 'all';
+        appState.productAdvancedFilters = { ...productAdvancedDefaultFilters };
+        renderProductsList();
+    }
+
+    function resetProductDiscoveryFilters() {
+        appState.productStrategyFilter = 'all';
+        appState.productRiskFilter = 'all';
+        appState.productDiscoveryPreset = null;
+        appState.productQuickViewFilter = 'all';
+        renderProductsList();
+    }
+
+    function resetAdvancedProductFilters() {
+        appState.productAdvancedFilters = { ...productAdvancedDefaultFilters };
         renderProductsList();
     }
 
@@ -8312,14 +8631,52 @@
         if (key === 'strategy') appState.productStrategyFilter = val;
         if (key === 'risk') appState.productRiskFilter = val;
         if (key === 'preset') {
-            appState.productIssuerFilter = 'all';
-            appState.productStrategyFilter = 'all';
-            appState.productRiskFilter = 'all';
-            appState.productDiscoveryPreset = appState.productDiscoveryPreset === val ? null : val;
-        } else {
-            appState.productDiscoveryPreset = null;
+            appState.productQuickViewFilter = val;
+            appState.productDiscoveryPreset = val === 'all' ? null : val;
         }
         renderProductsList();
+    }
+
+    function setAdvancedProductFilter(key, val) {
+        appState.productAdvancedFilters[key] = val;
+        renderProductsList();
+    }
+
+    function openProductAdvancedSheet() {
+        const backdrop = document.getElementById('product-advanced-backdrop');
+        const sheet = document.getElementById('product-advanced-sheet');
+        if (!backdrop || !sheet) return;
+        renderProductAdvancedSearchPanel();
+        backdrop.classList.remove('hidden');
+        backdrop.offsetHeight;
+        backdrop.classList.remove('opacity-0');
+        backdrop.classList.add('opacity-100');
+        sheet.classList.remove('translate-y-full');
+        sheet.classList.add('translate-y-0');
+    }
+
+    function closeProductAdvancedSheet() {
+        const backdrop = document.getElementById('product-advanced-backdrop');
+        const sheet = document.getElementById('product-advanced-sheet');
+        if (!backdrop || !sheet) return;
+        backdrop.classList.remove('opacity-100');
+        backdrop.classList.add('opacity-0');
+        sheet.classList.remove('translate-y-0');
+        sheet.classList.add('translate-y-full');
+        setTimeout(() => backdrop.classList.add('hidden'), 300);
+    }
+
+    function toggleProductAdvancedSearch() {
+        openProductAdvancedSheet();
+    }
+
+    function renderProductCardInsight(p, profile, meta) {
+        const activeQuickView = appState.productQuickViewFilter || 'all';
+        if (activeQuickView === 'hot') return `Catalogue match ${meta.attractivenessScore} · ${profile.structureType} · ${profile.currentStatus}`;
+        if (activeQuickView === 'range') return `${profile.paymentFrequency} payments · Barrier ${profile.barrierLevel} · ${profile.fixedReturns}`;
+        if (activeQuickView === 'defensive') return `${profile.investmentObjective} · ${profile.barrierLevel} · ${profile.productType}`;
+        if (activeQuickView === 'highCoupon') return `${profile.fixedReturns} · Indicative ${p.pricing?.level || '—'} · ${p.pnl || '—'} P&L`;
+        return `${getDiscoveryTagLabel(meta.strategyTags[0] || meta.marketView)} · ${getDiscoveryTagLabel(meta.riskTags[0] || p.riskLevel)}: ${getProductHighlightText(p, meta)}`;
     }
 
     function renderProductsList() {
@@ -8327,77 +8684,57 @@
         if (!container) return;
         renderProductFilters();
         const allProducts = getAllStructuredProducts();
-        renderProductsHeatOverview(allProducts);
+        const products = filterStructuredProducts(allProducts).sort((a, b) => {
+            const issuerSort = getProductDiscoveryMeta(a).issuerShort.localeCompare(getProductDiscoveryMeta(b).issuerShort);
+            if (issuerSort) return issuerSort;
+            return (parseDateValue(getTDProductProfile(a).availableUntil)?.getTime() || 0) - (parseDateValue(getTDProductProfile(b).availableUntil)?.getTime() || 0);
+        });
         container.innerHTML = '';
-        const products = filterStructuredProducts(allProducts);
         if (products.length === 0) {
             container.innerHTML = `<div class="bg-white rounded-xl border border-gray-150 px-4 py-6 text-center">
                 <p class="text-xs font-semibold text-navyBlue">No matched products</p>
-                <p class="text-[10px] text-gray-400 mt-1">The active filter combination is too narrow.</p>
+                <p class="text-[10px] text-gray-400 mt-1">The active search combination is too narrow.</p>
                 <button type="button" onclick="resetProductFilters()" class="mt-3 px-3 py-1.5 text-[10px] font-semibold rounded-full bg-navyBlue text-white">Reset filters</button>
             </div>`;
             return;
         }
-        products.sort((a, b) => getProductDiscoveryMeta(b).attractivenessScore - getProductDiscoveryMeta(a).attractivenessScore);
+        let lastIssuer = '';
         products.forEach(p => {
             const meta = getProductDiscoveryMeta(p);
-            const pnlColor = p.positive ? 'text-iosGreen' : 'text-iosRed';
-            const statusClass = p.status === 'Matured' ? 'text-gray-400' : 'text-gray-600';
-            const riskDots = Array.from({length:5}, (_,i) =>
-                `<span class="w-1.5 h-1.5 rounded-full ${i < p.riskScore ? 'bg-navyBlue' : 'bg-gray-200'}"></span>`
-            ).join('');
-            const pct = p.status === 'Matured' ? 100 : Math.round(((p.totalTenorDays - p.daysToMaturity) / p.totalTenorDays) * 100);
-            const keyTerm = p.coupon ? p.coupon : p.capitalProtection ? p.capitalProtection + ' protected' : 'No protection';
-            const strategyTag = getDiscoveryTagLabel(meta.strategyTags[0] || meta.marketView);
-            const riskTag = getDiscoveryTagLabel(meta.riskTags[0] || p.riskLevel);
-            const highlightText = getProductHighlightText(p, meta);
-
-            const card = document.createElement('button');
-            card.type = 'button';
-            card.className = 'w-full text-left bg-white rounded-xl border border-gray-150 px-3.5 py-3 cursor-pointer hover:border-gray-300 transition active:scale-[0.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue';
-            card.onclick = () => openProductDetail(p.id);
+            const profile = getTDProductProfile(p);
+            const statusTone = profile.currentStatus === 'Matured' ? 'bg-gray-100 text-gray-500' : profile.currentStatus === 'Closing Soon' ? 'bg-amber-50 text-amber-700 border border-amber-100' : 'bg-emerald-50 text-emerald-700 border border-emerald-100';
+            const issuerChanged = meta.issuerShort !== lastIssuer;
+            if (issuerChanged) {
+                const header = document.createElement('div');
+                header.className = 'pt-1 first:pt-0';
+                header.innerHTML = `<div class="flex items-center justify-between px-1"><p class="text-[10px] font-bold text-navyBlue uppercase tracking-wider">${htmlEscape(meta.issuerShort)} issuer catalogue</p></div>`;
+                container.appendChild(header);
+                lastIssuer = meta.issuerShort;
+            }
+            const card = document.createElement('div');
+            card.className = 'w-full bg-white rounded-xl border border-gray-150 px-3.5 py-3 hover:border-gray-300 transition shadow-[0_1px_0_rgba(15,23,42,0.02)]';
             card.innerHTML = `
-                <div class="flex justify-between items-start mb-2.5 gap-2">
-                    <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between gap-3 mb-3">
+                    <div class="min-w-0 flex-1">
                         <div class="flex items-center gap-1.5 mb-1.5 overflow-hidden">
-                            <span class="text-[9px] font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded shrink-0">${meta.category}</span>
-                            <span class="text-[9px] font-medium ${statusClass} shrink-0">${p.status}</span>
-                            ${p.id === 'SP-NEW' ? '<span class="text-[9px] font-medium text-gray-500 border border-gray-300 px-1.5 py-0.5 rounded shrink-0">New</span>' : ''}
+                            <span class="text-[9px] font-bold text-navyBlue bg-navyBlue/8 px-1.5 py-0.5 rounded shrink-0">${htmlEscape(meta.issuerShort)}</span>
+                            <span class="text-[9px] font-medium ${statusTone} px-1.5 py-0.5 rounded shrink-0">${htmlEscape(profile.currentStatus)}</span>
+                            <span class="text-[9px] font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded truncate">${htmlEscape(profile.productClass)}</span>
                         </div>
-                        <p class="text-xs font-semibold text-navyBlue leading-tight line-clamp-2">${p.name}</p>
-                        <p class="text-[10px] text-gray-400 mt-0.5 truncate">${meta.issuerShort} · ${p.underlying}</p>
+                        <button type="button" onclick="openProductDetail('${p.id}')" class="text-left text-xs font-semibold text-navyBlue leading-tight line-clamp-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navyBlue">${htmlEscape(p.name)}</button>
+                        <p class="text-[10px] text-gray-400 mt-0.5 truncate">${htmlEscape(profile.underlier)}</p>
                     </div>
-                    <div class="text-right shrink-0">
-                        <p class="text-[9px] text-gray-400 uppercase tracking-wide">Match</p>
-                        <p class="text-sm font-bold text-navyBlue tabular-nums">${meta.attractivenessScore}</p>
-                    </div>
+                    <button type="button" onclick="openProductDetail('${p.id}')" class="shrink-0 px-2.5 py-1.5 rounded-lg bg-navyBlue text-white text-[10px] font-semibold">Details</button>
                 </div>
-                <div class="rounded-lg bg-slate-50 border border-gray-100 px-2.5 py-2 mb-2.5">
-                    <div class="flex items-center gap-1.5 mb-1">
-                        <span class="text-[9px] font-semibold text-navyBlue bg-white border border-gray-150 px-1.5 py-0.5 rounded">${strategyTag}</span>
-                        <span class="text-[9px] font-semibold text-gray-500 bg-white border border-gray-150 px-1.5 py-0.5 rounded">${riskTag}</span>
-                    </div>
-                    <p class="text-[10px] text-gray-600 leading-snug line-clamp-2">${highlightText}</p>
+                <div class="grid grid-cols-2 gap-2 mb-3">
+                    ${[
+                        ['Fundserv Code', profile.fundservCode], ['Investment Objective', profile.investmentObjective],
+                        ['Available Until', profile.availableUntil], ['Maturity Date', profile.maturityDate],
+                        ['Term', `${profile.termYears} yr${profile.termYears === 1 ? '' : 's'}`], ['Current Status', profile.currentStatus]
+                    ].map(([k, v]) => `<div class="rounded-lg bg-gray-50 border border-gray-100 px-2 py-1.5"><p class="text-[8px] uppercase tracking-wide text-gray-400 font-semibold">${k}</p><p class="text-[10px] font-semibold text-gray-800 truncate mt-0.5">${htmlEscape(v)}</p></div>`).join('')}
                 </div>
-                <div class="mb-2.5">
-                    <div class="flex justify-between text-[9px] text-gray-400 mb-1">
-                        <span>${p.tenor}</span>
-                        <span>${p.status === 'Matured' ? 'Matured' : p.daysToMaturity + ' days remaining'}</span>
-                    </div>
-                    <div class="h-1 bg-gray-100 rounded-full overflow-hidden">
-                        <div class="h-full ${p.status === 'Matured' ? 'bg-gray-300' : 'bg-navyBlue'} rounded-full" style="width:${pct}%"></div>
-                    </div>
-                </div>
-                <div class="flex items-center justify-between gap-2">
-                    <div class="flex items-center gap-1.5 text-[9px] text-gray-500 min-w-0 overflow-hidden">
-                        <span class="truncate">${keyTerm}</span>
-                        ${p.knockIn ? `<span class="text-gray-300 shrink-0">·</span><span class="shrink-0">KI ${p.knockIn}</span>` : ''}
-                        ${p.knockOut ? `<span class="text-gray-300 shrink-0">·</span><span class="shrink-0">KO ${p.knockOut}</span>` : ''}
-                    </div>
-                    <div class="flex items-center gap-2 shrink-0">
-                        <span class="text-xs font-bold ${pnlColor}">${p.pnl}</span>
-                        <div class="flex items-center gap-0.5" aria-label="Risk score ${p.riskScore} of 5">${riskDots}</div>
-                    </div>
+                <div class="rounded-lg border border-gray-100 bg-slate-50 px-2.5 py-2">
+                    <p class="text-[10px] text-gray-600 leading-snug line-clamp-2">${htmlEscape(renderProductCardInsight(p, profile, meta))}</p>
                 </div>
             `;
             container.appendChild(card);
@@ -8461,71 +8798,146 @@
         `).join('');
     }
 
-    function openProductDetail(productId) {
-        const p = (appState.adminProductPending?.id === productId)
-            ? appState.adminProductPending
-            : structuredProductsDB.find(x => x.id === productId);
-        if (!p) return;
-        appState.activeProductId = productId;
+    function renderFieldRows(rows) {
+        return rows.map(([label, value]) => `<tr><td class="px-3 py-2 text-[10px] text-gray-400 bg-gray-50/60 w-2/5 align-top">${htmlEscape(label)}</td><td class="px-3 py-2 text-[10px] font-medium text-gray-900 align-top">${htmlEscape(value || '—')}</td></tr>`).join('');
+    }
 
-        // Populate header
-        document.getElementById('od-product-name').textContent = p.name;
-        document.getElementById('od-product-issuer').textContent = p.issuer + ' · ' + p.currency + ' · ' + p.status;
+    function renderDetailSection(title, rows) {
+        return `<div><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">${htmlEscape(title)}</p><div class="bg-white rounded-xl border border-gray-150 overflow-hidden"><table class="w-full text-xs"><tbody class="divide-y divide-gray-100">${renderFieldRows(rows)}</tbody></table></div></div>`;
+    }
 
-        // Tenor bar
-        const pct = p.status === 'Matured' ? 100 : Math.round(((p.totalTenorDays - p.daysToMaturity) / p.totalTenorDays) * 100);
-        document.getElementById('od-tenor-label').textContent = p.tenor;
-        document.getElementById('od-maturity-label').textContent = 'Matures ' + p.maturityDate;
-        document.getElementById('od-tenor-bar').style.width = pct + '%';
-        document.getElementById('od-issue-date').textContent = 'Issued ' + p.issueDate;
-        document.getElementById('od-days-left').textContent = p.status === 'Matured' ? 'Matured' : p.daysToMaturity + ' days left';
+    function getDetailProduct(productId = appState.activeProductId) {
+        const products = getAllStructuredProducts();
+        return products.find(x => x.id === productId);
+    }
 
-        // Underlying table
-        const underRows = (p.underlyingDetails || []).map(r =>
-            `<tr><td class="px-3 py-2 text-[10px] text-gray-400 bg-gray-50/60 w-2/5">${r.label}</td><td class="px-3 py-2 text-[10px] font-medium text-gray-900">${r.value}</td></tr>`
-        ).join('');
-        document.getElementById('od-underlying-table').innerHTML = underRows;
-
-        // Payoff terms table
-        const payoffRows = (p.payoffTerms || []).map(r =>
-            `<tr><td class="px-3 py-2 text-[10px] text-gray-400 bg-gray-50/60 w-2/5">${r.label}</td><td class="px-3 py-2 text-[10px] font-medium text-gray-900">${r.value}</td></tr>`
-        ).join('');
-        document.getElementById('od-payoff-table').innerHTML = payoffRows;
-
-        // Term sheet table
-        const termRows = (p.terms || []).map(r =>
-            `<tr><td class="px-3 py-2 text-[10px] text-gray-400 bg-gray-50/60 w-2/5">${r.label}</td><td class="px-3 py-2 text-[10px] font-medium text-gray-900">${r.value}</td></tr>`
-        ).join('');
-        document.getElementById('od-terms-table').innerHTML = termRows;
-
-        // AI Scenario Payoff cards
+    function renderProductOverviewTab(p) {
+        const profile = getTDProductProfile(p);
+        const pct = p.status === 'Matured' ? 100 : Math.max(0, Math.min(100, Math.round(((p.totalTenorDays - p.daysToMaturity) / Math.max(p.totalTenorDays, 1)) * 100)));
+        const overview = document.getElementById('od-panel-overview');
+        if (!overview) return;
+        overview.innerHTML = `
+            <div class="bg-white rounded-xl border border-gray-150 px-3 py-3">
+                <div class="flex justify-between text-[9px] text-gray-400 mb-1.5"><span>${htmlEscape(p.tenor || `${profile.termYears} years`)}</span><span>Matures ${htmlEscape(profile.maturityDate)}</span></div>
+                <div class="h-1 bg-gray-100 rounded-full overflow-hidden mb-1.5"><div class="h-full ${profile.currentStatus === 'Matured' ? 'bg-gray-300' : 'bg-navyBlue'} rounded-full" style="width:${pct}%"></div></div>
+                <div class="flex justify-between text-[9px] text-gray-400"><span>Issued ${htmlEscape(profile.issueDate)}</span><span class="font-medium text-navyBlue">${profile.currentStatus === 'Matured' ? 'Matured' : `${p.daysToMaturity ?? '—'} days left`}</span></div>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-150 p-3">
+                <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Overview</p>
+                <p class="text-[11px] text-gray-700 leading-relaxed">${htmlEscape(p.name)} provides exposure to ${profile.underlier} with a ${profile.structureType} payoff profile. The listing highlights note fields so advisers can scan eligibility, key dates, barriers and documents before opening the term sheet.</p>
+            </div>
+            ${renderDetailSection('Return Features', [
+                ['Auto-Call Threshold', profile.autoCallThreshold], ['Call Frequency', profile.callFrequency], ['Barrier Level', profile.barrierLevel], ['Fixed Returns', profile.fixedReturns]
+            ])}
+            ${renderDetailSection('Reference Information', [
+                ['Fundserv Code', profile.fundservCode], ['CUSIP', profile.cusip], ['ISM', profile.ism], ['Available Until', profile.availableUntil],
+                ['Initial Valuation Date', profile.initialValuationDate], ['Issue Date', profile.issueDate], ['Maturity Date', profile.maturityDate], ['Term (years)', profile.termYears]
+            ])}
+            ${renderDetailSection('Key Terms', [
+                ['Product Type', profile.productType], ['Product Class', profile.productClass], ['Structure Type', profile.structureType], ['Underlying Interest Type', profile.underlyingInterestType],
+                ['Underlier', profile.underlier], ['Sector', profile.sector], ['Geography', profile.geography], ['Investment Objective', profile.investmentObjective],
+                ['Account Eligibility', profile.accountEligibility], ['Currency', profile.currency], ['Sales Commission', profile.salesCommission], ['Issuer', profile.issuer], ['Issuer Rating', profile.issuerRating], ['Current Status', profile.currentStatus]
+            ])}
+            <div>
+                <div class="flex items-center gap-1.5 mb-2"><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Scenario Payoff</p><span class="text-[8px] bg-navyBlue/10 text-navyBlue font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide">AI Extracted</span></div>
+                <div id="od-scenario-payoff-cards" class="space-y-2"></div>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-150 px-3 py-3"><p class="text-[9px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Risk Disclosure</p><p class="text-[10px] text-gray-500 leading-relaxed">${htmlEscape(p.disclaimer)}</p></div>
+            <p class="text-[8px] text-gray-400 text-center leading-relaxed pb-2">For information only. No trading execution. Suitability assessment required.</p>
+        `;
         renderScenarioPayoffCards(p);
+    }
 
-        // Disclaimer
-        document.getElementById('od-disclaimer').textContent = p.disclaimer;
+    function renderCurrentPerformanceTab(p) {
+        const profile = getTDProductProfile(p);
+        const performance = document.getElementById('od-panel-performance');
+        if (!performance) return;
+        const statusClass = p.positive ? 'text-iosGreen' : 'text-iosRed';
+        performance.innerHTML = `
+            <div class="bg-white rounded-xl border border-gray-150 p-4">
+                <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-3">Performance</p>
+                <div class="flex items-end justify-between gap-3">
+                    <div><p class="text-2xl font-bold text-navyBlue">${htmlEscape(p.pricing?.level || '—')}</p><p class="text-[10px] text-gray-400 mt-0.5">Indicative price of par</p></div>
+                    <div class="text-right"><p class="text-lg font-bold ${statusClass}">${htmlEscape(p.pnl || '—')}</p><p class="text-[10px] text-gray-400">Mark-to-market P&L</p></div>
+                </div>
+                <div class="mt-3 pt-3 border-t border-gray-100 grid grid-cols-2 gap-2 text-[10px]">
+                    <div><p class="text-gray-400">Current Status</p><p class="font-semibold text-gray-800">${htmlEscape(profile.currentStatus)}</p></div>
+                    <div><p class="text-gray-400">Days Remaining</p><p class="font-semibold text-gray-800">${profile.currentStatus === 'Matured' ? 'Matured' : htmlEscape(p.daysToMaturity ?? '—')}</p></div>
+                    <div><p class="text-gray-400">Barrier Watch</p><p class="font-semibold text-gray-800">${htmlEscape(profile.barrierLevel)}</p></div>
+                    <div><p class="text-gray-400">Auto-call Watch</p><p class="font-semibold text-gray-800">${htmlEscape(profile.autoCallThreshold)}</p></div>
+                </div>
+            </div>
+            ${renderDetailSection('Pricing Snapshot', [
+                ['Price Date', p.pricing?.date || '—'], ['Source', p.pricing?.source || '—'], ['Implied Yield', p.pricing?.impliedYield || '—'], ['Payment Frequency', profile.paymentFrequency]
+            ])}
+            <div class="bg-white rounded-xl border border-gray-150 p-3"><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Price Performance</p><div class="h-32 flex items-end gap-1.5 border-b border-gray-100 px-1 pb-2">${(p.scenarioChart || []).map(d => `<div class="flex-1 flex flex-col items-center justify-end gap-1"><div class="w-full rounded-t ${d.val >= 0 ? 'bg-navyBlue' : 'bg-iosRed/70'}" style="height:${Math.max(8, Math.min(100, Math.abs(d.val) * 3 + 12))}%"></div><span class="text-[7px] text-gray-400 text-center leading-tight">${htmlEscape(d.label)}</span></div>`).join('')}</div><p class="text-[9px] text-gray-400 mt-2">Scenario performance proxy for prototype display; not a live market chart.</p></div>
+            <div id="od-compare-preview" class="bg-white rounded-xl border border-gray-150 p-3"><div class="flex justify-between items-center mb-2"><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Same-issuer products</p><button onclick="openProductCompare()" class="text-[10px] font-medium text-navyBlue hover:underline">Compare same issuer</button></div><div id="od-compare-list" class="space-y-1.5"></div></div>
+            <div class="bg-white rounded-xl border border-gray-150 p-3"><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Watch Points</p><p class="text-[11px] text-gray-700 leading-relaxed">${htmlEscape(getScenarioStory(p).watchOut)}</p></div>
+            <div class="bg-white rounded-xl border border-gray-150 px-3 py-3"><p class="text-[9px] font-semibold text-gray-500 uppercase tracking-wider mb-1">Pricing Disclaimer</p><p class="text-[10px] text-gray-400 leading-relaxed">Prices are indicative only, provided for reference and subject to change without notice. Not a firm quote or offer to transact.</p></div>
+        `;
+        renderSameIssuerPreview(p);
+    }
 
-        // Scenario tab
+    function renderProductEventsTab(p) {
+        const profile = getTDProductProfile(p);
+        const events = document.getElementById('od-panel-events');
+        if (!events) return;
+        events.innerHTML = `
+            <div class="bg-white rounded-xl border border-gray-150 p-3 space-y-2">
+                <div class="flex items-center justify-between gap-2"><p class="text-sm font-bold text-navyBlue">Note Events</p><span class="text-[8px] font-semibold text-gray-400 uppercase tracking-wide">Call / barrier / payoff rules</span></div>
+                <p id="sc-story-summary" class="text-[11px] text-gray-700 leading-relaxed"></p>
+                <div class="space-y-1.5 pt-1">
+                    <div class="flex gap-2 text-[10px] leading-relaxed"><span class="font-bold text-navyBlue shrink-0">Earn</span><p id="sc-story-earn" class="text-gray-600"></p></div>
+                    <div class="flex gap-2 text-[10px] leading-relaxed"><span class="font-bold text-gray-500 shrink-0">Lose</span><p id="sc-story-lose" class="text-gray-600"></p></div>
+                    <div class="flex gap-2 text-[10px] leading-relaxed"><span class="font-bold text-gray-500 shrink-0">Watch</span><p id="sc-story-watch" class="text-gray-600"></p></div>
+                </div>
+            </div>
+            ${renderDetailSection('Event Schedule', [
+                ['Call Frequency', profile.callFrequency], ['Payment Frequency', profile.paymentFrequency], ['Auto-Call Threshold', profile.autoCallThreshold], ['Barrier Level', profile.barrierLevel]
+            ])}
+            <div class="bg-white rounded-xl border border-gray-150 p-3"><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Outcome selector</p><div class="flex gap-1.5"><button id="sc-btn-bull" onclick="selectScenario('bull')" class="flex-1 py-1.5 text-[10px] font-semibold rounded-lg bg-navyBlue text-white border border-navyBlue transition">Earn coupon</button><button id="sc-btn-base" onclick="selectScenario('base')" class="flex-1 py-1.5 text-[10px] font-medium rounded-lg bg-white text-gray-500 border border-gray-200 transition">Observe</button><button id="sc-btn-bear" onclick="selectScenario('bear')" class="flex-1 py-1.5 text-[10px] font-medium rounded-lg bg-white text-gray-500 border border-gray-200 transition">Loss trigger</button></div></div>
+            <div class="bg-white rounded-xl border border-gray-150 p-3"><div class="flex items-center justify-between mb-3"><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Payoff map</p><span class="text-[8px] text-gray-400">0% baseline</span></div><div id="sc-chart-area" class="h-36 mb-2"></div><div id="sc-chart-labels" class="grid grid-cols-3 gap-2 px-1 text-[8px] text-gray-400 text-center"></div></div>
+            <div class="bg-white rounded-xl border border-gray-150 p-3 space-y-2"><div class="flex justify-between items-baseline gap-3"><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Selected: <span id="sc-active-name" class="text-navyBlue">Earn coupon</span></p><p class="text-xs font-bold text-navyBlue shrink-0"><span id="sc-payoff-pct">—</span></p></div><p id="sc-probability" class="text-[10px] text-gray-500">Indicative probability: —</p><p id="sc-explanation" class="text-xs text-gray-700 leading-relaxed"></p></div>
+            <div><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Rule quick check</p><div class="bg-white rounded-xl border border-gray-150 overflow-hidden"><table class="w-full text-xs"><thead><tr class="border-b border-gray-100 bg-gray-50/60"><th class="px-3 py-2 text-left text-[9px] font-semibold text-gray-400 uppercase">Event</th><th class="px-3 py-2 text-right text-[9px] font-semibold text-gray-400 uppercase">Payoff</th><th class="px-3 py-2 text-right text-[9px] font-semibold text-gray-400 uppercase">Prob.</th></tr></thead><tbody id="sc-table" class="divide-y divide-gray-100"></tbody></table></div></div>
+        `;
         appState.activeScenario = 'bull';
         renderScenarioTab(p);
+    }
 
-        // Pricing tab
-        if (p.pricing) {
-            document.getElementById('od-price-level').textContent = p.pricing.level;
-            document.getElementById('od-implied-yield').textContent = 'Implied yield: ' + p.pricing.impliedYield;
-            document.getElementById('od-price-date').textContent = p.pricing.date;
-            document.getElementById('od-price-source').textContent = p.pricing.source;
-        }
-        // Same-issuer compare list
-        const sameIssuer = structuredProductsDB.filter(x => x.issuer === p.issuer && x.id !== p.id);
+    function renderSameIssuerPreview(p) {
+        const products = getAllStructuredProducts();
+        const sameIssuer = products.filter(x => x.issuer === p.issuer && x.id !== p.id);
         const compareList = document.getElementById('od-compare-list');
-        compareList.innerHTML = sameIssuer.length ? sameIssuer.map(x =>
-            `<button onclick="openProductCompare('${x.id}')" class="w-full text-left flex justify-between items-center text-[10px] py-1 hover:text-navyBlue transition">
-                <span class="text-gray-700 font-medium truncate pr-2">${x.name}</span>
-                <span class="text-gray-400 shrink-0">${x.type}</span>
-            </button>`
-        ).join('') : '<p class="text-[10px] text-gray-400">No same-issuer products.</p>';
+        if (!compareList) return;
+        compareList.innerHTML = sameIssuer.length ? sameIssuer.map(x => {
+            const profile = getTDProductProfile(x);
+            return `<button onclick="openProductCompare('${x.id}')" class="w-full text-left flex justify-between items-center text-[10px] py-1 hover:text-navyBlue transition"><span class="text-gray-700 font-medium truncate pr-2">${htmlEscape(x.name)}</span><span class="text-gray-400 shrink-0">${htmlEscape(profile.structureType)}</span></button>`;
+        }).join('') : '<p class="text-[10px] text-gray-400">No other products from this issuer are available for comparison.</p>';
+    }
 
-        // Show overlay, default to Overview tab
+    function renderDocumentsTab(p) {
+        const profile = getTDProductProfile(p);
+        const docs = profile.documents || [];
+        const documents = document.getElementById('od-panel-documents');
+        if (!documents) return;
+        const first = docs[0];
+        documents.innerHTML = `
+            <div class="bg-white rounded-xl border border-gray-150 p-3"><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Documents</p><div class="space-y-2">${docs.length ? docs.map(doc => `<div class="flex items-center gap-2.5 rounded-lg border border-gray-100 bg-gray-50 px-3 py-2"><svg class="w-4 h-4 text-iosRed shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg><div class="min-w-0 flex-1"><p class="text-[10px] font-semibold text-navyBlue truncate">${htmlEscape(doc.title)}</p><p class="text-[8px] text-gray-400">${htmlEscape(doc.type)} · ${htmlEscape(doc.pages)} pages · ${htmlEscape(doc.date)}</p></div><a href="${htmlEscape(doc.url || '#')}" class="text-[9px] font-semibold text-navyBlue">Open</a></div>`).join('') : '<p class="text-[10px] text-gray-400">No documents available for this product.</p>'}</div></div>
+            <div class="bg-white rounded-xl border border-gray-150 overflow-hidden"><div class="bg-gray-900 text-white px-3 py-2 flex items-center justify-between"><span class="text-[10px] font-semibold truncate">${htmlEscape(first?.previewTitle || 'PDF preview')}</span><span class="text-[8px] text-white/60">Preview</span></div><div class="p-4 bg-gray-100 min-h-[260px] flex items-center justify-center"><div class="w-44 min-h-[230px] bg-white shadow-lg rounded-sm border border-gray-200 p-3 space-y-2"><p class="text-[9px] font-bold text-navyBlue uppercase tracking-wide">${htmlEscape(first?.title || 'Term Sheet')}</p><div class="h-2 bg-gray-200 rounded w-4/5"></div><div class="h-2 bg-gray-200 rounded w-full"></div><div class="h-2 bg-gray-200 rounded w-3/4"></div><div class="mt-4 border border-gray-150 rounded-lg overflow-hidden"><table class="w-full text-xs"><tbody class="divide-y divide-gray-100">${renderFieldRows([['Fundserv', profile.fundservCode], ['CUSIP', profile.cusip], ['Maturity', profile.maturityDate], ['Status', profile.currentStatus]])}</tbody></table></div><p class="text-[8px] text-gray-400 leading-relaxed">Static prototype preview. Real deployment would embed or stream the selected PDF term sheet.</p></div></div></div>
+        `;
+    }
+
+    function openProductDetail(productId) {
+        const p = getDetailProduct(productId);
+        if (!p) return;
+        const profile = getTDProductProfile(p);
+        appState.activeProductId = productId;
+        document.getElementById('od-product-name').textContent = p.name;
+        document.getElementById('od-product-issuer').textContent = `${p.issuer} · ${profile.currency} · ${profile.currentStatus}`;
+        renderProductOverviewTab(p);
+        renderCurrentPerformanceTab(p);
+        renderProductEventsTab(p);
+        renderDocumentsTab(p);
         switchProductTab('overview');
         const overlay = document.getElementById('product-detail-overlay');
         overlay.classList.remove('hidden');
@@ -8533,18 +8945,17 @@
     }
 
     function switchProductTab(tab) {
-        ['overview','scenario','pricing'].forEach(t => {
+        appState.activeProductDetailTab = tab;
+        ['overview','performance','events','documents'].forEach(t => {
             const panel = document.getElementById('od-panel-' + t);
             const btn = document.getElementById('od-tab-' + t);
             if (panel) panel.classList.add('hidden');
-            if (btn) {
-                btn.className = 'flex-1 py-2.5 text-[10px] font-medium text-gray-400 border-b-2 border-transparent transition';
-            }
+            if (btn) btn.className = 'min-w-[72px] flex-1 py-2.5 text-[10px] font-medium text-gray-400 border-b-2 border-transparent transition';
         });
         const activePanel = document.getElementById('od-panel-' + tab);
         const activeBtn = document.getElementById('od-tab-' + tab);
         if (activePanel) { activePanel.classList.remove('hidden'); activePanel.classList.add('flex-1','overflow-y-auto','no-scrollbar','px-4','py-4','space-y-4','bg-gray-50'); }
-        if (activeBtn) activeBtn.className = 'flex-1 py-2.5 text-[10px] font-semibold text-navyBlue border-b-2 border-navyBlue transition';
+        if (activeBtn) activeBtn.className = 'min-w-[72px] flex-1 py-2.5 text-[10px] font-semibold text-navyBlue border-b-2 border-navyBlue transition';
     }
 
     function getScenarioStory(p) {
@@ -8708,55 +9119,41 @@
     let _compareSecondId = null;
 
     function openProductCompare(preselectedId) {
-        const products = [...structuredProductsDB];
-        if (appState.adminProductPending) products.unshift(appState.adminProductPending);
+        const products = getAllStructuredProducts();
         const current = products.find(p => p.id === appState.activeProductId);
-        const others = products.filter(p => p.id !== appState.activeProductId);
-
-        if (!_compareSecondId || !others.find(p => p.id === _compareSecondId)) {
-            _compareSecondId = preselectedId || (others[0]?.id || null);
-        }
-        if (preselectedId) _compareSecondId = preselectedId;
-
         const container = document.getElementById('compare-content');
-        if (!container) return;
+        if (!container || !current) return;
+        const currentProfile = getTDProductProfile(current);
+        const others = products.filter(p => p.id !== current.id && p.issuer === current.issuer);
+        const preselected = others.find(p => p.id === preselectedId);
+        if (!_compareSecondId || !others.find(p => p.id === _compareSecondId)) _compareSecondId = preselected?.id || others[0]?.id || null;
+        if (preselected) _compareSecondId = preselected.id;
 
-        const makeCol = p => `
-            <div class="flex-1 min-w-0">
-                <p class="text-[9px] font-medium text-gray-400 truncate">${p.issuer}</p>
-                <p class="text-xs font-semibold text-navyBlue leading-tight mt-0.5 mb-3">${p.name}</p>
-                <div class="space-y-2">
-                    ${[
-                        ['Type', p.type],
-                        ['Currency', p.currency],
-                        ['Tenor', p.tenor],
-                        ['Protection', p.capitalProtection || 'None'],
-                        ['Participation', p.participationRate || '—'],
-                        ['Knock-in', p.knockIn || 'None'],
-                        ['Knock-out', p.knockOut || 'None'],
-                        ['Coupon', p.coupon || '—'],
-                        ['Min. invest.', p.minimumInvestment],
-                        ['Risk', '●'.repeat(p.riskScore) + '○'.repeat(5-p.riskScore)],
-                        ['Status', p.status],
-                        ['P&L', p.pnl]
-                    ].map(([k,v]) => `<div class="border-b border-gray-100 pb-1.5">
-                        <p class="text-[9px] text-gray-400">${k}</p>
-                        <p class="text-[10px] font-medium text-gray-800 mt-0.5">${v}</p>
-                    </div>`).join('')}
-                </div>
-            </div>`;
-
+        const compareRows = p => {
+            const profile = getTDProductProfile(p);
+            return [
+                ['Fundserv Code', profile.fundservCode], ['Product Type', profile.productType], ['Product Class', profile.productClass], ['Structure Type', profile.structureType],
+                ['Underlying', profile.underlier], ['Barrier Level', profile.barrierLevel], ['Fixed Returns', profile.fixedReturns], ['Available Until', profile.availableUntil],
+                ['Maturity Date', profile.maturityDate], ['Term', `${profile.termYears} yr${profile.termYears === 1 ? '' : 's'}`], ['Issuer Rating', profile.issuerRating], ['Current Status', profile.currentStatus]
+            ];
+        };
+        const makeCol = p => {
+            const profile = getTDProductProfile(p);
+            return `<div class="flex-1 min-w-0"><p class="text-[9px] font-medium text-gray-400 truncate">${htmlEscape(p.issuer)}</p><p class="text-xs font-semibold text-navyBlue leading-tight mt-0.5 mb-3">${htmlEscape(p.name)}</p><div class="space-y-2">${compareRows(p).map(([k,v]) => `<div class="border-b border-gray-100 pb-1.5"><p class="text-[9px] text-gray-400">${htmlEscape(k)}</p><p class="text-[10px] font-medium text-gray-800 mt-0.5">${htmlEscape(v)}</p></div>`).join('')}</div></div>`;
+        };
         const second = others.find(p => p.id === _compareSecondId);
-        const options = others.map(p => `<option value="${p.id}" ${p.id === _compareSecondId ? 'selected' : ''}>${p.name} · ${p.issuerShort || p.issuer}</option>`).join('');
+        const options = others.map(p => {
+            const profile = getTDProductProfile(p);
+            return `<option value="${htmlEscape(p.id)}" ${p.id === _compareSecondId ? 'selected' : ''}>${htmlEscape(profile.fundservCode)} · ${htmlEscape(p.name)}</option>`;
+        }).join('');
 
         container.innerHTML = `
             <div class="bg-white rounded-xl border border-gray-150 p-3 space-y-2 mb-1">
-                <label for="compare-product-select" class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Compare with</label>
-                <select id="compare-product-select" onchange="setCompareProduct(this.value)" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-[11px] font-medium text-navyBlue focus:outline-none focus:border-navyBlue">
-                    ${options}
-                </select>
+                <label for="compare-product-select" class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Compare with another product from the same issuer</label>
+                <p class="text-[10px] text-gray-500 leading-relaxed">${htmlEscape(currentProfile.issuer)} only. Products from other issuers are hidden to keep terms comparable.</p>
+                ${others.length ? `<select id="compare-product-select" onchange="setCompareProduct(this.value)" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-[11px] font-medium text-navyBlue focus:outline-none focus:border-navyBlue">${options}</select>` : ''}
             </div>
-            ${second ? `<div class="flex gap-3">${[current, second].map(makeCol).join('<div class="w-px bg-gray-200 shrink-0 my-4"></div>')}</div>` : `<p class="text-xs text-gray-400 text-center py-8">No other products to compare.</p>`}
+            ${second ? `<div class="flex gap-3">${[current, second].map(makeCol).join('<div class="w-px bg-gray-200 shrink-0 my-4"></div>')}</div>` : `<div class="bg-white rounded-xl border border-gray-150 px-4 py-8 text-center"><p class="text-xs font-semibold text-navyBlue">No same-issuer comparison available</p><p class="text-[10px] text-gray-400 mt-1">No other products from ${htmlEscape(currentProfile.issuer)} are available for comparison.</p></div>`}
         `;
 
         const overlay = document.getElementById('product-compare-overlay');
@@ -8764,6 +9161,10 @@
     }
 
     function setCompareProduct(productId) {
+        const products = getAllStructuredProducts();
+        const current = products.find(p => p.id === appState.activeProductId);
+        const candidate = products.find(p => p.id === productId);
+        if (!current || !candidate || candidate.issuer !== current.issuer) return;
         _compareSecondId = productId;
         openProductCompare(productId);
     }
@@ -8891,6 +9292,8 @@
         appState.productStrategyFilter = 'all';
         appState.productRiskFilter = 'all';
         appState.productDiscoveryPreset = null;
+        appState.productQuickViewFilter = 'all';
+        appState.productAdvancedFilters = { ...productAdvancedDefaultFilters };
         renderProductsList();
     }
 
@@ -9145,11 +9548,11 @@
               desc:'Overview tab — tenor progress bar, underlying asset details, payoff terms, AI-extracted scenario payoff summary cards, full term sheet, and risk disclosure.' },
             { id:'pd-scenario', lines:['Payoff','Story'],  cx:525, cy:430, w:NWS, h:NHD,
               bg:'#2a1000', bdr:'#78350f', fg:'#fcd34d',
-              action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); switchProductTab('scenario'); },
+              action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); switchProductTab('events'); },
               desc:'Scenario tab redesigned as a payoff story: earn/loss triggers, 0% baseline payoff map, outcome selector, and rules quick-check table.' },
             { id:'pd-pricing',  lines:['Pricing'],   cx:605, cy:430, w:NWS, h:NHS,
               bg:'#2a1000', bdr:'#78350f', fg:'#fcd34d',
-              action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); switchProductTab('pricing'); },
+              action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); switchProductTab('performance'); },
               desc:'Pricing tab — indicative price level and implied yield, same-issuer product comparison list, and pricing disclaimer.' },
 
             // Admin-only sub-page (locked for regular users)
