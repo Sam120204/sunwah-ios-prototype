@@ -143,7 +143,7 @@
         <div class="mt-3 flex flex-wrap gap-x-3 gap-y-1.5">
             <span class="flex items-center gap-1.5 text-[10px] text-slate-400"><span class="inline-block w-2 h-2 rounded-sm" style="background:#2563eb"></span>Market Intel</span>
             <span class="flex items-center gap-1.5 text-[10px] text-slate-400"><span class="inline-block w-2 h-2 rounded-sm" style="background:#16a34a"></span>Portfolio</span>
-            <span class="flex items-center gap-1.5 text-[10px] text-slate-400"><span class="inline-block w-2 h-2 rounded-sm" style="background:#9333ea"></span>AI Advisory</span>
+            <span class="flex items-center gap-1.5 text-[10px] text-slate-400"><span class="inline-block w-2 h-2 rounded-sm" style="background:#9333ea"></span>Assistant</span>
             <span class="flex items-center gap-1.5 text-[10px] text-slate-400"><span class="inline-block w-2 h-2 rounded-sm" style="background:#d97706"></span>Products</span>
             <span class="flex items-center gap-1.5 text-[10px] text-slate-400"><span class="inline-block w-2 h-2 rounded-sm" style="background:#475569"></span>Account</span>
             <span class="flex items-center gap-1.5 text-[10px] text-slate-400"><span class="inline-block w-2 h-2 rounded-sm" style="background:#e11d48"></span>Admin only</span>
@@ -289,8 +289,8 @@
                         <!-- Navigation Header -->
                         <div class="bg-white px-4 pt-4 pb-3 sticky top-0 z-20 flex justify-between items-center border-b border-gray-100 shrink-0">
                             <div>
-                                <h1 class="text-xl font-extrabold text-navyBlue tracking-tight">Market Intelligence</h1>
-                                <p class="text-[9px] text-gray-400 font-bold tracking-tight uppercase">ETF Intelligence &amp; Insights</p>
+                                <h1 class="text-xl font-bold text-navyBlue tracking-tight">Market Intelligence</h1>
+                                <p class="text-[9px] text-gray-400 font-medium tracking-tight uppercase mt-0.5">ETF intelligence &amp; insights</p>
                             </div>
                             <!-- Browse all ETFs button -->
                             <button onclick="navigateToScreenerDirect()" class="flex items-center gap-1.5 border border-gray-200 hover:bg-gray-50 rounded-lg px-2.5 py-1.5 text-gray-600 transition focus:outline-none">
@@ -1062,8 +1062,8 @@
 
                             <!-- Page header -->
                             <div class="px-4 pt-4 pb-2">
-                                <p class="text-sm font-bold text-gray-900">Build your portfolio</p>
-                                <p class="text-[11px] text-gray-400 mt-0.5">Upload documents, paste text, or add manually.</p>
+                                <p class="text-sm font-bold text-gray-900">Start with what you have</p>
+                                <p class="text-[11px] text-gray-400 mt-0.5">Upload a statement, paste holdings, or add positions one by one. You can review before analysis.</p>
                             </div>
 
                             <!-- Mobile-first upload actions — side by side -->
@@ -1102,8 +1102,8 @@
                                 <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden focus-within:border-navyBlue transition">
                                     <textarea id="portfolio-text-input" rows="3" oninput="autoResizeTextarea(this)" placeholder="Or paste your holdings here... e.g. 3067.HK 100 shares at $7.50" class="w-full bg-transparent px-3 py-2.5 text-xs text-gray-800 placeholder-gray-400 focus:outline-none resize-none leading-relaxed"></textarea>
                                     <div class="px-3 pb-2 flex justify-between items-center">
-                                        <p class="text-[9px] text-gray-300">AI will parse your input</p>
-                                        <button onclick="submitPortfolioText()" id="portfolio-text-submit" class="bg-navyBlue hover:bg-slate-900 text-white font-semibold text-[10px] px-3 py-1.5 rounded-lg transition active:scale-95">Parse</button>
+                                        <p class="text-[9px] text-gray-300">We’ll extract holdings for review before analysis</p>
+                                        <button onclick="submitPortfolioText()" id="portfolio-text-submit" class="bg-navyBlue hover:bg-slate-900 text-white font-semibold text-[10px] px-3 py-1.5 rounded-lg transition active:scale-95">Review holdings</button>
                                     </div>
                                 </div>
                             </div>
@@ -1111,7 +1111,7 @@
                             <!-- Divider -->
                             <div class="flex items-center gap-3 px-4 mt-4 mb-2">
                                 <div class="flex-1 h-px bg-gray-200"></div>
-                                <span class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">or add manually</span>
+                                <span class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">prefer to add manually?</span>
                                 <div class="flex-1 h-px bg-gray-200"></div>
                             </div>
 
@@ -1172,10 +1172,14 @@
                                     <div id="sp-picker-selected" class="hidden flex items-center justify-between bg-gray-50 border border-gray-200 rounded-xl px-3 py-2">
                                         <div class="min-w-0">
                                             <span id="sp-picker-sel-name" class="text-xs font-semibold text-gray-800 truncate block"></span>
+                                            <p id="sp-picker-sel-meta" class="text-[9px] text-gray-400 mt-0.5 truncate"></p>
                                         </div>
                                         <button onclick="clearSPPickerSelection()" class="text-gray-400 hover:text-gray-700 transition text-xs ml-2 shrink-0">×</button>
                                     </div>
-                                    <button onclick="addStructuredProductToStaging()" class="w-full bg-navyBlue hover:bg-slate-900 text-white font-semibold py-2.5 rounded-xl text-xs transition">Add to Portfolio</button>
+                                    <div class="rounded-xl border border-amber-100 bg-amber-50 px-3 py-2 text-[9px] text-amber-800 leading-relaxed">
+                                        Use only for notes already reviewed with the client. Final suitability and term-sheet checks happen before execution.
+                                    </div>
+                                    <button onclick="addStructuredProductToStaging()" class="w-full bg-navyBlue hover:bg-slate-900 text-white font-semibold py-2.5 rounded-xl text-xs transition">Add to draft portfolio</button>
                                 </div>
                             </div>
 
@@ -1197,8 +1201,11 @@
 
                             <!-- Current portfolio list — shown when there are holdings -->
                             <div id="ptab-holdings-list" class="hidden mt-3 mx-4 space-y-0 bg-white rounded-2xl border border-gray-150 overflow-hidden shadow-sm">
-                                <div class="px-4 py-3 border-b border-gray-100 flex justify-between items-center">
-                                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Current Portfolio</p>
+                                <div class="px-4 py-3 border-b border-gray-100 flex justify-between items-start gap-3">
+                                    <div>
+                                        <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Draft portfolio</p>
+                                        <p class="text-[9px] text-gray-400 mt-0.5">Step 2 of 2: review holdings, then run analysis.</p>
+                                    </div>
                                     <button onclick="clearDraftStaging()" class="text-[10px] font-medium text-gray-400 hover:text-iosRed transition">Clear all</button>
                                 </div>
                                 <div id="builder-holdings-rows" class="divide-y divide-gray-100"></div>
@@ -1212,7 +1219,7 @@
                             <div id="ptab-run-btn" class="hidden px-4 mt-4">
                                 <button onclick="runPortfolioAnalysis()" class="w-full bg-navyBlue hover:bg-slate-900 text-white font-bold py-3.5 px-4 rounded-2xl text-xs transition active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-navyBlue/20">
                                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                                    Start Analysis
+                                    Analyze draft portfolio
                                 </button>
                             </div>
 
@@ -1319,7 +1326,7 @@
                             </div>
                             <!-- Footer note -->
                             <div class="px-4 py-3 border-t border-gray-100 shrink-0">
-                                <p class="text-[9px] text-gray-400 text-center leading-relaxed">Portfolios are saved automatically after analysis is run.</p>
+                                <p class="text-[9px] text-gray-400 text-center leading-relaxed">Portfolio drafts are saved automatically after analysis is run.</p>
                             </div>
                         </div>
 
@@ -1350,8 +1357,8 @@
                                     <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M4 6h16M4 18h16"></path></svg>
                                 </button>
                                 <div>
-                                    <h1 class="text-sm font-bold text-navyBlue tracking-tight">AI Advisory</h1>
-                                    <p class="text-[9px] text-gray-400 font-medium">Portfolio intelligence assistant</p>
+                                    <h1 class="text-xl font-bold text-navyBlue tracking-tight">Advisory Assistant</h1>
+                                    <p class="text-[9px] text-gray-400 font-medium uppercase tracking-tight mt-0.5">Portfolio, markets, and product ideas</p>
                                 </div>
                             </div>
                             <button onclick="createNewAIConversation()" class="text-[10px] font-semibold text-navyBlue border border-gray-200 px-2.5 py-1 rounded-lg hover:bg-gray-50 transition flex items-center gap-1">
@@ -1364,8 +1371,8 @@
                         <div class="bg-white px-4 py-2 border-b border-gray-100 flex items-center gap-2 shrink-0 select-none">
                             <span class="text-[10px] font-medium text-gray-400 shrink-0">Mode</span>
                             <div id="ai-modes-container" class="flex gap-1.5 overflow-x-auto no-scrollbar flex-1">
-                                <button id="mode-btn-value" onclick="switchAIMode('value')" class="px-3 py-1 bg-navyBlue text-white text-[10px] font-semibold rounded-full whitespace-nowrap border border-navyBlue transition">Value</button>
-                                <button id="mode-btn-income" onclick="switchAIMode('income')" class="px-3 py-1 bg-white border border-gray-200 text-gray-500 text-[10px] font-medium rounded-full whitespace-nowrap transition hover:border-gray-400">Income</button>
+                                <button id="mode-btn-value" onclick="switchAIMode('value')" class="px-3 py-1 bg-navyBlue text-white text-[10px] font-semibold rounded-full whitespace-nowrap border border-navyBlue transition">Value focus</button>
+                                <button id="mode-btn-income" onclick="switchAIMode('income')" class="px-3 py-1 bg-white border border-gray-200 text-gray-500 text-[10px] font-medium rounded-full whitespace-nowrap transition hover:border-gray-400">Income focus</button>
                             </div>
                             <button onclick="toggleCreateModeModal(true)" class="w-6 h-6 shrink-0 border border-gray-200 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100 transition text-sm leading-none shrink-0">+</button>
                         </div>
@@ -1464,20 +1471,20 @@
                             <div class="w-12 h-1 bg-gray-300 rounded-full mx-auto my-3 shrink-0"></div>
                             
                             <div class="px-5 pb-3 border-b border-gray-100 flex justify-between items-center shrink-0 select-none">
-                                <h3 class="text-sm font-semibold text-navyBlue">Analytical Details</h3>
+                                <h3 class="text-sm font-semibold text-navyBlue">Why this suggestion appeared</h3>
                                 <button onclick="toggleAIExplainDrawer(false)" class="text-xs font-semibold text-gray-500 hover:text-gray-900 transition">Close</button>
                             </div>
 
                             <div class="flex-1 overflow-y-auto p-5 space-y-4 no-scrollbar pb-8 text-xs text-gray-800 font-sans">
                                 <!-- Trigger Conditions box -->
                                 <div class="bg-gray-50 border border-gray-200 p-3 rounded-xl">
-                                    <span class="text-[9px] uppercase tracking-wider text-gray-400 font-extrabold block">Calculation Trigger Criteria</span>
+                                    <span class="text-[9px] uppercase tracking-wider text-gray-400 font-extrabold block">What prompted this</span>
                                     <p id="explain-trigger-text" class="font-bold text-navyBlue mt-1">Extreme portfolio regional concentration detected (HHI index exceeded 0.35 threshold).</p>
                                 </div>
 
                                 <!-- Used datasets indicators -->
                                 <div class="space-y-1.5">
-                                    <span class="text-[9px] uppercase tracking-wider text-gray-400 font-extrabold block">Underlying Data Points Audited</span>
+                                    <span class="text-[9px] uppercase tracking-wider text-gray-400 font-extrabold block">Data considered</span>
                                     <div class="grid grid-cols-2 gap-2 text-[10px]">
                                         <div class="p-2 bg-white border border-gray-150 rounded-lg shadow-3xs">
                                             <span class="text-gray-400 block font-semibold">Active Dataset</span>
@@ -1492,7 +1499,7 @@
 
                                 <!-- AI Interpretation text -->
                                 <div class="space-y-1">
-                                    <span class="text-[9px] uppercase tracking-wider text-gray-400 font-extrabold block">LLM Analytics Interpretation</span>
+                                    <span class="text-[9px] uppercase tracking-wider text-gray-400 font-extrabold block">Assistant interpretation</span>
                                     <div class="p-3 border border-gray-150 rounded-xl leading-relaxed text-gray-750 bg-white shadow-3xs" id="explain-ai-interpretation">
                                         The high-concentration bias of tracker indices like Hang Seng core limits Sharpe Ratio efficiency. Under active optimization constraints, diverting capital into Global Fixed income (e.g. 3001.HK) reduces systemic market volatility risk.
                                     </div>
@@ -1500,7 +1507,7 @@
 
                                 <!-- Limit guardrails warnings -->
                                 <div class="p-3 bg-amber-50 border border-amber-100 rounded-xl text-amber-900 font-semibold leading-relaxed">
-                                    <span class="text-[8px] uppercase tracking-wider text-amber-700 font-bold block mb-1">Strict Advisory Guardrails</span>
+                                    <span class="text-[8px] uppercase tracking-wider text-amber-700 font-bold block mb-1">Limits to this explanation</span>
                                     <span id="explain-limitations">Calculations utilize delayed HKEX factsheets. These indicators do not constitute formal commercial investment advice or transactional trade execution mandates.</span>
                                 </div>
                             </div>
@@ -1512,7 +1519,7 @@
                         <div id="ai-create-mode-modal" class="absolute inset-0 bg-black/60 z-50 flex items-center justify-center p-5 hidden opacity-0 transition-opacity duration-300 font-sans">
                             <div class="bg-white rounded-2xl w-full max-w-[320px] shadow-2xl border border-gray-200 overflow-hidden text-gray-900 transform scale-95 transition-transform duration-300" id="ai-create-mode-box">
                                 <div class="px-5 py-4 bg-navyBlue text-white flex justify-between items-center select-none">
-                                    <h4 class="text-sm font-black uppercase tracking-wider">Create Custom Mode</h4>
+                                    <h4 class="text-sm font-black uppercase tracking-wider">Create a custom focus</h4>
                                     <button onclick="toggleCreateModeModal(false)" class="text-white opacity-80 hover:opacity-100 font-semibold text-xs">Cancel</button>
                                 </div>
                                 <div class="p-5 space-y-4 text-left">
@@ -1521,10 +1528,10 @@
                                         <label class="block text-[9px] font-bold uppercase tracking-wider text-gray-400">Creation Method</label>
                                         <div class="grid grid-cols-2 gap-1.5 p-0.5 bg-gray-100 rounded-lg text-[10px]">
                                             <button id="method-btn-prompt" onclick="switchModeCreationMethod('prompt')" class="py-1 bg-white font-bold text-navyBlue rounded shadow-3xs flex-1 text-center">
-                                                System Prompt
+                                                Write instructions
                                             </button>
                                             <button id="method-btn-survey" onclick="switchModeCreationMethod('survey')" class="py-1 font-semibold text-gray-500 rounded flex-1 text-center hover:bg-gray-200 hover:text-navyBlue">
-                                                Fintech Survey
+                                                Guided setup
                                             </button>
                                         </div>
                                     </div>
@@ -1536,8 +1543,8 @@
 
                                     <!-- Content block 1: Custom Prompt text -->
                                     <div id="creation-content-prompt" class="space-y-1">
-                                        <label class="block text-[9px] font-bold uppercase tracking-wider text-gray-400 mb-1">System Custom Instructions</label>
-                                        <textarea id="new-mode-system-prompt" rows="3" class="w-full border border-gray-250 bg-gray-50 px-2.5 py-1.5 rounded-lg text-xs focus:outline-none focus:border-iosBlue resize-none font-sans" placeholder="Instruct the AI engine on targeted asset limits, core constraints, or return criteria..."></textarea>
+                                        <label class="block text-[9px] font-bold uppercase tracking-wider text-gray-400 mb-1">What should the assistant prioritize?</label>
+                                        <textarea id="new-mode-system-prompt" rows="3" class="w-full border border-gray-250 bg-gray-50 px-2.5 py-1.5 rounded-lg text-xs focus:outline-none focus:border-iosBlue resize-none font-sans" placeholder="Describe asset limits, risk preferences, income needs, or review criteria..."></textarea>
                                     </div>
 
                                     <!-- Content block 2: Survey questions -->
@@ -1561,7 +1568,7 @@
                                     </div>
 
                                     <button onclick="commitCustomAIMode()" class="w-full bg-navyBlue hover:bg-slate-900 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition shadow-sm text-center">
-                                        Generate Custom Mode Pill
+                                        Create focus
                                     </button>
                                 </div>
                             </div>
@@ -1578,7 +1585,7 @@
                         <div class="bg-white px-4 pt-4 pb-3 border-b border-gray-100 shrink-0 flex justify-between items-center">
                             <div>
                                 <h1 class="text-xl font-bold text-navyBlue tracking-tight">Structured Products</h1>
-                                <p class="text-[9px] text-gray-400 font-medium uppercase tracking-tight mt-0.5">Browse issuer catalogues · filter terms · compare same issuer</p>
+                                <p class="text-[9px] text-gray-400 font-medium uppercase tracking-tight mt-0.5">Review note terms, payoff rules, and key risks</p>
                             </div>
                             <div class="flex items-center gap-2">
                                 <button id="product-advanced-toggle" type="button" onclick="openProductAdvancedSheet()" class="relative w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 transition" title="Advanced search" aria-label="Advanced search">
@@ -1593,9 +1600,16 @@
 
                         <!-- Discovery filters -->
                         <div class="bg-white border-b border-gray-100 px-4 py-3 shrink-0 space-y-3">
+                            <div id="product-risk-banner" class="relative rounded-2xl border border-amber-100 bg-amber-50 px-3 py-2.5 pr-9">
+                                <button type="button" onclick="dismissProductRiskBanner()" aria-label="Dismiss structured product risk notice" class="absolute right-2 top-2 w-5 h-5 rounded-full flex items-center justify-center text-amber-700/60 hover:text-amber-900 hover:bg-amber-100 transition">
+                                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                                <p class="text-[10px] font-semibold text-amber-900 leading-snug">Screening only. Structured products can expose principal to issuer and market risk.</p>
+                                <p class="text-[9px] text-amber-800/70 leading-relaxed mt-0.5">Review payoff rules, documents, and suitability before any investment decision.</p>
+                            </div>
                             <div>
                                 <div class="flex items-center justify-between mb-1.5">
-                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Issuer catalogue</p>
+                                    <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Issuer list</p>
                                     <div class="flex gap-1">
                                         <button type="button" onclick="scrollProductFilterRow('product-issuer-filters', -1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">‹</button>
                                         <button type="button" onclick="scrollProductFilterRow('product-issuer-filters', 1)" class="w-5 h-5 rounded-full border border-gray-200 text-gray-400 flex items-center justify-center text-[10px]">›</button>
@@ -1689,8 +1703,8 @@
                                 <!-- AI Scenario Payoff -->
                                 <div>
                                     <div class="flex items-center gap-1.5 mb-2">
-                                        <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">AI Scenario Payoff</p>
-                                        <span class="text-[8px] bg-navyBlue/10 text-navyBlue font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide">AI Extracted</span>
+                                        <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Illustrative outcomes</p>
+                                        <span class="text-[8px] bg-navyBlue/10 text-navyBlue font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide">Prototype summary</span>
                                     </div>
                                     <div id="od-scenario-payoff-cards" class="space-y-2"></div>
                                 </div>
@@ -2033,11 +2047,6 @@
                          ========================================== -->
                     <div id="view-profile" class="absolute inset-x-0 top-0 bottom-16 bg-gray-50 flex flex-col z-10 view-transition hidden font-sans overflow-y-auto no-scrollbar pb-8">
 
-                        <!-- Page Header -->
-                        <div class="bg-white px-4 pt-4 pb-3 border-b border-gray-100 shrink-0">
-                            <h1 id="prof-title" class="text-xl font-bold text-navyBlue tracking-tight">Profile &amp; Settings</h1>
-                        </div>
-
                         <!-- User Identity Row -->
                         <div class="bg-white px-4 py-4 border-b border-gray-100 flex items-center gap-3">
                             <div class="w-11 h-11 rounded-full bg-navyBlue flex items-center justify-center shrink-0">
@@ -2179,7 +2188,7 @@
                     <!-- Tab: Portfolio -->
                     <button onclick="switchTab('portfolio')" id="tab-portfolio" class="flex flex-col items-center justify-center flex-1 py-1 text-gray-400 hover:text-gray-655">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
-                        <span class="text-[9px] mt-1 font-semibold">Portfolios</span>
+                        <span class="text-[9px] mt-1 font-semibold">Portfolio</span>
                     </button>
                     <!-- Tab: AI -->
                     <button onclick="switchTab('ai')" id="tab-ai" class="flex flex-col items-center justify-center flex-1 py-1 text-gray-400 hover:text-gray-655">
@@ -2188,12 +2197,12 @@
                             <path d="M8 10h8"></path>
                             <path d="M8 14h6"></path>
                         </svg>
-                        <span class="text-[9px] mt-1 font-semibold">AI Advisory</span>
+                        <span class="text-[9px] mt-1 font-semibold">Assistant</span>
                     </button>
                     <!-- Tab: Products -->
                     <button onclick="switchTab('products')" id="tab-products" class="flex flex-col items-center justify-center flex-1 py-1 text-gray-400 hover:text-gray-655">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                        <span class="text-[9px] mt-1 font-semibold">Structured</span>
+                        <span class="text-[9px] mt-1 font-semibold">Products</span>
                     </button>
                     <!-- Tab: My -->
                     <button onclick="switchTab('profile')" id="tab-profile" class="flex flex-col items-center justify-center flex-1 py-1 text-gray-400 hover:text-gray-655">
@@ -5317,6 +5326,12 @@
             sel.classList.remove('hidden');
             const nameEl = document.getElementById('sp-picker-sel-name');
             if (nameEl) nameEl.textContent = p.name;
+            const metaEl = document.getElementById('sp-picker-sel-meta');
+            if (metaEl) {
+                const profile = getTDProductProfile(p);
+                const meta = getProductDiscoveryMeta(p);
+                metaEl.textContent = `${p.issuer} · ${profile.productType} · ${meta.principalTreatment} · Min ${p.minimumInvestment}`;
+            }
         }
     }
 
@@ -5353,7 +5368,7 @@
         if (!appState.portfolioStructured) appState.portfolioStructured = [];
         if (appState.portfolioStructured.find(x => x.id === id)) return;
         const minInvest = parseFloat(p.minimumInvestment.replace(/[^0-9.]/g,''));
-        appState.portfolioStructured.push({ id, name: p.name, issuer: p.issuer, type: p.type, currency: p.currency, value: minInvest, protection: p.capitalProtection, coupon: p.coupon });
+        appState.portfolioStructured.push({ id, name: p.name, issuer: p.issuer, type: p.type, currency: p.currency, value: minInvest, protection: p.capitalProtection, coupon: p.coupon, reviewNote: 'Subject to suitability review' });
         clearSPPickerSelection();
         renderBuilderStagedView();
         updateBuilderTotals();
@@ -5401,11 +5416,11 @@
         const spinner = document.getElementById('upload-file-spinner');
         chip.classList.remove('hidden');
         nameEl.textContent = file.name;
-        statusEl.textContent = 'Parsing with AI...';
+        statusEl.textContent = 'Extracting holdings...';
         spinner.classList.remove('hidden');
         // Simulate AI parsing delay
         setTimeout(() => {
-            statusEl.textContent = 'Parsed 3 holdings';
+            statusEl.textContent = '3 holdings ready for review';
             spinner.classList.add('hidden');
             // Auto-apply a sample template for demo
             if (appState.portfolio.length === 0) {
@@ -5531,6 +5546,7 @@
                     <div class="flex items-center gap-2 text-[10px] text-gray-400 mt-1">
                         <span>${sp.issuer}</span><span>·</span><span>${sp.type}</span><span>·</span><span>${sp.currency}</span>
                     </div>
+                    <p class="text-[9px] text-amber-700 font-medium mt-1">${sp.reviewNote || 'Subject to suitability review'}</p>
                 </div>
                 <button onclick="removeStagedSP('${sp.id}')" class="text-gray-400 hover:text-iosRed transition shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
@@ -6294,7 +6310,7 @@
                             <span class="text-[9px] font-medium text-gray-500 border border-gray-200 px-1.5 py-0.5 rounded">${r.action}</span>
                             <span class="text-xs font-semibold text-navyBlue">${r.symbol}</span>
                         </div>
-                        <span class="text-[9px] text-gray-400">${r.conf}% confidence</span>
+                        <span class="text-[9px] text-gray-400">Review priority ${r.conf}</span>
                     </div>
                     <p class="text-xs font-medium text-gray-800">${r.name}</p>
                     <p class="text-[9px] text-gray-400">Target weight: ${r.target}</p>
@@ -6455,8 +6471,8 @@
     }
 
     function getModeDisplayName(modeId) {
-        if (modeId === 'value') return 'Value Core Advisor';
-        if (modeId === 'income') return 'Dividend Income Auditor';
+        if (modeId === 'value') return 'Value focus';
+        if (modeId === 'income') return 'Income focus';
         const found = appState.customModes.find(c => c.id === modeId);
         return found ? found.name : modeId;
     }
@@ -6518,11 +6534,11 @@
 
         if (appState.aiCreationMethod === 'prompt') {
             const promptVal = document.getElementById('new-mode-system-prompt').value;
-            description = `Custom system prompt rule set: "${promptVal.slice(0, 40)}..."`;
+            description = `Custom focus notes: "${promptVal.slice(0, 40)}..."`;
         } else {
             const horizon = document.getElementById('survey-horizon').value;
             const risk = document.getElementById('survey-risk').value;
-            description = `Fintech Survey Rule Set: Horizon ${horizon} | Constraints: ${risk}`;
+            description = `Guided setup: horizon ${horizon}; risk preference ${risk}`;
         }
 
         const newMode = { id, name, description };
@@ -6656,7 +6672,7 @@
     }
 
     function triggerAdvisorySelectionEntry() {
-        appendUserMessage("Initiating Structured Advisory Entry for active portfolio.");
+        appendUserMessage("Help me explore product ideas for this portfolio.");
         const ind = appendTypingIndicator();
 
         setTimeout(() => {
@@ -6669,7 +6685,7 @@
             block.innerHTML = `
                 <div class="bg-white border border-gray-200 rounded-2xl px-3 py-3 space-y-3 text-left">
                     <div class="border-b border-gray-100 pb-2.5">
-                        <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Advisory context</p>
+                        <p class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Current context</p>
                         <div class="space-y-1.5 text-xs">
                             <div class="flex justify-between">
                                 <span class="text-gray-500">Portfolio</span>
@@ -6690,7 +6706,7 @@
                         <input type="text" id="advisory-entry-supplement" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:border-navyBlue font-sans" placeholder="e.g. Max drawdown under 10%, reduce tech weight">
                     </div>
                     <button onclick="triggerExecuteAIReport()" class="w-full bg-navyBlue hover:bg-slate-900 text-white font-semibold py-2 px-3 rounded-lg text-xs transition">
-                        Generate Report
+                        See suggestions
                     </button>
                 </div>
                 ${makeFeedbackBar()}
@@ -6704,7 +6720,7 @@
         const suppInput = document.getElementById('advisory-entry-supplement');
         const supplement = suppInput ? suppInput.value.trim() : '';
 
-        appendUserMessage(`Generating report card ${supplement ? `with constraint "${supplement}"` : ''}...`);
+        appendUserMessage(`Reviewing suggestions ${supplement ? `with note "${supplement}"` : ''}...`);
         const ind = appendTypingIndicator();
 
         setTimeout(() => {
@@ -6715,18 +6731,18 @@
 
     function triggerAICustomPrompt(presetType) {
         if (presetType === 'Value Audit') {
-            appendUserMessage("Analyze portfolio correlation index & Volatility using Value Mode.");
+            appendUserMessage("Review concentration and volatility using value focus.");
             const ind = appendTypingIndicator();
             setTimeout(() => {
                 removeTypingIndicator();
-                renderStructuredAdvisoryResult("Focus on Capital Diversification Core");
+                renderStructuredAdvisoryResult("Focus on diversification and capital risk");
             }, 1000);
         } else {
-            appendUserMessage("Optimize stable bond distributions using Income Mode.");
+            appendUserMessage("Review income options using income focus.");
             const ind = appendTypingIndicator();
             setTimeout(() => {
                 removeTypingIndicator();
-                renderStructuredAdvisoryResult("Maximize Cash Distribution Multipliers");
+                renderStructuredAdvisoryResult("Focus on steady cash distribution");
             }, 1000);
         }
     }
@@ -6740,25 +6756,25 @@
         const limitationsEl = document.getElementById('explain-limitations');
 
         if (criteria === 'HHI_CORRELATION') {
-            triggerEl.textContent = `Extreme regional concentration or asset clustering detected (Portfolio HHI index threshold exceeded).`;
-            dataUsedEl.textContent = `HKEX Core ETF Diversification & Sector Correlation Matrix`;
-            metricsEl.textContent = `Herfindahl-Hirschman Index (HHI), Sharpe Ratio, Beta Co-movement`;
-            interpretationEl.innerHTML = `Our LLM Volatility Engine indicates that the active allocation has too few unique return drivers. Under active optimization constraints, diversifying into global fixed income (e.g. <strong>3001.HK</strong>) or gold commodity assets (e.g. <strong>2840.HK</strong>) lowers standard portfolio volatility while maintaining Sharpe efficiency.`;
+            triggerEl.textContent = `High regional concentration or asset clustering was detected in the draft portfolio.`;
+            dataUsedEl.textContent = `HKEX ETF diversification and sector correlation data`;
+            metricsEl.textContent = `Concentration, Sharpe ratio, beta co-movement`;
+            interpretationEl.innerHTML = `The draft allocation has too few unique return drivers. Adding global fixed income (e.g. <strong>3001.HK</strong>) or gold exposure (e.g. <strong>2840.HK</strong>) may reduce concentration risk while keeping the portfolio reviewable.`;
         } else if (criteria === 'REALLOCATE_BONDS') {
-            triggerEl.textContent = `Strategic Bond Reallocation recommendation for ${etf.symbol}.`;
-            dataUsedEl.textContent = `Global Sovereign Debt Factsheet & Yield Spread Trends`;
-            metricsEl.textContent = `Yield-to-Maturity (YTM), Duration, Annualized Yield Volatility`;
-            interpretationEl.innerHTML = `Adding <strong>3001.HK</strong> (iShares US Treasury Bond ETF) introduces negative correlation parameters relative to your Hong Kong equity core, effectively insulating the portfolio against systematic equity drawdowns.`;
+            triggerEl.textContent = `Bond exposure was suggested for review against ${etf.symbol}.`;
+            dataUsedEl.textContent = `Global sovereign debt factsheets and yield spread trends`;
+            metricsEl.textContent = `Yield to maturity, duration, annualized yield volatility`;
+            interpretationEl.innerHTML = `Adding <strong>3001.HK</strong> (iShares US Treasury Bond ETF) may add defensive exposure relative to a Hong Kong equity core and reduce sensitivity to equity drawdowns.`;
         } else if (criteria === 'REALLOCATE_TECH') {
-            triggerEl.textContent = `Tech exposure risk reduction diagnostic for ${etf.symbol}.`;
-            dataUsedEl.textContent = `Hang Seng Tech Component Weightings & Beta Matrix`;
-            metricsEl.textContent = `Beta Sensitivity, Max Drawdown Profile, Standard Deviation`;
-            interpretationEl.innerHTML = `Trimming hyper-growth beta exposures like <strong>3067.HK</strong> or <strong>3199.HK</strong> reduces the overall correlation clustering within the technology sector, ensuring a softer peak-to-trough drawdown experience.`;
+            triggerEl.textContent = `Technology exposure was flagged for review in ${etf.symbol}.`;
+            dataUsedEl.textContent = `Hang Seng Tech component weights and beta data`;
+            metricsEl.textContent = `Beta sensitivity, maximum drawdown profile, volatility`;
+            interpretationEl.innerHTML = `Trimming concentrated technology exposure such as <strong>3067.HK</strong> or <strong>3199.HK</strong> may reduce sector clustering and soften peak-to-trough drawdown risk.`;
         } else {
-            triggerEl.textContent = `Generic analytical drill-down for ${etf.symbol}.`;
-            dataUsedEl.textContent = `HKEX Real-Time ETF Factsheet Dimensions`;
-            metricsEl.textContent = `Annual Return, Expense Ratio, Bid-Ask Spread Liquidity`;
-            interpretationEl.innerHTML = `This asset is selected for its high liquidity index and superior cost-to-tracking ratio. Under active LLM modeling, matching this asset with global sovereign bonds yields optimized risk-adjusted outputs.`;
+            triggerEl.textContent = `A review point was opened for ${etf.symbol}.`;
+            dataUsedEl.textContent = `HKEX delayed ETF factsheet fields`;
+            metricsEl.textContent = `Annual return, expense ratio, bid-ask liquidity`;
+            interpretationEl.innerHTML = `This asset was selected because its liquidity and cost profile are relevant to the portfolio review. Compare it with defensive holdings before treating it as a fit.`;
         }
         toggleAIExplainDrawer(true);
     }
@@ -6768,9 +6784,9 @@
         if (!feed) return;
 
         const isValueTarget = appState.aiMode !== 'income';
-        const summary = isValueTarget 
-            ? "Your current portfolio exhibits excessive concentration risk in technology and domestic assets. Standard diversification is suboptimal (HHI: 0.42). Diversification rebalance is suggested to increase standard deviation safety core."
-            : "Under income mandate parameters, current fixed yield distribution aggregates to 2.15% per annum. Reallocating equity draft to US Treasury Bonds and high-liquidity assets boosts defensive yield targets to 4.2% annualized cash flow.";
+        const summary = isValueTarget
+            ? "The draft portfolio is concentrated in technology and Hong Kong domestic exposure. A diversification review may help reduce reliance on a small set of return drivers."
+            : "The draft portfolio has limited income exposure. Reviewing Treasury bond and high-liquidity income assets may improve defensive cash-flow balance.";
 
         const resultCard = document.createElement('div');
         resultCard.className = "max-w-[92%] space-y-1 text-left";
@@ -6789,20 +6805,20 @@
 
                     <div onclick="openAIExplanationDrawer('3001.HK', 'REALLOCATE_BONDS')" class="border border-gray-150 rounded-xl p-2.5 hover:bg-gray-50 hover:border-gray-300 transition cursor-pointer">
                         <div class="flex justify-between items-center mb-1">
-                            <span class="text-[9px] font-semibold text-gray-500 uppercase">Buy · 3001.HK</span>
-                            <span class="text-[9px] text-gray-400">94% confidence</span>
+                            <span class="text-[9px] font-semibold text-gray-500 uppercase">Consider adding · 3001.HK</span>
+                            <span class="text-[9px] text-gray-400">Worth reviewing</span>
                         </div>
                         <p class="text-xs font-semibold text-gray-900">iShares US Treasury Bond ETF</p>
-                        <p class="text-[10px] text-gray-500 mt-0.5 leading-relaxed">Increase bond weighting to 30%. Reduces portfolio volatility index.</p>
+                        <p class="text-[10px] text-gray-500 mt-0.5 leading-relaxed">Review whether a higher bond allocation would reduce concentration and drawdown risk.</p>
                     </div>
 
                     <div onclick="openAIExplanationDrawer('3067.HK', 'REALLOCATE_TECH')" class="border border-gray-150 rounded-xl p-2.5 hover:bg-gray-50 hover:border-gray-300 transition cursor-pointer">
                         <div class="flex justify-between items-center mb-1">
-                            <span class="text-[9px] font-semibold text-gray-500 uppercase">Reduce · 3067.HK</span>
-                            <span class="text-[9px] text-gray-400">88% confidence</span>
+                            <span class="text-[9px] font-semibold text-gray-500 uppercase">Consider trimming · 3067.HK</span>
+                            <span class="text-[9px] text-gray-400">Potential fit</span>
                         </div>
                         <p class="text-xs font-semibold text-gray-900">iShares Hang Seng Tech ETF</p>
-                        <p class="text-[10px] text-gray-500 mt-0.5 leading-relaxed">Trim tech exposure to reduce sector concentration risk.</p>
+                        <p class="text-[10px] text-gray-500 mt-0.5 leading-relaxed">Review whether trimming technology exposure would reduce sector concentration risk.</p>
                     </div>
                 </div>
             </div>
@@ -7040,7 +7056,7 @@
             const lowerText = text.toLowerCase();
 
             if (attachment) {
-                appendSystemMessage(`I've read **${attachment.filename}**. ${text ? `Based on your question: "${text}" — ` : ''}I can extract key data, summarise the ${attachment.isImage ? 'chart' : 'document'}, or answer specific questions about its contents.`);
+                appendSystemMessage(`I've read **${attachment.filename}**. ${text ? `Based on your question: "${text}", ` : ''}I can extract key data, summarise the ${attachment.isImage ? 'chart' : 'document'}, or answer specific questions about its contents.`);
             } else if (lowerText.includes('value') || lowerText.includes('growth') || lowerText.includes('hhi')) {
                 renderStructuredAdvisoryResult("Optimized Volatility Audit Profile requested via manual message");
             } else if (lowerText.includes('income') || lowerText.includes('dividend') || lowerText.includes('bond')) {
@@ -8326,6 +8342,8 @@
         const riskTags = p.riskTags || [isProtected ? '保本/部分保本' : p.knockIn ? '低敲入' : '宽安全垫'];
         const marketView = p.marketView || (isAutocall ? 'range' : isProtected ? 'defensive' : hasCoupon ? 'income' : 'bullish');
         const score = p.attractivenessScore ?? Math.max(58, Math.min(88, 70 + (hasCoupon ? 8 : 0) + (p.knockIn ? 4 : 0) - ((p.riskScore || 3) - 3) * 3));
+        const principalTreatment = isProtected ? `${p.capitalProtection} protection` : 'Principal at risk';
+        const reviewStatus = 'Suitability review required';
         return {
             issuerShort,
             marketView,
@@ -8333,7 +8351,9 @@
             riskTags,
             category: p.category || p.type || 'Structured Product',
             attractivenessScore: score,
-            highlightReason: p.highlightReason || 'Indicative scenario fit, not a recommendation.'
+            principalTreatment,
+            reviewStatus,
+            highlightReason: p.highlightReason || 'Illustrative screening fit, not a recommendation.'
         };
     }
 
@@ -8355,14 +8375,14 @@
 
     function getProductHighlightText(p, meta) {
         const lead = `${getDiscoveryTagLabel(meta.strategyTags[0])} · ${getDiscoveryTagLabel(meta.riskTags[0])}`;
-        const term = p.coupon ? `${p.coupon} coupon` : p.capitalProtection ? `${p.capitalProtection} protection` : 'capital-at-risk payoff';
-        const market = meta.marketView === 'range' ? 'designed for range-bound markets'
-            : meta.marketView === 'defensive' ? 'uses protection or buffer features'
-            : meta.marketView === 'bullish' ? 'participates in upside scenarios'
-            : meta.marketView === 'fx' ? 'expresses an FX view'
-            : meta.marketView === 'income' ? 'focuses on coupon income'
-            : 'uses scenario-dependent payoff rules';
-        return `${lead}: ${term}; ${market}.`;
+        const term = p.coupon ? `${p.coupon} coupon` : meta.principalTreatment;
+        const market = meta.marketView === 'range' ? 'range-income payoff with barrier conditions'
+            : meta.marketView === 'defensive' ? 'protection or buffer features still require term-sheet review'
+            : meta.marketView === 'bullish' ? 'upside participation with scenario-dependent payoff rules'
+            : meta.marketView === 'fx' ? 'FX-linked payoff with currency risk'
+            : meta.marketView === 'income' ? 'coupon income with issuer and market risk'
+            : 'scenario-dependent payoff rules';
+        return `${lead}: ${term}; ${market}. ${meta.reviewStatus}.`;
     }
 
     function productMatchesPreset(p, preset) {
@@ -8621,6 +8641,11 @@
         renderProductsList();
     }
 
+    function dismissProductRiskBanner() {
+        const banner = document.getElementById('product-risk-banner');
+        if (banner) banner.classList.add('hidden');
+    }
+
     function resetAdvancedProductFilters() {
         appState.productAdvancedFilters = { ...productAdvancedDefaultFilters };
         renderProductsList();
@@ -8672,10 +8697,10 @@
 
     function renderProductCardInsight(p, profile, meta) {
         const activeQuickView = appState.productQuickViewFilter || 'all';
-        if (activeQuickView === 'hot') return `Catalogue match ${meta.attractivenessScore} · ${profile.structureType} · ${profile.currentStatus}`;
-        if (activeQuickView === 'range') return `${profile.paymentFrequency} payments · Barrier ${profile.barrierLevel} · ${profile.fixedReturns}`;
-        if (activeQuickView === 'defensive') return `${profile.investmentObjective} · ${profile.barrierLevel} · ${profile.productType}`;
-        if (activeQuickView === 'highCoupon') return `${profile.fixedReturns} · Indicative ${p.pricing?.level || '—'} · ${p.pnl || '—'} P&L`;
+        if (activeQuickView === 'hot') return `${profile.structureType} · ${meta.principalTreatment} · ${profile.currentStatus}`;
+        if (activeQuickView === 'range') return `${profile.paymentFrequency} payments · Barrier ${profile.barrierLevel} · ${meta.reviewStatus}`;
+        if (activeQuickView === 'defensive') return `${profile.investmentObjective} · ${meta.principalTreatment} · ${profile.productType}`;
+        if (activeQuickView === 'highCoupon') return `${profile.fixedReturns} · ${meta.principalTreatment} · indicative price ${p.pricing?.level || '—'}`;
         return `${getDiscoveryTagLabel(meta.strategyTags[0] || meta.marketView)} · ${getDiscoveryTagLabel(meta.riskTags[0] || p.riskLevel)}: ${getProductHighlightText(p, meta)}`;
     }
 
@@ -8707,7 +8732,7 @@
             if (issuerChanged) {
                 const header = document.createElement('div');
                 header.className = 'pt-1 first:pt-0';
-                header.innerHTML = `<div class="flex items-center justify-between px-1"><p class="text-[10px] font-bold text-navyBlue uppercase tracking-wider">${htmlEscape(meta.issuerShort)} issuer catalogue</p></div>`;
+                header.innerHTML = `<div class="flex items-center justify-between px-1"><p class="text-[10px] font-bold text-navyBlue uppercase tracking-wider">${htmlEscape(meta.issuerShort)} issuer notes</p><span class="text-[8px] font-semibold text-gray-400 uppercase tracking-wide">screening view</span></div>`;
                 container.appendChild(header);
                 lastIssuer = meta.issuerShort;
             }
@@ -8749,8 +8774,8 @@
 
         if (s.bull) cards.push({
             type: 'good',
-            title: 'Earn outcome',
-            sub: 'Favourable outcome',
+            title: 'Coupon paid',
+            sub: 'Illustrative upside',
             payoff: s.bull.payoff_pct,
             prob: s.bull.probability,
             desc: s.bull.explanation,
@@ -8759,8 +8784,8 @@
         });
         if (s.base) cards.push({
             type: 'base',
-            title: 'Base outcome',
-            sub: 'Base outcome',
+            title: 'Base settlement',
+            sub: 'Illustrative middle case',
             payoff: s.base.payoff_pct,
             prob: s.base.probability,
             desc: s.base.explanation,
@@ -8769,8 +8794,8 @@
         });
         if (s.bear) cards.push({
             type: 'risk',
-            title: 'Loss outcome',
-            sub: 'Risk outcome',
+            title: 'Principal loss risk',
+            sub: 'Illustrative downside',
             payoff: s.bear.payoff_pct,
             prob: s.bear.probability,
             desc: s.bear.explanation,
@@ -8824,7 +8849,7 @@
             </div>
             <div class="bg-white rounded-xl border border-gray-150 p-3">
                 <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Overview</p>
-                <p class="text-[11px] text-gray-700 leading-relaxed">${htmlEscape(p.name)} provides exposure to ${profile.underlier} with a ${profile.structureType} payoff profile. The listing highlights note fields so advisers can scan eligibility, key dates, barriers and documents before opening the term sheet.</p>
+                <p class="text-[11px] text-gray-700 leading-relaxed">${htmlEscape(p.name)} provides exposure to ${profile.underlier} with a ${profile.structureType} payoff profile. Review eligibility, key dates, barriers, documents, and suitability before relying on the term sheet.</p>
             </div>
             ${renderDetailSection('Return Features', [
                 ['Auto-Call Threshold', profile.autoCallThreshold], ['Call Frequency', profile.callFrequency], ['Barrier Level', profile.barrierLevel], ['Fixed Returns', profile.fixedReturns]
@@ -8839,7 +8864,7 @@
                 ['Account Eligibility', profile.accountEligibility], ['Currency', profile.currency], ['Sales Commission', profile.salesCommission], ['Issuer', profile.issuer], ['Issuer Rating', profile.issuerRating], ['Current Status', profile.currentStatus]
             ])}
             <div>
-                <div class="flex items-center gap-1.5 mb-2"><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Scenario Payoff</p><span class="text-[8px] bg-navyBlue/10 text-navyBlue font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide">AI Extracted</span></div>
+                <div class="flex items-center gap-1.5 mb-2"><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Illustrative outcomes</p><span class="text-[8px] bg-navyBlue/10 text-navyBlue font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide">Prototype summary</span></div>
                 <div id="od-scenario-payoff-cards" class="space-y-2"></div>
             </div>
             <div class="bg-white rounded-xl border border-gray-150 px-3 py-3"><p class="text-[9px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Risk Disclosure</p><p class="text-[10px] text-gray-500 leading-relaxed">${htmlEscape(p.disclaimer)}</p></div>
@@ -8884,7 +8909,7 @@
         if (!events) return;
         events.innerHTML = `
             <div class="bg-white rounded-xl border border-gray-150 p-3 space-y-2">
-                <div class="flex items-center justify-between gap-2"><p class="text-sm font-bold text-navyBlue">Note Events</p><span class="text-[8px] font-semibold text-gray-400 uppercase tracking-wide">Call / barrier / payoff rules</span></div>
+                <div class="flex items-center justify-between gap-2"><p class="text-sm font-bold text-navyBlue">How this note can pay, hold, or lose value</p><span class="text-[8px] font-semibold text-gray-400 uppercase tracking-wide">Call / barrier / payoff rules</span></div>
                 <p id="sc-story-summary" class="text-[11px] text-gray-700 leading-relaxed"></p>
                 <div class="space-y-1.5 pt-1">
                     <div class="flex gap-2 text-[10px] leading-relaxed"><span class="font-bold text-navyBlue shrink-0">Earn</span><p id="sc-story-earn" class="text-gray-600"></p></div>
@@ -8895,7 +8920,7 @@
             ${renderDetailSection('Event Schedule', [
                 ['Call Frequency', profile.callFrequency], ['Payment Frequency', profile.paymentFrequency], ['Auto-Call Threshold', profile.autoCallThreshold], ['Barrier Level', profile.barrierLevel]
             ])}
-            <div class="bg-white rounded-xl border border-gray-150 p-3"><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Outcome selector</p><div class="flex gap-1.5"><button id="sc-btn-bull" onclick="selectScenario('bull')" class="flex-1 py-1.5 text-[10px] font-semibold rounded-lg bg-navyBlue text-white border border-navyBlue transition">Earn coupon</button><button id="sc-btn-base" onclick="selectScenario('base')" class="flex-1 py-1.5 text-[10px] font-medium rounded-lg bg-white text-gray-500 border border-gray-200 transition">Observe</button><button id="sc-btn-bear" onclick="selectScenario('bear')" class="flex-1 py-1.5 text-[10px] font-medium rounded-lg bg-white text-gray-500 border border-gray-200 transition">Loss trigger</button></div></div>
+            <div class="bg-white rounded-xl border border-gray-150 p-3"><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Outcome selector</p><div class="flex gap-1.5"><button id="sc-btn-bull" onclick="selectScenario('bull')" class="flex-1 py-1.5 text-[10px] font-semibold rounded-lg bg-navyBlue text-white border border-navyBlue transition">Coupon paid</button><button id="sc-btn-base" onclick="selectScenario('base')" class="flex-1 py-1.5 text-[10px] font-medium rounded-lg bg-white text-gray-500 border border-gray-200 transition">Base settlement</button><button id="sc-btn-bear" onclick="selectScenario('bear')" class="flex-1 py-1.5 text-[10px] font-medium rounded-lg bg-white text-gray-500 border border-gray-200 transition">Principal risk</button></div></div>
             <div class="bg-white rounded-xl border border-gray-150 p-3"><div class="flex items-center justify-between mb-3"><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Payoff map</p><span class="text-[8px] text-gray-400">0% baseline</span></div><div id="sc-chart-area" class="h-36 mb-2"></div><div id="sc-chart-labels" class="grid grid-cols-3 gap-2 px-1 text-[8px] text-gray-400 text-center"></div></div>
             <div class="bg-white rounded-xl border border-gray-150 p-3 space-y-2"><div class="flex justify-between items-baseline gap-3"><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Selected: <span id="sc-active-name" class="text-navyBlue">Earn coupon</span></p><p class="text-xs font-bold text-navyBlue shrink-0"><span id="sc-payoff-pct">—</span></p></div><p id="sc-probability" class="text-[10px] text-gray-500">Indicative probability: —</p><p id="sc-explanation" class="text-xs text-gray-700 leading-relaxed"></p></div>
             <div><p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Rule quick check</p><div class="bg-white rounded-xl border border-gray-150 overflow-hidden"><table class="w-full text-xs"><thead><tr class="border-b border-gray-100 bg-gray-50/60"><th class="px-3 py-2 text-left text-[9px] font-semibold text-gray-400 uppercase">Event</th><th class="px-3 py-2 text-right text-[9px] font-semibold text-gray-400 uppercase">Payoff</th><th class="px-3 py-2 text-right text-[9px] font-semibold text-gray-400 uppercase">Prob.</th></tr></thead><tbody id="sc-table" class="divide-y divide-gray-100"></tbody></table></div></div>
@@ -9510,10 +9535,10 @@
               desc:'Account settings, language and notification preferences, and admin tools for content management (ETF data, product uploads).' },
 
             // Level-3: Sub-pages
-            { id:'daily-overview',  lines:['Daily','Overview'],   cx:28,  cy:318, w:NWS, h:NHD,
+            { id:'daily-overview',  lines:['Daily','Overview'],   cx:34,  cy:318, w:NWS, h:NHD,
               bg:'#0c1f38', bdr:'#1d4ed8', fg:'#93c5fd', action:() => directNavigate('market-dashboard'),
               desc:'Daily Market Overview on the Market Intelligence home screen. Summarises major index direction, market mood, and the key context users should read before selecting ETFs.' },
-            { id:'sector-themes',   lines:['Sector','Themes'],    cx:98,  cy:318, w:NWS, h:NHD,
+            { id:'sector-themes',   lines:['Sector','Themes'],    cx:132, cy:318, w:NWS, h:NHD,
               bg:'#0c1f38', bdr:'#1d4ed8', fg:'#93c5fd', action:() => directNavigate('market-dashboard'),
               desc:'Sector Themes module on the Market Intelligence home screen. Highlights thematic sector opportunities and lets users jump from macro narrative into ETF ideas.' },
             { id:'screener',        lines:['All ETFs'],           cx:45,  cy:410, w:NWS, h:NHS,
@@ -9531,32 +9556,36 @@
             { id:'p-suggest',       lines:['AI','Suggestions'],   cx:365, cy:318, w:NWS, h:NHD,
               bg:'#042415', bdr:'#166534', fg:'#6ee7b7', action:() => { directNavigate('portfolio-direct'); setTimeout(()=>generateRecommendations(), 350); },
               desc:'Step 3. Personalised ETF rebalancing recommendations with full AI rationale for each suggested change, based on the analysis scorecard.' },
-            { id:'product-discovery', lines:['Product','Discovery'], cx:445, cy:318, w:NWS, h:NHD,
+            { id:'product-discovery', lines:['Screening','Products'], cx:445, cy:318, w:NWS, h:NHD,
               bg:'#361005', bdr:'#92400e', fg:'#fbbf24', action:() => { appState.isLoggedIn=true; switchTab('products'); },
-              desc:'Structured Products home view with heat cards plus issuer, strategy, and risk-structure filters. Product cards show match score, payoff type, barriers, and key terms.' },
-            { id:'product-detail',  lines:['Product','Detail'],   cx:525, cy:318, w:NWS, h:NHD,
+              desc:'Structured Products screening view with issuer, strategy, and risk-structure filters. Product cards show payoff type, principal treatment, barriers, and suitability-review cues.' },
+            { id:'product-detail',  lines:['Risk-first','Detail'],   cx:525, cy:318, w:NWS, h:NHD,
               bg:'#361005', bdr:'#92400e', fg:'#fbbf24', action:() => { appState.isLoggedIn=true; switchTab('products'); setTimeout(()=>openProductDetail('SP-HSI-001'), 350); },
-              desc:'In-depth product view with Overview, Scenario, and Pricing tabs. Includes key terms, AI payoff summary, payoff story, pricing, and product comparison entry.' },
+              desc:'In-depth product view with risk-first overview, illustrative outcomes, payoff rules, indicative pricing, documents, and same-issuer comparison entry.' },
             { id:'product-compare', lines:['Product','Compare'],  cx:605, cy:318, w:NWS, h:NHD,
               bg:'#361005', bdr:'#92400e', fg:'#fbbf24', action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); setTimeout(()=>openProductCompare(), 250); },
               desc:'Compare overlay for structured products. User selects a second product from a dropdown and compares type, currency, tenor, protection, barriers, coupon, risk, status, and P&L.' },
 
-            // Product Detail sub-tabs (level 4)
-            { id:'pd-overview', lines:['Overview'],  cx:445, cy:430, w:NWS, h:NHS,
+            // Product Detail tabs (level 4)
+            { id:'pd-overview', lines:['Overview'],  cx:390, cy:450, w:NWS, h:NHS,
               bg:'#2a1000', bdr:'#78350f', fg:'#fcd34d',
-              action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); },
-              desc:'Overview tab — tenor progress bar, underlying asset details, payoff terms, AI-extracted scenario payoff summary cards, full term sheet, and risk disclosure.' },
-            { id:'pd-scenario', lines:['Payoff','Story'],  cx:525, cy:430, w:NWS, h:NHD,
-              bg:'#2a1000', bdr:'#78350f', fg:'#fcd34d',
-              action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); switchProductTab('events'); },
-              desc:'Scenario tab redesigned as a payoff story: earn/loss triggers, 0% baseline payoff map, outcome selector, and rules quick-check table.' },
-            { id:'pd-pricing',  lines:['Pricing'],   cx:605, cy:430, w:NWS, h:NHS,
+              action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); switchProductTab('overview'); },
+              desc:'Overview tab with tenor progress, underlying asset details, payoff terms, illustrative outcome cards, term sheet, and risk disclosure.' },
+            { id:'pd-performance', lines:['Performance'],  cx:480, cy:450, w:NWS, h:NHS,
               bg:'#2a1000', bdr:'#78350f', fg:'#fcd34d',
               action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); switchProductTab('performance'); },
-              desc:'Pricing tab — indicative price level and implied yield, same-issuer product comparison list, and pricing disclaimer.' },
+              desc:'Performance tab with indicative price, mark-to-market P&L, barrier watch, same-issuer comparison, and pricing disclaimer.' },
+            { id:'pd-events', lines:['Note','Events'],  cx:570, cy:450, w:NWS, h:NHD,
+              bg:'#2a1000', bdr:'#78350f', fg:'#fcd34d',
+              action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); switchProductTab('events'); },
+              desc:'Note Events tab with payoff story, coupon and loss triggers, payoff map, outcome selector, and rule quick-check table.' },
+            { id:'pd-documents',  lines:['Documents'],   cx:660, cy:450, w:NWS, h:NHS,
+              bg:'#2a1000', bdr:'#78350f', fg:'#fcd34d',
+              action:() => { appState.isLoggedIn=true; switchTab('products'); openProductDetail('SP-HSI-001'); switchProductTab('documents'); },
+              desc:'Documents tab with pricing supplement, final terms, and prototype PDF preview.' },
 
             // Admin-only sub-page (locked for regular users)
-            { id:'admin-panel', lines:['Admin','Panel'], cx:635, cy:505, w:NW, h:NHD,
+            { id:'admin-panel', lines:['Admin','Panel'], cx:635, cy:580, w:NW, h:NHD,
               bg:'#1f0a1a', bdr:'#e11d48', fg:'#fda4af', adminOnly:true,
               action:() => { appState.isLoggedIn=true; switchTab('products'); setTimeout(()=>openAdminModal(), 350); },
               desc:'<strong>Admin only.</strong> Upload Structured Product Sheets (PDF → auto-extract fields) and add new ETFs by ticker ID. Accessible from the Products header or Profile page.' },
@@ -9581,12 +9610,12 @@
             { f:'app-entry', t:'login',       label:'Launch app',          desc:'User opens the app — the Login screen is the first thing shown to any unauthenticated session.' },
             { f:'login',     t:'market',       label:'Sign in',             desc:'After successful authentication the app navigates to Market Intelligence as the default home tab.' },
             { f:'login',     t:'portfolio',    label:'Tap Portfolio tab',   desc:'User taps the Portfolio icon in the bottom tab bar to enter the portfolio builder module.' },
-            { f:'login',     t:'ai',           label:'Tap AI tab',          desc:'User taps the AI Advisory icon to open the chatbot interface and start an advisory session.' },
+            { f:'login',     t:'ai',           label:'Tap AI tab',          desc:'User taps the Assistant icon to open the chatbot interface and start an advisory session.' },
             { f:'login',     t:'products',     label:'Tap Products tab',    desc:'User taps the Products icon to browse the structured investment product catalogue.' },
             { f:'login',     t:'profile',      label:'Tap Profile tab',     desc:'User taps the Profile icon to access account settings, language, and notification preferences.' },
             { f:'market',    t:'daily-overview', label:'Read daily brief',  desc:'User starts from the daily market overview to understand market direction before drilling into ETF ideas.' },
             { f:'market',    t:'sector-themes',  label:'Browse themes',     desc:'User reviews sector themes to connect macro narratives with ETF opportunities.' },
-            { f:'market',    t:'screener',     label:'Tap "All ETFs"',      desc:'User taps the "All ETFs" button in the Market dashboard header to open the full ETF screener.' },
+            { f:'market',    t:'screener',     label:'Tap "All ETFs"', route:'market-screener', desc:'User taps the "All ETFs" button in the Market dashboard header to open the full ETF screener.' },
             { f:'market',    t:'watchlist',    label:'Tap "View all"', route:'market-watchlist', desc:'User taps "View all" in the Watchlist Preview section to see all their starred ETFs.' },
             { f:'screener',  t:'detail',       label:'Tap ETF row',         desc:'User taps any ETF row in the screener list to open that ETF\'s full detail page.' },
             { f:'watchlist', t:'detail',       label:'Tap ETF row',         desc:'User taps a starred ETF from their watchlist to quickly review its current performance and metrics.' },
@@ -9597,10 +9626,11 @@
             { f:'products',  t:'product-discovery', label:'Browse catalogue', desc:'User lands on Product Discovery, then uses heat cards and issuer / strategy / risk filters to narrow the catalogue.' },
             { f:'product-discovery', t:'product-detail', label:'Tap product card', isH:true, desc:'User taps a structured product card to open its full detail view with terms, payoff story, pricing, and compare entry.' },
             { f:'product-detail', t:'product-compare', label:'Tap Compare', isH:true, desc:'User opens the Compare overlay and selects a second structured product from the dropdown.' },
-            { f:'product-detail', t:'pd-overview', label:'Overview tab',    desc:'Key terms, tenor progress, underlying details, payoff structure, AI scenario payoff cards, full term sheet and risk disclosure.' },
-            { f:'product-detail', t:'pd-scenario', label:'Payoff Story tab', desc:'Interactive payoff story showing when the user earns, when losses trigger, and how payoff compares with the 0% baseline.' },
-            { f:'product-detail', t:'pd-pricing',  label:'Pricing tab',     desc:'Indicative market price, implied yield, same-issuer product comparison, and pricing disclaimer.' },
-            { f:'profile',   t:'admin-panel',   label:'Admin Panel',        desc:'Admin taps "Manage Products" in the Profile page to open the Admin Panel for uploading product sheets and adding ETFs.' },
+            { f:'product-detail', t:'pd-overview', label:'Overview tab', route:'pd-overview', desc:'Key terms, tenor progress, underlying details, payoff terms, illustrative outcome cards, full term sheet and risk disclosure.' },
+            { f:'product-detail', t:'pd-performance', label:'Performance tab', route:'pd-performance', desc:'Indicative market price, implied yield, barrier watch, same-issuer comparison, and pricing disclaimer.' },
+            { f:'product-detail', t:'pd-events', label:'Note Events tab', route:'pd-events', desc:'Payoff story showing coupon, base settlement, principal-risk triggers, and the 0% baseline payoff map.' },
+            { f:'product-detail', t:'pd-documents', label:'Documents tab', route:'pd-documents', desc:'Pricing supplement, final terms, and static prototype PDF preview.' },
+            { f:'profile',   t:'admin-panel',   label:'Admin Panel', route:'profile-admin', desc:'Admin taps "Manage Products" in the Profile page to open the Admin Panel for uploading product sheets and adding ETFs.' },
         ];
 
         const nm = {};
@@ -9630,10 +9660,15 @@
                 const x1 = goLeft ? fn.cx - fn.w/2 : fn.cx + fn.w/2;
                 const x2 = goLeft ? tn.cx + tn.w/2 : tn.cx - tn.w/2;
                 pathD = `M${x1},${fn.cy} L${x2},${tn.cy}`;
-            } else if (e.route === 'market-watchlist') {
+            } else if (e.route === 'market-screener' || e.route === 'market-watchlist') {
                 const x1 = fn.cx, y1 = cy2bot(fn), x2 = tn.cx, y2 = cy2top(tn);
-                const midY = y2 - 24;
+                const midY = y1 + (y2 - y1) * 0.45;
                 pathD = `M${x1},${y1} C${x1},${midY} ${x2},${midY} ${x2},${y2}`;
+            } else if (e.route === 'profile-admin') {
+                const x1 = fn.cx, y1 = cy2bot(fn), x2 = tn.cx, y2 = cy2top(tn);
+                const rightRail = Math.max(x1, x2) + 54;
+                const midY = y1 + (y2 - y1) * 0.5;
+                pathD = `M${x1},${y1} C${rightRail},${y1} ${rightRail},${midY} ${rightRail},${midY} C${rightRail},${y2} ${x2},${y2} ${x2},${y2}`;
             } else {
                 const x1=fn.cx, y1=cy2bot(fn), x2=tn.cx, y2=cy2top(tn);
                 const my = y1 + (y2-y1)*0.45;
