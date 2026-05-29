@@ -20,7 +20,7 @@
 
 ### 1.2 各模块数据来源与流向
 
-![](screenshots/mermaid/flow-10-data-across-screens.png)
+<img src="screenshots/mermaid/flow-10-data-across-screens.png" width="1000">
 
 ---
 
@@ -58,11 +58,11 @@
 
 | 截图 | 说明 |
 | :---: | --- |
-| ![](screenshots/prototype-pages/01-login.png) | **Login** — 邮箱、密码、记住我、Forgot password、Google / Microsoft SSO；用于进入普通用户或管理员流程。 |
-| ![](screenshots/prototype-pages/02-login-auth-error.png) | **Auth Error** — 账号或密码错误时在表单内展示红色 inline 错误，不跳转。 |
-| ![](screenshots/prototype-pages/03-login-network-fail.png) | **Network Error** — 网络异常时展示可恢复错误信息，引导用户稍后重试。 |
-| ![](screenshots/prototype-pages/30-page-navigator-left-panel.png) | **Page Navigator 左侧面板** — 展示产品页面树、User / Admin 快捷登录、模块颜色图例、产品边界声明。用于评审页面范围与用户旅程。 |
-| ![](screenshots/prototype-pages/31-page-tree-nodes-only.png) | **页面节点图** — 包含 Login、Market Intelligence、Portfolio Builder、Assistant、Structured Products、Profile & Settings、Admin Panel 等节点；点击节点可直接跳转对应原型状态。 |
+| <img src="screenshots/prototype-pages/01-login.png" width="560"> | **Login** — 邮箱、密码、记住我、Forgot password、Google / Microsoft SSO；用于进入普通用户或管理员流程。 |
+| <img src="screenshots/prototype-pages/02-login-auth-error.png" width="560"> | **Auth Error** — 账号或密码错误时在表单内展示红色 inline 错误，不跳转。 |
+| <img src="screenshots/prototype-pages/03-login-network-fail.png" width="560"> | **Network Error** — 网络异常时展示可恢复错误信息，引导用户稍后重试。 |
+| <img src="screenshots/prototype-pages/30-page-navigator-left-panel.png" width="560"> | **Page Navigator 左侧面板** — 展示产品页面树、User / Admin 快捷登录、模块颜色图例、产品边界声明。用于评审页面范围与用户旅程。 |
+| <img src="screenshots/prototype-pages/31-page-tree-nodes-only.png" width="560"> | **页面节点图** — 包含 Login、Market Intelligence、Portfolio Builder、Assistant、Structured Products、Profile & Settings、Admin Panel 等节点；点击节点可直接跳转对应原型状态。 |
 
 ### 3.2 页面目录
 
@@ -98,15 +98,15 @@
 
 | 截图 | 页面说明 |
 | :---: | --- |
-| ![](screenshots/prototype-pages/04-market-dashboard.png) | **Market Dashboard** — 标题为 Market Intelligence / ETF intelligence & insights；包含 ETF Market Overview、Sectors、Daily Hot、Market Indices、Watchlist Preview，并提供 All ETFs 入口。 |
-| ![](screenshots/prototype-pages/05-market-dashboard-skeleton.png) | **加载骨架屏** — Dashboard 数据请求中，以 skeleton 模拟卡片、列表和行情区域加载。 |
-| ![](screenshots/prototype-pages/06-market-dashboard-load-error.png) | **加载错误** — 数据源异常时展示错误状态和重试按钮。 |
-| ![](screenshots/prototype-pages/07-all-etfs-screener.png) | **All ETFs Screener** — 搜索框、ETF 数量、Filter 按钮、ETF 列表；ETF 行展示 symbol、名称、主题标签、价格 / 涨跌幅、星标；Admin 登录后显示 Add ETF 入口。 |
-| ![](screenshots/prototype-pages/08-all-etfs-filter-sort-sheet.png) | **Filter & Sort Bottom Sheet** — 支持 Sort、Asset Class、Region、Sector、Issuer、Currency 组合筛选；Filter badge 显示激活数。 |
-| ![](screenshots/prototype-pages/09-all-etfs-empty-state.png) | **Screener Empty State** — 搜索 / 筛选无结果时展示 No matching ETFs 和 Clear filters。 |
-| ![](screenshots/prototype-pages/10-etf-detail-overview.png) | **ETF Detail** — ETF header、价格、涨跌幅、时间区间图表、Watchlist、Quick Compare、Overview / News、风险指标、分类与新闻摘要。 |
-| ![](screenshots/prototype-pages/11-etf-detail-compare-picker.png) | **Compare Picker** — 从 ETF 详情打开 Bottom Sheet，搜索并选择第二只 ETF。 |
-| ![](screenshots/prototype-pages/12-etf-compare.png) | **ETF Compare** — 双 ETF 头部卡、标准化价格曲线、收益 / 风险 / 费用等指标对比。 |
+| <img src="screenshots/prototype-pages/04-market-dashboard.png" width="560"> | **Market Dashboard** — 标题为 Market Intelligence / ETF intelligence & insights；包含 ETF Market Overview、Sectors、Daily Hot、Market Indices、Watchlist Preview，并提供 All ETFs 入口。 |
+| <img src="screenshots/prototype-pages/05-market-dashboard-skeleton.png" width="560"> | **加载骨架屏** — Dashboard 数据请求中，以 skeleton 模拟卡片、列表和行情区域加载。 |
+| <img src="screenshots/prototype-pages/06-market-dashboard-load-error.png" width="560"> | **加载错误** — 数据源异常时展示错误状态和重试按钮。 |
+| <img src="screenshots/prototype-pages/07-all-etfs-screener.png" width="560"> | **All ETFs Screener** — 搜索框、ETF 数量、Filter 按钮、ETF 列表；ETF 行展示 symbol、名称、主题标签、价格 / 涨跌幅、星标；Admin 登录后显示 Add ETF 入口。 |
+| <img src="screenshots/prototype-pages/08-all-etfs-filter-sort-sheet.png" width="560"> | **Filter & Sort Bottom Sheet** — 支持 Sort、Asset Class、Region、Sector、Issuer、Currency 组合筛选；Filter badge 显示激活数。 |
+| <img src="screenshots/prototype-pages/09-all-etfs-empty-state.png" width="560"> | **Screener Empty State** — 搜索 / 筛选无结果时展示 No matching ETFs 和 Clear filters。 |
+| <img src="screenshots/prototype-pages/10-etf-detail-overview.png" width="560"> | **ETF Detail** — ETF header、价格、涨跌幅、时间区间图表、Watchlist、Quick Compare、Overview / News、风险指标、分类与新闻摘要。 |
+| <img src="screenshots/prototype-pages/11-etf-detail-compare-picker.png" width="560"> | **Compare Picker** — 从 ETF 详情打开 Bottom Sheet，搜索并选择第二只 ETF。 |
+| <img src="screenshots/prototype-pages/12-etf-compare.png" width="560"> | **ETF Compare** — 双 ETF 头部卡、标准化价格曲线、收益 / 风险 / 费用等指标对比。 |
 
 #### 4.1.3 User Stories
 
@@ -114,13 +114,13 @@
 
 > **用户类型**：User | **需求**：从 Market Dashboard 进入 ETF Screener，按行业 / 地区 / 发行人等条件筛选，查看详情并加入关注或对比 | **价值**：把市场概览转化为可继续研究的 ETF 上下文
 
-<img src="screenshots/userstory-flowcharts/us-01-market-intelligence-user.png" width="760">
+<img src="screenshots/userstory-flowcharts/us-01-market-intelligence-user.png" width="1200">
 
 **M-2：维护 ETF 研究数据，确保产品可被检索**
 
 > **用户类型**：Admin | **需求**：通过 Admin ETF Tools 查询已有 ETF 或按 ticker 添加新 ETF，更新 Screener 并记录维护动作 | **价值**：让用户端 ETF 研究入口保持可用、可查、可追溯
 
-<img src="screenshots/userstory-flowcharts/us-02-market-intelligence-admin.png" width="760">
+<img src="screenshots/userstory-flowcharts/us-02-market-intelligence-admin.png" width="1200">
 
 #### 4.1.4 Acceptance Criteria
 
@@ -167,10 +167,10 @@
 
 | 截图 | 页面说明 |
 | :---: | --- |
-| ![](screenshots/prototype-pages/13-portfolio-input-holdings.png) | **Start with what you have** — Photos / Document 上传入口、Add ETF、Add Structured Product、文本粘贴框、模板示例、Draft Portfolio、Review holdings 与 Analyze draft portfolio 按钮。 |
-| ![](screenshots/prototype-pages/14-portfolio-analysis.png) | **Portfolio Analysis** — 四步 checklist（Verifying HKEX pricing、Computing HHI concentration index、Assessing sector & currency bias、Calculating risk sub-scores）；展示评分卡、HHI / Effective N、敞口与 Diagnosis Issues。 |
-| ![](screenshots/prototype-pages/15-portfolio-ai-recommendations.png) | **AI Portfolio Recommendations** — Selected diagnosis scope、Before / After Optimisation、具体动作建议、rationale、impact 与合规声明；由 Generate Recommendations 触发。 |
-| ![](screenshots/prototype-pages/16-portfolio-history.png) | **Portfolio History / Saved snapshots** — 左侧抽屉展示历史分析快照，用于恢复或对比过往组合状态。 |
+| <img src="screenshots/prototype-pages/13-portfolio-input-holdings.png" width="560"> | **Start with what you have** — Photos / Document 上传入口、Add ETF、Add Structured Product、文本粘贴框、模板示例、Draft Portfolio、Review holdings 与 Analyze draft portfolio 按钮。 |
+| <img src="screenshots/prototype-pages/14-portfolio-analysis.png" width="560"> | **Portfolio Analysis** — 四步 checklist（Verifying HKEX pricing、Computing HHI concentration index、Assessing sector & currency bias、Calculating risk sub-scores）；展示评分卡、HHI / Effective N、敞口与 Diagnosis Issues。 |
+| <img src="screenshots/prototype-pages/15-portfolio-ai-recommendations.png" width="560"> | **AI Portfolio Recommendations** — Selected diagnosis scope、Before / After Optimisation、具体动作建议、rationale、impact 与合规声明；由 Generate Recommendations 触发。 |
+| <img src="screenshots/prototype-pages/16-portfolio-history.png" width="560"> | **Portfolio History / Saved snapshots** — 左侧抽屉展示历史分析快照，用于恢复或对比过往组合状态。 |
 
 #### 4.2.4 User Stories
 
@@ -178,13 +178,13 @@
 
 > **用户类型**：User | **需求**：选择 ETF / 结构化产品并通过图片、文件、文本或手动方式录入持仓，运行 allocation / exposure / risk 分析 | **价值**：形成可解释的组合风险上下文，并连接 Assistant 建议与历史快照
 
-<img src="screenshots/userstory-flowcharts/us-03-portfolio-intelligence-user.png" width="760">
+<img src="screenshots/userstory-flowcharts/us-03-portfolio-intelligence-user.png" width="1200">
 
 **P-2：使用工作区资产运行组合分析并回到管理工具**
 
 > **用户类型**：Admin | **需求**：在 Portfolio Intelligence 中选择工作区资产、录入持仓、运行分析，并查看建议或已保存快照 | **价值**：支持管理员基于同一套产品与组合数据完成内部研究和维护闭环
 
-<img src="screenshots/userstory-flowcharts/us-04-portfolio-intelligence-admin.png" width="760">
+<img src="screenshots/userstory-flowcharts/us-04-portfolio-intelligence-admin.png" width="1200">
 
 #### 4.2.5 Acceptance Criteria
 
@@ -218,11 +218,11 @@
 
 | 截图 | 页面说明 |
 | :---: | --- |
-| ![](screenshots/prototype-pages/17-ai-advisory-chat.png) | **Advisory Assistant Chat** — 标题为 Advisory Assistant；历史按钮、New、Value focus / Income focus 模式、+ 自定义模式入口、Sample Questions、Portfolio Context、附件与输入框。 |
-| ![](screenshots/prototype-pages/18-ai-advisory-suggestions.png) | **Structured Suggestions** — 触发 value / income / HHI 等关键词后展示结构化 rebalancing analysis 与 suggested actions。 |
-| ![](screenshots/prototype-pages/19-ai-explanation-drawer.png) | **Explanation Drawer** — Bottom Sheet 展示 Why this suggestion appeared、What prompted this、Data considered、Assistant interpretation、Limits to this explanation。 |
-| ![](screenshots/prototype-pages/20-ai-history-drawer.png) | **Conversations Drawer** — 左侧抽屉展示历史会话，可恢复或删除会话，并支持 New conversation。 |
-| ![](screenshots/prototype-pages/21-ai-create-custom-mode.png) | **Create Custom Mode** — 点击 + 后创建自定义模式，支持 Prompt 与 Guided Survey 两种创建方式，创建后新增 mode pill。 |
+| <img src="screenshots/prototype-pages/17-ai-advisory-chat.png" width="560"> | **Advisory Assistant Chat** — 标题为 Advisory Assistant；历史按钮、New、Value focus / Income focus 模式、+ 自定义模式入口、Sample Questions、Portfolio Context、附件与输入框。 |
+| <img src="screenshots/prototype-pages/18-ai-advisory-suggestions.png" width="560"> | **Structured Suggestions** — 触发 value / income / HHI 等关键词后展示结构化 rebalancing analysis 与 suggested actions。 |
+| <img src="screenshots/prototype-pages/19-ai-explanation-drawer.png" width="560"> | **Explanation Drawer** — Bottom Sheet 展示 Why this suggestion appeared、What prompted this、Data considered、Assistant interpretation、Limits to this explanation。 |
+| <img src="screenshots/prototype-pages/20-ai-history-drawer.png" width="560"> | **Conversations Drawer** — 左侧抽屉展示历史会话，可恢复或删除会话，并支持 New conversation。 |
+| <img src="screenshots/prototype-pages/21-ai-create-custom-mode.png" width="560"> | **Create Custom Mode** — 点击 + 后创建自定义模式，支持 Prompt 与 Guided Survey 两种创建方式，创建后新增 mode pill。 |
 
 #### 4.3.3 User Stories
 
@@ -230,13 +230,13 @@
 
 > **用户类型**：User | **需求**：选择 Value / Income / Custom 模式，决定是否带入 Portfolio History，再提出研究问题并查看建议、依据和历史 | **价值**：在不同投资偏好下获得可追溯的研究支持
 
-<img src="screenshots/userstory-flowcharts/us-05-ai-advisory-user.png" width="760">
+<img src="screenshots/userstory-flowcharts/us-05-ai-advisory-user.png" width="1200">
 
 **A-2：配置 Assistant 模式并复用组合快照进行内部查询**
 
 > **用户类型**：Admin | **需求**：设置 Assistant 预设或自定义模式，按需带入已保存的组合 / 工作区快照，查看回答、解释数据与会话历史 | **价值**：让管理员能基于真实产品与组合上下文进行内部研究，而不是开发调试流程
 
-<img src="screenshots/userstory-flowcharts/us-06-ai-advisory-admin.png" width="760">
+<img src="screenshots/userstory-flowcharts/us-06-ai-advisory-admin.png" width="1200">
 
 #### 4.3.4 Acceptance Criteria
 
@@ -286,18 +286,18 @@
 
 | 截图 | 页面说明 |
 | :---: | --- |
-| ![](screenshots/prototype-pages/22-structured-products-list.png) | **Structured Products** — Screening only 风险提示、Issuer list、Smart filters、Advanced search、产品卡展示 payoff type、principal treatment、barrier / buffer、status、risk 与 suitability cues；Admin 登录后显示 Admin Panel。 |
-| ![](screenshots/prototype-pages/23-structured-product-detail-overview.png) | **Product Detail Overview** — 产品名称、发行人、状态、Overview / Performance / Note Events / Documents tabs、underlying、terms、illustrative outcomes、Risk Disclosure、compare 入口。 |
-| ![](screenshots/prototype-pages/24-structured-product-scenario.png) | **Note Events** — 展示 Payoff Story、Outcome selector、Payoff map、Rule quick check、coupon / barrier / settlement 规则。 |
-| ![](screenshots/prototype-pages/25-structured-product-pricing.png) | **Performance** — 指示性价格、implied yield、barrier watch、同发行人产品参考与 pricing disclaimer。 |
-| ![](screenshots/prototype-pages/26-structured-product-compare.png) | **Compare Products** — 同发行人产品选择器 + Tabular Factsheet Matrix / 左右双栏条款对比，避免跨发行人不可比。 |
+| <img src="screenshots/prototype-pages/22-structured-products-list.png" width="560"> | **Structured Products** — Screening only 风险提示、Issuer list、Smart filters、Advanced search、产品卡展示 payoff type、principal treatment、barrier / buffer、status、risk 与 suitability cues；Admin 登录后显示 Admin Panel。 |
+| <img src="screenshots/prototype-pages/23-structured-product-detail-overview.png" width="560"> | **Product Detail Overview** — 产品名称、发行人、状态、Overview / Performance / Note Events / Documents tabs、underlying、terms、illustrative outcomes、Risk Disclosure、compare 入口。 |
+| <img src="screenshots/prototype-pages/24-structured-product-scenario.png" width="560"> | **Note Events** — 展示 Payoff Story、Outcome selector、Payoff map、Rule quick check、coupon / barrier / settlement 规则。 |
+| <img src="screenshots/prototype-pages/25-structured-product-pricing.png" width="560"> | **Performance** — 指示性价格、implied yield、barrier watch、同发行人产品参考与 pricing disclaimer。 |
+| <img src="screenshots/prototype-pages/26-structured-product-compare.png" width="560"> | **Compare Products** — 同发行人产品选择器 + Tabular Factsheet Matrix / 左右双栏条款对比，避免跨发行人不可比。 |
 
 **Admin 专属页面**
 
 | 截图 | 页面说明 |
 | :---: | --- |
-| ![](screenshots/prototype-pages/27-admin-upload-panel.png) | **Admin Panel** — Admin 专属；Upload Structured Product Sheet、Select PDF product sheet 与 Add ETF by ID 两个维护入口。 |
-| ![](screenshots/prototype-pages/28-admin-extracted-review.png) | **Extracted Review** — Extraction complete 后展示 AI 抽取字段，管理员可审核、Discard 或 Publish；ETF 维护成功后可 Add to Platform。 |
+| <img src="screenshots/prototype-pages/27-admin-upload-panel.png" width="560"> | **Admin Panel** — Admin 专属；Upload Structured Product Sheet、Select PDF product sheet 与 Add ETF by ID 两个维护入口。 |
+| <img src="screenshots/prototype-pages/28-admin-extracted-review.png" width="560"> | **Extracted Review** — Extraction complete 后展示 AI 抽取字段，管理员可审核、Discard 或 Publish；ETF 维护成功后可 Add to Platform。 |
 
 #### 4.4.4 User Stories
 
@@ -305,13 +305,13 @@
 
 > **用户类型**：User | **需求**：通过 issuer、smart filter、advanced filter 缩小产品范围，查看 overview / events / performance / documents，并比较同发行人备选产品 | **价值**：形成结构化产品研究上下文，帮助理解条款、状态和关键指标
 
-<img src="screenshots/userstory-flowcharts/us-07-structured-products-user.png" width="760">
+<img src="screenshots/userstory-flowcharts/us-07-structured-products-user.png" width="1200">
 
 **S-2：上传产品材料或维护 ETF → 更新目录并记录管理动作**
 
 > **用户类型**：Admin | **需求**：从 Admin Panel 上传 term sheet、审核抽取字段并发布，或通过 Add ETF by ID 维护参考 ETF 数据 | **价值**：统一维护结构化产品与 ETF 数据，让产品目录和研究入口保持最新
 
-<img src="screenshots/userstory-flowcharts/us-08-structured-products-admin.png" width="760">
+<img src="screenshots/userstory-flowcharts/us-08-structured-products-admin.png" width="1200">
 
 #### 4.4.5 Acceptance Criteria
 
@@ -350,7 +350,7 @@
 
 | 截图 | 页面说明 |
 | :---: | --- |
-| ![](screenshots/prototype-pages/29-profile-settings.png) | **Profile** — 用户身份、会员标签；Language / 語言、Account、Preferences、Legal 分组；Notifications、Security & 2FA、Base Currency、Terms / Privacy / About、Sign Out；Admin 登录时出现 Admin Tools（Add ETF by ID、Upload Structured Product）；底部提示 HKEX data delayed 15 min · No trading execution。 |
+| <img src="screenshots/prototype-pages/29-profile-settings.png" width="560"> | **Profile** — 用户身份、会员标签；Language / 語言、Account、Preferences、Legal 分组；Notifications、Security & 2FA、Base Currency、Terms / Privacy / About、Sign Out；Admin 登录时出现 Admin Tools（Add ETF by ID、Upload Structured Product）；底部提示 HKEX data delayed 15 min · No trading execution。 |
 
 ---
 
