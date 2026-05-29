@@ -56,7 +56,7 @@
 
 ### 3.1 总体旅程
 
-![](screenshots/mermaid/flow-01-overall-journey.png)
+用户完成登录后，通过 Page Navigator 或底部导航进入 Market Intelligence、Portfolio、Assistant、Structured Products、Profile 等模块；Admin 在相同主流程基础上额外看到产品上传、ETF 维护和 Admin Tools 入口。
 
 ### 3.2 Page Navigator
 
@@ -64,8 +64,6 @@
 | :---: | --- |
 | ![](screenshots/prototype-pages/30-page-navigator-left-panel.png) | **Page Navigator 左侧面板** — 展示产品页面树、User / Admin 快捷登录、模块颜色图例、产品边界声明。用于评审页面范围与用户旅程。 |
 | ![](screenshots/prototype-pages/31-page-tree-nodes-only.png) | **页面节点图** — 包含 Login、Market Intelligence、Portfolio Builder、Assistant、Structured Products、Profile & Settings、Admin Panel 等节点；点击节点可直接跳转对应原型状态。 |
-
-![](screenshots/mermaid/flow-09-page-navigator.png)
 
 ### 3.3 页面目录
 
@@ -149,8 +147,6 @@
 
 #### 5.1.1 功能概述
 
-![](screenshots/mermaid/flow-03-market-intelligence-dashboard.png)
-
 | 能力 | 输入数据 | 输出 | 边界 |
 | --- | --- | --- | --- |
 | ETF Market Overview | ETF / 指数延迟行情 | 市场宽度、成交量、Rising / Flat / Falling | 不做实时交易流 |
@@ -162,7 +158,7 @@
 
 #### 5.1.2 ETF 研究流程
 
-![](screenshots/mermaid/flow-04-etf-research-watchlist-detail.png)
+ETF 研究流程在 User Stories 中展开；本节仅保留功能边界与验收标准，避免与用户故事图重复。
 
 #### 5.1.3 Acceptance Criteria
 
@@ -181,23 +177,21 @@
 
 **M-1：浏览市场行情，筛选 ETF 深入研究**
 
-> **用户类型**：User | **需求**：快速扫市场动态，找到感兴趣的 ETF 深入了解 | **价值**：节省筛选时间，支持有依据的决策
+> **用户类型**：User | **需求**：从 Market Dashboard 进入 ETF Screener，按行业 / 地区 / 发行人等条件筛选，查看详情并加入关注或对比 | **价值**：把市场概览转化为可继续研究的 ETF 上下文
 
-<img src="screenshots/userstory-flowcharts/us-01-market-intelligence-user.png" width="420">
+<img src="screenshots/userstory-flowcharts/us-01-market-intelligence-user.png" width="760">
 
-**M-2：核查 ETF 数据质量与展示完整性**
+**M-2：维护 ETF 研究数据，确保产品可被检索**
 
-> **用户类型**：Admin | **需求**：确认 ETF 数据完整可见，投资者能正常检索和查看 | **价值**：维护平台数据质量，避免展示缺失或错误信息
+> **用户类型**：Admin | **需求**：通过 Admin ETF Tools 查询已有 ETF 或按 ticker 添加新 ETF，更新 Screener 并记录维护动作 | **价值**：让用户端 ETF 研究入口保持可用、可查、可追溯
 
-<img src="screenshots/userstory-flowcharts/us-02-market-intelligence-admin.png" width="420">
+<img src="screenshots/userstory-flowcharts/us-02-market-intelligence-admin.png" width="760">
 
 ---
 
 ### 5.2 Portfolio
 
 #### 5.2.1 功能概述
-
-![](screenshots/mermaid/flow-07-portfolio-builder.png)
 
 | 阶段 | 用户动作 | 系统输出 | 关键指标 |
 | --- | --- | --- | --- |
@@ -233,25 +227,23 @@
 
 #### 5.2.4 User Stories
 
-**P-1：上传持仓 → 组合健康诊断 → 查看 Assistant 再平衡建议**
+**P-1：录入持仓 → 运行组合诊断 → 查看建议与历史**
 
-> **用户类型**：User | **需求**：快速了解持仓风险状况并获取优化方向 | **价值**：量化诊断替代主观判断，提供有依据的调整建议
+> **用户类型**：User | **需求**：选择 ETF / 结构化产品并通过图片、文件、文本或手动方式录入持仓，运行 allocation / exposure / risk 分析 | **价值**：形成可解释的组合风险上下文，并连接 Assistant 建议与历史快照
 
-<img src="screenshots/userstory-flowcharts/us-03-portfolio-intelligence-user.png" width="420">
+<img src="screenshots/userstory-flowcharts/us-03-portfolio-intelligence-user.png" width="760">
 
-**P-2：测试组合分析流程，验证输出质量**
+**P-2：使用工作区资产运行组合分析并回到管理工具**
 
-> **用户类型**：Admin | **需求**：确认分析输出逻辑正确、建议表达清晰 | **价值**：在投资者使用前发现并修正分析或措辞问题
+> **用户类型**：Admin | **需求**：在 Portfolio Intelligence 中选择工作区资产、录入持仓、运行分析，并查看建议或已保存快照 | **价值**：支持管理员基于同一套产品与组合数据完成内部研究和维护闭环
 
-<img src="screenshots/userstory-flowcharts/us-04-portfolio-intelligence-admin.png" width="420">
+<img src="screenshots/userstory-flowcharts/us-04-portfolio-intelligence-admin.png" width="760">
 
 ---
 
 ### 5.3 Assistant
 
 #### 5.3.1 功能概述
-
-![](screenshots/mermaid/flow-08-ai-advisory.png)
 
 | 能力 | 输入 | 输出 | 说明 |
 | --- | --- | --- | --- |
@@ -277,25 +269,23 @@
 
 #### 5.3.3 User Stories
 
-**A-1：选择投资模式 → 提问 → 查看建议 → 追溯分析依据**
+**A-1：设置模式与组合上下文 → 提问 → 查看可解释答案**
 
-> **用户类型**：User | **需求**：在特定投资逻辑下获得 Assistant 分析，并理解建议依据 | **价值**：可解释建议降低盲目跟随风险
+> **用户类型**：User | **需求**：选择 Value / Income / Custom 模式，决定是否带入 Portfolio History，再提出研究问题并查看建议、依据和历史 | **价值**：在不同投资偏好下获得可追溯的研究支持
 
-<img src="screenshots/userstory-flowcharts/us-05-ai-advisory-user.png" width="420">
+<img src="screenshots/userstory-flowcharts/us-05-ai-advisory-user.png" width="760">
 
-**A-2：测试 Assistant 问答质量，验证附件解读能力**
+**A-2：配置 Assistant 模式并复用组合快照进行内部查询**
 
-> **用户类型**：Admin | **需求**：确认回答质量、措辞合规性与文件理解准确性 | **价值**：在投资者使用前发现并改进 Assistant 输出问题
+> **用户类型**：Admin | **需求**：设置 Assistant 预设或自定义模式，按需带入已保存的组合 / 工作区快照，查看回答、解释数据与会话历史 | **价值**：让管理员能基于真实产品与组合上下文进行内部研究，而不是开发调试流程
 
-<img src="screenshots/userstory-flowcharts/us-06-ai-advisory-admin.png" width="420">
+<img src="screenshots/userstory-flowcharts/us-06-ai-advisory-admin.png" width="760">
 
 ---
 
 ### 5.4 Structured Products
 
 #### 5.4.1 功能概述
-
-![](screenshots/mermaid/flow-05-structured-products-investor.png)
 
 | 能力 | 输入 | 输出 | 边界 |
 | --- | --- | --- | --- |
@@ -338,21 +328,21 @@
 
 #### 5.4.4 Admin 维护流程
 
-![](screenshots/mermaid/flow-06-admin-upload-etf-maintenance.png)
+Admin 维护流程在 S-2 User Story 中展开；本节不再单独放流程图，避免重复增加阅读成本。
 
 #### 5.4.5 User Stories
 
-**S-1：筛选结构化产品 → 查看条款与情景 → 对比同发行人产品**
+**S-1：筛选结构化产品 → 查看详情标签 → 对比同发行人产品**
 
-> **用户类型**：User | **需求**：了解结构化产品条款与风险收益特征 | **价值**：可视化情景分析帮助理解 payoff 逻辑
+> **用户类型**：User | **需求**：通过 issuer、smart filter、advanced filter 缩小产品范围，查看 overview / events / performance / documents，并比较同发行人备选产品 | **价值**：形成结构化产品研究上下文，帮助理解条款、状态和关键指标
 
-<img src="screenshots/userstory-flowcharts/us-07-structured-products-user.png" width="420">
+<img src="screenshots/userstory-flowcharts/us-07-structured-products-user.png" width="760">
 
-**S-2：上传 Term Sheet → AI 字段抽取 → 审核发布，并维护 ETF 数据**
+**S-2：上传产品材料或维护 ETF → 更新目录并记录管理动作**
 
-> **用户类型**：Admin | **需求**：快速将新产品录入平台目录，确保产品数据与 ETF 参考数据准确可见 | **价值**：AI 辅助抽取减少手动录入，人工审核保证准确性
+> **用户类型**：Admin | **需求**：从 Admin Upload Panel 上传 term sheet、审核抽取字段并发布，或通过 ETF Maintenance 添加参考 ETF 数据 | **价值**：统一维护结构化产品与 ETF 数据，让产品目录和研究入口保持最新
 
-<img src="screenshots/userstory-flowcharts/us-08-structured-products-admin.png" width="520">
+<img src="screenshots/userstory-flowcharts/us-08-structured-products-admin.png" width="760">
 
 ---
 
@@ -374,8 +364,6 @@
 ## 六、非功能性需求
 
 ### 6.1 认证与登录
-
-<img src="screenshots/mermaid/flow-02-login-admin-access.png" width="560">
 
 | 要求 | 细则 | 优先级 |
 | --- | --- | --- |
