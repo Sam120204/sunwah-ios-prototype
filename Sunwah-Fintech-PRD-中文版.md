@@ -47,34 +47,45 @@
 
 ### 3.1 入口与页面树
 
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 900px; margin: 0 auto;">
-
+<table style="width: 100%; border-collapse: collapse;">
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/01-login.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Login</strong> — 邮箱、密码、记住我、Forgot password、Google / Microsoft SSO；用于进入普通用户或管理员流程。</p>
 </div>
-
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/02-login-auth-error.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Auth Error</strong> — 账号或密码错误时在表单内展示红色 inline 错误，不跳转。</p>
 </div>
-
+</td>
+</tr>
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/03-login-network-fail.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Network Error</strong> — 网络异常时展示可恢复错误信息，引导用户稍后重试。</p>
 </div>
-
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/30-page-navigator-left-panel.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Page Navigator 左侧面板</strong> — 展示产品页面树、User / Admin 快捷登录、模块颜色图例、产品边界声明。用于评审页面范围与用户旅程。</p>
 </div>
-
+</td>
+</tr>
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/31-page-tree-nodes-only.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>页面节点图</strong> — 包含 Login、Market Intelligence、Portfolio Builder、Assistant、Structured Products、Profile & Settings、Admin Panel 等节点；点击节点可直接跳转对应原型状态。</p>
 </div>
-
-</div>
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;"></td>
+</tr>
+</table>
 
 
 ---
@@ -181,54 +192,73 @@ AC 条目前缀标识验收项的类型：
 
 #### 4.1.2 页面介绍
 
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 900px; margin: 0 auto;">
-
+<table style="width: 100%; border-collapse: collapse;">
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/04-market-dashboard.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Market Dashboard</strong> — 标题为 Market Intelligence / ETF intelligence & insights；包含 ETF Market Overview、Sectors、Daily Hot、Market Indices、Watchlist Preview，并提供 All ETFs 入口。</p>
 </div>
-
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/05-market-dashboard-skeleton.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>加载骨架屏</strong> — Dashboard 数据请求中，以 skeleton 模拟卡片、列表和行情区域加载。</p>
 </div>
-
+</td>
+</tr>
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/06-market-dashboard-load-error.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>加载错误</strong> — 数据源异常时展示错误状态和重试按钮。</p>
 </div>
-
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/07-all-etfs-screener.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>All ETFs Screener</strong> — 搜索框、ETF 数量、Filter 按钮、ETF 列表；ETF 行展示 symbol、名称、主题标签、价格 / 涨跌幅、星标；Admin 登录后显示 Add ETF 入口。</p>
 </div>
-
+</td>
+</tr>
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/08-all-etfs-filter-sort-sheet.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Filter & Sort Bottom Sheet</strong> — 支持 Sort、Asset Class、Region、Sector、Issuer、Currency 组合筛选；Filter badge 显示激活数。</p>
 </div>
-
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/09-all-etfs-empty-state.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Screener Empty State</strong> — 搜索 / 筛选无结果时展示 No matching ETFs 和 Clear filters。</p>
 </div>
-
+</td>
+</tr>
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/10-etf-detail-overview.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>ETF Detail</strong> — ETF header、价格、涨跌幅、时间区间图表、Watchlist、Quick Compare、Overview / News、风险指标、分类与新闻摘要。</p>
 </div>
-
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/11-etf-detail-compare-picker.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Compare Picker</strong> — 从 ETF 详情打开 Bottom Sheet，搜索并选择第二只 ETF。</p>
 </div>
-
+</td>
+</tr>
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/12-etf-compare.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>ETF Compare</strong> — 双 ETF 头部卡、标准化价格曲线、收益 / 风险 / 费用等指标对比。</p>
 </div>
-
-</div>
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;"></td>
+</tr>
+</table>
 
 #### 4.1.3 User Stories
 
@@ -299,29 +329,36 @@ AC 条目前缀标识验收项的类型：
 
 #### 4.2.3 页面介绍
 
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 900px; margin: 0 auto;">
-
+<table style="width: 100%; border-collapse: collapse;">
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/13-portfolio-input-holdings.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Start with what you have</strong> — Photos / Document 上传入口、Add ETF、Add Structured Product、文本粘贴框、模板示例、Draft Portfolio、Review holdings 与 Analyze draft portfolio 按钮。</p>
 </div>
-
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/14-portfolio-analysis.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Portfolio Analysis</strong> — 四步 checklist（Verifying HKEX pricing、Computing HHI concentration index、Assessing sector & currency bias、Calculating risk sub-scores）；展示评分卡、HHI / Effective N、敞口与 Diagnosis Issues。</p>
 </div>
-
+</td>
+</tr>
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/15-portfolio-ai-recommendations.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>AI Portfolio Recommendations</strong> — Selected diagnosis scope、Before / After Optimisation、具体动作建议、rationale、impact 与合规声明；由 Generate Recommendations 触发。</p>
 </div>
-
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/16-portfolio-history.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Portfolio History / Saved snapshots</strong> — 左侧抽屉展示历史分析快照，用于恢复或对比过往组合状态。</p>
 </div>
-
-</div>
+</td>
+</tr>
+</table>
 
 #### 4.2.4 User Stories
 
@@ -367,34 +404,45 @@ AC 条目前缀标识验收项的类型：
 
 #### 4.3.2 页面介绍
 
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 900px; margin: 0 auto;">
-
+<table style="width: 100%; border-collapse: collapse;">
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/17-ai-advisory-chat.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Advisory Assistant Chat</strong> — 标题为 Advisory Assistant；历史按钮、New、Value focus / Income focus 模式、+ 自定义模式入口、Sample Questions、Portfolio Context、附件与输入框。</p>
 </div>
-
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/18-ai-advisory-suggestions.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Structured Suggestions</strong> — 触发 value / income / HHI 等关键词后展示结构化 rebalancing analysis 与 suggested actions。</p>
 </div>
-
+</td>
+</tr>
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/19-ai-explanation-drawer.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Explanation Drawer</strong> — Bottom Sheet 展示 Why this suggestion appeared、What prompted this、Data considered、Assistant interpretation、Limits to this explanation。</p>
 </div>
-
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/20-ai-history-drawer.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Conversations Drawer</strong> — 左侧抽屉展示历史会话，可恢复或删除会话，并支持 New conversation。</p>
 </div>
-
+</td>
+</tr>
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/21-ai-create-custom-mode.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Create Custom Mode</strong> — 点击 + 后创建自定义模式，支持 Prompt 与 Guided Survey 两种创建方式，创建后新增 mode pill。</p>
 </div>
-
-</div>
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;"></td>
+</tr>
+</table>
 
 #### 4.3.3 User Stories
 
@@ -450,50 +498,64 @@ AC 条目前缀标识验收项的类型：
 
 **User 侧页面**
 
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 900px; margin: 0 auto;">
-
+<table style="width: 100%; border-collapse: collapse;">
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/22-structured-products-list.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Structured Products</strong> — Screening only 风险提示、Issuer list、Smart filters、Advanced search、产品卡展示 payoff type、principal treatment、barrier / buffer、status、risk 与 suitability cues；Admin 登录后显示 Admin Panel。</p>
 </div>
-
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/23-structured-product-detail-overview.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Product Detail Overview</strong> — 产品名称、发行人、状态、Overview / Performance / Note Events / Documents tabs、underlying、terms、illustrative outcomes、Risk Disclosure、compare 入口。</p>
 </div>
-
+</td>
+</tr>
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/24-structured-product-scenario.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Note Events</strong> — 展示 Payoff Story、Outcome selector、Payoff map、Rule quick check、coupon / barrier / settlement 规则。</p>
 </div>
-
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/25-structured-product-pricing.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Performance</strong> — 指示性价格、implied yield、barrier watch、同发行人产品参考与 pricing disclaimer。</p>
 </div>
-
+</td>
+</tr>
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/26-structured-product-compare.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Compare Products</strong> — 同发行人产品选择器 + Tabular Factsheet Matrix / 左右双栏条款对比，避免跨发行人不可比。</p>
 </div>
-
-</div>
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;"></td>
+</tr>
+</table>
 
 **Admin 专属页面**
 
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 900px; margin: 0 auto;">
-
+<table style="width: 100%; border-collapse: collapse;">
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/27-admin-upload-panel.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Admin Panel</strong> — Admin 专属；Upload Structured Product Sheet、Select PDF product sheet 与 Add ETF by ID 两个维护入口。</p>
 </div>
-
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/28-admin-extracted-review.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Extracted Review</strong> — Extraction complete 后展示 AI 抽取字段，管理员可审核、Discard 或 Publish；ETF 维护成功后可 Add to Platform。</p>
 </div>
-
-</div>
+</td>
+</tr>
+</table>
 
 #### 4.4.3 User Stories
 
@@ -555,14 +617,17 @@ AC 条目前缀标识验收项的类型：
 
 #### 4.5.2 页面介绍
 
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 900px; margin: 0 auto;">
-
+<table style="width: 100%; border-collapse: collapse;">
+<tr>
+<td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
 <img src="screenshots/prototype-pages/29-profile-settings.png" style="width: 100%;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Profile</strong> — 用户身份、会员标签；Language / 語言、Account、Preferences、Legal 分组；Notifications、Security & 2FA、Base Currency、Terms / Privacy / About、Sign Out；Admin 登录时出现 Admin Tools（Add ETF by ID、Upload Structured Product）；底部提示 HKEX data delayed 15 min · No trading execution。</p>
 </div>
-
-</div>
+</td>
+<td style="padding: 12px; vertical-align: top; width: 50%;"></td>
+</tr>
+</table>
 
 ---
 
