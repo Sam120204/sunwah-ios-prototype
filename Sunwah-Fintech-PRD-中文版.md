@@ -176,7 +176,7 @@ AC 条目前缀标识验收项的类型：
 
 **M-1：浏览 ETF 详情**
 
-> **用户类型**：User | **需求**：从 Market Dashboard 通过 Watchlist 预览、板块主题、自选 ETF 入口进入 ETF 详情页，查看 K 线图、风险指标、AI 评分等数据 | **价值**：快速获取任一关注 ETF 的完整研究上下文
+> **用户类型**：User | **需求**：从 Market Dashboard 通过 Watchlist 预览、板块主题、自选 ETF 入口进入 ETF 详情页，查看 K 线图、风险指标、AI 评分等数据，且可以加入 watchlist 持续关注 | **价值**：快速获取任一关注 ETF 的完整研究上下文
 
 <img src="screenshots/userstory-flowcharts/m-01-browse-detail.png" width="1200">
 
