@@ -112,29 +112,29 @@
 
 #### 4.1.3 User Stories
 
-**M-1a：浏览 ETF 详情**
+**M-1：浏览 ETF 详情**
 
 > **用户类型**：User | **需求**：从 Market Dashboard 通过 Watchlist 预览、板块主题、自选 ETF 入口进入 ETF 详情页，查看 K 线图、风险指标、AI 评分等数据 | **价值**：快速获取任一关注 ETF 的完整研究上下文
 
-<img src="screenshots/userstory-flowcharts/mi-us-01-browse-detail.png" width="1200">
+<img src="screenshots/userstory-flowcharts/m-01-browse-detail.png" width="1200">
 
-**M-1b：筛选搜索 ETF**
+**M-2：筛选搜索 ETF**
 
 > **用户类型**：User | **需求**：通过 All ETFs 筛选器，使用 Filter 或关键词匹配找到目标 ETF 并进入详情页 | **价值**：将模糊需求转化为具体可研究的 ETF 标的
 
-<img src="screenshots/userstory-flowcharts/mi-us-02-search-filter.png" width="1200">
+<img src="screenshots/userstory-flowcharts/m-02-search-filter.png" width="1200">
 
-**M-1c：对比 ETF**
+**M-3：对比 ETF**
 
 > **用户类型**：User | **需求**：在 ETF 详情页点击 Compare，选择第二只 ETF 进入 Compare 页面，对比两只 ETF 的业绩、费用、风险等指标 | **价值**：辅助选品决策
 
-<img src="screenshots/userstory-flowcharts/mi-us-03-compare-etf.png" width="1200">
+<img src="screenshots/userstory-flowcharts/m-03-compare-etf.png" width="1200">
 
-**M-2：维护 ETF 列表**
+**M-4：维护 ETF 列表**
 
 > **用户类型**：Admin | **需求**：通过 Add ETF by ID 页面，按 ticker 添加新 ETF 到平台，维护 Screener 可检索的产品范围 | **价值**：确保用户端 ETF 研究入口数据完整、可追溯
 
-<img src="screenshots/userstory-flowcharts/mi-us-04-admin-maintenance.png" width="1200">
+<img src="screenshots/userstory-flowcharts/m-04-admin-maintenance.png" width="1200">
 
 #### 4.1.4 Acceptance Criteria
 
@@ -188,17 +188,17 @@
 
 #### 4.2.4 User Stories
 
-**P-1a：录入持仓 → 运行组合诊断 → 获取调仓建议**
+**P-1：录入持仓 → 运行组合诊断 → 获取调仓建议**
 
 > **用户类型**：User | **需求**：通过在 ETF / 结构化产品列表中选择，或上传文本 / 文件 / 图片让 AI 解析转化两种方式录入持仓；运行持仓分析，查看评分与 Diagnosis Issues，可选择接受或放弃部分诊断；最后获取 AI 调仓建议与 Before / After 对比 | **价值**：形成可解释的组合风险上下文，并基于诊断获取个性化调仓建议
 
-<img src="screenshots/userstory-flowcharts/pi-us-01-input-analysis.png" width="1200">
+<img src="screenshots/userstory-flowcharts/p-01-input-analysis.png" width="1200">
 
-**P-1b：查看历史持仓分析记录**
+**P-2：查看历史持仓分析记录**
 
 > **用户类型**：User | **需求**：在 Portfolio 模块左上角呼出 History Drawer，浏览历史持仓分析快照，选择任意历史记录恢复到当前 Draft Portfolio | **价值**：支持用户回顾和对比不同时间点的组合状态
 
-<img src="screenshots/userstory-flowcharts/pi-us-02-history.png" width="1200">
+<img src="screenshots/userstory-flowcharts/p-02-history.png" width="1200">
 
 #### 4.2.5 Acceptance Criteria
 
@@ -244,19 +244,19 @@
 
 > **用户类型**：User | **需求**：选择 Value / Income / Custom 模式，配置 Portfolio Context 或附件等工具，输入问题并获取结构化建议与详细解释 | **价值**：在不同投资偏好下获得可追溯的研究支持，支持持续追问和上下文延续
 
-<img src="screenshots/userstory-flowcharts/ai-us-01-chat-qa.png" width="1200">
+<img src="screenshots/userstory-flowcharts/a-01-chat-qa.png" width="1200">
 
 **A-2：查看历史对话记录**
 
 > **用户类型**：User | **需求**：在 AI Advisory 模块左上角呼出 History Drawer，浏览历史会话列表，选择任意历史记录恢复到当前对话 | **价值**：支持用户回顾和继续之前的咨询上下文
 
-<img src="screenshots/userstory-flowcharts/ai-us-02-history.png" width="1200">
+<img src="screenshots/userstory-flowcharts/a-02-history.png" width="1200">
 
 **A-3：创建自定义 Mode**
 
 > **用户类型**：User | **需求**：点击 + 创建自定义 Mode，通过填写 Prompt 或完成问卷（投资期限、风险偏好、收益目标）两种方式生成专属模式，并保存到 Mode 列表 | **价值**：让用户根据个人投资需求定制 AI 顾问的行为模式
 
-<img src="screenshots/userstory-flowcharts/ai-us-03-create-mode.png" width="1200">
+<img src="screenshots/userstory-flowcharts/a-03-create-mode.png" width="1200">
 
 #### 4.3.4 Acceptance Criteria
 
@@ -321,29 +321,29 @@
 
 #### 4.4.4 User Stories
 
-**S-1a：浏览结构化产品详情**
+**S-1：浏览结构化产品详情**
 
 > **用户类型**：User | **需求**：通过 Issuer / Strategy / Risk 等过滤器浏览产品列表，点击产品卡片进入详情页，查看 Overview / Performance / Note Events / Documents 等标签页，并可加入关注列表 | **价值**：形成结构化产品研究上下文，帮助理解条款、状态和关键指标
 
-<img src="screenshots/userstory-flowcharts/sp-us-01-browse-detail.png" width="1200">
+<img src="screenshots/userstory-flowcharts/s-01-browse-detail.png" width="1200">
 
-**S-1b：筛选搜索结构化产品**
+**S-2：筛选搜索结构化产品**
 
 > **用户类型**：User | **需求**：通过 Smart Filters 或 Advanced Search 使用产品类型、标的、barrier、期限、币种等条件筛选产品，找到目标产品后进入详情页 | **价值**：将模糊需求转化为具体可研究的产品标的
 
-<img src="screenshots/userstory-flowcharts/sp-us-02-search-filter.png" width="1200">
+<img src="screenshots/userstory-flowcharts/s-02-search-filter.png" width="1200">
 
-**S-1c：对比结构化产品**
+**S-3：对比结构化产品**
 
 > **用户类型**：User | **需求**：在产品详情页点击 Compare，选择同发行人的第二只产品进入 Compare 页面，对比收益结构、票息、barrier、风险等条款信息 | **价值**：辅助选品决策，避免跨发行人不可比的产品对比
 
-<img src="screenshots/userstory-flowcharts/sp-us-03-compare-products.png" width="1200">
+<img src="screenshots/userstory-flowcharts/s-03-compare-products.png" width="1200">
 
-**S-2：上传结构化产品 PDF**
+**S-4：上传结构化产品 PDF**
 
 > **用户类型**：Admin | **需求**：通过 Admin Panel 上传结构化产品 term sheet PDF，AI 自动提取字段，管理员审核编辑后 Publish 发布到平台 | **价值**：统一维护结构化产品数据，让产品目录保持最新
 
-<img src="screenshots/userstory-flowcharts/sp-us-04-admin-maintenance.png" width="1200">
+<img src="screenshots/userstory-flowcharts/s-04-admin-maintenance.png" width="1200">
 
 #### 4.4.5 Acceptance Criteria
 
