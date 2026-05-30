@@ -81,6 +81,77 @@
 
 ## 四、功能模块
 
+### 4.0 模块概览
+
+第四章涵盖四个核心功能模块，每个模块按统一结构组织：
+
+| 模块编号 | 模块名称 |
+|----------|----------|
+| 4.1 | Market Intelligence |
+| 4.2 | Portfolio Intelligence |
+| 4.3 | AI Advisory |
+| 4.4 | Structured Products |
+
+#### 4.0.1 模块结构
+
+每个功能模块包含以下四个子章节：
+
+| 子章节 | 说明 |
+|--------|------|
+| 功能概述 | 用户能力边界、数据输入输出、系统限制 |
+| 页面介绍 | 原型截图与页面功能说明 |
+| User Stories | 用户旅程与核心场景 |
+| Acceptance Criteria | 验收标准 |
+
+#### 4.0.2 Acceptance Criteria 设计标准
+
+**分类标签体系**
+
+AC 条目前缀标识验收项的类型：
+
+| 前缀 | 类型 | 说明 |
+|------|------|------|
+| UI | 界面层 | 布局、组件、状态展示 |
+| Flow | 流程层 | 用户旅程、页面流转、操作触发 |
+| Data | 数据层 | 数据展示、校验、业务规则 |
+| Access | 权限层 | 角色隔离、入口可见性 |
+| Compliance | 合规层 | 免责声明、风险提示 |
+
+**归属定义**
+
+| 归属 | 定义 |
+|------|------|
+| Frontend | 前端独立实现，无需后端支持 |
+| Backend | 后端独立实现，前端仅负责调用 |
+| Integration | 前后端协同，需明确接口契约 |
+
+**优先级定义**
+
+| 优先级 | 定义 |
+|--------|------|
+| Must | 必须实现，阻塞发布 |
+| Should | 强烈建议，影响核心体验 |
+| Could | 可选实现，提升用户满意度 |
+
+**表格格式**
+
+```
+| ID | AC Content (EN) | Content (CN) | References | Ownership | Priority |
+```
+
+- ID：类型前缀 + 序号，序号跨模块共享
+- AC Content：英文验收项描述
+- Content：中文对照描述
+- References：对应页面、User Story 或功能章节
+- Ownership：Frontend / Backend / Integration
+- Priority：Must / Should / Could
+
+#### 4.0.3 Profile & Settings
+
+该模块功能相对简单，AC 合并至各模块或非功能性需求章节中。
+
+---
+
 ### 4.1 Market Intelligence
 
 #### 4.1.1 功能概述
@@ -138,18 +209,18 @@
 
 #### 4.1.4 Acceptance Criteria
 
-- [ ] Dashboard 默认显示 ETF Market Overview、Sectors、Daily Hot、Market Indices、Watchlist Preview 与 All ETFs 入口 | **Must**
-- [ ] Dashboard 支持 loading skeleton 与 load error 状态 | **Must**
-- [ ] ETF Market Overview 支持 Return Distribution、ETF Rankings、Return / Volume 切换和 View more ETFs | **Should**
-- [ ] Sectors 可进入 Sector Detail，并支持 Return / Volume 排序 | **Should**
-- [ ] My Watchlist 支持星标 ETF 列表和空状态 | **Should**
-- [ ] Screener 搜索实时过滤 ETF 列表，数量统计同步更新 | **Must**
-- [ ] Filter Sheet 以 Bottom Sheet 展示，支持多条件组合、active badge 与 clear/reset | **Must**
-- [ ] 筛选无结果时展示 Empty State 和 Clear filters | **Must**
-- [ ] ETF Detail 支持时间区间图表、Overview / News Tab、Watchlist、Quick Compare | **Must**
-- [ ] Compare Picker 搜索选择第二只 ETF 后进入 Compare 页 | **Must**
-- [ ] Compare 页价格曲线以统一基准标准化，指标左右对齐 | **Must**
-- [ ] Admin 登录后可见 Add ETF by ID 入口；普通用户不可见 | **Must**
+| ID | AC Content | Content | References | Ownership | Priority |
+| --- | --- | --- | --- | --- | --- |
+| UI-001 | Market Dashboard displays ETF Market Overview, Sectors, Daily Hot, Market Indices, Watchlist Preview, and All ETFs entry by default. | Dashboard 默认展示 ETF 市场概览、板块、今日热门、市场指数、自选预览和全部 ETF 入口。 | 4.1.2 Market Dashboard | Frontend | Must |
+| UI-002 | Dashboard renders loading skeleton during data fetch and displays error state with retry option on failure. | Dashboard 在数据加载中展示骨架屏，加载失败时展示错误状态和重试按钮。 | 4.1.2 Skeleton/Error states | Integration | Must |
+| UI-003 | Screener shows Empty State with "No matching ETFs" message and Clear filters action when search/filter yields no results. | 筛选无结果时展示空状态，显示"无匹配 ETF"提示和清除筛选按钮。 | 4.1.2 Empty State; M-2 | Frontend | Must |
+| UI-004 | ETF Detail page renders time-range chart, Overview/News tabs, Watchlist toggle, and Quick Compare button. | ETF 详情页展示时间区间图表、概览/新闻标签页、自选切换和快捷对比按钮。 | 4.1.2 ETF Detail; M-1 | Integration | Must |
+| Flow-001 | User can navigate from Watchlist Preview, Sector cards, or Daily Hot section directly into corresponding ETF Detail page. | 用户可从自选预览、板块卡片或今日热门直接进入对应 ETF 详情页。 | M-1 User Story flowchart | Frontend | Must |
+| Flow-002 | User can tap Compare button on ETF Detail, search and select a second ETF via Compare Picker, then enter ETF Compare page. | 用户可在 ETF 详情页点击对比按钮，通过对比选择器搜索选择第二只 ETF，进入 ETF 对比页面。 | M-3; 4.1.2 Compare Picker | Integration | Must |
+| Flow-003 | Admin user can access Add ETF by ID page; regular users cannot view or access this entry. | 管理员可访问按 ID 添加 ETF 页面；普通用户无法看到或访问此入口。 | M-4; 4.1.2 Admin entry | Frontend | Must |
+| Data-001 | ETF Screener filters results in real-time as user types or toggles filter options, with count update. | ETF 筛选器在用户输入或切换筛选条件时实时过滤结果，并同步更新数量统计。 | M-2; 4.1.2 Filter Sheet | Integration | Must |
+| Data-002 | ETF Compare page displays normalized price curves (unified baseline) and left-right aligned metrics comparison table. | ETF 对比页以统一基准展示标准化价格曲线，并左右对齐展示指标对比表格。 | M-3; 4.1.2 ETF Compare | Integration | Must |
+| Compliance-001 | Market data pages display delayed data disclaimer (e.g., "HKEX data delayed 15 min"). | 市场数据页面展示数据延迟免责声明（如"港交所数据延迟 15 分钟"）。 | 1.2 Guardrails | Frontend | Must |
 
 ---
 
@@ -202,16 +273,16 @@
 
 #### 4.2.5 Acceptance Criteria
 
-- [ ] Input Holdings 同时提供 Photos、Document、文本粘贴和手动添加入口 | **Must**
-- [ ] Draft Portfolio 显示 symbol、数量、成本、市值、权重、P&L 与币种 | **Must**
-- [ ] 模板 / 示例组合可快速填入草稿，用于评审分析流程 | **Should**
-- [ ] Analyze draft portfolio 展示四步 checklist，各步完成后打勾 | **Should**
-- [ ] Analysis 展示 HHI、Effective N、敞口与可选择的 Diagnosis Issues | **Must**
-- [ ] Recommendations 只基于当前选中的 diagnosis scope 生成 | **Must**
-- [ ] Before / After 表格展示关键指标变化 | **Must**
-- [ ] 每条建议包含 action、symbol、目标权重、rationale、impact | **Must**
-- [ ] 底部展示非正式投顾 / 非交易执行合规声明 | **Must**
-- [ ] History Drawer 从左侧滑入，展示历史分析快照 | **Should**
+| ID | AC Content | Content | References | Ownership | Priority |
+| --- | --- | --- | --- | --- | --- |
+| Flow-004 | Portfolio Input page offers Photos upload, Document upload, text paste, and manual Add ETF/Structured Product entry as four parallel input methods. | 组合录入页面同时提供照片上传、文档上传、文本粘贴和手动添加 ETF/结构化产品四种并行输入方式。 | P-1; 4.2.1 Input stage | Frontend | Must |
+| Flow-005 | User can trigger portfolio analysis after holdings are entered; analysis shows a multi-step checklist with progress indicators. | 用户在录入持仓后可触发组合分析；分析过程展示带进度指示的多步骤检查清单。 | P-1; 4.2.3 Analysis page | Integration | Must |
+| Flow-006 | User can toggle individual Diagnosis Issues to include/exclude them from the recommendation scope before generating suggestions. | 用户可在生成建议前切换单个诊断问题的选中状态，以纳入或排除其对应的建议范围。 | P-1; 4.2.3 Analysis page | Frontend | Must |
+| Flow-007 | User can open History Drawer from Portfolio module header to browse and restore past analysis snapshots. | 用户可从组合模块顶部打开历史抽屉，浏览并恢复历史分析快照。 | P-2; 4.2.4 History Drawer | Frontend | Should |
+| Data-003 | Draft Portfolio displays symbol, quantity, cost, market value, weight, P&L, and currency for each holding. | 草稿组合展示每个持仓的代码、数量、成本、市值、权重、盈亏和币种。 | P-1; 4.2.1 Input stage | Integration | Must |
+| Data-004 | Analysis result displays HHI concentration index, Effective N, sector/currency/region exposure breakdown, and selectable Diagnosis Issues with severity levels. | 分析结果展示 HHI 集中度指数、有效数量 N、分行业/币种/地区敞口分布，以及带严重度等级的可选诊断问题。 | P-1; 4.2.2, 4.2.3 | Integration | Must |
+| Data-005 | AI Recommendations display Before/After comparison table and per-action details including symbol, target weight, rationale, and projected impact. | AI 建议展示前后对比表格，以及每条建议的代码、目标权重、理由和预期影响详情。 | P-1; 4.2.3 Recommendations page | Integration | Must |
+| Compliance-002 | Portfolio Analysis and Recommendations pages display non-investment-advice disclaimer at bottom (e.g., "Not financial advice. For informational purposes only."). | 组合分析和建议页面底部展示非投资建议免责声明（如"非财务建议，仅供参考"）。 | P-1; 1.2 Guardrails | Frontend | Must |
 
 ---
 
@@ -260,16 +331,16 @@
 
 #### 4.3.4 Acceptance Criteria
 
-- [ ] 空状态展示 Sample Questions，第一条消息发送后隐藏 | **Should**
-- [ ] Value focus / Income focus 当前激活态高亮，并触发模式切换反馈；Custom mode 通过 + 创建后加入模式列表 | **Must**
-- [ ] Portfolio Context On 后 Toggle 高亮，组合相关回答引用持仓指标 | **Must**
-- [ ] 发送消息立即显示用户气泡，Assistant 回复前展示 typing indicator | **Must**
-- [ ] value / income / HHI 等关键词触发结构化 rebalancing analysis | **Must**
-- [ ] Explanation Drawer 包含 Why this suggestion appeared、What prompted this、Data considered、Assistant interpretation、Limits to this explanation | **Must**
-- [ ] 附件上传显示 preview chip，可在回复中引用文件名 | **Should**
-- [ ] History Drawer 可恢复历史会话、删除会话、新建对话 | **Should**
-- [ ] Custom Mode 支持 Prompt 与 Guided Survey 两种创建方式 | **Should**
-- [ ] Assistant 建议不出现下单、买卖执行或收益保证性措辞 | **Must**
+| ID | AC Content | Content | References | Ownership | Priority |
+| --- | --- | --- | --- | --- | --- |
+| UI-005 | Chat page displays Sample Questions in empty state; first message sent hides the samples. | 聊天页面空状态展示示例问题；发送第一条消息后隐藏示例。 | A-1; 4.3.2 Chat page | Frontend | Should |
+| UI-006 | User message bubble appears immediately upon send; Assistant typing indicator shown before response arrives. | 用户消息气泡在发送后立即显示；助手回复前展示打字指示器。 | A-1; 4.3.2 Chat page | Frontend | Must |
+| UI-007 | Explanation Drawer displays five sections: Why this suggestion appeared, What prompted this, Data considered, Assistant interpretation, Limits to this explanation. | 解释抽屉展示五个部分：本建议出现原因、触发因素、参考数据、助手解读、解释局限性。 | A-1; 4.3.2 Explanation Drawer | Integration | Must |
+| Flow-008 | User can switch between Value focus, Income focus, and Custom modes; active mode is visually highlighted with mode-switch feedback. | 用户可在价值导向、收益导向和自定义模式间切换；当前激活模式高亮显示并有切换反馈。 | A-1; 4.3.1 Mode capability | Frontend | Must |
+| Flow-009 | User can toggle Portfolio Context On/Off; when On, AI responses incorporate current portfolio metrics for relevant queries. | 用户可切换组合上下文开关；开启时 AI 回答针对相关问题引用当前组合指标。 | A-1; 4.3.1 Portfolio Context | Integration | Must |
+| Flow-010 | User can open History Drawer to browse, restore, or delete past conversations, and start new conversations. | 用户可打开历史抽屉浏览、恢复或删除历史会话，并开始新对话。 | A-2; 4.3.2 History Drawer | Integration | Should |
+| Flow-011 | User can create Custom Mode via Prompt entry or Guided Survey; newly created mode appears in mode list and is activated. | 用户可通过输入 Prompt 或完成引导问卷创建自定义模式；新创建的模式出现在模式列表中并被激活。 | A-3; 4.3.2 Create Mode | Integration | Should |
+| Compliance-003 | AI suggestions and recommendations must not contain trading execution language (e.g., "buy", "sell", "order", "execute") or guaranteed return claims. | AI 建议和推荐不得包含交易执行措辞（如"买入"、"卖出"、"下单"、"执行"）或收益保证声明。 | A-1; 1.2 Guardrails | Backend | Must |
 
 ---
 
@@ -288,19 +359,7 @@
 | Admin Panel | PDF Term Sheet | Upload Structured Product Sheet → Select PDF product sheet → Extraction complete → Publish | 仅 Admin 可见 |
 | Admin ETF 维护 | ticker id | Add ETF by ID → Fetch preview → Add to Platform | 仅 Admin 可见 |
 
-#### 4.4.2 产品核心字段
-
-| 分组 | 字段 | 对应页面 |
-| --- | --- | --- |
-| 基础信息 | id · name · issuer · productType · productClass · currency · status · risk | 产品卡 / Overview |
-| 标的 & 结构 | underlier · underlyingInterestType · structureType · capitalProtection · coupon · knockIn · knockOut | Detail Overview / Compare |
-| 生命周期 | availableUntil · issueDate · maturityDate · termYears · tenor progress | Overview / Advanced Search |
-| 风险与适当性 | barrierBufferLevel · issuerRating · currentStatus · suitability notes | 产品卡 / Detail |
-| 情景 | bull / base / bear payoff_pct · probability · explanation · payoffCurve | Note Events Tab |
-| 定价 | price level · impliedYield · date · source · disclaimer | Performance Tab |
-| 文档 | pricing supplement · final terms · preview metadata | Documents Tab |
-
-#### 4.4.3 页面介绍
+#### 4.4.2 页面介绍
 
 **User 侧页面**
 
@@ -319,7 +378,7 @@
 | <img src="screenshots/prototype-pages/27-admin-upload-panel.png" width="560"> | **Admin Panel** — Admin 专属；Upload Structured Product Sheet、Select PDF product sheet 与 Add ETF by ID 两个维护入口。 |
 | <img src="screenshots/prototype-pages/28-admin-extracted-review.png" width="560"> | **Extracted Review** — Extraction complete 后展示 AI 抽取字段，管理员可审核、Discard 或 Publish；ETF 维护成功后可 Add to Platform。 |
 
-#### 4.4.4 User Stories
+#### 4.4.3 User Stories
 
 **S-1：浏览结构化产品详情**
 
@@ -345,21 +404,20 @@
 
 <img src="screenshots/userstory-flowcharts/s-04-admin-maintenance.png" width="1200">
 
-#### 4.4.5 Acceptance Criteria
+#### 4.4.4 Acceptance Criteria
 
-- [ ] 产品目录展示 Screening only 提示、Issuer list、smart filters 与 Advanced search 入口 | **Must**
-- [ ] 产品卡展示 payoff type、principal treatment、barrier / buffer、issuer、status、risk、suitability cues | **Must**
-- [ ] Advanced Search 支持产品类型、结构、标的、barrier、日期、期限、币种、状态等字段组合 | **Should**
-- [ ] Detail Overview 展示关键条款、风险披露、illustrative outcomes 与 compare 入口 | **Must**
-- [ ] Note Events Tab 展示 Payoff Story、Outcome selector、Payoff map、Rule quick check 与规则解释 | **Must**
-- [ ] Performance Tab 展示 indicative price、implied yield、barrier watch、source / date 与 disclaimer | **Must**
-- [ ] Documents Tab 展示 term sheet / final terms 等文件入口与静态预览 | **Should**
-- [ ] Compare Products 仅允许同发行人产品对比，并以 Tabular Factsheet Matrix / 左右双栏对齐 | **Must**
-- [ ] 产品页明确展示非交易执行、非 firm quote、需 suitability assessment | **Must**
-- [ ] Admin 上传入口仅 Admin 可见，普通用户不可见不可触达 | **Must**
-- [ ] PDF 上传后展示 AI 抽取进度，完成后进入 Extracted Review | **Must**
-- [ ] Extracted Review 字段可审核，支持 Discard / Publish | **Must**
-- [ ] Add ETF by ID 支持输入 ticker、loading、结果预览、发布 / 失败提示 | **Must**
+| ID | AC Content | Content | References | Ownership | Priority |
+| --- | --- | --- | --- | --- | --- |
+| UI-008 | Product Discovery page displays Screening only banner, Issuer list, Smart Filters, and Advanced Search entry. | 产品发现页展示"仅供筛选"提示横幅、发行人列表、智能筛选器和高级搜索入口。 | S-1, S-2; 4.4.3 Product list page | Frontend | Must |
+| UI-009 | Product cards display payoff type, principal treatment, barrier/buffer, issuer, status, risk level, and suitability cues. | 产品卡展示收益类型、本金处理、 barrier/buffer、发行人、状态、风险等级和适当性提示。 | S-1; 4.4.3 Product list page | Integration | Must |
+| UI-010 | Product Detail page renders Overview, Performance, Note Events, and Documents tabs with respective content. | 产品详情页渲染概览、表现、情景事件和文档标签页及对应内容。 | S-1; 4.4.3 Detail Overview | Integration | Must |
+| UI-011 | Note Events tab displays Payoff Story, Outcome selector, Payoff map, Rule quick check, and rule explanations for Bull/Base/Bear scenarios. | 情景事件标签页展示收益故事、情景选择器、收益地图、规则速查和涨跌/中性/熊市情景的规则解释。 | S-1; 4.4.3 Note Events page | Integration | Must |
+| Flow-012 | User can filter products via Smart Filters or Advanced Search; no results shows Empty State with Clear action. | 用户可通过智能筛选或高级搜索筛选产品；无结果时展示空状态和清除操作。 | S-2; 4.4.3 Filter/Search | Integration | Must |
+| Flow-013 | User can tap Compare on Product Detail, select a second product (same issuer only) via picker, and enter Compare page. | 用户可在产品详情页点击对比，通过选择器选择第二只产品（仅限同发行人），进入对比页面。 | S-3; 4.4.3 Compare page | Integration | Must |
+| Flow-014 | Admin can upload structured product PDF via Admin Panel; system shows extraction progress then enters field review. | 管理员可通过管理面板上传结构化产品 PDF；系统展示抽取进度后进入字段审核页面。 | S-4; 4.4.3 Admin Panel | Integration | Must |
+| Flow-015 | Admin can edit extracted fields and choose Discard or Publish; success shows confirmation feedback. | 管理员可编辑抽取的字段并选择放弃或发布；成功后展示确认反馈。 | S-4; 4.4.3 Extracted Review | Integration | Must |
+| Access-001 | Admin Panel entry and Upload/Add ETF features are visible and accessible only to Admin role users. | 管理面板入口和上传/添加 ETF 功能仅对管理员角色用户可见和可访问。 | S-4; 2.2 Role Matrix | Frontend | Must |
+| Compliance-004 | Product pages display non-trading disclaimer, non-firm-quote disclaimer, and suitability assessment notice. | 产品页面展示非交易执行免责声明、非确定报价免责声明和适当性评估提示。 | S-1; 1.2 Guardrails | Frontend | Must |
 
 ---
 
