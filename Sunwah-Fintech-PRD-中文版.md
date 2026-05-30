@@ -47,7 +47,7 @@
 
 ### 3.1 入口与页面树
 
-<table style="width: 100%; border-collapse: collapse;">
+<table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
@@ -192,7 +192,7 @@ AC 条目前缀标识验收项的类型：
 
 #### 4.1.2 页面介绍
 
-<table style="width: 100%; border-collapse: collapse;">
+<table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
@@ -329,7 +329,7 @@ AC 条目前缀标识验收项的类型：
 
 #### 4.2.3 页面介绍
 
-<table style="width: 100%; border-collapse: collapse;">
+<table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
@@ -404,7 +404,7 @@ AC 条目前缀标识验收项的类型：
 
 #### 4.3.2 页面介绍
 
-<table style="width: 100%; border-collapse: collapse;">
+<table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
@@ -498,7 +498,7 @@ AC 条目前缀标识验收项的类型：
 
 **User 侧页面**
 
-<table style="width: 100%; border-collapse: collapse;">
+<table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
@@ -540,7 +540,7 @@ AC 条目前缀标识验收项的类型：
 
 **Admin 专属页面**
 
-<table style="width: 100%; border-collapse: collapse;">
+<table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
@@ -617,7 +617,7 @@ AC 条目前缀标识验收项的类型：
 
 #### 4.5.2 页面介绍
 
-<table style="width: 100%; border-collapse: collapse;">
+<table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
