@@ -10,17 +10,15 @@
 | 试点目标 | 可登录、可浏览四大核心模块、可模拟 User / Admin 权限、可查看核心 loading / error / empty / drawer / sheet 状态 |
 | 不做范围 | 交易执行 · 正式受监管投顾 · Level II / tick 实时行情 · 真实下单 · 真实 PDF OCR 服务 · Web/Android 生产客户端 |
 
-### 1.1 产品 Guardrails
-
-原型首页左侧 Page Navigator 明确展示产品边界：
+### 1.1 产品边界 Guardrails
 
 - No Trading / Buy Flows Included
 - No Guaranteed Return Claims
 - No Licensed Advice / Execution UI
 
-### 1.2 各模块数据来源与流向
+### 1.2 产品架构图
 
-<img src="screenshots/mermaid/flow-10-data-across-screens.png" width="1000">
+<img src="screenshots/mermaid/Architecture-Diagram.png" width="1000">
 
 ---
 
