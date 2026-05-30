@@ -446,93 +446,100 @@ AC 条目前缀标识验收项的类型：
 
 ## 五、非功能性需求
 
-### 5.1 认证与登录
+### 5.1 安全
 
-| 要求 | 细则 | 优先级 |
-| --- | --- | --- |
-| 认证方式 | 账号密码登录 + Google / Microsoft OAuth 2.0 SSO | Must |
-| 错误反馈 | 账号或密码错误时 inline 红色提示；网络异常显示明确错误文案 | Must |
-| Token 管理 | Access Token 存储于 iOS Keychain；过期后静默刷新；登出时撤销本地与服务端 token | Must |
-| 会话安全 | 应用进入后台超过 30 分钟要求重新认证 | Should |
-| 失败保护 | 连续失败达到阈值后锁定或要求额外验证 | Should |
-| 双因素验证 | 支持 TOTP / 企业 SSO 2FA；Profile 展示状态 | Should |
+| ID | 内容 | 参考 | 归属 | 优先级 |
+| --- | --- | --- | --- | --- |
+| NFR-Security-001 | App 支持账号密码登录和 Google/Microsoft OAuth 2.0 SSO。 | 5.1 | Backend | Must |
+| NFR-Security-002 | 登录错误展示 inline 红色提示；网络错误展示清晰错误文案。 | 5.1 | Frontend | Must |
+| NFR-Security-003 | Access Token 存储于 iOS Keychain；过期后静默刷新；登出时撤销本地和服务端 token。 | 5.1 | Frontend | Must |
+| NFR-Security-004 | App 进入后台超过 30 分钟需重新认证。 | 5.1 | Frontend | Should |
+| NFR-Security-005 | 连续登录失败达到阈值后锁定或要求额外验证。 | 5.1 | Backend | Should |
+| NFR-Security-006 | App 支持 TOTP 或企业 SSO 2FA；Profile 展示 2FA 状态。 | 5.1 | Integration | Should |
+| NFR-Security-007 | 所有 API 调用使用 TLS 1.2+；生产客户端启用 certificate pinning。 | 5.1 | Frontend | Must |
+| NFR-Security-008 | Token、敏感配置和持仓缓存存储于 Keychain 或加密存储。 | 5.1 | Frontend | Must |
+| NFR-Security-009 | 持仓数据仅用于当前分析；不写入明文日志。 | 5.1 | Backend | Must |
+| NFR-Security-010 | 邮箱和姓名等 PII 在日志和 AI 请求前脱敏或最小化。 | 5.1 | Backend | Must |
+| NFR-Security-011 | App 不申请无关权限（位置、通讯录、麦克风）。 | 5.1 | Frontend | Must |
+| NFR-Security-012 | 第三方 AI 调用不传入可识别身份信息；输出经过合规过滤。 | 5.1 | Integration | Should |
 
-### 5.2 RBAC / Admin 隔离
+---
 
-| 要求 | 细则 | 优先级 |
-| --- | --- | --- |
-| 角色识别 | 服务端根据账号类型下发角色，前端仅用于显示控制 | Must |
-| 双重校验 | 客户端隐藏控件不作为唯一保护；Admin API 必须服务端鉴权 | Must |
-| Admin 入口隔离 | Upload Product、Add ETF、Admin Tools 普通用户不可见不可调用 | Must |
-| 审计日志 | 上传、发布、删除、字段修改记录 actor、时间、来源、内容 ID | Should |
+### 5.2 权限控制
 
-### 5.3 数据安全与隐私
+| ID | 内容 | 参考 | 归属 | 优先级 |
+| --- | --- | --- | --- | --- |
+| NFR-Access-001 | 服务端根据账号类型下发角色；前端仅用于显示控制。 | 5.1, 2.2 | Backend | Must |
+| NFR-Access-002 | 客户端隐藏控件不作为唯一保护；Admin API 必须服务端鉴权。 | 5.1, 2.2 | Backend | Must |
+| NFR-Access-003 | Upload Product、Add ETF、Admin Tools 对普通用户不可见不可访问。 | 5.1, 2.2 | Frontend | Must |
+| NFR-Access-004 | 上传、发布、删除、字段修改记录 actor、时间、来源和内容 ID。 | 5.1 | Backend | Should |
 
-| 要求 | 细则 | 优先级 |
-| --- | --- | --- |
-| 传输加密 | 所有 API 使用 TLS 1.2+；生产客户端启用 certificate pinning | Must |
-| 本地存储 | Token、敏感配置、持仓缓存使用 Keychain / 加密存储 | Must |
-| 持仓数据处理 | 持仓数据仅用于当前分析与用户授权场景，不写入明文日志 | Must |
-| PII 处理 | 邮箱、姓名等 PII 在日志与 AI 请求前脱敏或最小化 | Must |
-| 数据最小化 | 不申请位置、通讯录、麦克风等无关系统权限 | Must |
-| 第三方 AI 边界 | 调用 AI 时不传入可识别身份信息，输出经过合规过滤 | Should |
+---
 
-### 5.4 iOS 客户端开发规范
+### 5.3 性能
 
-| 要求 | 细则 | 优先级 |
-| --- | --- | --- |
-| 设计规范 | 遵循 Apple Human Interface Guidelines（HIG） | Must |
-| 交互控件 | Tab Bar、Bottom Sheet、Drawer、Toast、Segmented Control、iOS Switch 采用原生或行为等效组件 | Must |
-| 触摸目标 | 所有可交互元素最小触摸区域 44×44pt | Must |
-| 安全区域 | 兼容 Dynamic Island、Home Indicator 与 Safe Area Insets | Must |
-| 手势交互 | Drawer 左滑关闭、Bottom Sheet 下拉关闭等标准手势正确响应 | Should |
-| 动画时长 | 页面切换、Drawer、Toast、Sheet 动画控制在 200–350ms | Must |
-| 键盘处理 | 输入框获焦时不遮挡内容，支持点击空白收起键盘 | Must |
-| 动态字体 | Accessibility Large Text 下不出现核心内容截断 | Should |
+| ID | 内容 | 参考 | 归属 | 优先级 |
+| --- | --- | --- | --- | --- |
+| NFR-Performance-001 | Market Dashboard 首屏在 Wi-Fi 冷启动下 2s 内加载完成。 | 5.1 | Integration | Must |
+| NFR-Performance-002 | 页面交互响应在 300ms 内（点击到视觉反馈）。 | 5.1 | Frontend | Must |
+| NFR-Performance-003 | ETF 数据接口 p95 延迟在正常网络下 800ms 内。 | 5.1 | Backend | Must |
+| NFR-Performance-004 | Assistant 打字指示器出现后 3s 内首次响应。 | 5.1 | Integration | Must |
+| NFR-Performance-005 | 文件解析（PDF/CSV/图片，5MB 内）含抽取阶段 10s 内完成。 | 5.1 | Integration | Must |
+| NFR-Performance-006 | iPhone 13 正常使用内存低于 150MB RSS。 | 5.1 | Frontend | Should |
+| NFR-Performance-007 | 所有网络请求展示 Skeleton/Spinner/Error；不白屏。 | 5.1 | Frontend | Must |
+| NFR-Performance-008 | 离线模式展示缓存数据并提示离线；写操作禁用并说明原因。 | 5.1 | Integration | Should |
 
-### 5.5 性能
+---
 
-| 指标 | 目标 | 测量条件 |
-| --- | --- | --- |
-| 首屏加载（Market Dashboard） | <= 2s | Wi-Fi，冷启动 |
-| 页面交互响应 | <= 300ms | 点击到视觉反馈 |
-| ETF 数据接口 p95 延迟 | <= 800ms | 正常网络环境 |
-| Assistant 首次响应 | <= 3s | Typing Indicator 出现后 |
-| 文件解析（PDF / CSV / 图片，5MB 内） | <= 10s | 含抽取阶段 |
-| 内存占用 | 正常使用 < 150MB RSS | iPhone 13 |
-| Loading 状态覆盖 | 所有网络请求均有 Skeleton / Spinner / Error，不白屏 | 全机型 |
-| 离线处理 | 展示缓存数据 + 离线提示；写操作禁用并解释原因 | Should |
+### 5.4 兼容性
 
-### 5.6 兼容性与可访问性
+| ID | 内容 | 参考 | 归属 | 优先级 |
+| --- | --- | --- | --- | --- |
+| NFR-Compatibility-001 | App 遵循 Apple Human Interface Guidelines (HIG)。 | 5.1 | Frontend | Must |
+| NFR-Compatibility-002 | Tab Bar、Bottom Sheet、Drawer、Toast、Segmented Control、iOS Switch 采用原生或行为等效组件。 | 5.1 | Frontend | Must |
+| NFR-Compatibility-003 | 所有可交互元素最小触摸区域 44x44pt。 | 5.1 | Frontend | Must |
+| NFR-Compatibility-004 | App 兼容 Dynamic Island、Home Indicator 和 Safe Area Insets。 | 5.1 | Frontend | Must |
+| NFR-Compatibility-005 | Drawer 左滑关闭、Bottom Sheet 下拉关闭等手势正确响应。 | 5.1 | Frontend | Should |
+| NFR-Compatibility-006 | 页面切换、Drawer、Toast、Sheet 动画控制在 200-350ms。 | 5.1 | Frontend | Must |
+| NFR-Compatibility-007 | 输入框获焦时不遮挡内容；点击空白收起键盘。 | 5.1 | Frontend | Must |
+| NFR-Compatibility-008 | Accessibility Large Text 下核心内容不截断。 | 5.1 | Frontend | Should |
+| NFR-Compatibility-009 | 支持 iOS 16.0+；主要测试 iPhone 13/14/15 系列。 | 5.1 | Integration | Must |
+| NFR-Compatibility-010 | 4.7" 至 6.7" 竖屏全部内容可滚动访问。 | 5.1 | Frontend | Must |
+| NFR-Compatibility-011 | 竖屏为主要使用方向；图表区域在横屏下增强展示。 | 5.1 | Frontend | Could |
 
-| 要求 | 细则 | 优先级 |
-| --- | --- | --- |
-| iOS 版本 | iOS 16.0+；主要测试 iPhone 13 / 14 / 15 系列 | Must |
-| 屏幕尺寸 | 4.7" 至 6.7" 竖屏可滚动访问全部内容 | Must |
-| 横竖屏 | 竖屏为主要使用方向；图表区域可在横屏下增强展示 | Could |
-| VoiceOver | 核心按钮、输入框、图表摘要提供 accessibilityLabel / Hint | Should |
-| 本地化 | 英文与繁体中文双语；关键业务文案应统一进入 i18n 资源 | Should |
-| 文字对比度 | 正文与背景满足 WCAG AA（4.5:1） | Should |
+---
 
-### 5.7 合规性
+### 5.5 可访问性
 
-| 要求 | 细则 | 优先级 |
-| --- | --- | --- |
-| 投资建议边界 | 所有 Assistant / Portfolio / Product 建议明确声明不构成正式投资建议 | Must |
-| 禁止交易指令 | 不出现 Execute / Order / Place Trade 等交易执行 UI 或文案 | Must |
-| 数据延迟披露 | ETF 行情标注 delayed；产品定价标注 indicative / non-firm quote | Must |
-| 产品适当性声明 | 结构化产品页注明 Private Placement 与 Suitability assessment required | Must |
-| 收益免责 | 不承诺收益；历史表现不代表未来表现 | Must |
-| 隐私政策 | App 内提供 Privacy Policy；遵循香港 PDPO | Must |
-| 数据驻留 | 明确用户数据处理与存储地区 | Should |
+| ID | 内容 | 参考 | 归属 | 优先级 |
+| --- | --- | --- | --- | --- |
+| NFR-Accessibility-001 | 核心按钮、输入框、图表摘要提供 accessibilityLabel/Hint 支持 VoiceOver。 | 5.1 | Frontend | Should |
+| NFR-Accessibility-002 | 支持英文和繁体中文双语；关键业务文案进入 i18n 资源。 | 5.1 | Frontend | Should |
+| NFR-Accessibility-003 | 正文和背景满足 WCAG AA 对比度（4.5:1）。 | 5.1 | Frontend | Should |
 
-### 5.8 可观测性与可维护性
+---
 
-| 要求 | 细则 | 优先级 |
-| --- | --- | --- |
-| 崩溃监控 | 集成 crash reporting，含设备、系统版本、页面上下文 | Must |
-| 错误日志 | API 错误、文件解析失败、Assistant 超时记录 request ID | Must |
-| 配置化 | ETF 数据源、AI prompt、评分阈值、合规声明文案可配置 | Should |
-| Feature Flag | 新功能通过 feature flag 灰度上线 | Should |
-| API 版本控制 | 后端 API 采用 `/v1/` 等版本化路由 | Should |
-| 监控告警 | ETF 数据、Assistant 推理、产品发布设置 p95 和错误率告警 | Should |
+### 5.6 合规
+
+| ID | 内容 | 参考 | 归属 | 优先级 |
+| --- | --- | --- | --- | --- |
+| NFR-Compliance-001 | 所有 Assistant、Portfolio、Product 建议明确声明不构成正式投资建议。 | 5.1, 1.2 | Integration | Must |
+| NFR-Compliance-002 | App 不出现 Execute/Order/Place Trade 等交易执行 UI 或文案。 | 5.1, 1.2 | Integration | Must |
+| NFR-Compliance-003 | ETF 行情标注 delayed；产品定价标注 indicative/non-firm quote。 | 5.1, 1.2 | Frontend | Must |
+| NFR-Compliance-004 | 结构化产品页注明 Private Placement 和 Suitability assessment required。 | 5.1, 1.2 | Frontend | Must |
+| NFR-Compliance-005 | 不承诺收益；历史表现不代表未来。 | 5.1, 1.2 | Integration | Must |
+| NFR-Compliance-006 | App 提供 Privacy Policy；遵循香港 PDPO。 | 5.1 | Backend | Must |
+| NFR-Compliance-007 | 明确用户数据处理和存储地区。 | 5.1 | Backend | Should |
+
+---
+
+### 5.7 可观测性
+
+| ID | 内容 | 参考 | 归属 | 优先级 |
+| --- | --- | --- | --- | --- |
+| NFR-Observability-001 | 集成崩溃监控，含设备、系统版本和页面上下文。 | 5.1 | Frontend | Must |
+| NFR-Observability-002 | API 错误、文件解析失败、Assistant 超时记录 request ID。 | 5.1 | Backend | Must |
+| NFR-Observability-003 | ETF 数据源、AI prompt、评分阈值、合规声明文案可配置。 | 5.1 | Backend | Should |
+| NFR-Observability-004 | 新功能通过 feature flag 灰度上线。 | 5.1 | Integration | Should |
+| NFR-Observability-005 | 后端 API 采用版本化路由（如 /v1/）。 | 5.1 | Backend | Should |
+| NFR-Observability-006 | ETF 数据、Assistant 推理、产品发布设置 p95 和错误率告警。 | 5.1 | Backend | Should |
