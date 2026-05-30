@@ -28,27 +28,20 @@
 
 ### 2.1 Persona
 
-| | 普通用户 User | 管理员 Admin |
+| | User | Admin |
 | --- | --- | --- |
-| 典型账号 | investor@sunwah.com.hk | admin@sunwah.com.hk |
-| 核心诉求 | 浏览市场、筛选 ETF、构建组合、理解风险、获得 Assistant 辅助解释 | User 全部能力 + 维护产品目录、上传结构化产品、添加 ETF 数据 |
-| 进入方式 | 邮箱密码 / Google / Microsoft SSO / Page Navigator User 快捷入口 | 邮箱密码 / SSO / Page Navigator Admin 快捷入口 |
-| 登录后差异 | 可访问 Market、Portfolio、Assistant、Products、Profile | Products 顶部显示上传入口；Screener 显示 Add ETF；Profile 显示 Admin Tools |
+| 角色 | 投资者、研究者 | 数据管理员 |
+| 描述 | 使用 App 浏览市场、构建组合、获取 AI 辅助建议 | 维护 ETF 和结构化产品数据，确保平台内容完整 |
+| 核心能力 | Market / Portfolio / AI Advisory / Products / Profile | User 全部能力 + ETF 配置 + 结构化产品配置 |
 
-### 2.2 角色–权限矩阵
+### 2.2 角色权限矩阵
 
-| 功能区域 | 具体权限 | User | Admin |
-| --- | --- | :---: | :---: |
-| 认证 | 登录 / 登出 / 错误提示 / 网络错误提示 | Y | Y |
-| Page Navigator | 点击节点跳转页面、模拟 User / Admin 登录 | Y | Y |
-| 市场情报 | Dashboard · ETF Screener · Filter Sheet · Watchlist · ETF 详情 · ETF 对比 | Y | Y |
-| 市场情报 | 添加 ETF by ID | N | Y |
-| 组合情报 | 持仓输入 · 文件 / 图片 / 文本输入 · 草稿组合 · 分析 · Assistant 建议 · 历史 | Y | Y |
-| Assistant | 对话 · 附件 · Portfolio Context · 解释 Drawer · 历史 Drawer · 自定义模式 | Y | Y |
-| 结构化产品 | 产品列表 · Smart filters · Advanced Search · 详情 · 情景 · 定价 · 文档 · 同发行人对比 | Y | Y |
-| 结构化产品 | 上传 PDF · AI 字段抽取 · 字段审核 · 发布 | N | Y |
-| 个人设置 | 语言 · 通知 · 2FA · Base Currency · Terms / Privacy / About · Sign Out | Y | Y |
-| 个人设置 | Admin Tools 入口 | N | Y |
+| 功能 | User | Admin |
+| --- | :---: | :---: |
+| 市场情报 | 浏览、筛选、详情、对比 | + 添加 ETF |
+| 结构化产品 | 浏览、筛选、详情、对比 | + 上传 PDF、字段抽取、发布 |
+| Admin Tools | - | 仅 Admin 可见 |
+| 其他模块 | 完全一致 | 完全一致 |
 
 ---
 
