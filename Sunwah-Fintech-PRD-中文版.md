@@ -159,14 +159,14 @@ AC 条目前缀标识验收项的类型：
 **表格格式**
 
 ```
-| ID | Content | References | Ownership | Priority |
+| ID | 内容 | 参考 | 归属 | 优先级 |
 ```
 
 - ID：类型前缀 + 序号，序号跨模块共享
-- Content：验收项描述
-- References：对应页面、User Story 或功能章节
-- Ownership：Frontend / Backend / Integration
-- Priority：Must / Should / Could
+- 内容：验收项描述
+- 参考：对应页面、User Story 或功能章节
+- 归属：Frontend / Backend / Integration
+- 优先级：Must / Should / Could
 
 #### 4.0.3 Profile & Settings
 
@@ -287,7 +287,7 @@ AC 条目前缀标识验收项的类型：
 
 #### 4.1.4 Acceptance Criteria
 
-| ID | Content | References | Ownership | Priority |
+| ID | 内容 | 参考 | 归属 | 优先级 |
 | --- | --- | --- | --- | --- |
 | UI-001 | Dashboard 默认展示 ETF 市场概览、板块、今日热门、市场指数、自选预览和全部 ETF 入口。 | 4.1.2 Market Dashboard | Frontend | Must |
 | UI-002 | Dashboard 在数据加载中展示骨架屏，加载失败时展示错误状态和重试按钮。 | 4.1.2 Skeleton/Error states | Integration | Must |
@@ -375,7 +375,7 @@ AC 条目前缀标识验收项的类型：
 
 #### 4.2.5 Acceptance Criteria
 
-| ID | Content | References | Ownership | Priority |
+| ID | 内容 | 参考 | 归属 | 优先级 |
 | --- | --- | --- | --- | --- |
 | Flow-004 | 组合录入页面同时提供照片上传、文档上传、文本粘贴和手动添加 ETF/结构化产品四种并行输入方式。 | P-1; 4.2.1 Input stage | Frontend | Must |
 | Flow-005 | 用户在录入持仓后可触发组合分析；分析过程展示带进度指示的多步骤检查清单。 | P-1; 4.2.3 Analysis page | Integration | Must |
@@ -465,7 +465,7 @@ AC 条目前缀标识验收项的类型：
 
 #### 4.3.4 Acceptance Criteria
 
-| ID | Content | References | Ownership | Priority |
+| ID | 内容 | 参考 | 归属 | 优先级 |
 | --- | --- | --- | --- | --- |
 | UI-005 | 聊天页面空状态展示示例问题；发送第一条消息后隐藏示例。 | A-1; 4.3.2 Chat page | Frontend | Should |
 | UI-006 | 用户消息气泡在发送后立即显示；助手回复前展示打字指示器。 | A-1; 4.3.2 Chat page | Frontend | Must |
@@ -584,7 +584,7 @@ AC 条目前缀标识验收项的类型：
 
 #### 4.4.4 Acceptance Criteria
 
-| ID | Content | References | Ownership | Priority |
+| ID | 内容 | 参考 | 归属 | 优先级 |
 | --- | --- | --- | --- | --- |
 | UI-008 | 产品发现页展示"仅供筛选"提示横幅、发行人列表、智能筛选器和高级搜索入口。 | S-1, S-2; 4.4.3 Product list page | Frontend | Must |
 | UI-009 | 产品卡展示收益类型、本金处理、 barrier/buffer、发行人、状态、风险等级和适当性提示。 | S-1; 4.4.3 Product list page | Integration | Must |
