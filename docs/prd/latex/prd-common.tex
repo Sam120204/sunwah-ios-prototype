@@ -1,0 +1,343 @@
+% Shared LaTeX template for Sunwah Fintech PRD delivery documents.
+% Compile with XeLaTeX or LuaLaTeX.
+\usepackage[a4paper,top=22mm,bottom=24mm,left=22mm,right=22mm]{geometry}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{graphicx}
+\usepackage{bookmark}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{hyperref}
+\usepackage[most]{tcolorbox}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{ragged2e}
+\usepackage{microtype}
+
+\setmainfont{lmroman10}[
+  Extension=.otf,
+  UprightFont=*-regular,
+  BoldFont=*-bold,
+  ItalicFont=*-italic,
+  BoldItalicFont=*-bolditalic
+]
+\IfFontExistsTF{PingFang SC}{
+  \setCJKmainfont[AutoFakeBold=true,AutoFakeSlant=true]{PingFang SC}
+  \setCJKsansfont[AutoFakeBold=true,AutoFakeSlant=true]{PingFang SC}
+  \setCJKmonofont[AutoFakeBold=true,AutoFakeSlant=true]{PingFang SC}
+}{\IfFontExistsTF{Songti SC}{
+  \setCJKmainfont{Songti SC}
+  \setCJKsansfont{Hiragino Sans GB}
+  \setCJKmonofont{Heiti SC}
+}{
+  \setCJKmainfont{FandolSong}
+  \setCJKsansfont{FandolHei}
+  \setCJKmonofont{FandolFang}
+}}
+\setsansfont{lmsans10}[
+  Extension=.otf,
+  UprightFont=*-regular,
+  BoldFont=*-bold,
+  ItalicFont=*-oblique,
+  BoldItalicFont=*-boldoblique
+]
+\setmonofont{lmmono10}[
+  Extension=.otf,
+  UprightFont=*-regular,
+  ItalicFont=*-italic
+]
+
+\definecolor{BrandNavy}{HTML}{0B1F3A}
+\definecolor{BrandBlue}{HTML}{1F5EFF}
+\definecolor{BrandGold}{HTML}{B88A2A}
+\definecolor{BrandSlate}{HTML}{4B5563}
+\definecolor{BrandLight}{HTML}{F4F7FB}
+\definecolor{BrandLine}{HTML}{D8DEE9}
+\definecolor{BrandSuccess}{HTML}{0F766E}
+\definecolor{BrandWarning}{HTML}{B45309}
+
+\hypersetup{
+  unicode=true,
+  colorlinks=true,
+  linkcolor=BrandBlue,
+  urlcolor=BrandBlue,
+  citecolor=BrandBlue,
+  pdftitle={\DocumentTitle},
+  pdfauthor={Sunwah Fintech Project Team}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.25}
+\setlist[itemize]{leftmargin=*,topsep=3pt,itemsep=2pt}
+\setlist[enumerate]{leftmargin=*,topsep=3pt,itemsep=3pt}
+\captionsetup{font=small,labelfont=bf}
+\emergencystretch=3em
+
+\titleformat{\section}
+  {\Large\bfseries\sffamily\color{BrandNavy}}
+  {}{0pt}{}
+  [\vspace{-2pt}{\titlerule[0.8pt]}]
+\titleformat{\subsection}
+  {\large\bfseries\sffamily\color{BrandBlue}}
+  {}{0pt}{}
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\sffamily\color{BrandSlate}}
+  {}{0pt}{}
+\titleformat{\paragraph}
+  {\normalsize\bfseries\sffamily\color{BrandNavy}}
+  {}{0pt}{}
+% Suppress counter numbers in TOC/bookmarks
+\counterwithout{section}{section}
+\counterwithout{subsection}{section}
+\counterwithout{subsubsection}{section}
+\counterwithout{paragraph}{section}
+% Make counters expand to empty so \numberline{} produces no box content
+\def\thesection{}
+\def\thesubsection{}
+\def\thesubsubsection{}
+\def\theparagraph{}
+\titlespacing*{\section}{0pt}{1.35em}{0.75em}
+\titlespacing*{\subsection}{0pt}{1.05em}{0.45em}
+\titlespacing*{\subsubsection}{0pt}{0.85em}{0.3em}
+\titlespacing*{\paragraph}{0pt}{0.6em}{0.3em}
+
+\pagestyle{fancy}
+\setlength{\headheight}{23pt}
+\fancyhf{}
+\lhead{\sffamily\small Sunwah Fintech iOS}
+\rhead{\sffamily\small \DocumentShortTitle}
+\cfoot{\sffamily\small \thepage\ /\ \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{BrandLine}\leaders\hrule height \headrulewidth\hfill}}
+
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcommand{\code}[1]{\texttt{\small\detokenize{#1}}}
+\newcommand{\term}[1]{\textbf{\color{BrandNavy}#1}}
+
+\newtcblisting{codeblock}[1][]{
+  enhanced,
+  breakable,
+  listing only,
+  colback=BrandLight,
+  colframe=BrandLine,
+  boxrule=0.5pt,
+  arc=1.5mm,
+  left=3mm,
+  right=3mm,
+  top=2mm,
+  bottom=2mm,
+  before skip=6pt,
+  after skip=8pt,
+  listing options={
+    basicstyle=\ttfamily\small\color{BrandNavy},
+    keywordstyle=\bfseries\color{BrandBlue},
+    stringstyle=\color{BrandSuccess},
+    commentstyle=\itshape\color{BrandSlate},
+    breaklines=true,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false
+  },
+  #1
+}
+
+\newtcolorbox{executivebox}{
+  enhanced,
+  colback=BrandLight,
+  colframe=BrandBlue,
+  boxrule=0.6pt,
+  arc=2mm,
+  left=4mm,
+  right=4mm,
+  top=3mm,
+  bottom=3mm
+}
+
+\newtcolorbox{notebox}{
+  enhanced,
+  colback=BrandGold!8,
+  colframe=BrandGold,
+  boxrule=0.5pt,
+  arc=2mm,
+  left=4mm,
+  right=4mm,
+  top=3mm,
+  bottom=3mm
+}
+
+\newcommand{\imageplaceholder}[2]{
+  \begin{center}
+    \begin{tcolorbox}[
+      width=0.92\linewidth,
+      height=40mm,
+      colback=BrandLight,
+      colframe=BrandLine,
+      boxrule=0.6pt,
+      arc=2mm,
+      valign=center,
+      halign=center
+    ]
+      {\sffamily\bfseries\color{BrandNavy}#2}\\[4pt]
+      {\small\color{BrandSlate}Image placeholder: \code{#1}}
+    \end{tcolorbox}
+  \end{center}
+}
+
+% --- Full-width figure (architecture / page-tree diagrams) ---
+\newcommand{\smartfigure}[2]{
+  \begin{figure}[H]
+    \centering
+    \IfFileExists{#1}{
+      \includegraphics[width=0.95\linewidth,height=0.62\textheight,keepaspectratio]{#1}
+    }{
+      \imageplaceholder{#1}{#2}
+    }
+    \caption{#2}
+  \end{figure}
+}
+
+% --- Horizontal rule ---
+\newcommand{\prdhr}{\vspace{0.4em}\hrule\vspace{0.8em}}
+
+% --- Flowchart (user-story diagrams, 60% width) ---
+\newcommand{\flowchart}[2]{
+  \begin{figure}[H]
+    \centering
+    \IfFileExists{#1}{
+      \includegraphics[width=0.60\linewidth,height=0.50\textheight,keepaspectratio]{#1}
+    }{
+      \imageplaceholder{#1}{#2}
+    }
+    \caption{#2}
+  \end{figure}
+}
+
+% --- Single screenshot: 25% width, caption below ---
+\newcommand{\screenshotsingle}[3]{
+  \begin{figure}[H]
+    \centering
+    \IfFileExists{#1}{
+      \includegraphics[width=0.22\linewidth,height=0.42\textheight,keepaspectratio]{#1}
+    }{
+      \imageplaceholder{#1}{#2}
+    }
+    \caption[#2]{#2}
+    \vspace{2mm}
+    {\footnotesize\color{BrandSlate}\RaggedRight #3\par}
+  \end{figure}
+}
+
+% --- Double screenshot: two 25%-width columns, each with caption below ---
+\newcommand{\screenshotpair}[6]{
+  \begin{figure}[H]
+    \centering
+    % Left card
+    \begin{minipage}[t]{0.22\linewidth}
+      \centering
+      \IfFileExists{#1}{
+        \includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{#1}
+      }{
+        \imageplaceholder{#1}{#2}
+      }
+      \caption{#2}
+      \vspace{1mm}
+      {\footnotesize\color{BrandSlate}\RaggedRight #3\par}
+    \end{minipage}
+    \hfill
+    % Right card
+    \begin{minipage}[t]{0.22\linewidth}
+      \centering
+      \IfFileExists{#4}{
+        \includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{#4}
+      }{
+        \imageplaceholder{#4}{#5}
+      }
+      \caption{#5}
+      \vspace{1mm}
+      {\small\color{BrandSlate}\RaggedRight #6\par}
+    \end{minipage}
+  \end{figure}
+}
+
+% --- Triple screenshot: three 25%-width columns ---
+\newcommand{\screenshotTriple}[9]{
+  \begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.22\linewidth}
+      \centering
+      \IfFileExists{#1}{
+        \includegraphics[width=\linewidth,height=0.38\textheight,keepaspectratio]{#1}
+      }{
+        \imageplaceholder{#1}{#2}
+      }
+      \caption{#2}
+      \vspace{1mm}
+      {\footnotesize\color{BrandSlate}\RaggedRight #3\par}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.22\linewidth}
+      \centering
+      \IfFileExists{#4}{
+        \includegraphics[width=\linewidth,height=0.38\textheight,keepaspectratio]{#4}
+      }{
+        \imageplaceholder{#4}{#5}
+      }
+      \caption{#5}
+      \vspace{1mm}
+      {\small\color{BrandSlate}\RaggedRight #6\par}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.22\linewidth}
+      \centering
+      \IfFileExists{#7}{
+        \includegraphics[width=\linewidth,height=0.38\textheight,keepaspectratio]{#7}
+      }{
+        \imageplaceholder{#7}{#8}
+      }
+      \caption{#8}
+      \vspace{1mm}
+      {\small\color{BrandSlate}\RaggedRight #9\par}
+    \end{minipage}
+  \end{figure}
+}
+
+\newcommand{\makedeliverytitle}{
+  \begin{titlepage}
+    \begin{tikzpicture}[remember picture,overlay]
+      \fill[BrandLight] (current page.south west) rectangle (current page.north east);
+      \fill[white,opacity=0.82] ([xshift=10mm,yshift=-12mm]current page.north west) rectangle ([xshift=-10mm,yshift=16mm]current page.south east);
+      \fill[BrandBlue!8,rounded corners=22mm] ([xshift=-24mm,yshift=-14mm]current page.north west) rectangle ([xshift=140mm,yshift=-118mm]current page.north west);
+      \fill[BrandGold!13,rounded corners=26mm] ([xshift=106mm,yshift=-8mm]current page.north west) rectangle ([xshift=222mm,yshift=-106mm]current page.north west);
+      \fill[BrandBlue!16] ([xshift=132mm,yshift=-35mm]current page.north west) circle (32mm);
+      \fill[white,opacity=0.72] ([xshift=146mm,yshift=-47mm]current page.north west) circle (23mm);
+      \fill[BrandGold!35] ([xshift=160mm,yshift=-60mm]current page.north west) circle (4mm);
+      \draw[BrandBlue!20,line width=0.8pt] ([xshift=18mm,yshift=-104mm]current page.north west) -- ([xshift=190mm,yshift=-104mm]current page.north west);
+    \end{tikzpicture}
+    \vspace*{34mm}
+    {\sffamily\bfseries\color{BrandBlue}\small \DocumentTypeLabel\par}
+    \vspace{7mm}
+    {\sffamily\bfseries\color{BrandNavy}\fontsize{32}{39}\selectfont Sunwah Fintech iOS\par}
+    \vspace{5mm}
+    {\sffamily\color{BrandNavy!78}\fontsize{18}{23}\selectfont \DocumentTitle\par}
+    \vspace{8mm}
+    {\sffamily\color{BrandSlate}\large \DocumentSubtitle\par}
+    \vfill
+    {\small\sffamily\color{BrandSlate}
+    \textbf{\color{BrandNavy}\DocumentPreparedByLabel} \quad Sunwah Fintech Project Team\\[2mm]
+    \textbf{\color{BrandNavy}\DocumentLanguageLabelName} \quad \DocumentLanguageLabel\\[2mm]
+    \textbf{\color{BrandNavy}\DocumentVersionLabel} \quad \DocumentVersion}
+    \vspace*{18mm}
+  \end{titlepage}
+}

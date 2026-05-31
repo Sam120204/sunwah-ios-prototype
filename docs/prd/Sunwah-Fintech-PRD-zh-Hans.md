@@ -18,9 +18,7 @@
 
 ### 1.2 产品架构图
 
-<img src="screenshots/mermaid/Architecture-Diagram.png" width="1000">
-
----
+<img src="assets/screenshots/mermaid/Architecture-Diagram.png" width="1000">
 
 ## 二、用户定义
 
@@ -41,8 +39,6 @@
 | Admin Tools | - | 仅 Admin 可见 |
 | 其他模块 | 完全一致 | 完全一致 |
 
----
-
 ## 三、页面结构
 
 ### 3.1 入口与页面树
@@ -51,13 +47,13 @@
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/01-login.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/01-login.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Login</strong> — 邮箱、密码、记住我、Forgot password、Google / Microsoft SSO；用于进入普通用户或管理员流程。</p>
 </div>
 </td>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/02-login-auth-error.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/02-login-auth-error.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Auth Error</strong> — 账号或密码错误时在表单内展示红色 inline 错误，不跳转。</p>
 </div>
 </td>
@@ -65,13 +61,13 @@
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/03-login-network-fail.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/03-login-network-fail.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Network Error</strong> — 网络异常时展示可恢复错误信息，引导用户稍后重试。</p>
 </div>
 </td>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/30-page-navigator-left-panel.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/30-page-navigator-left-panel.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Page Navigator 左侧面板</strong> — 展示产品页面树、User / Admin 快捷登录、模块颜色图例、产品边界声明。用于评审页面范围与用户旅程。</p>
 </div>
 </td>
@@ -79,7 +75,7 @@
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/31-page-tree-nodes-only.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/31-page-tree-nodes-only.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>页面节点图</strong> — 包含 Login、Market Intelligence、Portfolio Builder、Assistant、Structured Products、Profile & Settings、Admin Panel 等节点；点击节点可直接跳转对应原型状态。</p>
 </div>
 </td>
@@ -88,11 +84,9 @@
 </table>
 
 
----
-
 ### 3.2 页面目录
 
-<img src="screenshots/mermaid/page-tree-diagram.png" width="1200">
+<img src="assets/screenshots/mermaid/page-tree-diagram.png" width="1200">
 
 | 模块 | 页面路径 |
 | --- | --- |
@@ -172,8 +166,6 @@ AC 条目前缀标识验收项的类型：
 
 该模块功能相对简单，AC 合并至各模块或非功能性需求章节中。
 
----
-
 ### 4.1 Market Intelligence
 
 #### 4.1.1 功能概述
@@ -195,13 +187,13 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/04-market-dashboard.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/04-market-dashboard.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Market Dashboard</strong> — 标题为 Market Intelligence / ETF intelligence & insights；包含 ETF Market Overview、Sectors、Daily Hot、Market Indices、Watchlist Preview，并提供 All ETFs 入口。</p>
 </div>
 </td>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/05-market-dashboard-skeleton.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/05-market-dashboard-skeleton.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>加载骨架屏</strong> — Dashboard 数据请求中，以 skeleton 模拟卡片、列表和行情区域加载。</p>
 </div>
 </td>
@@ -209,13 +201,13 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/06-market-dashboard-load-error.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/06-market-dashboard-load-error.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>加载错误</strong> — 数据源异常时展示错误状态和重试按钮。</p>
 </div>
 </td>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/07-all-etfs-screener.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/07-all-etfs-screener.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>All ETFs Screener</strong> — 搜索框、ETF 数量、Filter 按钮、ETF 列表；ETF 行展示 symbol、名称、主题标签、价格 / 涨跌幅、星标；Admin 登录后显示 Add ETF 入口。</p>
 </div>
 </td>
@@ -223,13 +215,13 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/08-all-etfs-filter-sort-sheet.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/08-all-etfs-filter-sort-sheet.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Filter & Sort Bottom Sheet</strong> — 支持 Sort、Asset Class、Region、Sector、Issuer、Currency 组合筛选；Filter badge 显示激活数。</p>
 </div>
 </td>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/09-all-etfs-empty-state.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/09-all-etfs-empty-state.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Screener Empty State</strong> — 搜索 / 筛选无结果时展示 No matching ETFs 和 Clear filters。</p>
 </div>
 </td>
@@ -237,13 +229,13 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/10-etf-detail-overview.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/10-etf-detail-overview.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>ETF Detail</strong> — ETF header、价格、涨跌幅、时间区间图表、Watchlist、Quick Compare、Overview / News、风险指标、分类与新闻摘要。</p>
 </div>
 </td>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/11-etf-detail-compare-picker.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/11-etf-detail-compare-picker.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Compare Picker</strong> — 从 ETF 详情打开 Bottom Sheet，搜索并选择第二只 ETF。</p>
 </div>
 </td>
@@ -251,7 +243,7 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/12-etf-compare.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/12-etf-compare.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>ETF Compare</strong> — 双 ETF 头部卡、标准化价格曲线、收益 / 风险 / 费用等指标对比。</p>
 </div>
 </td>
@@ -265,25 +257,25 @@ AC 条目前缀标识验收项的类型：
 
 > **用户类型**：User | **需求**：从 Market Dashboard 通过 Watchlist 预览、板块主题、自选 ETF 入口进入 ETF 详情页，查看 K 线图、风险指标、AI 评分等数据，且可以加入 watchlist 持续关注 | **价值**：快速获取任一关注 ETF 的完整研究上下文
 
-<img src="screenshots/userstory-flowcharts/m-01-browse-detail.png" width="1200">
+<img src="assets/screenshots/userstory-flowcharts/m-01-browse-detail.png" width="1200">
 
 **M-2：筛选搜索 ETF**
 
 > **用户类型**：User | **需求**：通过 All ETFs 筛选器，使用 Filter 或关键词匹配找到目标 ETF 并进入详情页 | **价值**：将模糊需求转化为具体可研究的 ETF 标的
 
-<img src="screenshots/userstory-flowcharts/m-02-search-filter.png" width="1200">
+<img src="assets/screenshots/userstory-flowcharts/m-02-search-filter.png" width="1200">
 
 **M-3：对比 ETF**
 
 > **用户类型**：User | **需求**：在 ETF 详情页点击 Compare，选择第二只 ETF 进入 Compare 页面，对比两只 ETF 的业绩、费用、风险等指标 | **价值**：辅助选品决策
 
-<img src="screenshots/userstory-flowcharts/m-03-compare-etf.png" width="1200">
+<img src="assets/screenshots/userstory-flowcharts/m-03-compare-etf.png" width="1200">
 
 **M-4：维护 ETF 列表**
 
 > **用户类型**：Admin | **需求**：通过 Add ETF by ID 页面，按 ticker 添加新 ETF 到平台，维护 Screener 可检索的产品范围 | **价值**：确保用户端 ETF 研究入口数据完整、可追溯
 
-<img src="screenshots/userstory-flowcharts/m-04-admin-maintenance.png" width="1200">
+<img src="assets/screenshots/userstory-flowcharts/m-04-admin-maintenance.png" width="1200">
 
 #### 4.1.4 Acceptance Criteria
 
@@ -299,8 +291,6 @@ AC 条目前缀标识验收项的类型：
 | Data-001 | ETF 筛选器在用户输入或切换筛选条件时实时过滤结果，并同步更新数量统计。 | M-2; 4.1.2 Filter Sheet | Integration | Must |
 | Data-002 | ETF 对比页以统一基准展示标准化价格曲线，并左右对齐展示指标对比表格。 | M-3; 4.1.2 ETF Compare | Integration | Must |
 | Compliance-001 | 市场数据页面展示数据延迟免责声明（如"港交所数据延迟 15 分钟"）。 | 1.2 Guardrails | Frontend | Must |
-
----
 
 ### 4.2 Portfolio Intelligence
 
@@ -332,13 +322,13 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/13-portfolio-input-holdings.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/13-portfolio-input-holdings.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Start with what you have</strong> — Photos / Document 上传入口、Add ETF、Add Structured Product、文本粘贴框、模板示例、Draft Portfolio、Review holdings 与 Analyze draft portfolio 按钮。</p>
 </div>
 </td>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/14-portfolio-analysis.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/14-portfolio-analysis.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Portfolio Analysis</strong> — 四步 checklist（Verifying HKEX pricing、Computing HHI concentration index、Assessing sector & currency bias、Calculating risk sub-scores）；展示评分卡、HHI / Effective N、敞口与 Diagnosis Issues。</p>
 </div>
 </td>
@@ -346,13 +336,13 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/15-portfolio-ai-recommendations.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/15-portfolio-ai-recommendations.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>AI Portfolio Recommendations</strong> — Selected diagnosis scope、Before / After Optimisation、具体动作建议、rationale、impact 与合规声明；由 Generate Recommendations 触发。</p>
 </div>
 </td>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/16-portfolio-history.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/16-portfolio-history.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Portfolio History / Saved snapshots</strong> — 左侧抽屉展示历史分析快照，用于恢复或对比过往组合状态。</p>
 </div>
 </td>
@@ -365,13 +355,13 @@ AC 条目前缀标识验收项的类型：
 
 > **用户类型**：User | **需求**：通过在 ETF / 结构化产品列表中选择，或上传文本 / 文件 / 图片让 AI 解析转化两种方式录入持仓；运行持仓分析，查看评分与 Diagnosis Issues，可选择接受或放弃部分诊断；最后获取 AI 调仓建议与 Before / After 对比 | **价值**：形成可解释的组合风险上下文，并基于诊断获取个性化调仓建议
 
-<img src="screenshots/userstory-flowcharts/p-01-input-analysis.png" width="1200">
+<img src="assets/screenshots/userstory-flowcharts/p-01-input-analysis.png" width="1200">
 
 **P-2：查看历史持仓分析记录**
 
 > **用户类型**：User | **需求**：在 Portfolio 模块左上角呼出 History Drawer，浏览历史持仓分析快照，选择任意历史记录恢复到当前 Draft Portfolio | **价值**：支持用户回顾和对比不同时间点的组合状态
 
-<img src="screenshots/userstory-flowcharts/p-02-history.png" width="1200">
+<img src="assets/screenshots/userstory-flowcharts/p-02-history.png" width="1200">
 
 #### 4.2.5 Acceptance Criteria
 
@@ -385,8 +375,6 @@ AC 条目前缀标识验收项的类型：
 | Data-004 | 分析结果展示 HHI 集中度指数、有效数量 N、分行业/币种/地区敞口分布，以及带严重度等级的可选诊断问题。 | P-1; 4.2.2, 4.2.3 | Integration | Must |
 | Data-005 | AI 建议展示前后对比表格，以及每条建议的代码、目标权重、理由和预期影响详情。 | P-1; 4.2.3 Recommendations page | Integration | Must |
 | Compliance-002 | 组合分析和建议页面底部展示非投资建议免责声明（如"非财务建议，仅供参考"）。 | P-1; 1.2 Guardrails | Frontend | Must |
-
----
 
 ### 4.3 Assistant
 
@@ -407,13 +395,13 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/17-ai-advisory-chat.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/17-ai-advisory-chat.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Advisory Assistant Chat</strong> — 标题为 Advisory Assistant；历史按钮、New、Value focus / Income focus 模式、+ 自定义模式入口、Sample Questions、Portfolio Context、附件与输入框。</p>
 </div>
 </td>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/18-ai-advisory-suggestions.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/18-ai-advisory-suggestions.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Structured Suggestions</strong> — 触发 value / income / HHI 等关键词后展示结构化 rebalancing analysis 与 suggested actions。</p>
 </div>
 </td>
@@ -421,13 +409,13 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/19-ai-explanation-drawer.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/19-ai-explanation-drawer.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Explanation Drawer</strong> — Bottom Sheet 展示 Why this suggestion appeared、What prompted this、Data considered、Assistant interpretation、Limits to this explanation。</p>
 </div>
 </td>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/20-ai-history-drawer.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/20-ai-history-drawer.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Conversations Drawer</strong> — 左侧抽屉展示历史会话，可恢复或删除会话，并支持 New conversation。</p>
 </div>
 </td>
@@ -435,7 +423,7 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/21-ai-create-custom-mode.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/21-ai-create-custom-mode.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Create Custom Mode</strong> — 点击 + 后创建自定义模式，支持 Prompt 与 Guided Survey 两种创建方式，创建后新增 mode pill。</p>
 </div>
 </td>
@@ -449,19 +437,19 @@ AC 条目前缀标识验收项的类型：
 
 > **用户类型**：User | **需求**：选择 Value / Income / Custom 模式，配置 Portfolio Context 或附件等工具，输入问题并获取结构化建议与详细解释 | **价值**：在不同投资偏好下获得可追溯的研究支持，支持持续追问和上下文延续
 
-<img src="screenshots/userstory-flowcharts/a-01-chat-qa.png" width="1200">
+<img src="assets/screenshots/userstory-flowcharts/a-01-chat-qa.png" width="1200">
 
 **A-2：查看历史对话记录**
 
 > **用户类型**：User | **需求**：在 AI Advisory 模块左上角呼出 History Drawer，浏览历史会话列表，选择任意历史记录恢复到当前对话 | **价值**：支持用户回顾和继续之前的咨询上下文
 
-<img src="screenshots/userstory-flowcharts/a-02-history.png" width="1200">
+<img src="assets/screenshots/userstory-flowcharts/a-02-history.png" width="1200">
 
 **A-3：创建自定义 Mode**
 
 > **用户类型**：User | **需求**：点击 + 创建自定义 Mode，通过填写 Prompt 或完成问卷（投资期限、风险偏好、收益目标）两种方式生成专属模式，并保存到 Mode 列表 | **价值**：让用户根据个人投资需求定制 AI 顾问的行为模式
 
-<img src="screenshots/userstory-flowcharts/a-03-create-mode.png" width="1200">
+<img src="assets/screenshots/userstory-flowcharts/a-03-create-mode.png" width="1200">
 
 #### 4.3.4 Acceptance Criteria
 
@@ -475,8 +463,6 @@ AC 条目前缀标识验收项的类型：
 | Flow-010 | 用户可打开历史抽屉浏览、恢复或删除历史会话，并开始新对话。 | A-2; 4.3.2 History Drawer | Integration | Should |
 | Flow-011 | 用户可通过输入 Prompt 或完成引导问卷创建自定义模式；新创建的模式出现在模式列表中并被激活。 | A-3; 4.3.2 Create Mode | Integration | Should |
 | Compliance-003 | AI 建议和推荐不得包含交易执行措辞（如"买入"、"卖出"、"下单"、"执行"）或收益保证声明。 | A-1; 1.2 Guardrails | Backend | Must |
-
----
 
 ### 4.4 Structured Products
 
@@ -501,13 +487,13 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/22-structured-products-list.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/22-structured-products-list.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Structured Products</strong> — Screening only 风险提示、Issuer list、Smart filters、Advanced search、产品卡展示 payoff type、principal treatment、barrier / buffer、status、risk 与 suitability cues；Admin 登录后显示 Admin Panel。</p>
 </div>
 </td>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/23-structured-product-detail-overview.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/23-structured-product-detail-overview.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Product Detail Overview</strong> — 产品名称、发行人、状态、Overview / Performance / Note Events / Documents tabs、underlying、terms、illustrative outcomes、Risk Disclosure、compare 入口。</p>
 </div>
 </td>
@@ -515,13 +501,13 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/24-structured-product-scenario.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/24-structured-product-scenario.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Note Events</strong> — 展示 Payoff Story、Outcome selector、Payoff map、Rule quick check、coupon / barrier / settlement 规则。</p>
 </div>
 </td>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/25-structured-product-pricing.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/25-structured-product-pricing.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Performance</strong> — 指示性价格、implied yield、barrier watch、同发行人产品参考与 pricing disclaimer。</p>
 </div>
 </td>
@@ -529,7 +515,7 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/26-structured-product-compare.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/26-structured-product-compare.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Compare Products</strong> — 同发行人产品选择器 + Tabular Factsheet Matrix / 左右双栏条款对比，避免跨发行人不可比。</p>
 </div>
 </td>
@@ -543,13 +529,13 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/27-admin-upload-panel.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/27-admin-upload-panel.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Admin Panel</strong> — Admin 专属；Upload Structured Product Sheet、Select PDF product sheet 与 Add ETF by ID 两个维护入口。</p>
 </div>
 </td>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/28-admin-extracted-review.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/28-admin-extracted-review.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Extracted Review</strong> — Extraction complete 后展示 AI 抽取字段，管理员可审核、Discard 或 Publish；ETF 维护成功后可 Add to Platform。</p>
 </div>
 </td>
@@ -562,25 +548,25 @@ AC 条目前缀标识验收项的类型：
 
 > **用户类型**：User | **需求**：通过 Issuer / Strategy / Risk 等过滤器浏览产品列表，点击产品卡片进入详情页，查看 Overview / Performance / Note Events / Documents 等标签页，并可加入关注列表 | **价值**：形成结构化产品研究上下文，帮助理解条款、状态和关键指标
 
-<img src="screenshots/userstory-flowcharts/s-01-browse-detail.png" width="1200">
+<img src="assets/screenshots/userstory-flowcharts/s-01-browse-detail.png" width="1200">
 
 **S-2：筛选搜索结构化产品**
 
 > **用户类型**：User | **需求**：通过 Smart Filters 或 Advanced Search 使用产品类型、标的、barrier、期限、币种等条件筛选产品，找到目标产品后进入详情页 | **价值**：将模糊需求转化为具体可研究的产品标的
 
-<img src="screenshots/userstory-flowcharts/s-02-search-filter.png" width="1200">
+<img src="assets/screenshots/userstory-flowcharts/s-02-search-filter.png" width="1200">
 
 **S-3：对比结构化产品**
 
 > **用户类型**：User | **需求**：在产品详情页点击 Compare，选择同发行人的第二只产品进入 Compare 页面，对比收益结构、票息、barrier、风险等条款信息 | **价值**：辅助选品决策，避免跨发行人不可比的产品对比
 
-<img src="screenshots/userstory-flowcharts/s-03-compare-products.png" width="1200">
+<img src="assets/screenshots/userstory-flowcharts/s-03-compare-products.png" width="1200">
 
 **S-4：上传结构化产品 PDF**
 
 > **用户类型**：Admin | **需求**：通过 Admin Panel 上传结构化产品 term sheet PDF，AI 自动提取字段，管理员审核编辑后 Publish 发布到平台 | **价值**：统一维护结构化产品数据，让产品目录保持最新
 
-<img src="screenshots/userstory-flowcharts/s-04-admin-maintenance.png" width="1200">
+<img src="assets/screenshots/userstory-flowcharts/s-04-admin-maintenance.png" width="1200">
 
 #### 4.4.4 Acceptance Criteria
 
@@ -596,8 +582,6 @@ AC 条目前缀标识验收项的类型：
 | Flow-015 | 管理员可编辑抽取的字段并选择放弃或发布；成功后展示确认反馈。 | S-4; 4.4.3 Extracted Review | Integration | Must |
 | Access-001 | 管理面板入口和上传/添加 ETF 功能仅对管理员角色用户可见和可访问。 | S-4; 2.2 Role Matrix | Frontend | Must |
 | Compliance-004 | 产品页面展示非交易执行免责声明、非确定报价免责声明和适当性评估提示。 | S-1; 1.2 Guardrails | Frontend | Must |
-
----
 
 ### 4.5 Profile & Settings
 
@@ -620,15 +604,13 @@ AC 条目前缀标识验收项的类型：
 <tr>
 <td style="padding: 12px; vertical-align: top; width: 50%;">
 <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="screenshots/prototype-pages/29-profile-settings.png" style="width: 100%; max-width: 400px;">
+<img src="assets/screenshots/prototype-pages/29-profile-settings.png" style="width: 100%; max-width: 400px;">
 <p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Profile</strong> — 用户身份、会员标签；Language / 語言、Account、Preferences、Legal 分组；Notifications、Security & 2FA、Base Currency、Terms / Privacy / About、Sign Out；Admin 登录时出现 Admin Tools（Add ETF by ID、Upload Structured Product）；底部提示 HKEX data delayed 15 min · No trading execution。</p>
 </div>
 </td>
 <td style="padding: 12px; vertical-align: top; width: 50%;"></td>
 </tr>
 </table>
-
----
 
 ## 五、非功能性需求
 
@@ -649,8 +631,6 @@ AC 条目前缀标识验收项的类型：
 | NFR-Security-011 | App 不申请无关权限（位置、通讯录、麦克风）。 | 5.1 | Frontend | Must |
 | NFR-Security-012 | 第三方 AI 调用不传入可识别身份信息；输出经过合规过滤。 | 5.1 | Integration | Should |
 
----
-
 ### 5.2 权限控制
 
 | ID | 内容 | 参考 | 归属 | 优先级 |
@@ -659,8 +639,6 @@ AC 条目前缀标识验收项的类型：
 | NFR-Access-002 | 客户端隐藏控件不作为唯一保护；Admin API 必须服务端鉴权。 | 5.1, 2.2 | Backend | Must |
 | NFR-Access-003 | Upload Product、Add ETF、Admin Tools 对普通用户不可见不可访问。 | 5.1, 2.2 | Frontend | Must |
 | NFR-Access-004 | 上传、发布、删除、字段修改记录 actor、时间、来源和内容 ID。 | 5.1 | Backend | Should |
-
----
 
 ### 5.3 性能
 
@@ -674,8 +652,6 @@ AC 条目前缀标识验收项的类型：
 | NFR-Performance-006 | iPhone 13 正常使用内存低于 150MB RSS。 | 5.1 | Frontend | Should |
 | NFR-Performance-007 | 所有网络请求展示 Skeleton/Spinner/Error；不白屏。 | 5.1 | Frontend | Must |
 | NFR-Performance-008 | 离线模式展示缓存数据并提示离线；写操作禁用并说明原因。 | 5.1 | Integration | Should |
-
----
 
 ### 5.4 兼容性
 
@@ -693,8 +669,6 @@ AC 条目前缀标识验收项的类型：
 | NFR-Compatibility-010 | 4.7" 至 6.7" 竖屏全部内容可滚动访问。 | 5.1 | Frontend | Must |
 | NFR-Compatibility-011 | 竖屏为主要使用方向；图表区域在横屏下增强展示。 | 5.1 | Frontend | Could |
 
----
-
 ### 5.5 可访问性
 
 | ID | 内容 | 参考 | 归属 | 优先级 |
@@ -702,8 +676,6 @@ AC 条目前缀标识验收项的类型：
 | NFR-Accessibility-001 | 核心按钮、输入框、图表摘要提供 accessibilityLabel/Hint 支持 VoiceOver。 | 5.1 | Frontend | Should |
 | NFR-Accessibility-002 | 支持英文和繁体中文双语；关键业务文案进入 i18n 资源。 | 5.1 | Frontend | Should |
 | NFR-Accessibility-003 | 正文和背景满足 WCAG AA 对比度（4.5:1）。 | 5.1 | Frontend | Should |
-
----
 
 ### 5.6 合规
 
@@ -716,8 +688,6 @@ AC 条目前缀标识验收项的类型：
 | NFR-Compliance-005 | 不承诺收益；历史表现不代表未来。 | 5.1, 1.2 | Integration | Must |
 | NFR-Compliance-006 | App 提供 Privacy Policy；遵循香港 PDPO。 | 5.1 | Backend | Must |
 | NFR-Compliance-007 | 明确用户数据处理和存储地区。 | 5.1 | Backend | Should |
-
----
 
 ### 5.7 可观测性
 

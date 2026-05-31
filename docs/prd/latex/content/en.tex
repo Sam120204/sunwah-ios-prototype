@@ -1,0 +1,677 @@
+
+\section{1. Project Overview}
+
+\begingroup
+\small
+\begin{longtable}{L{0.24\linewidth}L{0.68\linewidth}}
+\toprule
+\textbf{Item} & \textbf{Description} \\
+\midrule
+Product positioning & An iOS investment intelligence assistant for institutions and high-net-worth investors. \\
+Core loop & Market intelligence → ETF / structured product research → portfolio diagnosis → Assistant explanations and suggestions → decision support. \\
+Deliverable & A single-page interactive web prototype for reviewing page structure, module boundaries, user journeys, and interaction states. \\
+Pilot goals & Support login, browsing across the four core modules, simulated User / Admin permissions, and core loading / error / empty / drawer / sheet states. \\
+Out of scope & Trading execution, regulated investment advice, Level II / tick-by-tick market data, real order placement, real PDF OCR services, and production Web / Android clients. \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{1.1 Product Guardrails}
+
+\begin{itemize}
+\item No Trading / Buy Flows Included
+\item No Guaranteed Return Claims
+\item No Licensed Advice / Execution UI
+\end{itemize}
+
+\subsection{1.2 Product Architecture}
+
+\smartfigure{assets/screenshots/mermaid/Architecture-Diagram.png}{Product architecture diagram}
+
+\section{2. User Definition}
+
+\subsection{2.1 Persona}
+
+\begingroup
+\small
+\begin{longtable}{L{0.20\linewidth}L{0.34\linewidth}L{0.34\linewidth}}
+\toprule
+ & \textbf{User} & \textbf{Admin} \\
+\midrule
+Role & Investor, researcher & Data administrator \\
+Description & Uses the app to browse markets, build portfolios, and receive AI-assisted research suggestions. & Maintains ETF and structured product data to keep platform content complete and auditable. \\
+Core capabilities & Market / Portfolio / AI Advisory / Products / Profile & All User capabilities plus ETF configuration and structured product configuration. \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{2.2 Role Permission Matrix}
+
+\begingroup
+\small
+\begin{longtable}{L{0.20\linewidth}L{0.34\linewidth}L{0.34\linewidth}}
+\toprule
+\textbf{Feature} & \textbf{User} & \textbf{Admin} \\
+\midrule
+Market Intelligence & Browse, filter, detail, compare & User capabilities plus Add ETF \\
+Structured Products & Browse, filter, detail, compare & User capabilities plus PDF upload, field extraction, publish \\
+Admin Tools & - & Admin only \\
+Other modules & Fully available & Fully available \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\section{3. Page Structure}
+
+\subsection{3.1 Entry Points and Page Tree}
+
+
+
+
+
+
+\screenshotTriple{assets/screenshots/prototype-pages/01-login.png}{Login}{Email, password, remember me, forgot password, Google / Microsoft SSO; used to enter either the normal user or admin flow.}{assets/screenshots/prototype-pages/02-login-auth-error.png}{Auth Error}{When the account or password is incorrect, a red inline error appears inside the form without navigation.}{assets/screenshots/prototype-pages/03-login-network-fail.png}{Network Error}{When the network fails, the page shows a recoverable error message and guides the user to retry later.}
+\screenshotpair{assets/screenshots/prototype-pages/30-page-navigator-left-panel.png}{Page Navigator Left Panel}{Shows the product page tree, User / Admin quick login, module color legend, and product boundary statements for scope and journey review.}{assets/screenshots/prototype-pages/31-page-tree-nodes-only.png}{Page Node Diagram}{Includes Login, Market Intelligence, Portfolio Builder, Assistant, Structured Products, Profile \& Settings, and Admin Panel nodes; clicking a node opens the corresponding prototype state.}
+\subsection{3.2 Page Directory}
+
+\smartfigure{assets/screenshots/mermaid/page-tree-diagram.png}{Page tree diagram}
+
+\begingroup
+\small
+\begin{longtable}{L{0.24\linewidth}L{0.68\linewidth}}
+\toprule
+\textbf{Module} & \textbf{Page path} \\
+\midrule
+Market Intelligence & Market Dashboard → Daily Overview / Sector Themes / All ETFs / Watchlist → ETF Detail → ETF Compare \\
+Portfolio Builder & Input Holdings → Draft Portfolio → Portfolio Analysis → AI Suggestions \\
+AI Advisory & Chat Interface → Structured Suggestions / Explanation Drawer; Conversations \\
+Structured Products & Product Discovery → Product Detail (Overview / Performance / Note Events / Documents) → Product Compare; Admin Panel \\
+Profile \& Settings & Profile → Language / Legal / Admin Tools / Sign Out \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\section{4. Functional Modules}
+
+\subsection{4.0 Module Overview}
+
+Chapter 4 covers four core modules, organized with a consistent structure.
+
+\begingroup
+\small
+\begin{longtable}{L{0.24\linewidth}L{0.68\linewidth}}
+\toprule
+\textbf{Module ID} & \textbf{Module name} \\
+\midrule
+4.1 & Market Intelligence \\
+4.2 & Portfolio Intelligence \\
+4.3 & AI Advisory \\
+4.4 & Structured Products \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsubsection{4.0.1 Module Structure}
+
+\begingroup
+\small
+\begin{longtable}{L{0.24\linewidth}L{0.68\linewidth}}
+\toprule
+\textbf{Subsection} & \textbf{Description} \\
+\midrule
+Functional overview & User capability boundaries, data inputs and outputs, and system limitations. \\
+Page introduction & Prototype screenshots and page behavior descriptions. \\
+User Stories & User journeys and core scenarios. \\
+Acceptance Criteria & Testable acceptance standards. \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsubsection{4.0.2 Acceptance Criteria Design Standards}
+
+\paragraph{Category Tags}
+
+\begingroup
+\small
+\begin{longtable}{L{0.20\linewidth}L{0.34\linewidth}L{0.34\linewidth}}
+\toprule
+\textbf{Prefix} & \textbf{Type} & \textbf{Description} \\
+\midrule
+UI & Interface layer & Layout, components, and state presentation. \\
+Flow & Flow layer & User journey, page transition, and action trigger. \\
+Data & Data layer & Data display, validation, and business rules. \\
+Access & Permission layer & Role isolation and entry visibility. \\
+Compliance & Compliance layer & Disclaimers and risk notices. \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\paragraph{Ownership Definitions}
+
+\begingroup
+\small
+\begin{longtable}{L{0.24\linewidth}L{0.68\linewidth}}
+\toprule
+\textbf{Ownership} & \textbf{Definition} \\
+\midrule
+Frontend & Can be implemented independently on the frontend without backend support. \\
+Backend & Can be implemented independently on the backend; the frontend only calls the service. \\
+Integration & Requires frontend and backend coordination with clear API contracts. \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\paragraph{Priority Definitions}
+
+\begingroup
+\small
+\begin{longtable}{L{0.24\linewidth}L{0.68\linewidth}}
+\toprule
+\textbf{Priority} & \textbf{Definition} \\
+\midrule
+Must & Required for release; blocks launch if missing. \\
+Should & Strongly recommended; materially affects the core experience. \\
+Could & Optional enhancement that improves user satisfaction. \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\paragraph{Table Format}
+
+\begin{codeblock}
+| ID | Requirement | Reference | Ownership | Priority |
+\end{codeblock}
+
+\begin{itemize}
+\item ID: category prefix plus sequence number; sequence numbers are shared across modules.
+\item Requirement: acceptance requirement description.
+\item Reference: corresponding page, user story, or functional section.
+\item Ownership: Frontend / Backend / Integration.
+\item Priority: Must / Should / Could.
+\end{itemize}
+
+\subsubsection{4.0.3 Profile \& Settings}
+
+This module is comparatively simple. Its acceptance criteria are merged into the relevant feature modules or the non-functional requirements chapter.
+
+\subsection{4.1 Market Intelligence}
+
+\subsubsection{4.1.1 Functional Overview}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.24\linewidth}L{0.28\linewidth}L{0.16\linewidth}}
+\toprule
+\textbf{Capability} & \textbf{Input data} & \textbf{Output} & \textbf{Boundary} \\
+\midrule
+ETF Market Overview & ETF / index delayed quotes & Market breadth, volume, Rising / Flat / Falling, return distribution, ETF rankings & No real-time trading flow \\
+Sector Themes & ETF basket / sector mapping & Default sectors plus Daily Hot sectors and Sector Detail & Research entry only; not a recommendation \\
+Market Indices & Hang Seng / HS Tech / S\&P 500 and other index data & Index cards and percentage changes & Prototype uses simulated / delayed data \\
+ETF Screener & Search term, category, region, sector, issuer, currency, sorting & ETF list, empty state, active filter badges & No Level II data \\
+My Watchlist & User-starred ETFs & Watchlist list / empty state & Research watch only; no trading alert \\
+ETF Detail & ETF symbol & Price chart, risk metrics, classification, news, AI analysis entry & HKEX delayed disclosure \\
+ETF Compare & Two ETFs & Normalized price curve and metric comparison & Prototype limits comparison to two ETFs \\
+Admin ETF Maintenance & Ticker ID & Fetch preview → Add to Platform → update Screener & Admin only \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsubsection{4.1.2 Page Introduction}
+
+
+
+
+
+
+
+
+
+
+\screenshotTriple{assets/screenshots/prototype-pages/04-market-dashboard.png}{Market Dashboard}{Title: Market Intelligence / ETF intelligence \& insights. Includes ETF Market Overview, Sectors, Daily Hot, Market Indices, Watchlist Preview, and an All ETFs entry.}{assets/screenshots/prototype-pages/05-market-dashboard-skeleton.png}{Loading Skeleton}{While Dashboard data is loading, skeleton placeholders simulate cards, lists, and quote regions.}{assets/screenshots/prototype-pages/06-market-dashboard-load-error.png}{Load Error}{When the data source fails, the page shows an error state and retry button.}
+\screenshotTriple{assets/screenshots/prototype-pages/07-all-etfs-screener.png}{All ETFs Screener}{Search box, ETF count, Filter button, and ETF list. Each ETF row shows symbol, name, theme tags, price / change, and watchlist star. Admin login reveals Add ETF.}{assets/screenshots/prototype-pages/08-all-etfs-filter-sort-sheet.png}{Filter \& Sort Bottom Sheet}{Supports Sort, Asset Class, Region, Sector, Issuer, and Currency filters. The filter badge displays the active filter count.}{assets/screenshots/prototype-pages/09-all-etfs-empty-state.png}{Screener Empty State}{When search / filters return no results, the page shows No matching ETFs and Clear filters.}
+\screenshotTriple{assets/screenshots/prototype-pages/10-etf-detail-overview.png}{ETF Detail}{ETF header, price, percentage change, time-range chart, watchlist toggle, Quick Compare, Overview / News tabs, risk metrics, classification, and news summaries.}{assets/screenshots/prototype-pages/11-etf-detail-compare-picker.png}{Compare Picker}{Opens from ETF detail as a bottom sheet where the user searches for and selects a second ETF.}{assets/screenshots/prototype-pages/12-etf-compare.png}{ETF Compare}{Dual ETF header cards, normalized price curve, and metric comparison across return, risk, fee, and related attributes.}
+\subsubsection{4.1.3 User Stories}
+
+\paragraph{M-1: Browse ETF Detail}
+
+User type: User. Need: enter ETF detail from Watchlist Preview, sector themes, or watchlist entries on Market Dashboard; view candlestick chart, risk metrics, AI score, and add to watchlist. Value: quickly obtain complete research context for any ETF of interest.
+
+\flowchart{assets/screenshots/userstory-flowcharts/m-01-browse-detail.png}{M-1 Browse ETF Detail}
+
+\paragraph{M-2: Search and Filter ETFs}
+
+User type: User. Need: use the All ETFs filters or keyword matching to find a target ETF and open detail. Value: turn a fuzzy research need into a concrete ETF candidate.
+
+\flowchart{assets/screenshots/userstory-flowcharts/m-02-search-filter.png}{M-2 Search and Filter ETFs}
+
+\paragraph{M-3: Compare ETFs}
+
+User type: User. Need: tap Compare on ETF detail, choose a second ETF, and enter the Compare page to compare performance, fees, risk, and other metrics. Value: support product selection decisions.
+
+\flowchart{assets/screenshots/userstory-flowcharts/m-03-compare-etf.png}{M-3 Compare ETFs}
+
+\paragraph{M-4: Maintain ETF List}
+
+User type: Admin. Need: use Add ETF by ID to add a new ETF by ticker and maintain the product universe searchable from Screener. Value: keep user-facing ETF research coverage complete and traceable.
+
+\flowchart{assets/screenshots/userstory-flowcharts/m-04-admin-maintenance.png}{M-4 Maintain ETF List}
+
+\subsubsection{4.1.4 Acceptance Criteria}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+UI-001 & Dashboard shows ETF market overview, sectors, daily hot themes, market indices, watchlist preview, and All ETFs entry by default. & 4.1.2 Market Dashboard & Frontend & Must \\
+UI-002 & Dashboard shows a skeleton while data is loading and an error state with retry when loading fails. & 4.1.2 Skeleton / Error states & Integration & Must \\
+UI-003 & When filters return no results, show an empty state with a No matching ETFs message and Clear filters action. & 4.1.2 Empty State; M-2 & Frontend & Must \\
+UI-004 & ETF detail shows time-range chart, Overview / News tabs, watchlist toggle, and quick compare button. & 4.1.2 ETF Detail; M-1 & Integration & Must \\
+Flow-001 & User can enter ETF detail directly from watchlist preview, sector cards, or daily hot items. & M-1 User Story flowchart & Frontend & Must \\
+Flow-002 & User can tap compare on ETF detail, search/select a second ETF in the picker, and enter ETF Compare. & M-3; 4.1.2 Compare Picker & Integration & Must \\
+Flow-003 & Admin can access Add ETF by ID; normal users cannot see or access this entry. & M-4; 4.1.2 Admin entry & Frontend & Must \\
+Data-001 & ETF filters update results and count statistics in real time as users type or change filter conditions. & M-2; 4.1.2 Filter Sheet & Integration & Must \\
+Data-002 & ETF Compare displays a normalized price curve on a common baseline and aligned metric comparison tables. & M-3; 4.1.2 ETF Compare & Integration & Must \\
+Compliance-001 & Market data pages show a delayed-data disclaimer, such as HKEX data delayed 15 minutes. & 1.2 Guardrails & Frontend & Must \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{4.2 Portfolio Intelligence}
+
+\subsubsection{4.2.1 Functional Overview}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.24\linewidth}L{0.28\linewidth}L{0.16\linewidth}}
+\toprule
+\textbf{Stage} & \textbf{User action} & \textbf{System output} & \textbf{Key metrics} \\
+\midrule
+Input & Upload photos / documents, paste text, add ETF, add structured product, apply template & Draft Portfolio with symbol, quantity, cost, market value, weight, and P\&L & qty, cost, marketValue, weight, currency \\
+Review & Tap Review holdings & Readable draft holdings list, total market value, weight, and P\&L summary & holdings count, total value, weight \\
+Analyze & Tap Analyze draft portfolio & Four-step checklist, score cards, HHI, Effective N, exposure charts, Diagnosis Issues & HHI, Effective N, sector / region / currency \\
+Recommend & Tap Generate Recommendations & AI Portfolio Recommendations, selected diagnosis scope, Before / After, concrete actions, rationale, impact & Health Score, HHI target, exposure change \\
+History & Open Portfolio History Drawer & Portfolio History / Saved snapshots & date, total value, holdings summary \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsubsection{4.2.2 Diagnosis Issue Trigger Rules}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{Scoring dimension} & \textbf{Calculation} & \textbf{Diagnosis Issue} & \textbf{Trigger condition} & \textbf{Severity} \\
+\midrule
+Concentration & HHI = sum(weight\_i²) & High concentration risk & HHI \textgreater{} 0.25 & High \\
+Concentration & HHI = sum(weight\_i²) & Moderate concentration & 0.15 \textless{} HHI \ensuremath{\le} 0.25 & Medium \\
+Diversification & Effective N = 1 / HHI & Insufficient diversification & Effective N \textless{} 3 & High \\
+Region & HK / China total weight & Geographic concentration — HK/China & HK / China \textgreater{} 70\% & High \\
+FX & HKD total weight & FX concentration — HKD & HKD \textgreater{} 70\% & Medium \\
+Sector & Tech sector weight & Technology sector overweight & Tech \textgreater{} 35\% & Medium \\
+Defensive allocation & Fixed Income / defensive weight & Insufficient defensive allocation & Fixed Income \textless{} 15\% & Low \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsubsection{4.2.3 Page Introduction}
+
+
+
+
+
+\screenshotTriple{assets/screenshots/prototype-pages/13-portfolio-input-holdings.png}{Start with what you have}{Photos / Document upload entry, Add ETF, Add Structured Product, text paste area, template examples, Draft Portfolio, Review holdings, and Analyze draft portfolio buttons.}{assets/screenshots/prototype-pages/14-portfolio-analysis.png}{Portfolio Analysis}{Four-step checklist (Verifying HKEX pricing, Computing HHI concentration index, Assessing sector \& currency bias, Calculating risk sub-scores), score cards, HHI / Effective N, exposures, and Diagnosis Issues.}{assets/screenshots/prototype-pages/15-portfolio-ai-recommendations.png}{AI Portfolio Recommendations}{Selected diagnosis scope, Before / After Optimisation, concrete actions, rationale, impact, and compliance disclaimer triggered by Generate Recommendations.}
+\screenshotsingle{assets/screenshots/prototype-pages/16-portfolio-history.png}{Portfolio History / Saved snapshots}{Left drawer showing historical analysis snapshots for restoring or comparing past portfolio states.}
+\subsubsection{4.2.4 User Stories}
+
+\paragraph{P-1: Input Holdings → Run Portfolio Diagnosis → Get Rebalancing Suggestions}
+
+User type: User. Need: input holdings either by selecting ETFs / structured products or by uploading text / files / images for AI parsing; run analysis, review scores and Diagnosis Issues, choose which diagnoses to accept or exclude, and receive AI rebalancing suggestions with Before / After comparison. Value: create explainable portfolio risk context and receive personalized rebalancing suggestions.
+
+\flowchart{assets/screenshots/userstory-flowcharts/p-01-input-analysis.png}{P-1 Input and Analysis}
+
+\paragraph{P-2: Review Historical Portfolio Analyses}
+
+User type: User. Need: open History Drawer from Portfolio, browse historical analysis snapshots, and restore any snapshot to the current Draft Portfolio. Value: support review and comparison across portfolio states over time.
+
+\flowchart{assets/screenshots/userstory-flowcharts/p-02-history.png}{P-2 Portfolio History}
+
+\subsubsection{4.2.5 Acceptance Criteria}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+Flow-004 & Portfolio input provides four parallel input methods: photo upload, document upload, text paste, and manual ETF / structured product add. & P-1; 4.2.1 Input stage & Frontend & Must \\
+Flow-005 & User can trigger portfolio analysis after entering holdings; the analysis process shows a multi-step checklist with progress. & P-1; 4.2.3 Analysis page & Integration & Must \\
+Flow-006 & User can toggle individual diagnosis issues before generating recommendations to include or exclude their suggestion scope. & P-1; 4.2.3 Analysis page & Frontend & Must \\
+Flow-007 & User can open a history drawer from the top of the portfolio module, browse snapshots, and restore a previous analysis. & P-2; 4.2.4 History Drawer & Frontend & Should \\
+Data-003 & Draft Portfolio shows each holding's symbol, quantity, cost, market value, weight, P\&L, and currency. & P-1; 4.2.1 Input stage & Integration & Must \\
+Data-004 & Analysis results show HHI, Effective N, sector / currency / region exposures, and selectable diagnosis issues with severity. & P-1; 4.2.2, 4.2.3 & Integration & Must \\
+Data-005 & AI recommendations show before/after comparison plus each action's symbol, target weight, rationale, and expected impact. & P-1; 4.2.3 Recommendations page & Integration & Must \\
+Compliance-002 & Portfolio analysis and recommendation pages show a non-investment-advice disclaimer such as Not financial advice, for reference only. & P-1; 1.2 Guardrails & Frontend & Must \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{4.3 Assistant}
+
+\subsubsection{4.3.1 Functional Overview}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.24\linewidth}L{0.28\linewidth}L{0.16\linewidth}}
+\toprule
+\textbf{Capability} & \textbf{Input} & \textbf{Output} & \textbf{Notes} \\
+\midrule
+Mode-based chat & Value focus / Income focus plus user question & Text answer or structured suggestion card & Keywords such as value, income, and HHI trigger structured results \\
+Portfolio Context & On / Off & Current portfolio context is used in answers & Toggle is highlighted and affects portfolio-related questions \\
+Attachment analysis & Image / PDF / report & Attachment preview chip plus file summary / Q\&A & Prototype simulates file reading \\
+Explainability Drawer & Tap suggestion / Analytical Details & Why this suggestion appeared, What prompted this, Data considered, Assistant interpretation, Limits to this explanation & Improves traceability \\
+Conversations & Left drawer & Conversation list, restore, delete, New conversation & Manages multi-turn research conversations \\
+Custom Mode & Tap + and create from Prompt or Guided Survey & New mode pill & Custom investment goals, constraints, and risk preferences \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsubsection{4.3.2 Page Introduction}
+
+
+
+
+
+
+\screenshotTriple{assets/screenshots/prototype-pages/17-ai-advisory-chat.png}{Advisory Assistant Chat}{Title: Advisory Assistant. Includes history button, New, Value focus / Income focus modes, + custom mode entry, sample questions, Portfolio Context, attachments, and input box.}{assets/screenshots/prototype-pages/18-ai-advisory-suggestions.png}{Structured Suggestions}{After value / income / HHI keywords are triggered, the app shows structured rebalancing analysis and suggested actions.}{assets/screenshots/prototype-pages/19-ai-explanation-drawer.png}{Explanation Drawer}{Bottom sheet showing Why this suggestion appeared, What prompted this, Data considered, Assistant interpretation, and Limits to this explanation.}
+\screenshotpair{assets/screenshots/prototype-pages/20-ai-history-drawer.png}{Conversations Drawer}{Left drawer listing historical conversations; users can restore or delete conversations and start a New conversation.}{assets/screenshots/prototype-pages/21-ai-create-custom-mode.png}{Create Custom Mode}{After tapping +, the user can create a custom mode via Prompt or Guided Survey; the new mode appears as a mode pill.}
+\subsubsection{4.3.3 User Stories}
+
+\paragraph{A-1: Ask Questions through Chat}
+
+User type: User. Need: choose Value / Income / Custom mode, configure Portfolio Context or attachment tools, enter a question, and receive structured suggestions plus detailed explanations. Value: obtain traceable research support under different investment preferences, with follow-up questions and context continuity.
+
+\flowchart{assets/screenshots/userstory-flowcharts/a-01-chat-qa.png}{A-1 Chat Q\&A}
+
+\paragraph{A-2: Review Conversation History}
+
+User type: User. Need: open History Drawer from the AI Advisory module, browse past conversations, and restore any conversation into the current chat. Value: support review and continuation of prior advisory context.
+
+\flowchart{assets/screenshots/userstory-flowcharts/a-02-history.png}{A-2 Conversation History}
+
+\paragraph{A-3: Create Custom Mode}
+
+User type: User. Need: tap + to create a custom mode by writing a prompt or completing a guided survey covering horizon, risk preference, and return objective; save it to the Mode list. Value: let users tailor AI adviser behavior to personal investment needs.
+
+\flowchart{assets/screenshots/userstory-flowcharts/a-03-create-mode.png}{A-3 Create Custom Mode}
+
+\subsubsection{4.3.4 Acceptance Criteria}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+UI-005 & Chat empty state shows sample questions; sample questions are hidden after the first message is sent. & A-1; 4.3.2 Chat page & Frontend & Should \\
+UI-006 & User message bubble appears immediately after sending; typing indicator appears before assistant response. & A-1; 4.3.2 Chat page & Frontend & Must \\
+UI-007 & Explanation drawer shows five sections: why the suggestion appeared, trigger factors, referenced data, assistant interpretation, and explanation limits. & A-1; 4.3.2 Explanation Drawer & Integration & Must \\
+Flow-008 & User can switch between value focus, income focus, and custom modes; the active mode is highlighted and switching provides feedback. & A-1; 4.3.1 Mode capability & Frontend & Must \\
+Flow-009 & User can toggle portfolio context; when enabled, AI answers reference current portfolio metrics for relevant questions. & A-1; 4.3.1 Portfolio Context & Integration & Must \\
+Flow-010 & User can open the history drawer to browse, restore, or delete conversations and start a new conversation. & A-2; 4.3.2 History Drawer & Integration & Should \\
+Flow-011 & User can create a custom mode by entering a prompt or completing a guided survey; the new mode appears in the list and becomes active. & A-3; 4.3.2 Create Mode & Integration & Should \\
+Compliance-003 & AI suggestions and recommendations must not include execution language such as buy, sell, place order, execute, or guaranteed-return claims. & A-1; 1.2 Guardrails & Backend & Must \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{4.4 Structured Products}
+
+\subsubsection{4.4.1 Functional Overview}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.24\linewidth}L{0.28\linewidth}L{0.16\linewidth}}
+\toprule
+\textbf{Capability} & \textbf{Input} & \textbf{Output} & \textbf{Boundary} \\
+\midrule
+Product catalog & Issuer list, smart filters, advanced search & Product card list, risk / tenor / status summary, Screening only notice & Research discovery only; no trading \\
+Advanced search & Product type, structure, underlying, barrier, dates, tenor, currency, status, and more & Precisely filtered product list & Prototype uses simulated data \\
+Product detail & Product ID & Overview / Performance / Note Events / Documents & Risk-first presentation \\
+Note Events & Bull / Base / Bear & Payoff Story, Outcome selector, Payoff map, Rule quick check & Preset scenarios; no return promise \\
+Current performance & Product ID & Indicative price, implied yield, barrier watch, source, date & Non-firm quote \\
+Compare Products & Current product plus same-issuer product & Tabular Factsheet Matrix with side-by-side term comparison & No cross-issuer comparison \\
+Admin Panel & PDF Term Sheet & Upload Structured Product Sheet → Select PDF product sheet → Extraction complete → Publish & Admin only \\
+Admin ETF maintenance & Ticker ID & Add ETF by ID → Fetch preview → Add to Platform & Admin only \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsubsection{4.4.2 Page Introduction}
+
+\paragraph{User-side Pages}
+
+
+
+
+
+
+\screenshotTriple{assets/screenshots/prototype-pages/22-structured-products-list.png}{Structured Products}{Screening only risk notice, Issuer list, Smart filters, Advanced search, and product cards showing payoff type, principal treatment, barrier / buffer, status, risk, and suitability cues. Admin login reveals Admin Panel.}{assets/screenshots/prototype-pages/23-structured-product-detail-overview.png}{Product Detail Overview}{Product name, issuer, status, Overview / Performance / Note Events / Documents tabs, underlying, terms, illustrative outcomes, Risk Disclosure, and compare entry.}{assets/screenshots/prototype-pages/24-structured-product-scenario.png}{Note Events}{Payoff Story, Outcome selector, Payoff map, Rule quick check, and coupon / barrier / settlement rules.}
+\screenshotpair{assets/screenshots/prototype-pages/25-structured-product-pricing.png}{Performance}{Indicative price, implied yield, barrier watch, same-issuer product reference, and pricing disclaimer.}{assets/screenshots/prototype-pages/26-structured-product-compare.png}{Compare Products}{Same-issuer product selector plus Tabular Factsheet Matrix / side-by-side term comparison to avoid invalid cross-issuer comparison.}
+\paragraph{Admin-only Pages}
+
+
+
+\screenshotpair{assets/screenshots/prototype-pages/27-admin-upload-panel.png}{Admin Panel}{Admin only. Contains Upload Structured Product Sheet, Select PDF product sheet, and Add ETF by ID maintenance entries.}{assets/screenshots/prototype-pages/28-admin-extracted-review.png}{Extracted Review}{After Extraction complete, displays AI-extracted fields. Admin can review, edit, Discard, or Publish; ETF maintenance can Add to Platform after success.}
+\subsubsection{4.4.3 User Stories}
+
+\paragraph{S-1: Browse Structured Product Detail}
+
+User type: User. Need: browse product list through Issuer / Strategy / Risk filters, open product detail, review Overview / Performance / Note Events / Documents tabs, and add to watchlist. Value: build structured product research context and understand terms, status, and key metrics.
+
+\flowchart{assets/screenshots/userstory-flowcharts/s-01-browse-detail.png}{S-1 Browse Structured Product Detail}
+
+\paragraph{S-2: Search and Filter Structured Products}
+
+User type: User. Need: use Smart Filters or Advanced Search with product type, underlying, barrier, tenor, currency, and related conditions to find a target product and open detail. Value: turn a fuzzy need into a concrete product candidate.
+
+\flowchart{assets/screenshots/userstory-flowcharts/s-02-search-filter.png}{S-2 Search and Filter Structured Products}
+
+\paragraph{S-3: Compare Structured Products}
+
+User type: User. Need: tap Compare from product detail, select a second product from the same issuer, and compare payoff structure, coupon, barrier, risk, and other terms. Value: support product selection while avoiding invalid cross-issuer comparison.
+
+\flowchart{assets/screenshots/userstory-flowcharts/s-03-compare-products.png}{S-3 Compare Structured Products}
+
+\paragraph{S-4: Upload Structured Product PDF}
+
+User type: Admin. Need: upload a structured product term sheet PDF from Admin Panel, let AI extract fields, review and edit extracted fields, then Publish to the platform. Value: standardize product data maintenance and keep the catalog current.
+
+\flowchart{assets/screenshots/userstory-flowcharts/s-04-admin-maintenance.png}{S-4 Upload Structured Product PDF}
+
+\subsubsection{4.4.4 Acceptance Criteria}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+UI-008 & Product discovery page shows a Screening only banner, issuer list, smart filters, and advanced search entry. & S-1, S-2; 4.4.3 Product list page & Frontend & Must \\
+UI-009 & Product card shows payoff type, principal treatment, barrier / buffer, issuer, status, risk level, and suitability cues. & S-1; 4.4.3 Product list page & Integration & Must \\
+UI-010 & Product detail renders Overview, Performance, Note Events, and Documents tabs and their corresponding content. & S-1; 4.4.3 Detail Overview & Integration & Must \\
+UI-011 & Note Events tab shows payoff story, scenario selector, payoff map, rule quick check, and bull / neutral / bear rule explanations. & S-1; 4.4.3 Note Events page & Integration & Must \\
+Flow-012 & User can filter products through smart filters or advanced search; no-result state shows empty state and clear action. & S-2; 4.4.3 Filter/Search & Integration & Must \\
+Flow-013 & User can tap Compare on product detail, select a second product limited to the same issuer, and enter Compare. & S-3; 4.4.3 Compare page & Integration & Must \\
+Flow-014 & Admin can upload a structured product PDF through Admin Panel; the system shows extraction progress and then opens field review. & S-4; 4.4.3 Admin Panel & Integration & Must \\
+Flow-015 & Admin can edit extracted fields and choose Discard or Publish; success shows confirmation feedback. & S-4; 4.4.3 Extracted Review & Integration & Must \\
+Access-001 & Admin Panel entry and Upload / Add ETF features are visible and accessible only to Admin role users. & S-4; 2.2 Role Matrix & Frontend & Must \\
+Compliance-004 & Product pages show no-trading-execution disclaimer, non-firm quote disclaimer, and suitability assessment notice. & S-1; 1.2 Guardrails & Frontend & Must \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{4.5 Profile \& Settings}
+
+\subsubsection{4.5.1 Functional Overview}
+
+\begingroup
+\small
+\begin{longtable}{L{0.20\linewidth}L{0.34\linewidth}L{0.34\linewidth}}
+\toprule
+\textbf{Capability} & \textbf{Description} & \textbf{Priority} \\
+\midrule
+User identity & Show name, email, avatar initials, PRO / ADMIN tags & Must \\
+Language & EN / Traditional Chinese switching; Profile copy updates immediately & Should \\
+Notifications & iOS switch-style toggle & Should \\
+Security \& 2FA & Show security status and provide 2FA setup entry & Should \\
+Base Currency & Show base currency preference & Should \\
+Legal Links & Terms of Use, Privacy Policy, About & Must \\
+Sign Out & Sign out and return to Login & Must \\
+Admin Tools & Admin-only entries including Add ETF by ID and Upload Structured Product & Must \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsubsection{4.5.2 Page Introduction}
+
+
+\screenshotsingle{assets/screenshots/prototype-pages/29-profile-settings.png}{Profile}{User identity, membership tag; Language / 語言, Account, Preferences, Legal groups; Notifications, Security \& 2FA, Base Currency, Terms / Privacy / About, Sign Out; Admin Tools appear for Admin login; footer states HKEX data delayed 15 min and No trading execution.}
+\section{5. Non-Functional Requirements}
+
+\subsection{5.1 Security}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+NFR-Security-001 & App supports email/password login and Google/Microsoft OAuth 2.0 SSO. & 5.1 & Backend & Must \\
+NFR-Security-002 & Login errors show inline red messages; network errors show clear recovery copy. & 5.1 & Frontend & Must \\
+NFR-Security-003 & Access token is stored in iOS Keychain; expired tokens refresh silently; sign-out revokes local and server tokens. & 5.1 & Frontend & Must \\
+NFR-Security-004 & App requires re-authentication after being in background for more than 30 minutes. & 5.1 & Frontend & Should \\
+NFR-Security-005 & Repeated failed login attempts above threshold lock the account or require extra verification. & 5.1 & Backend & Should \\
+NFR-Security-006 & App supports TOTP or enterprise SSO 2FA; Profile shows 2FA status. & 5.1 & Integration & Should \\
+NFR-Security-007 & All API calls use TLS 1.2+; production client enables certificate pinning. & 5.1 & Frontend & Must \\
+NFR-Security-008 & Tokens, sensitive configuration, and holding cache are stored in Keychain or encrypted storage. & 5.1 & Frontend & Must \\
+NFR-Security-009 & Holding data is used only for current analysis and is not written to plaintext logs. & 5.1 & Backend & Must \\
+NFR-Security-010 & Email, name, and other PII are masked or minimized before logging and AI requests. & 5.1 & Backend & Must \\
+NFR-Security-011 & App does not request unrelated permissions such as location, contacts, or microphone. & 5.1 & Frontend & Must \\
+NFR-Security-012 & Third-party AI calls do not include identifiable personal information; outputs pass compliance filtering. & 5.1 & Integration & Should \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{5.2 Access Control}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+NFR-Access-001 & Server returns account role; frontend role control is display-only and not the security boundary. & 5.1, 2.2 & Backend & Must \\
+NFR-Access-002 & Hidden client controls are not sufficient protection; Admin APIs must be authorized on the server. & 5.1, 2.2 & Backend & Must \\
+NFR-Access-003 & Upload Product, Add ETF, and Admin Tools are invisible and inaccessible to normal users. & 5.1, 2.2 & Frontend & Must \\
+NFR-Access-004 & Upload, publish, delete, and field-edit actions record actor, time, source, and content ID. & 5.1 & Backend & Should \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{5.3 Performance}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+NFR-Performance-001 & Market Dashboard first screen loads within 2 seconds on Wi-Fi cold start. & 5.1 & Integration & Must \\
+NFR-Performance-002 & Page interactions respond within 300ms from tap to visual feedback. & 5.1 & Frontend & Must \\
+NFR-Performance-003 & ETF data API p95 latency is within 800ms under normal network conditions. & 5.1 & Backend & Must \\
+NFR-Performance-004 & Assistant first response appears within 3 seconds after typing indicator is shown. & 5.1 & Integration & Must \\
+NFR-Performance-005 & File parsing for PDF / CSV / image within 5MB, including extraction, completes within 10 seconds. & 5.1 & Integration & Must \\
+NFR-Performance-006 & Normal use on iPhone 13 keeps memory below 150MB RSS. & 5.1 & Frontend & Should \\
+NFR-Performance-007 & All network requests show Skeleton / Spinner / Error states and never white-screen. & 5.1 & Frontend & Must \\
+NFR-Performance-008 & Offline mode shows cached data and offline notice; write operations are disabled with explanation. & 5.1 & Integration & Should \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{5.4 Compatibility}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+NFR-Compatibility-001 & App follows Apple Human Interface Guidelines (HIG). & 5.1 & Frontend & Must \\
+NFR-Compatibility-002 & Tab Bar, Bottom Sheet, Drawer, Toast, Segmented Control, and iOS Switch use native or behavior-equivalent components. & 5.1 & Frontend & Must \\
+NFR-Compatibility-003 & Every interactive element has a minimum touch target of 44x44pt. & 5.1 & Frontend & Must \\
+NFR-Compatibility-004 & App supports Dynamic Island, Home Indicator, and Safe Area Insets. & 5.1 & Frontend & Must \\
+NFR-Compatibility-005 & Gestures such as left-swipe Drawer close and pull-down Bottom Sheet close respond correctly. & 5.1 & Frontend & Should \\
+NFR-Compatibility-006 & Page transition, Drawer, Toast, and Sheet animations complete within 200-350ms. & 5.1 & Frontend & Must \\
+NFR-Compatibility-007 & Focused input fields do not cover content; tapping outside dismisses the keyboard. & 5.1 & Frontend & Must \\
+NFR-Compatibility-008 & Core content does not truncate under Accessibility Large Text. & 5.1 & Frontend & Should \\
+NFR-Compatibility-009 & Supports iOS 16.0+; primary tests cover iPhone 13/14/15 series. & 5.1 & Integration & Must \\
+NFR-Compatibility-010 & All content is scroll-accessible on 4.7-inch to 6.7-inch portrait screens. & 5.1 & Frontend & Must \\
+NFR-Compatibility-011 & Portrait is the primary orientation; chart regions are enhanced in landscape. & 5.1 & Frontend & Could \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{5.5 Accessibility}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+NFR-Accessibility-001 & Core buttons, inputs, and chart summaries provide accessibilityLabel / Hint support for VoiceOver. & 5.1 & Frontend & Should \\
+NFR-Accessibility-002 & Supports English and Traditional Chinese; key business copy is placed in i18n resources. & 5.1 & Frontend & Should \\
+NFR-Accessibility-003 & Body text and backgrounds meet WCAG AA contrast ratio (4.5:1). & 5.1 & Frontend & Should \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{5.6 Compliance}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+NFR-Compliance-001 & All Assistant, Portfolio, and Product suggestions clearly state that they are not formal investment advice. & 5.1, 1.2 & Integration & Must \\
+NFR-Compliance-002 & App does not show Execute / Order / Place Trade or similar trading execution UI or copy. & 5.1, 1.2 & Integration & Must \\
+NFR-Compliance-003 & ETF quotes are marked delayed; product pricing is marked indicative / non-firm quote. & 5.1, 1.2 & Frontend & Must \\
+NFR-Compliance-004 & Structured product pages state Private Placement and Suitability assessment required. & 5.1, 1.2 & Frontend & Must \\
+NFR-Compliance-005 & No return promise; historical performance does not indicate future results. & 5.1, 1.2 & Integration & Must \\
+NFR-Compliance-006 & App provides Privacy Policy and follows Hong Kong PDPO. & 5.1 & Backend & Must \\
+NFR-Compliance-007 & User data processing and storage region are clearly disclosed. & 5.1 & Backend & Should \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{5.7 Observability}
+
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+NFR-Observability-001 & Crash monitoring includes device, OS version, and page context. & 5.1 & Frontend & Must \\
+NFR-Observability-002 & API errors, file parsing failures, and Assistant timeouts record request ID. & 5.1 & Backend & Must \\
+NFR-Observability-003 & ETF data sources, AI prompts, scoring thresholds, and compliance copy are configurable. & 5.1 & Backend & Should \\
+NFR-Observability-004 & New features are released gradually through feature flags. & 5.1 & Integration & Should \\
+NFR-Observability-005 & Backend APIs use versioned routes, such as /v1/. & 5.1 & Backend & Should \\
+NFR-Observability-006 & ETF data, Assistant reasoning, and product publishing pipelines monitor p95 latency and error rates. & 5.1 & Backend & Should \\
+\bottomrule
+\end{longtable}
+\endgroup
