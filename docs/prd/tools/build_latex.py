@@ -2539,34 +2539,57 @@ def image_command(path: str, caption: str, width: str = "0.92") -> str:
 
 
 def render_screenshot_cards(cards: list[tuple[str, str, str]]) -> list[str]:
+    """Render screenshots in new format: 3 images side-by-side (30% each) with compact captions,
+    followed by full-width text descriptions in horizontal rows of 3."""
     rendered: list[str] = []
     i = 0
+    
     while i < len(cards):
-        first_path, first_title, first_body = cards[i]
-        if i + 2 < len(cards):
-            # Three or more cards remain — use triple column
-            second_path, second_title, second_body = cards[i + 1]
-            third_path, third_title, third_body = cards[i + 2]
+        # Collect up to 3 cards for this group
+        group = cards[i : i + 3]
+        group_size = len(group)
+        
+        # Build image row command
+        if group_size == 3:
+            p1, t1, d1 = group[0]
+            p2, t2, d2 = group[1]
+            p3, t3, d3 = group[2]
             rendered.append(
-                rf"\screenshotTriple{{{first_path}}}{{{format_inline(first_title)}}}{{{format_inline(first_body)}}}"
-                rf"{{{second_path}}}{{{format_inline(second_title)}}}{{{format_inline(second_body)}}}"
-                rf"{{{third_path}}}{{{format_inline(third_title)}}}{{{format_inline(third_body)}}}"
+                rf"\screenshotsTripleCompact{{{p1}}}{{{format_inline(t1)}}}{{{format_inline(d1)}}}"
+                rf"{{{p2}}}{{{format_inline(t2)}}}{{{format_inline(d2)}}}"
+                rf"{{{p3}}}{{{format_inline(t3)}}}{{{format_inline(d3)}}}"
             )
-            i += 3
-        elif i + 1 < len(cards):
-            # Exactly two cards remain — use double column
-            second_path, second_title, second_body = cards[i + 1]
+        elif group_size == 2:
+            p1, t1, d1 = group[0]
+            p2, t2, d2 = group[1]
             rendered.append(
-                rf"\screenshotpair{{{first_path}}}{{{format_inline(first_title)}}}{{{format_inline(first_body)}}}"
-                rf"{{{second_path}}}{{{format_inline(second_title)}}}{{{format_inline(second_body)}}}"
+                rf"\screenshotsDoubleCompact{{{p1}}}{{{format_inline(t1)}}}{{{format_inline(d1)}}}"
+                rf"{{{p2}}}{{{format_inline(t2)}}}{{{format_inline(d2)}}}"
             )
-            i += 2
+        else:  # group_size == 1
+            p1, t1, d1 = group[0]
+            rendered.append(
+                rf"\screenshotsSingleCompact{{{p1}}}{{{format_inline(t1)}}}{{{format_inline(d1)}}}"
+            )
+        
+        # Add text descriptions row below images
+        desc_parts = []
+        for p, t, d in group:
+            desc_parts.append(rf"\textbf{{{format_inline(t)}}} — {format_inline(d)}")
+        
+        if group_size == 3:
+            rendered.append(
+                rf"\screenshotDescsThree{{{desc_parts[0]}}}{{{desc_parts[1]}}}{{{desc_parts[2]}}}"
+            )
+        elif group_size == 2:
+            rendered.append(
+                rf"\screenshotDescsTwo{{{desc_parts[0]}}}{{{desc_parts[1]}}}"
+            )
         else:
-            # Single card remains
-            rendered.append(
-                rf"\screenshotsingle{{{first_path}}}{{{format_inline(first_title)}}}{{{format_inline(first_body)}}}"
-            )
-            i += 1
+            rendered.append(rf"\screenshotDescSingle{{{desc_parts[0]}}}")
+        
+        i += group_size
+    
     return rendered
 
 

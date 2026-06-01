@@ -43,45 +43,25 @@
 
 ### 3.1 入口與頁面樹
 
-<table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/01-login.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Login</strong> — 郵箱、密碼、記住我、Forgot password、Google / Microsoft SSO；用於進入普通用戶或管理員流程。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/02-login-auth-error.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Auth Error</strong> — 賬號或密碼錯誤時在表單內展示紅色 inline 錯誤，不跳轉。</p>
-</div>
-</td>
-</tr>
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/03-login-network-fail.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Network Error</strong> — 網絡異常時展示可恢複錯誤信息，引導用戶稍後重試。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/30-page-navigator-left-panel.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Page Navigator 左側面板</strong> — 展示產品頁面樹、User / Admin 快捷登入、模組顏色圖例、產品邊界聲明。用於評審頁面範圍與用戶旅程。</p>
-</div>
-</td>
-</tr>
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/31-page-tree-nodes-only.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>頁面節點圖</strong> — 包含 Login、Market Intelligence、Portfolio Builder、Assistant、Structured Products、Profile & Settings、Admin Panel 等節點；點擊節點可直接跳轉對應原型狀態。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;"></td>
-</tr>
-</table>
+**Login** — 郵箱、密碼、記住我、Forgot password、Google / Microsoft SSO；用於進入普通用戶或管理員流程。
+
+![Login](assets/screenshots/prototype-pages/01-login.png)
+
+**Auth Error** — 賬號或密碼錯誤時在表單內展示紅色 inline 錯誤，不跳轉。
+
+![Auth Error](assets/screenshots/prototype-pages/02-login-auth-error.png)
+
+**Network Error** — 網絡異常時展示可恢複錯誤信息，引導用戶稍後重試。
+
+![Network Error](assets/screenshots/prototype-pages/03-login-network-fail.png)
+
+**Page Navigator 左側面板** — 展示產品頁面樹、User / Admin 快捷登入、模組顏色圖例、產品邊界聲明。用於評審頁面範圍與用戶旅程。
+
+![Page Navigator Left Panel](assets/screenshots/prototype-pages/30-page-navigator-left-panel.png)
+
+**頁面節點圖** — 包含 Login、Market Intelligence、Portfolio Builder、Assistant、Structured Products、Profile & Settings、Admin Panel 等節點；點擊節點可直接跳轉對應原型狀態。
+
+![Page Node Diagram](assets/screenshots/prototype-pages/31-page-tree-nodes-only.png)
 
 
 ### 3.2 頁面目錄
@@ -183,73 +163,41 @@ AC 條目前綴標識驗收項的類型：
 
 #### 4.1.2 頁面介紹
 
-<table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/04-market-dashboard.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Market Dashboard</strong> — 標題為 Market Intelligence / ETF intelligence & insights；包含 ETF Market Overview、Sectors、Daily Hot、Market Indices、Watchlist Preview，並提供 All ETFs 入口。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/05-market-dashboard-skeleton.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>載入骨架屏</strong> — Dashboard 資料請求中，以 skeleton 模擬卡片、列表和行情區域載入。</p>
-</div>
-</td>
-</tr>
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/06-market-dashboard-load-error.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>載入錯誤</strong> — 資料源異常時展示錯誤狀態和重試按鈕。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/07-all-etfs-screener.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>All ETFs Screener</strong> — 搜尋框、ETF 數量、Filter 按鈕、ETF 列表；ETF 行展示 symbol、名稱、主題標簽、價格 / 漲跌幅、星標；Admin 登入後顯示 Add ETF 入口。</p>
-</div>
-</td>
-</tr>
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/08-all-etfs-filter-sort-sheet.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Filter & Sort Bottom Sheet</strong> — 支持 Sort、Asset Class、Region、Sector、Issuer、Currency 組合篩選；Filter badge 顯示激活數。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/09-all-etfs-empty-state.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Screener Empty State</strong> — 搜尋 / 篩選無結果時展示 No matching ETFs 和 Clear filters。</p>
-</div>
-</td>
-</tr>
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/10-etf-detail-overview.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>ETF Detail</strong> — ETF header、價格、漲跌幅、時間區間圖表、Watchlist、Quick Compare、Overview / News、風險指標、分類與新聞摘要。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/11-etf-detail-compare-picker.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Compare Picker</strong> — 從 ETF 詳情打開 Bottom Sheet，搜尋並選擇第二只 ETF。</p>
-</div>
-</td>
-</tr>
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/12-etf-compare.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>ETF Compare</strong> — 雙 ETF 頭部卡、標準化價格曲線、收益 / 風險 / 費用等指標對比。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;"></td>
-</tr>
-</table>
+**Market Dashboard** — 標題為 Market Intelligence / ETF intelligence & insights；包含 ETF Market Overview、Sectors、Daily Hot、Market Indices、Watchlist Preview，並提供 All ETFs 入口。
+
+![Market Dashboard](assets/screenshots/prototype-pages/04-market-dashboard.png)
+
+**載入骨架屏** — Dashboard 資料請求中，以 skeleton 模擬卡片、列表和行情區域載入。
+
+![Loading Skeleton](assets/screenshots/prototype-pages/05-market-dashboard-skeleton.png)
+
+**載入錯誤** — 資料源異常時展示錯誤狀態和重試按鈕。
+
+![Load Error](assets/screenshots/prototype-pages/06-market-dashboard-load-error.png)
+
+**All ETFs Screener** — 搜尋框、ETF 數量、Filter 按鈕、ETF 列表；ETF 行展示 symbol、名稱、主題標簽、價格 / 漲跌幅、星標；Admin 登入後顯示 Add ETF 入口。
+
+![All ETFs Screener](assets/screenshots/prototype-pages/07-all-etfs-screener.png)
+
+**Filter & Sort Bottom Sheet** — 支持 Sort、Asset Class、Region、Sector、Issuer、Currency 組合篩選；Filter badge 顯示激活數。
+
+![Filter & Sort Bottom Sheet](assets/screenshots/prototype-pages/08-all-etfs-filter-sort-sheet.png)
+
+**Screener Empty State** — 搜尋 / 篩選無結果時展示 No matching ETFs 和 Clear filters。
+
+![Screener Empty State](assets/screenshots/prototype-pages/09-all-etfs-empty-state.png)
+
+**ETF Detail** — ETF header、價格、漲跌幅、時間區間圖表、Watchlist、Quick Compare、Overview / News、風險指標、分類與新聞摘要。
+
+![ETF Detail](assets/screenshots/prototype-pages/10-etf-detail-overview.png)
+
+**Compare Picker** — 從 ETF 詳情打開 Bottom Sheet，搜尋並選擇第二只 ETF。
+
+![Compare Picker](assets/screenshots/prototype-pages/11-etf-detail-compare-picker.png)
+
+**ETF Compare** — 雙 ETF 頭部卡、標準化價格曲線、收益 / 風險 / 費用等指標對比。
+
+![ETF Compare](assets/screenshots/prototype-pages/12-etf-compare.png)
 
 #### 4.1.3 User Stories
 
@@ -318,36 +266,21 @@ AC 條目前綴標識驗收項的類型：
 
 #### 4.2.3 頁面介紹
 
-<table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/13-portfolio-input-holdings.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Start with what you have</strong> — Photos / Document 上傳入口、Add ETF、Add Structured Product、文本粘貼框、模板示例、Draft Portfolio、Review holdings 與 Analyze draft portfolio 按鈕。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/14-portfolio-analysis.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Portfolio Analysis</strong> — 四步 checklist（Verifying HKEX pricing、Computing HHI concentration index、Assessing sector & currency bias、Calculating risk sub-scores）；展示評分卡、HHI / Effective N、敞口與 Diagnosis Issues。</p>
-</div>
-</td>
-</tr>
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/15-portfolio-ai-recommendations.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>AI Portfolio Recommendations</strong> — Selected diagnosis scope、Before / After Optimisation、具體動作建議、rationale、impact 與合規聲明；由 Generate Recommendations 觸發。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/16-portfolio-history.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Portfolio History / Saved snapshots</strong> — 左側抽屜展示歷史分析快照，用於恢複或對比過往組合狀態。</p>
-</div>
-</td>
-</tr>
-</table>
+**Start with what you have** — Photos / Document 上傳入口、Add ETF、Add Structured Product、文本粘貼框、模板示例、Draft Portfolio、Review holdings 與 Analyze draft portfolio 按鈕。
+
+![Start with what you have](assets/screenshots/prototype-pages/13-portfolio-input-holdings.png)
+
+**Portfolio Analysis** — 四步 checklist（Verifying HKEX pricing、Computing HHI concentration index、Assessing sector & currency bias、Calculating risk sub-scores）；展示評分卡、HHI / Effective N、敞口與 Diagnosis Issues。
+
+![Portfolio Analysis](assets/screenshots/prototype-pages/14-portfolio-analysis.png)
+
+**AI Portfolio Recommendations** — Selected diagnosis scope、Before / After Optimisation、具體動作建議、rationale、impact 與合規聲明；由 Generate Recommendations 觸發。
+
+![AI Portfolio Recommendations](assets/screenshots/prototype-pages/15-portfolio-ai-recommendations.png)
+
+**Portfolio History / Saved snapshots** — 左側抽屜展示歷史分析快照，用於恢複或對比過往組合狀態。
+
+![Portfolio History](assets/screenshots/prototype-pages/16-portfolio-history.png)
 
 #### 4.2.4 User Stories
 
@@ -391,45 +324,25 @@ AC 條目前綴標識驗收項的類型：
 
 #### 4.3.2 頁面介紹
 
-<table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/17-ai-advisory-chat.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Advisory Assistant Chat</strong> — 標題為 Advisory Assistant；歷史按鈕、New、Value focus / Income focus 模式、+ 自定義模式入口、Sample Questions、Portfolio Context、附件與輸入框。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/18-ai-advisory-suggestions.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Structured Suggestions</strong> — 觸發 value / income / HHI 等關鍵詞後展示結構化 rebalancing analysis 與 suggested actions。</p>
-</div>
-</td>
-</tr>
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/19-ai-explanation-drawer.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Explanation Drawer</strong> — Bottom Sheet 展示 Why this suggestion appeared、What prompted this、Data considered、Assistant interpretation、Limits to this explanation。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/20-ai-history-drawer.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Conversations Drawer</strong> — 左側抽屜展示歷史會話，可恢複或刪除會話，並支持 New conversation。</p>
-</div>
-</td>
-</tr>
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/21-ai-create-custom-mode.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Create Custom Mode</strong> — 點擊 + 後創建自定義模式，支持 Prompt 與 Guided Survey 兩種創建方式，創建後新增 mode pill。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;"></td>
-</tr>
-</table>
+**Advisory Assistant Chat** — 標題為 Advisory Assistant；歷史按鈕、New、Value focus / Income focus 模式、+ 自定義模式入口、Sample Questions、Portfolio Context、附件與輸入框。
+
+![Advisory Assistant Chat](assets/screenshots/prototype-pages/17-ai-advisory-chat.png)
+
+**Structured Suggestions** — 觸發 value / income / HHI 等關鍵詞後展示結構化 rebalancing analysis 與 suggested actions。
+
+![Structured Suggestions](assets/screenshots/prototype-pages/18-ai-advisory-suggestions.png)
+
+**Explanation Drawer** — Bottom Sheet 展示 Why this suggestion appeared、What prompted this、Data considered、Assistant interpretation、Limits to this explanation。
+
+![Explanation Drawer](assets/screenshots/prototype-pages/19-ai-explanation-drawer.png)
+
+**Conversations Drawer** — 左側抽屜展示歷史會話，可恢複或刪除會話，並支持 New conversation。
+
+![Conversations Drawer](assets/screenshots/prototype-pages/20-ai-history-drawer.png)
+
+**Create Custom Mode** — 點擊 + 後創建自定義模式，支持 Prompt 與 Guided Survey 兩種創建方式，創建後新增 mode pill。
+
+![Create Custom Mode](assets/screenshots/prototype-pages/21-ai-create-custom-mode.png)
 
 #### 4.3.3 User Stories
 
@@ -483,64 +396,35 @@ AC 條目前綴標識驗收項的類型：
 
 **User 側頁面**
 
-<table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/22-structured-products-list.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Structured Products</strong> — Screening only 風險提示、Issuer list、Smart filters、Advanced search、產品卡展示 payoff type、principal treatment、barrier / buffer、status、risk 與 suitability cues；Admin 登入後顯示 Admin Panel。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/23-structured-product-detail-overview.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Product Detail Overview</strong> — 產品名稱、發行人、狀態、Overview / Performance / Note Events / Documents tabs、underlying、terms、illustrative outcomes、Risk Disclosure、compare 入口。</p>
-</div>
-</td>
-</tr>
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/24-structured-product-scenario.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Note Events</strong> — 展示 Payoff Story、Outcome selector、Payoff map、Rule quick check、coupon / barrier / settlement 規則。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/25-structured-product-pricing.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Performance</strong> — 指示性價格、implied yield、barrier watch、同發行人產品參考與 pricing disclaimer。</p>
-</div>
-</td>
-</tr>
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/26-structured-product-compare.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Compare Products</strong> — 同發行人產品選擇器 + Tabular Factsheet Matrix / 左右雙欄條款對比，避免跨發行人不可比。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;"></td>
-</tr>
-</table>
+**Structured Products** — Screening only 風險提示、Issuer list、Smart filters、Advanced search、產品卡展示 payoff type、principal treatment、barrier / buffer、status、risk 與 suitability cues；Admin 登入後顯示 Admin Panel。
 
-**Admin 专屬頁面**
+![Structured Products](assets/screenshots/prototype-pages/22-structured-products-list.png)
 
-<table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/27-admin-upload-panel.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Admin Panel</strong> — Admin 专屬；Upload Structured Product Sheet、Select PDF product sheet 與 Add ETF by ID 兩個維護入口。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/28-admin-extracted-review.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Extracted Review</strong> — Extraction complete 後展示 AI 抽取字段，管理員可審核、Discard 或 Publish；ETF 維護成功後可 Add to Platform。</p>
-</div>
-</td>
-</tr>
-</table>
+**Product Detail Overview** — 產品名稱、發行人、狀態、Overview / Performance / Note Events / Documents tabs、underlying、terms、illustrative outcomes、Risk Disclosure、compare 入口。
+
+![Product Detail Overview](assets/screenshots/prototype-pages/23-structured-product-detail-overview.png)
+
+**Note Events** — 展示 Payoff Story、Outcome selector、Payoff map、Rule quick check、coupon / barrier / settlement 規則。
+
+![Note Events](assets/screenshots/prototype-pages/24-structured-product-scenario.png)
+
+**Performance** — 指示性價格、implied yield、barrier watch、同發行人產品參考與 pricing disclaimer。
+
+![Performance](assets/screenshots/prototype-pages/25-structured-product-pricing.png)
+
+**Compare Products** — 同發行人產品選擇器 + Tabular Factsheet Matrix / 左右雙欄條款對比，避免跨發行人不可比。
+
+![Compare Products](assets/screenshots/prototype-pages/26-structured-product-compare.png)
+
+**Admin 側頁面**
+
+**Admin Panel** — Admin 专屬；Upload Structured Product Sheet、Select PDF product sheet 與 Add ETF by ID 兩個維護入口。
+
+![Admin Panel](assets/screenshots/prototype-pages/27-admin-upload-panel.png)
+
+**Extracted Review** — Extraction complete 後展示 AI 抽取字段，管理員可審核、Discard 或 Publish；ETF 維護成功後可 Add to Platform。
+
+![Extracted Review](assets/screenshots/prototype-pages/28-admin-extracted-review.png)
 
 #### 4.4.3 User Stories
 
@@ -600,17 +484,9 @@ AC 條目前綴標識驗收項的類型：
 
 #### 4.5.2 頁面介紹
 
-<table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
-<tr>
-<td style="padding: 12px; vertical-align: top; width: 50%;">
-<div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-<img src="assets/screenshots/prototype-pages/29-profile-settings.png" style="width: 100%; max-width: 400px;">
-<p style="padding: 12px; margin: 0; font-size: 14px;"><strong>Profile</strong> — 用戶身份、會員標簽；Language / 語言、Account、Preferences、Legal 分組；Notifications、Security & 2FA、Base Currency、Terms / Privacy / About、Sign Out；Admin 登入時出現 Admin Tools（Add ETF by ID、Upload Structured Product）；底部提示 HKEX data delayed 15 min · No trading execution。</p>
-</div>
-</td>
-<td style="padding: 12px; vertical-align: top; width: 50%;"></td>
-</tr>
-</table>
+**Profile** — 用戶身份、會員標簽；Language / 語言、Account、Preferences、Legal 分組；Notifications、Security & 2FA、Base Currency、Terms / Privacy / About、Sign Out；Admin 登入時出現 Admin Tools（Add ETF by ID、Upload Structured Product）；底部提示 HKEX data delayed 15 min · No trading execution。
+
+![Profile](assets/screenshots/prototype-pages/29-profile-settings.png)
 
 ## 五、非功能性需求
 

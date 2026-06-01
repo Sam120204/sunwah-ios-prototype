@@ -313,6 +313,111 @@
   \end{figure}
 }
 
+% --- New compact screenshot row (30% width each, 3 images) ---
+\newcommand{\screenshotsTripleCompact}[9]{
+  \begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.30\linewidth}
+      \centering
+      \IfFileExists{#1}{
+        \includegraphics[width=\linewidth,height=0.35\textheight,keepaspectratio]{#1}
+      }{
+        \imageplaceholder{#1}{#2}
+      }
+      \caption*{#2}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.30\linewidth}
+      \centering
+      \IfFileExists{#4}{
+        \includegraphics[width=\linewidth,height=0.35\textheight,keepaspectratio]{#4}
+      }{
+        \imageplaceholder{#4}{#5}
+      }
+      \caption*{#5}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.30\linewidth}
+      \centering
+      \IfFileExists{#7}{
+        \includegraphics[width=\linewidth,height=0.35\textheight,keepaspectratio]{#7}
+      }{
+        \imageplaceholder{#7}{#8}
+      }
+      \caption*{#8}
+    \end{minipage}
+  \end{figure}
+}
+
+% --- New compact screenshot row (45% width each, 2 images) ---
+\newcommand{\screenshotsDoubleCompact}[6]{
+  \begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.45\linewidth}
+      \centering
+      \IfFileExists{#1}{
+        \includegraphics[width=\linewidth,height=0.35\textheight,keepaspectratio]{#1}
+      }{
+        \imageplaceholder{#1}{#2}
+      }
+      \caption*{#2}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\linewidth}
+      \centering
+      \IfFileExists{#4}{
+        \includegraphics[width=\linewidth,height=0.35\textheight,keepaspectratio]{#4}
+      }{
+        \imageplaceholder{#4}{#5}
+      }
+      \caption*{#5}
+    \end{minipage}
+  \end{figure}
+}
+
+% --- New compact screenshot row (45% width, 1 image, centered) ---
+\newcommand{\screenshotsSingleCompact}[3]{
+  \begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.45\linewidth}
+      \centering
+      \IfFileExists{#1}{
+        \includegraphics[width=\linewidth,height=0.35\textheight,keepaspectratio]{#1}
+      }{
+        \imageplaceholder{#1}{#2}
+      }
+      \caption*{#2}
+    \end{minipage}
+  \end{figure}
+}
+
+% --- Text descriptions for 3 screenshots (horizontal row) ---
+\newcommand{\screenshotDescsThree}[3]{
+  \begin{trivlist}\itemsep2pt\parsep2pt
+    \item #1
+    \item #2
+    \item #3
+  \end{trivlist}
+  \vspace{0.5em}
+}
+
+% --- Text descriptions for 2 screenshots (horizontal row) ---
+\newcommand{\screenshotDescsTwo}[2]{
+  \begin{trivlist}\itemsep2pt\parsep2pt
+    \item #1
+    \item #2
+  \end{trivlist}
+  \vspace{0.5em}
+}
+
+% --- Text description for 1 screenshot ---
+\newcommand{\screenshotDescSingle}[1]{
+  \begin{trivlist}\itemsep2pt\parsep2pt
+    \item #1
+  \end{trivlist}
+  \vspace{0.5em}
+}
+
 \newcommand{\makedeliverytitle}{
   \begin{titlepage}
     \begin{tikzpicture}[remember picture,overlay]
