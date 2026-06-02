@@ -7,29 +7,67 @@ This folder contains the working materials for the Sunwah Fintech iOS Prototype 
 - Current review artifacts are kept only in `delivery_ppt/current_review/`.
 - The renderer is `delivery_ppt/scripts/render_current_review.mjs`.
 - The latest rendered deck covers opening, product foundation, and Market Intelligence.
-- The current deck has 15 slides:
+- The latest Market Intelligence page-introduction slides use one primary raw prototype screenshot per slide, consistent rounded screenshot sizing, numbered pins, UI-style flow chips, and lightweight annotation notes so the PPT complements the HTML prototype instead of repeating README-style documentation.
+- The renderer also captures three prototype states directly from `prototype.html` into `delivery_ppt/current_review/assets/`: ETF Market Overview, Sector Detail, and My Watchlist.
+- The current deck has 18 slides:
   1. Cover
   2. Structure
-  3. Product Overview
+  3. Product Foundation
   4. Architecture & Control Layers
   5. Page Structure & Module Directory
   6. Core Modules divider
   7. Market Intelligence Scope
   8. Dashboard Entry
-  9. Failure & Recovery
-  10. Search Refinement
-  11. Detail Research
-  12. ETF Compare
-  13. Market User Stories
-  14. Market User Stories
-  15. Market Acceptance Criteria
+  9. ETF Market Overview
+  10. Sector Detail
+  11. My Watchlist
+  12. All ETFs Screener
+  13. Filter Sheet
+  14. ETF Detail
+  15. ETF Compare
+  16. Market User Stories
+  17. Market User Stories
+  18. Market Acceptance Criteria
 
 Latest outputs:
 
 - `delivery_ppt/current_review/sunwah-opening-foundation-market.pdf`
-- `delivery_ppt/current_review/png/slide-01.png` through `slide-15.png`
+- `delivery_ppt/current_review/png/slide-01.png` through `slide-18.png`
+- `delivery_ppt/current_review/assets/market-overview-detail.png`
+- `delivery_ppt/current_review/assets/sector-detail-ai-technology.png`
+- `delivery_ppt/current_review/assets/watchlist.png`
 
 The render script cleans and replaces `delivery_ppt/current_review/` on each run. Keep this behavior: the user wants only the latest review version and does not want old bad drafts left in the repo.
+
+## Latest Iteration Summary
+
+What worked well this time:
+
+- The deck improved when it stopped behaving like a README converted into slides. The strongest slides now use the screenshot as the proof object and explain what each UI region does, why it exists, and what interaction it leads to.
+- One real screenshot per walkthrough slide works better than three small screenshots. It gives enough room for pins, readable annotations, and presenter explanation.
+- Rounded-corner screen crops with subtle shadows fixed the earlier rectangular / cut-off screenshot problem without adding a second phone shell.
+- UI-style flow chips work better than written transition sentences. They should describe the product interaction, such as `Filter button` -> `Refine ETF fields` -> `Apply`, not say `from slide 11 / 12`.
+- Lightweight annotation notes work better than heavy rectangle callout boxes. Use a gold side marker, large number, short heading, compact caption, and a thin divider. Avoid crowded bordered cards.
+- Slide 03 became stronger after removing the center-dot orbit diagram and replacing long paragraphs with icon-led infographic structure.
+- Inline SVG icons are a useful direction. They make the deck feel more like a designed product explanation and less like text blocks placed beside screenshots.
+
+What changed in this iteration:
+
+- Rebuilt the cover phone as a purely abstract UI visual. It no longer repeats `Markets / Portfolio / Assistant / Products` or embeds real walkthrough screenshots on the opening page.
+- Rebuilt Slide 03 Product Foundation as an infographic: short thesis, icon-led `Intent / Evidence / Explain` path, module tiles with icons, and icon-led design rules.
+- Replaced paragraph-style screen connection strips with UI flow chips that show trigger, current screen, and next UI action.
+- Replaced dense bordered explanation boxes with lighter annotation notes across Market Intelligence walkthrough slides.
+- Standardized screenshot handling so raw prototype screenshots keep one consistent phone-screen ratio, rounded corners, and no extra outer phone layer.
+- Added generated Market Intelligence states from `prototype.html` for ETF Market Overview, Sector Detail, and My Watchlist, so the walkthrough shows the actual result pages.
+- Updated Market copy to clarify Default Sector versus Daily Hot, ETF Market Overview return distribution / rankings, Sector Detail filtered-by-sector behavior, Filter Sheet field logic, ETF Detail overview/news context, and ETF Compare as research support rather than execution.
+
+Next AI should preserve these decisions:
+
+- Do not bring back orbit/dot diagrams, generic feature-card grids, or long explanatory paragraphs.
+- Do not label transitions by slide number in visible slide UI. Use UI action labels and product destinations.
+- Do not add a second iPhone frame around prototype screenshots.
+- Do not show skeleton, error, or empty states in the main walkthrough unless the user explicitly asks for supporting states.
+- Continue expanding the remaining modules with an infographic-first pattern: icon or screenshot first, short copy second.
 
 ## Must-Read Sources
 
@@ -48,14 +86,16 @@ Important diagram assets:
 Important prototype screenshots already used for Market Intelligence:
 
 - `04-market-dashboard.png`
-- `05-market-dashboard-skeleton.png`
-- `06-market-dashboard-load-error.png`
 - `07-all-etfs-screener.png`
 - `08-all-etfs-filter-sort-sheet.png`
-- `09-all-etfs-empty-state.png`
 - `10-etf-detail-overview.png`
-- `11-etf-detail-compare-picker.png`
 - `12-etf-compare.png`
+
+Additional Market Intelligence screenshots generated during render:
+
+- `delivery_ppt/current_review/assets/market-overview-detail.png`
+- `delivery_ppt/current_review/assets/sector-detail-ai-technology.png`
+- `delivery_ppt/current_review/assets/watchlist.png`
 
 Screenshots still needed for remaining modules:
 
@@ -84,7 +124,7 @@ After regenerating, visually inspect:
 
 ## Approved Design Direction
 
-The user likes the current overall style. Continue it rather than starting over.
+Keep the restrained professional visual system, but do not let the deck feel like a generic template or a slide version of the README. Treat the PPT as presenter support for the HTML prototype: each module should explain what the reviewer is seeing, why the UI block exists, and where the user clicks next.
 
 Core visual rules:
 
@@ -95,18 +135,34 @@ Core visual rules:
 - Avoid large dark-blue or dark content blocks. The dark left navigation is acceptable, but dark content cards were rejected.
 - Avoid excessive whitespace. Increase font size or rebalance layouts when slides feel empty.
 - Use clear PPT-like layouts, not random rectangles.
+- Treat each slide as an infographic: pair short copy with icons, screenshot evidence, small diagrams, or UI-like controls. Avoid pages that rely on text boxes alone.
+- Prefer icon-led labels and compact captions over paragraph explanations. When a paragraph is unavoidable, keep it short enough to read at presentation speed.
 - Keep page titles shorter than the raw outline titles. Convert long PRD titles into concise slide titles.
 - Remove source labels or visible source notes from slide images.
 - Keep the deck as delivery-review material, not a marketing brochure.
+- Prototype screenshots in `docs/prd/assets/screenshots/prototype-pages/` already include the iPhone UI / status bar / bottom nav. Do not add another phone shell, notch, or outer device wrapper around these screenshots.
+- For page-introduction slides, lead with one real prototype screenshot per slide. Show it as a rounded-corner screen crop with a subtle shadow only, then use numbered pins and lightweight annotation notes to point at exact UI regions.
+- Explain design reasoning at component level: what the block does, why it belongs there, how it changes the user journey, and what boundary it enforces.
+- Show screen connections through light UI flow chips, for example Dashboard `All ETFs` -> Screener -> ETF Detail -> Compare. Do not write the interaction as a paragraph and do not use a dark bottom banner.
+- Avoid feature-card grids and long explanatory text when a screenshot, icon, or small diagram can carry the explanation. The slide should feel like someone is walking through the HTML prototype with annotations.
 
 Specific feedback already incorporated:
 
-- Slide 01 cover: user liked the iOS screenshot/phone visual. Do not use confusing callouts like `Delayed data`, `No execution`, `Admin review`, or `AI explanation` on the cover. Current cover callouts should stay module-oriented: `Markets`, `Portfolio`, `Assistant`, `Products`.
+- Slide 01 cover: do not use a real Market Intelligence screenshot. Use a simplified made-up product phone visual with abstract UI shapes only; do not show module names or bottom tab labels inside the cover phone.
 - Slide 02: title should be `Structure`, not `Presentation Structure`.
-- Slide 03 product overview: do not use confusing terms like `Product research`. The product loop should reflect the real modules: Market Intelligence, Portfolio Builder, AI Advisory, Structured Products, and Admin Maintenance.
+- Slide 03 product foundation: keep this as an icon-led infographic, not a PRD text summary. Use short thesis copy, icon paths, and concise design-rule captions; do not use a center-dot orbit layout.
 - Slide 04 architecture: use `Architecture-Diagram.png` as the main architecture visual. Avoid hand-drawn boxes with crossing lines.
 - Slide 05 page structure: use `page-tree-diagram.png` as the main tree visual. The user disliked imperfect custom tree connectors. Do not add bottom boxes such as `Page Navigator Left Panel`, `Page Node Diagram`, `Loading/Error/Empty States`, or `Drawer/Sheet States`.
 - Acceptance Criteria pages should not use dark-blue headers. Keep them light, rigorous, and aligned with the rest of the UI.
+- Slides 08-15 now form a connected Market Intelligence walkthrough:
+  - Slide 08 Dashboard Entry explains the clickable dashboard regions.
+  - Slide 09 ETF Market Overview shows the result of tapping the overview card: return distribution and ETF rankings.
+  - Slide 10 Sector Detail shows the result of tapping a default sector or Daily Hot tile: related ETFs filtered by sector, sortable by return or volume.
+  - Slide 11 My Watchlist shows the result of tapping Watchlist Preview / View all.
+  - Slide 12 All ETFs Screener shows the result of tapping All ETFs or View more ETFs.
+  - Slide 13 Filter Sheet explains sort, asset class, region, sector, and issuer filtering.
+  - Slide 14 ETF Detail explains identity/actions, price horizon, candlestick/volume chart, and Overview / News tabs. The news item is not labeled as a compare path.
+  - Slide 15 ETF Compare is explained through proof objects: context cards, normalized curve, aligned metrics, and execution boundary.
 
 ## Slide Pattern For Remaining Modules
 
@@ -127,12 +183,13 @@ Functional overview:
 
 Page introductions:
 
-- Use screenshots inside phone frames, not raw pasted screenshots.
-- Usually place 1 to 2 phone-framed screenshots per slide.
-- Pair screenshots with concise text that explains reading path and conclusion.
-- A good pattern is one screenshot on the left, one on the right, with explanation text between or beside them.
+- Use the raw prototype screenshot assets directly; they already include the phone frame. Do not add a second outer phone frame.
+- Prefer one large annotated screenshot when the presenter needs to explain multiple UI regions in the same screen.
+- Use numbered pins for dense screens such as dashboards, screeners, detail pages, or Admin review pages.
+- Pair screenshots with concise text that explains reading path, design intent, and next interaction.
+- A good pattern is one large annotated screenshot plus a readable explanation panel. Avoid three screenshots on one slide.
 - Avoid clutter and avoid large blank regions.
-- Explanation slides should be easy to understand, not high-density just for density.
+- Explanation slides should be easy to present: the audience should know exactly which UI region is being discussed.
 
 User Stories:
 
