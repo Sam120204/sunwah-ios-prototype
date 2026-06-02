@@ -48,13 +48,13 @@ What worked well this time:
 - Rounded-corner screen crops with subtle shadows fixed the earlier rectangular / cut-off screenshot problem without adding a second phone shell.
 - UI-style flow chips work better than written transition sentences. They should describe the product interaction, such as `Filter button` -> `Refine ETF fields` -> `Apply`, not say `from slide 11 / 12`.
 - Lightweight annotation notes work better than heavy rectangle callout boxes. Use a gold side marker, large number, short heading, compact caption, and a thin divider. Avoid crowded bordered cards.
-- Slide 03 became stronger after removing the center-dot orbit diagram and replacing long paragraphs with icon-led infographic structure.
+- Slide 03 became stronger after removing the center-dot orbit diagram and replacing long paragraphs / empty icon cards with module explanation strips and icon-supported design rules.
 - Inline SVG icons are a useful direction. They make the deck feel more like a designed product explanation and less like text blocks placed beside screenshots.
 
 What changed in this iteration:
 
 - Rebuilt the cover phone as a purely abstract UI visual. It no longer repeats `Markets / Portfolio / Assistant / Products` or embeds real walkthrough screenshots on the opening page.
-- Rebuilt Slide 03 Product Foundation as an infographic: short thesis, icon-led `Intent / Evidence / Explain` path, module tiles with icons, and icon-led design rules.
+- Rebuilt Slide 03 Product Foundation as an infographic: short thesis, icon-led `Intent / Evidence / Explain` path, module explanation strips, and design rules with enough detail to support presentation narration.
 - Replaced paragraph-style screen connection strips with UI flow chips that show trigger, current screen, and next UI action.
 - Replaced dense bordered explanation boxes with lighter annotation notes across Market Intelligence walkthrough slides.
 - Standardized screenshot handling so raw prototype screenshots keep one consistent phone-screen ratio, rounded corners, and no extra outer phone layer.
@@ -63,7 +63,7 @@ What changed in this iteration:
 
 Next AI should preserve these decisions:
 
-- Do not bring back orbit/dot diagrams, generic feature-card grids, or long explanatory paragraphs.
+- Do not bring back orbit/dot diagrams, crosshair connector lines, generic feature-card grids, empty icon cards, or long explanatory paragraphs.
 - Do not label transitions by slide number in visible slide UI. Use UI action labels and product destinations.
 - Do not add a second iPhone frame around prototype screenshots.
 - Do not show skeleton, error, or empty states in the main walkthrough unless the user explicitly asks for supporting states.
@@ -150,7 +150,7 @@ Specific feedback already incorporated:
 
 - Slide 01 cover: do not use a real Market Intelligence screenshot. Use a simplified made-up product phone visual with abstract UI shapes only; do not show module names or bottom tab labels inside the cover phone.
 - Slide 02: title should be `Structure`, not `Presentation Structure`.
-- Slide 03 product foundation: keep this as an icon-led infographic, not a PRD text summary. Use short thesis copy, icon paths, and concise design-rule captions; do not use a center-dot orbit layout.
+- Slide 03 product foundation: keep this as an infographic, not a PRD text summary. Use short thesis copy, icon paths, module explanation strips, and concise but understandable design-rule captions; do not use a center-dot orbit layout or empty 2x2 icon cards.
 - Slide 04 architecture: use `Architecture-Diagram.png` as the main architecture visual. Avoid hand-drawn boxes with crossing lines.
 - Slide 05 page structure: use `page-tree-diagram.png` as the main tree visual. The user disliked imperfect custom tree connectors. Do not add bottom boxes such as `Page Navigator Left Panel`, `Page Node Diagram`, `Loading/Error/Empty States`, or `Drawer/Sheet States`.
 - Acceptance Criteria pages should not use dark-blue headers. Keep them light, rigorous, and aligned with the rest of the UI.
