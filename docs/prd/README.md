@@ -14,8 +14,14 @@ docs/prd/
 ├── Sunwah-Fintech-PRD-zh-Hans.md # 简体中文 Markdown 源文件（规范源）
 ├── Sunwah-Fintech-PRD-zh-Hant.md # 繁体中文 Markdown（自动生成，禁止手动编辑）
 │
+├── m2/                            # M2 功能验收工作区
+│   ├── README.md                  # Market / Portfolio / Login-Register / Admin 模块索引
+│   ├── generate_markdown.py       # M2 简中源 → 三语 Markdown 模块文档
+│   ├── source/                    # M2 简中规范源与验收截图
+│   └── <module>.<language>.md     # 每个模块的 zh-Hans / zh-Hant / en 版本
+│
 ├── tools/
-│   └── build_latex.py            # Markdown → LaTeX 转换脚本
+│   └── build_latex.py             # Markdown → LaTeX 转换脚本
 │
 ├── latex/
 │   ├── prd-common.tex            # 共享样式库（封面、配色、截图宏、表格样式等）
@@ -61,6 +67,23 @@ docs/prd/
                                               ▼
                                      build/en/Sunwah-Fintech-PRD-en.pdf
 ```
+
+### M2 功能验收文档
+
+M2 验收文档使用独立的模块化结构，入口为 [`m2/README.md`](m2/README.md)：
+
+- 一级索引为 `Market`、`Portfolio`、`Login / Register`、`Admin` 四个模块，每个模块每种语言一份文档。
+- 二级索引为模块内的 User Story；每个 User Story 对应一支验收视频，并包含 `Walkthrough` 与 `Acceptance Criteria`。
+- `docs/prd/m2/source/*.md` 是简体中文功能内容的规范源；`docs/prd/m2/*.md` 是用于交付的简体中文、繁体中文和英文模块文档。
+- 中文版本中的产品名、页面名、标签、按钮、卡片和状态保留 UI 英文原文。
+
+重新同步三语文档：
+
+```sh
+python3 m2/generate_markdown.py --translate-en
+```
+
+该命令通过公开翻译服务重新生成英文内容，因此源文档发生变更后仍需进行英文编辑校对；不传 `--translate-en` 时只同步简体中文和繁体中文，并保留现有英文文档。
 
 ### 编辑规则
 
