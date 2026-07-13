@@ -22,4 +22,4 @@
 - password、verification code、email、owner 等敏感信息使用测试数据或打码。
 - 不把手势过程中的模糊帧、loading 遮挡或 Toast 作为唯一验收截图。
 - 写入类操作优先提供刷新/重新打开后的结果图。
-- 截图不需要逐项覆盖全部 Acceptance Criteria；短暂 loading、提交、防重复操作和跨端刷新可由视频连续证明，并在 walkthrough 中标为 `视频证据`。
+- 截图不需要逐项覆盖全部 Acceptance Criteria；短暂 loading、提交、防重复操作和跨端刷新由视频连续展示。

@@ -4,8 +4,6 @@
 
 `Admin Portal` 是客户端应用背后的运营控制台。本模块的核心不是只浏览后台页面，而是证明后台与移动端使用同一组后端资源：管理员对 `ETF Catalogue` 和 `Model Portfolios` 的变更，在刷新移动端后可以得到验证；同时管理员可通过 `Dashboard`、`Users` 和 `User Portfolios` 监控平台状态。
 
-> 录制方式：同时录制 iOS simulator 与 `Admin Portal`。每个会影响客户端的操作都先展示移动端基线，再在后台修改，最后返回 simulator 刷新或重新打开对应页面进行核验。
-
 ## User Story / Video 索引
 
 | Story | 视频主题 | 核心路径 | Video |
@@ -42,9 +40,9 @@
 1. 登录 `Admin Portal` 并打开 `Dashboard`。
 2. 展示 total users、ETF catalogue size、user portfolios、structured notes 和 ETF tier distribution 等概览数据，说明这些资源来自与移动端共享的后端。
 
-![Admin Dashboard 概览](assets/screenshots/admin/adm-us1-01-dashboard.png)
+**Screenshot** — ADM-US1-01：`Dashboard` 完整概览，包含主要 counters、ETF tier distribution 和最近活动。
 
-*ADM-US1-01：`Dashboard` 完整概览，包含主要 counters、ETF tier distribution 和最近活动。*
+![Admin Dashboard 概览](assets/screenshots/admin/adm-us1-01-dashboard.png)
 
 #### B. 添加 ETF，并在移动端验证
 
@@ -52,46 +50,38 @@
 4. 切换到 `Admin Portal > ETF Catalogue`。展示按 symbol/name/issuer 搜索，以及按 tier 或 asset class 筛选。
 5. 展示 catalogue 中的 exchange、currency、asset class、region、sector、issuer、expense ratio 等字段。
 
-![ETF Catalogue 列表与筛选](assets/screenshots/admin/adm-us1-extra-etf-catalogue.png)
+**Screenshot** — `ETF Catalogue` 列表、search、tier / asset class filters，以及 ETF 维护字段。
 
-*补充图：`ETF Catalogue` 列表、search、tier / asset class filters，以及 ETF 维护字段。*
+![ETF Catalogue 列表与筛选](assets/screenshots/admin/adm-us1-extra-etf-catalogue.png)
 
 6. 使用 `Add by Ticker` 或 `Add ETF manually` 添加测试 ETF。若采用手动流程，填写 symbol、name、exchange、currency、asset class、region、sector、issuer、inception date、expense ratio 和 tier。
 
+**Screenshot** — `Add by Ticker` 对已存在的 `VOO` 显示重复记录校验；此图只证明校验行为，不作为成功创建 ETF 的证据。
+
 ![Add by Ticker 重复记录校验](assets/screenshots/admin/adm-us1-extra-add-by-ticker-validation.png)
 
-*补充图：`Add by Ticker` 对已存在的 `VOO` 显示重复记录校验；此图只证明校验行为，不作为成功创建 ETF 的证据。*
-
-> **视频证据：** 创建有效 ETF 的完整提交过程、成功反馈与重复提交保护由视频连续展示；静态截图保留 `ETF Catalogue` 和 ticker validation 作为页面与校验状态证据。
-
 7. 返回 simulator，刷新 ETF search/list，确认相同 ETF 已出现。
-
-> **视频证据：** 新 ETF 在 simulator 刷新后的可见结果，由视频以相同 symbol/name 连续核验。
 
 #### C. 停用 ETF，并在移动端验证
 
 8. 在 `ETF Catalogue` 选择一只当前可在移动端搜索到的测试 ETF，将其设为 inactive/deactivated。
 9. 返回 simulator，刷新 ETF search/list，确认该 ETF 不再作为 active product 出现。
 
-> **视频证据：** active ETF 的停用操作及 simulator 刷新后的 no-result 状态由视频连续核验。
-
 #### D. 修改 `Model Portfolios`，并在移动端验证
 
 10. 先在 simulator 打开一个已发布的 Model Portfolio，记录其 title、display order、risk band、summary 和 ETF allocations 基线。
 11. 切换到 `Admin Portal > Model Portfolios`。展示 template key、display order、title、risk band、return range、horizon、summary、reference note、status 和 ETF allocations。
 
-![Model Portfolios 管理列表](assets/screenshots/admin/adm-us1-extra-model-portfolios-list.png)
+**Screenshot** — `Model Portfolios` 管理列表，展示 template、显示顺序、风险、状态和维护操作入口。
 
-*补充图：`Model Portfolios` 管理列表，展示 template、显示顺序、风险、状态和维护操作入口。*
+![Model Portfolios 管理列表](assets/screenshots/admin/adm-us1-extra-model-portfolios-list.png)
 
 12. 编辑一个容易识别且适合演示的字段，例如 title、display order、risk band、summary 或 allocation。若修改 allocation，确认总权重为 100%。保存并保持 template 为 `published`。
 13. 返回 simulator，刷新或重新打开 Model Portfolio 页面，确认客户端显示最新配置。
 
+**Screenshot** — ADM-US1-05：`Create Model Portfolio` 表单，显示主要配置字段、ETF allocations 和 `Total 100.00%`；发布状态及保存后的客户端结果仍需在视频中连续核验。
+
 ![Create Model Portfolio 表单](assets/screenshots/admin/adm-us1-05-model-portfolio-edit.png)
-
-*ADM-US1-05：`Create Model Portfolio` 表单，显示主要配置字段、ETF allocations 和 `Total 100.00%`；发布状态及保存后的客户端结果仍需在视频中连续核验。*
-
-> **视频证据：** 已发布 Model Portfolio 修改前后的字段对照，以及 simulator 刷新后的客户端结果，由视频连续核验。
 
 14. 可选补充发布边界：将专用测试 template 改为 `draft` 或 `hidden`，刷新客户端确认不再出现；再恢复测试数据，避免影响后续演示。
 
@@ -99,44 +89,33 @@
 
 15. 打开 `Users`，展示 search、role/status filters，以及 verification status、account status、risk profile、last login、created date。使用测试用户或对 PII 打码。
 
-![Users 运营列表](assets/screenshots/admin/adm-us1-extra-users-redacted.png)
+**Screenshot** — `Users` 运营列表与筛选区域；可识别的 email 已脱敏。
 
-*补充图：`Users` 运营列表与筛选区域；可识别的 email 已脱敏。*
+![Users 运营列表](assets/screenshots/admin/adm-us1-extra-users-redacted.png)
 
 16. 打开 `User Portfolios`，展示 owner、base currency、objective、horizon、holdings count 和 created time。
 
-![User Portfolios 运营列表](assets/screenshots/admin/adm-us1-07-user-portfolios.png)
+**Screenshot** — ADM-US1-07：`User Portfolios` 运营列表，包含 search / filters、owner、base currency、objective、horizon、holdings 和 created time。
 
-*ADM-US1-07：`User Portfolios` 运营列表，包含 search / filters、owner、base currency、objective、horizon、holdings 和 created time。*
+![User Portfolios 运营列表](assets/screenshots/admin/adm-us1-07-user-portfolios.png)
 
 ### Acceptance Criteria
 
-- [ ] `ADM-US1-AC01` `Dashboard` 展示当前后端返回的平台概览，包括 users、ETF catalogue、user portfolios、structured notes 和 ETF tier distribution 中当前可用的指标。
-- [ ] `ADM-US1-AC02` `ETF Catalogue` 支持按 symbol、name 或 issuer 搜索，并支持当前实现提供的 tier / asset class filters。
-- [ ] `ADM-US1-AC03` ETF 记录展示 exchange、currency、asset class、region、sector、issuer 和 expense ratio 等维护所需字段。
-- [ ] `ADM-US1-AC04` 管理员可以通过 `Add by Ticker` 或 `Add ETF manually` 创建一条有效 ETF 记录。
-- [ ] `ADM-US1-AC05` 添加前在移动端不存在的测试 ETF，在后台成功添加后可通过刷新移动端 search/list 找到，且 symbol/name 与后台一致。
-- [ ] `ADM-US1-AC06` 管理员可以停用一只 active ETF；停用后刷新移动端，该 ETF 不再出现在 active product universe。
-- [ ] `ADM-US1-AC07` ETF 添加或停用请求进行中不可重复提交，完成后不会产生重复记录或冲突状态。
-- [ ] `ADM-US1-AC08` `Model Portfolios` 支持维护 template key、display order、title、risk band、return range、horizon、summary、reference note、status 和 ETF allocations。
-- [ ] `ADM-US1-AC09` Model Portfolio allocation 只有在总权重为 100% 时才能作为有效 template 保存或发布。
-- [ ] `ADM-US1-AC10` 后台对已发布 Model Portfolio 的 title、order、risk band、summary 或 allocation 所做修改，在刷新或重新打开移动端后得到反映。
-- [ ] `ADM-US1-AC11` 只有 `published` Model Portfolio 对客户端可见；`draft` 或 `hidden` template 不出现在客户端目录。
-- [ ] `ADM-US1-AC12` 客户端显示的是当前 Model Portfolio 配置，不使用写死内容或上一次打开的 template 状态。
-- [ ] `ADM-US1-AC13` `Users` 支持 search 和 role/status filters，并展示当前可用的 verification status、account status、risk profile、last login 和 created date。
-- [ ] `ADM-US1-AC14` `User Portfolios` 展示 owner、base currency、objective、horizon、holdings count 和 created time 等当前可用字段。
-- [ ] `ADM-US1-AC15` `Users` 和 `User Portfolios` 用于运营可见性与排查，不在本 story 中修改普通用户持仓。
-- [ ] `ADM-US1-AC16` 所有会影响客户端的后台变更都通过 simulator 刷新或重新打开页面验证，不能只以后台 Toast 作为成功证据。
-- [ ] `ADM-US1-AC17` 视频和截图使用测试数据，或对 email、owner 等个人信息进行打码。
+- **ADM-US1-AC01:** `Dashboard` 展示当前后端返回的平台概览，包括 users、ETF catalogue、user portfolios、structured notes 和 ETF tier distribution 中当前可用的指标。
+- **ADM-US1-AC02:** `ETF Catalogue` 支持按 symbol、name 或 issuer 搜索，并支持当前实现提供的 tier / asset class filters。
+- **ADM-US1-AC03:** ETF 记录展示 exchange、currency、asset class、region、sector、issuer 和 expense ratio 等维护所需字段。
+- **ADM-US1-AC04:** 管理员可以通过 `Add by Ticker` 或 `Add ETF manually` 创建一条有效 ETF 记录。
+- **ADM-US1-AC05:** 添加前在移动端不存在的测试 ETF，在后台成功添加后可通过刷新移动端 search/list 找到，且 symbol/name 与后台一致。
+- **ADM-US1-AC06:** 管理员可以停用一只 active ETF；停用后刷新移动端，该 ETF 不再出现在 active product universe。
+- **ADM-US1-AC07:** ETF 添加或停用请求进行中不可重复提交，完成后不会产生重复记录或冲突状态。
+- **ADM-US1-AC08:** `Model Portfolios` 支持维护 template key、display order、title、risk band、return range、horizon、summary、reference note、status 和 ETF allocations。
+- **ADM-US1-AC09:** Model Portfolio allocation 只有在总权重为 100% 时才能作为有效 template 保存或发布。
+- **ADM-US1-AC10:** 后台对已发布 Model Portfolio 的 title、order、risk band、summary 或 allocation 所做修改，在刷新或重新打开移动端后得到反映。
+- **ADM-US1-AC11:** 只有 `published` Model Portfolio 对客户端可见；`draft` 或 `hidden` template 不出现在客户端目录。
+- **ADM-US1-AC12:** 客户端显示的是当前 Model Portfolio 配置，不使用写死内容或上一次打开的 template 状态。
+- **ADM-US1-AC13:** `Users` 支持 search 和 role/status filters，并展示当前可用的 verification status、account status、risk profile、last login 和 created date。
+- **ADM-US1-AC14:** `User Portfolios` 展示 owner、base currency、objective、horizon、holdings count 和 created time 等当前可用字段。
+- **ADM-US1-AC15:** `Users` 和 `User Portfolios` 用于运营可见性与排查，不在本 story 中修改普通用户持仓。
+- **ADM-US1-AC16:** 所有会影响客户端的后台变更都通过 simulator 刷新或重新打开页面验证，不能只以后台 Toast 作为成功证据。
+- **ADM-US1-AC17:** 视频和截图使用测试数据，或对 email、owner 等个人信息进行打码。
 
-## 本模块截图清单
-
-| ID | 已归档画面 | 文件名 |
-| --- | --- | --- |
-| ADM-US1-01 | `Dashboard` 主要 counters 与分布 | `adm-us1-01-dashboard.png` |
-| ADM-US1-EX01 | `ETF Catalogue` 列表与筛选 | `adm-us1-extra-etf-catalogue.png` |
-| ADM-US1-EX02 | `Add by Ticker` 重复记录校验 | `adm-us1-extra-add-by-ticker-validation.png` |
-| ADM-US1-EX03 | `Model Portfolios` 管理列表 | `adm-us1-extra-model-portfolios-list.png` |
-| ADM-US1-05 | `Model Portfolios` 表单与 allocation total | `adm-us1-05-model-portfolio-edit.png` |
-| ADM-US1-EX04 | `Users` 运营列表（email 已脱敏） | `adm-us1-extra-users-redacted.png` |
-| ADM-US1-07 | `User Portfolios` 运营列表 | `adm-us1-07-user-portfolios.png` |
