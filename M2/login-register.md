@@ -43,7 +43,7 @@ Login / Register 模块覆盖未登录用户的两个可用认证路径：注册
 
 **Screenshot** — AUTH-US1-01：`Login` 页面默认态，包含 account/email 与 password 输入框、`Sign In`、`Register New Account` 和三种其他登录入口。
 
-![Login 页面默认态](assets/screenshots/login-register/auth-us1-01-login-page.png)
+<img src="assets/screenshots/login-register/auth-us1-01-login-page.png" alt="Login 页面默认态" width="420" />
 
 #### B. 注册新账号并验证 email
 
@@ -52,20 +52,20 @@ Login / Register 模块覆盖未登录用户的两个可用认证路径：注册
 
 **Screenshot** — AUTH-US1-02：`Create Account` 有效表单完成态，包含 display name、已脱敏的 demo email、隐藏的 password，以及已启用的 `Create Account`。
 
-![Create Account 有效表单](assets/screenshots/login-register/auth-us1-02-create-account.png)
+<img src="assets/screenshots/login-register/auth-us1-02-create-account.png" alt="Create Account 有效表单" width="420" />
 
 7. 点击 `Create Account`。确认应用创建 pending registration、向 email 发送六位 verification code，并进入 `Verify Email`。
 8. 在 code 未满六位时展示 `Verify and Continue` 不可用；输入完整六位 code 后按钮可用。
 
 **Screenshot** — AUTH-US1-03：`Verify Email` 初始态，显示已脱敏的收件 email、空 code 输入框，以及 code 未满六位时不可用的 `Verify and Continue`。六位 code 完成态及提交操作由视频连续展示。
 
-![Verify Email 初始验证状态](assets/screenshots/login-register/auth-us1-03-verify-email.png)
+<img src="assets/screenshots/login-register/auth-us1-03-verify-email.png" alt="Verify Email 初始验证状态" width="420" />
 
 9. 点击 `Verify and Continue`。验证成功后，确认账号创建完成、用户自动登录，并进入 `Markets`。
 
 **Screenshot** — AUTH-US1-04：新账号验证成功后进入 `Markets` landing page；底部导航保留在画面中，用于证明已离开认证流程。
 
-![注册成功后的 Markets landing page](assets/screenshots/login-register/auth-us1-04-registration-success.png)
+<img src="assets/screenshots/login-register/auth-us1-04-registration-success.png" alt="注册成功后的 Markets landing page" width="420" />
 
 #### C. 已有账号登录
 
@@ -75,18 +75,20 @@ Login / Register 模块覆盖未登录用户的两个可用认证路径：注册
 
 ### Acceptance Criteria
 
-- **AUTH-US1-AC01:** 未认证用户打开应用后首先看到 `Login` 页面。
-- **AUTH-US1-AC02:** `Login` 提供 account/email 与 password 两个必填字段，password 默认隐藏。
-- **AUTH-US1-AC03:** eye icon 可以显示或隐藏 password，且不会清除已输入内容。
-- **AUTH-US1-AC04:** 任一必填字段为空时 `Sign In` 不可用；两个字段填写后按钮可用。
-- **AUTH-US1-AC05:** `Google`、`Microsoft` 和 `Sign in with Apple` 不属于本版本已验收的工作路径。
-- **AUTH-US1-AC06:** 点击 `Register New Account` 打开 `Create Account`，并提供 display name、email 和 password 字段。
-- **AUTH-US1-AC07:** 注册表单缺少任一必填字段或 password 少于 8 个字符时，`Create Account` 不可用。
-- **AUTH-US1-AC08:** 有效注册表单提交后创建 pending registration、发送六位 verification code，并进入 `Verify Email`。
-- **AUTH-US1-AC09:** verification code 少于六位时 `Verify and Continue` 不可用；六位输入完成后按钮可用。
-- **AUTH-US1-AC10:** 正确 code 验证成功后完成账号创建并自动登录，只产生一个新账号。
-- **AUTH-US1-AC11:** 新注册用户成功后进入默认 `Markets` landing page。
-- **AUTH-US1-AC12:** 已有用户可以使用 account/email 与 password 提交 `Sign In`。
-- **AUTH-US1-AC13:** 登录请求进行中显示 signing-in state，且不会重复提交同一次登录请求。
-- **AUTH-US1-AC14:** 已有用户认证成功后进入默认 `Markets` landing page。
-- **AUTH-US1-AC15:** 视频和截图不暴露真实 password、可复用 verification code 或非测试账号的个人资料。
+| ID | Requirement | Reference | Ownership | Priority |
+| --- | --- | --- | --- | --- |
+| AUTH-US1-AC01 | 未认证用户打开应用后首先看到 `Login` 页面。 | US-AUTH-01 | Integration | Must |
+| AUTH-US1-AC02 | `Login` 提供 account/email 与 password 两个必填字段，password 默认隐藏。 | US-AUTH-01 | Integration | Must |
+| AUTH-US1-AC03 | eye icon 可以显示或隐藏 password，且不会清除已输入内容。 | US-AUTH-01 | Integration | Must |
+| AUTH-US1-AC04 | 任一必填字段为空时 `Sign In` 不可用；两个字段填写后按钮可用。 | US-AUTH-01 | Integration | Must |
+| AUTH-US1-AC05 | `Google`、`Microsoft` 和 `Sign in with Apple` 不属于本版本已验收的工作路径。 | US-AUTH-01 | Integration | Must |
+| AUTH-US1-AC06 | 点击 `Register New Account` 打开 `Create Account`，并提供 display name、email 和 password 字段。 | US-AUTH-01 | Integration | Must |
+| AUTH-US1-AC07 | 注册表单缺少任一必填字段或 password 少于 8 个字符时，`Create Account` 不可用。 | US-AUTH-01 | Integration | Must |
+| AUTH-US1-AC08 | 有效注册表单提交后创建 pending registration、发送六位 verification code，并进入 `Verify Email`。 | US-AUTH-01 | Integration | Must |
+| AUTH-US1-AC09 | verification code 少于六位时 `Verify and Continue` 不可用；六位输入完成后按钮可用。 | US-AUTH-01 | Integration | Must |
+| AUTH-US1-AC10 | 正确 code 验证成功后完成账号创建并自动登录，只产生一个新账号。 | US-AUTH-01 | Integration | Must |
+| AUTH-US1-AC11 | 新注册用户成功后进入默认 `Markets` landing page。 | US-AUTH-01 | Integration | Must |
+| AUTH-US1-AC12 | 已有用户可以使用 account/email 与 password 提交 `Sign In`。 | US-AUTH-01 | Integration | Must |
+| AUTH-US1-AC13 | 登录请求进行中显示 signing-in state，且不会重复提交同一次登录请求。 | US-AUTH-01 | Integration | Must |
+| AUTH-US1-AC14 | 已有用户认证成功后进入默认 `Markets` landing page。 | US-AUTH-01 | Integration | Must |
+| AUTH-US1-AC15 | 视频和截图不暴露真实 password、可复用 verification code 或非测试账号的个人资料。 | US-AUTH-01 | Integration | Must |
