@@ -1,0 +1,15 @@
+\contentsline {section}{\numberline {}模組說明}{2}{section.1}%
+\contentsline {section}{\numberline {}User Story /\allowbreak {} Video 索引}{2}{section.2}%
+\contentsline {section}{\numberline {}統一術語}{2}{section.3}%
+\contentsline {section}{\numberline {}User Story 1 - 從 \texttt {Market Intelligence} 建立研究方向}{2}{section.4}%
+\contentsline {subsection}{\numberline {}Walkthrough}{2}{subsection.4.1}%
+\contentsline {subsection}{\numberline {}Acceptance Criteria}{3}{subsection.4.2}%
+\contentsline {section}{\numberline {}User Story 2 - 理解板塊走勢並篩選 ETF}{4}{section.5}%
+\contentsline {subsection}{\numberline {}Walkthrough}{4}{subsection.5.3}%
+\contentsline {subsection}{\numberline {}Acceptance Criteria}{5}{subsection.5.4}%
+\contentsline {section}{\numberline {}User Story 3 - 研究並比較單只 ETF}{6}{section.6}%
+\contentsline {subsection}{\numberline {}Walkthrough}{6}{subsection.6.5}%
+\contentsline {subsection}{\numberline {}Acceptance Criteria}{7}{subsection.6.6}%
+\contentsline {section}{\numberline {}User Story 4 - 保存 ETF 研究結果}{8}{section.7}%
+\contentsline {subsection}{\numberline {}Walkthrough}{8}{subsection.7.7}%
+\contentsline {subsection}{\numberline {}Acceptance Criteria}{9}{subsection.7.8}%

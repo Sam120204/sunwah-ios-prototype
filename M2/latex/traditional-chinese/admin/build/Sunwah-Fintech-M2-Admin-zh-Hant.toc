@@ -1,0 +1,11 @@
+\contentsline {section}{\numberline {}模組說明}{2}{section.1}%
+\contentsline {section}{\numberline {}User Story /\allowbreak {} Video 索引}{2}{section.2}%
+\contentsline {section}{\numberline {}統一術語}{2}{section.3}%
+\contentsline {section}{\numberline {}User Story 1 - 通過 \texttt {Admin Portal} 維護並核驗客戶端內容}{2}{section.4}%
+\contentsline {subsection}{\numberline {}Walkthrough}{2}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {}A. 查看 \texttt {Dashboard}}{2}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {}B. 添加 ETF，並在移動端驗證}{3}{subsubsection.4.1.2}%
+\contentsline {subsubsection}{\numberline {}C. 停用 ETF，並在移動端驗證}{3}{subsubsection.4.1.3}%
+\contentsline {subsubsection}{\numberline {}D. 修改 \texttt {Model Portfolios}，並在移動端驗證}{4}{subsubsection.4.1.4}%
+\contentsline {subsubsection}{\numberline {}E. 查看運營頁面}{4}{subsubsection.4.1.5}%
+\contentsline {subsection}{\numberline {}Acceptance Criteria}{5}{subsection.4.2}%

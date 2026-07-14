@@ -1,0 +1,193 @@
+\section{模块说明}
+Market 模块提供从市场结构发现到单只 ETF 研究、比较和保存的完整路径。用户先在 \texttt{Market Intelligence} 建立市场方向，再进入 \texttt{Sector Detail} 比较板块内 ETF，随后在 \texttt{ETF Detail} 深入研究，并将结果保存到 \texttt{Watchlist} 或 \texttt{My Portfolio}。
+\begin{quote}\small 数据边界：页面展示延迟行情、缓存快照或 EOD（end-of-day）数据时，必须保留相应标签。Market 模块用于研究发现，不构成交易建议。\end{quote}
+\section{User Story /\allowbreak{} Video 索引}
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.24\linewidth}L{0.28\linewidth}L{0.16\linewidth}}
+\toprule
+\textbf{Story} & \textbf{视频主题} & \textbf{核心路径} & \textbf{Video} \\
+\midrule
+\hyperlink{us-mkt-01}{US-MKT-01} & Market Intelligence Home & \texttt{Market Intelligence} -\textgreater{} \texttt{Sector Detail} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{视频页面} \\
+\hyperlink{us-mkt-02}{US-MKT-02} & Sector Detail & \texttt{Sector Detail} -\textgreater{} \texttt{ETF Rankings} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{视频页面} \\
+\hyperlink{us-mkt-03}{US-MKT-03} & ETF Detail and Compare ETF & \texttt{ETF Detail} -\textgreater{} \texttt{Compare ETF} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{视频页面} \\
+\hyperlink{us-mkt-04}{US-MKT-04} & Save ETF Research & \texttt{Watchlist} /\allowbreak{} \texttt{Add to My Portfolio} /\allowbreak{} \texttt{Screener} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{视频页面} \\
+\bottomrule
+\end{longtable}
+\endgroup
+\section{统一术语}
+\begingroup
+\small
+\begin{longtable}{L{0.24\linewidth}L{0.68\linewidth}}
+\toprule
+\textbf{UI 原文} & \textbf{文档含义} \\
+\midrule
+\texttt{Market Intelligence} & Market 模块首页，也是 ETF 研究起点 \\
+\texttt{Sector Heatmap} & 按板块或主题聚合 ETF 表现的热力图 \\
+\texttt{AI Market Signals} & 将市场变动整理为可阅读研究信号的卡片区域 \\
+\texttt{Market Discovery Rail} & 从板块、ETF movers、新 ETF、活跃 ETF 等维度继续发现的横向入口 \\
+\texttt{Sector Detail} & 所选板块的详情页面 \\
+\texttt{AI Sector Insights} & 基于 EOD 缓存数据生成的板块研究观察 \\
+\texttt{ETF Rankings} & 所选板块内的 ETF 排名列表 \\
+\texttt{ETF Detail} & 单只 ETF 的详情与图表研究页面 \\
+\texttt{Compare ETF} & 两只 ETF 的归一化叠加比较功能 \\
+\texttt{Screener} & ETF 搜索、筛选和排序页面，包含 \texttt{Recommended}、\texttt{All}、\texttt{Watchlist} 三个范围 \\
+\bottomrule
+\end{longtable}
+\endgroup
+\prdhr
+\hypertarget{us-mkt-01}{}
+\section{User Story 1 - 从 \texttt{Market Intelligence} 建立研究方向}
+\textbf{Story ID:} \texttt{US-MKT-01}
+\textbf{用户故事：} 作为尚未确定具体 ETF 的用户，我希望先了解当天的市场广度、板块变动和主要指数背景，从而选择下一步值得研究的板块。
+\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Market 验收视频页面}
+\subsection{Walkthrough}
+\begin{enumerate}
+\item 打开 \texttt{Market Intelligence}。先展示页面整体结构，说明它是 ETF 研究起点，而不是完整 ETF 目录或交易推荐页。
+\item 浏览 \texttt{Sector Heatmap}。说明每个色块代表一个板块或主题篮子，显示等权变动、ETF 数量和小型趋势线；同时展示 \texttt{Rising}、\texttt{Flat}、\texttt{Falling} 汇总。
+\item 向下浏览 \texttt{AI Market Signals}。选择至少一张信号卡，展示信号日期、市场变动、AI analysis 摘要、相关 ETF，以及存在时的外部来源。
+\item 展示 \texttt{Market Indices}，包括 Hang Seng Index、Hang Seng Tech 和 S\&P 500 Index，并让 delayed data 标签保持可见。
+\item 浏览 \texttt{Market Discovery Rail}。在 \texttt{Sectors} 范围展示 \texttt{Default} 与 \texttt{Hot}，说明它们分别提供稳定入口和当日变动较大的板块入口。
+\item 展示 \texttt{Recommended ETFs} 的 symbol、name、price、daily move 和 \texttt{View all}。
+\item 点击一个板块（建议使用 \texttt{Crypto}），进入 \texttt{Sector Detail}，完成当前 story 并衔接下一个 story。
+\end{enumerate}
+\screenshotsTripleCompact{assets/screenshots/mkt-us1-01-sector-heatmap.png}{MKT-US1-01}{\texttt{Market Intelligence} 顶部与完整 \texttt{Sector Heatmap}，包含 \texttt{Rising /\allowbreak{} Flat /\allowbreak{} Falling} 市场广度汇总。}{assets/screenshots/mkt-us1-02-ai-market-signal.png}{MKT-US1-02}{完整的 \texttt{AI Market Signals} 卡，包含 signal date、AI analysis、sources、related ETFs，以及带 delayed 标签的 \texttt{Market Indices}。}{assets/screenshots/mkt-us1-03-discovery-recommended.png}{MKT-US1-03}{\texttt{Market Discovery Rail} 的 \texttt{Default /\allowbreak{} Hot} sector baskets，以及 \texttt{Recommended ETFs} 和 \texttt{View all}。}
+\screenshotDescsThree{\textbf{MKT-US1-01} \textemdash{} \texttt{Market Intelligence} 顶部与完整 \texttt{Sector Heatmap}，包含 \texttt{Rising /\allowbreak{} Flat /\allowbreak{} Falling} 市场广度汇总。}{\textbf{MKT-US1-02} \textemdash{} 完整的 \texttt{AI Market Signals} 卡，包含 signal date、AI analysis、sources、related ETFs，以及带 delayed 标签的 \texttt{Market Indices}。}{\textbf{MKT-US1-03} \textemdash{} \texttt{Market Discovery Rail} 的 \texttt{Default /\allowbreak{} Hot} sector baskets，以及 \texttt{Recommended ETFs} 和 \texttt{View all}。}
+\subsection{Acceptance Criteria}
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+MKT-US1-AC01 & \texttt{Market Intelligence} 成功加载，并以 \texttt{Sector Heatmap}、\texttt{AI Market Signals}、\texttt{Market Indices}、\texttt{Market Discovery Rail} 和 \texttt{Recommended ETFs} 组织研究入口。 & US-MKT-01 & Integration & Must \\
+MKT-US1-AC02 & \texttt{Sector Heatmap} 的每个可见色块展示板块/\allowbreak{}主题名称、变动、ETF 数量和趋势线，并通过颜色区分上涨、接近平盘和下跌。 & US-MKT-01 & Integration & Must \\
+MKT-US1-AC03 & \texttt{Rising}、\texttt{Flat}、\texttt{Falling} 汇总与当前热力图数据对应。 & US-MKT-01 & Integration & Must \\
+MKT-US1-AC04 & \texttt{AI Market Signals} 卡展示信号日期、检测到的变动、AI analysis 摘要和 contributing/\allowbreak{}related ETFs；有外部来源时显示 source reference。 & US-MKT-01 & Integration & Must \\
+MKT-US1-AC05 & \texttt{Market Indices} 展示主要指数及当前可用的变动数据，并清楚显示 delayed data 边界。 & US-MKT-01 & Integration & Must \\
+MKT-US1-AC06 & \texttt{Market Discovery Rail} 支持从板块、ETF movers、新 ETF 或活跃 ETF 等范围继续研究。 & US-MKT-01 & Integration & Must \\
+MKT-US1-AC07 & \texttt{Sectors} 中的 \texttt{Default} 与 \texttt{Hot} 作用域可以切换，且展示内容与当前选择一致。 & US-MKT-01 & Integration & Must \\
+MKT-US1-AC08 & \texttt{Recommended ETFs} 是精选池而非完整 ETF universe；每行展示 symbol、name、price 和 daily move，并提供 \texttt{View all}。 & US-MKT-01 & Integration & Must \\
+MKT-US1-AC09 & 点击一个板块后，打开与所选板块匹配的 \texttt{Sector Detail}。 & US-MKT-01 & Integration & Must \\
+MKT-US1-AC10 & 页面没有把市场信号、板块表现或精选 ETF 表述为交易建议。 & US-MKT-01 & Integration & Must \\
+\bottomrule
+\end{longtable}
+\endgroup
+\prdhr
+\hypertarget{us-mkt-02}{}
+\section{User Story 2 - 理解板块走势并筛选 ETF}
+\textbf{Story ID:} \texttt{US-MKT-02}
+\textbf{用户故事：} 作为从市场首页进入某个板块的用户，我希望理解该板块变动的广度、流动性与风险背景，并在板块内比较 ETF，选出下一步研究对象。
+\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Market 验收视频页面}
+\subsection{Walkthrough}
+\begin{enumerate}
+\item 从 \texttt{Sector Heatmap} 或 \texttt{Market Discovery Rail} 打开一个板块。建议使用数据完整的 \texttt{Crypto}。
+\item 展示顶部 sector banner：板块名称、代表性 tickers、篮子内 ETF 数量、最新板块变动，以及 cached sector snapshot 标签。
+\item 浏览 \texttt{AI Sector Insights}。依次展示 \texttt{Momentum \& Breadth}、\texttt{Liquidity Pulse}、\texttt{Trend \& Risk}，说明这些内容基于 EOD cached ETF data，不是实时预测。
+\item 进入 \texttt{ETF Rankings}。确认列表只包含所选板块内的 ETF。
+\item 依次切换 1 至 2 个排序指标，例如 \texttt{Change}、\texttt{Volume} 或 \texttt{Expense Ratio}；再切换一次 return period，例如 \texttt{1D} 到 \texttt{1M}。
+\item 选择一只 ETF 进入 \texttt{ETF Detail}，完成从板块发现到产品研究的过渡。
+\end{enumerate}
+\screenshotsTripleCompact{assets/screenshots/mkt-us2-01-sector-banner.png}{MKT-US2-01}{\texttt{Crypto Sector Detail} banner，包含 representative tickers、ETF count、sector move 和 cached sector snapshot 标签。}{assets/screenshots/mkt-us2-02-ai-sector-insights.png}{MKT-US2-02}{Consumer sector 的 \texttt{AI Sector Insights}，同时展示 \texttt{Momentum \& Breadth}、\texttt{Liquidity Pulse} 和 EOD data boundary。}{assets/screenshots/mkt-us2-03-etf-rankings.png}{MKT-US2-03}{Crypto \texttt{ETF Rankings}，显示 \texttt{Change} sort、\texttt{1D} return period 和完整 ETF ranking rows。}
+\screenshotDescsThree{\textbf{MKT-US2-01} \textemdash{} \texttt{Crypto Sector Detail} banner，包含 representative tickers、ETF count、sector move 和 cached sector snapshot 标签。}{\textbf{MKT-US2-02} \textemdash{} Consumer sector 的 \texttt{AI Sector Insights}，同时展示 \texttt{Momentum \& Breadth}、\texttt{Liquidity Pulse} 和 EOD data boundary。}{\textbf{MKT-US2-03} \textemdash{} Crypto \texttt{ETF Rankings}，显示 \texttt{Change} sort、\texttt{1D} return period 和完整 ETF ranking rows。}
+\subsection{Acceptance Criteria}
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+MKT-US2-AC01 & \texttt{Sector Detail} 展示与用户所选板块一致的名称和数据，不沿用之前打开的板块内容。 & US-MKT-02 & Integration & Must \\
+MKT-US2-AC02 & sector banner 展示代表性 tickers、ETF 数量和最新板块变动。 & US-MKT-02 & Integration & Must \\
+MKT-US2-AC03 & 页面明确标注 sector snapshot /\allowbreak{} EOD cached data 边界，不将其描述为实时数据。 & US-MKT-02 & Integration & Must \\
+MKT-US2-AC04 & \texttt{AI Sector Insights} 至少覆盖 \texttt{Momentum \& Breadth}、\texttt{Liquidity Pulse}、\texttt{Trend \& Risk} 三类研究角度。 & US-MKT-02 & Integration & Must \\
+MKT-US2-AC05 & 当某项数据不足时，对应 insight 显示 unavailable/\allowbreak{}data boundary，不虚构结论。 & US-MKT-02 & Integration & Must \\
+MKT-US2-AC06 & \texttt{ETF Rankings} 仅显示当前所选板块内的 ETF。 & US-MKT-02 & Integration & Must \\
+MKT-US2-AC07 & 排序支持当前实现提供的指标，包括 \texttt{Change}、\texttt{Volume}、\texttt{Turnover}、\texttt{Price}、\texttt{Expense Ratio}、\texttt{Beta}、\texttt{Drawdown}、\texttt{Sharpe ratio}、\texttt{Name} 或 \texttt{Symbol}。 & US-MKT-02 & Integration & Must \\
+MKT-US2-AC08 & return period 支持在当前实现提供的 \texttt{1D}、\texttt{1W}、\texttt{1M}、\texttt{3M} 之间切换，列表结果与当前周期一致。 & US-MKT-02 & Integration & Must \\
+MKT-US2-AC09 & 切换排序指标或周期时，当前板块范围保持不变。 & US-MKT-02 & Integration & Must \\
+MKT-US2-AC10 & 点击排名中的 ETF 后，打开与该行 symbol 匹配的 \texttt{ETF Detail}。 & US-MKT-02 & Integration & Must \\
+MKT-US2-AC11 & \texttt{AI Sector Insights} 采用研究观察措辞，不预测收益，也不推荐交易。 & US-MKT-02 & Integration & Must \\
+\bottomrule
+\end{longtable}
+\endgroup
+\prdhr
+\hypertarget{us-mkt-03}{}
+\section{User Story 3 - 研究并比较单只 ETF}
+\textbf{Story ID:} \texttt{US-MKT-03}
+\textbf{用户故事：} 作为已选定候选 ETF 的用户，我希望查看报价、K 线、关键统计和新闻，并与另一只 ETF 比较相对走势。
+\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Market 验收视频页面}
+\subsection{Walkthrough}
+\begin{enumerate}
+\item 从 \texttt{ETF Rankings}、\texttt{Recommended ETFs}、\texttt{All}、\texttt{Watchlist} 或 ETF movers 打开一只数据完整的 ETF。
+\item 展示详情头部：fund name、symbol、exchange、latest price、currency、daily change 和 market/\allowbreak{}close status。
+\item 在 K-line chart 上切换 \texttt{1D}、\texttt{1W}、\texttt{1M}、\texttt{3M} 中至少两个 time ranges。
+\item 在图表上 scrub，展示所选时间点的 open、high、low、close 和 volume 更新。
+\item 打开 \texttt{View} panel，切换一次 chart type，并开启或关闭至少一条 moving average（\texttt{MA5}、\texttt{MA10} 或 \texttt{MA30}）。
+\item 切换 \texttt{Overview} 与 \texttt{News}。在 \texttt{Overview} 核对 key stats；在 \texttt{News} 展示 headline、source 和 timestamp。
+\item 打开 \texttt{More}，进入 \texttt{Compare ETF}，选择第二只 ETF，并查看同一 chart option 下的 normalized overlay。
+\end{enumerate}
+\screenshotsTripleCompact{assets/screenshots/mkt-us3-01-etf-detail-header.png}{MKT-US3-01}{ChinaAMC Ether ETF 的 \texttt{ETF Detail}，包含 identity、quote、close status、K-line chart、moving averages、Overview 和 key stats。}{assets/screenshots/mkt-us3-02-chart-view-panel.png}{MKT-US3-02}{展开的 \texttt{View} panel，展示 K-line types、当前 \texttt{OHLC bar} 选择和 \texttt{MA5 /\allowbreak{} MA10 /\allowbreak{} MA30} controls。}{assets/screenshots/mkt-us3-03-compare-etf.png}{MKT-US3-03}{\texttt{ETF Comparison} 完成态，包含 3046.HK 与 3189.HK、normalized price performance、图例及 factsheet matrix。}
+\screenshotDescsThree{\textbf{MKT-US3-01} \textemdash{} ChinaAMC Ether ETF 的 \texttt{ETF Detail}，包含 identity、quote、close status、K-line chart、moving averages、Overview 和 key stats。}{\textbf{MKT-US3-02} \textemdash{} 展开的 \texttt{View} panel，展示 K-line types、当前 \texttt{OHLC bar} 选择和 \texttt{MA5 /\allowbreak{} MA10 /\allowbreak{} MA30} controls。}{\textbf{MKT-US3-03} \textemdash{} \texttt{ETF Comparison} 完成态，包含 3046.HK 与 3189.HK、normalized price performance、图例及 factsheet matrix。}
+\subsection{Acceptance Criteria}
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+MKT-US3-AC01 & \texttt{ETF Detail} 展示与所选 ETF 一致的 fund name、symbol、exchange、latest price、currency、daily change 和 market status。 & US-MKT-03 & Integration & Must \\
+MKT-US3-AC02 & K-line chart 使用当前 ETF 的价格序列，不显示先前 ETF 的残留数据。 & US-MKT-03 & Integration & Must \\
+MKT-US3-AC03 & 用户可在当前实现提供的 \texttt{1D}、\texttt{1W}、\texttt{1M}、\texttt{3M} time ranges 间切换，图表随选择更新。 & US-MKT-03 & Integration & Must \\
+MKT-US3-AC04 & scrub 图表时，open、high、low、close 和 volume 与当前选中数据点同步更新。 & US-MKT-03 & Integration & Must \\
+MKT-US3-AC05 & \texttt{View} panel 支持 \texttt{solid candlestick}、\texttt{hollow candlestick}、\texttt{OHLC bar}、\texttt{line} 和 \texttt{area} 中当前已启用的 chart types。 & US-MKT-03 & Integration & Must \\
+MKT-US3-AC06 & \texttt{MA5}、\texttt{MA10}、\texttt{MA30} 开关只改变当前图表叠加层，不改变 ETF 或 time range。 & US-MKT-03 & Integration & Must \\
+MKT-US3-AC07 & \texttt{Overview} 展示当前可用 key stats；不可用值以明确的 unavailable 状态显示。 & US-MKT-03 & Integration & Must \\
+MKT-US3-AC08 & \texttt{News} 展示与当前 ETF 研究流相关的 headline、source 和 timestamp。 & US-MKT-03 & Integration & Must \\
+MKT-US3-AC09 & \texttt{More} 中的 \texttt{Compare ETF} 使用当前 ETF 作为第一只比较对象，并允许选择第二只 ETF。 & US-MKT-03 & Integration & Must \\
+MKT-US3-AC10 & 比较图使用相同 chart option 加载两组价格序列，并以 normalized overlay 展示相对表现。 & US-MKT-03 & Integration & Must \\
+MKT-US3-AC11 & 退出 \texttt{Compare ETF} 后仍回到原 ETF 的详情上下文。 & US-MKT-03 & Integration & Must \\
+\bottomrule
+\end{longtable}
+\endgroup
+\prdhr
+\hypertarget{us-mkt-04}{}
+\section{User Story 4 - 保存 ETF 研究结果}
+\textbf{Story ID:} \texttt{US-MKT-04}
+\textbf{用户故事：} 作为完成初步研究的用户，我希望将 ETF 保存到 \texttt{Watchlist} 继续跟踪，或加入已有 \texttt{My Portfolio} 做进一步组合分析，并可通过统一 \texttt{Screener} 继续筛选。
+\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Market 验收视频页面}
+\subsection{Walkthrough}
+\begin{enumerate}
+\item 在 \texttt{ETF Detail} 点击 star icon，将 ETF 加入 \texttt{Watchlist}。
+\item 打开 \texttt{Screener} 的 \texttt{Watchlist} 标签，确认该 ETF 出现；随后移除并确认列表同步更新。
+\item 回到 \texttt{ETF Detail}，点击 plus button，打开 \texttt{Add to existing portfolio} sheet。
+\item 展示 selected ETF、latest price、lots 和 estimated market value。说明 1 lot 按 100 shares 计算。
+\item 展示 duplicate holding 状态：已含该 ETF 的 portfolio 显示重复提示且不可选择；再选择另一个 eligible portfolio 保存。
+\item 重新打开目标 \texttt{My Portfolio}，确认 ETF 已作为 holding record 保存。强调该流程不下单、不执行交易。
+\item 返回 \texttt{Screener}，依次展示 \texttt{Recommended}、\texttt{All}、\texttt{Watchlist} 三个数据范围，并操作一次 search、filter 和 sort。
+\end{enumerate}
+\screenshotsTripleCompact{assets/screenshots/mkt-us4-01-watchlist-saved.png}{MKT-US4-01}{\texttt{Watchlist ETFs} 保存结果，显示已选 \texttt{Watchlist} 标签、保存数量及 ETF symbol/\allowbreak{}name。}{assets/screenshots/mkt-us4-02-add-existing-portfolio.png}{MKT-US4-02}{\texttt{Add to existing} sheet，包含 selected ETF、lots、estimated value、duplicate/\allowbreak{}disabled portfolio 和 eligible portfolio。}{assets/screenshots/mkt-us4-03-screener-controls.png}{MKT-US4-03}{统一 \texttt{Screener} 的 \texttt{All /\allowbreak{} Recommended /\allowbreak{} Watchlist} scopes、search、filter、sort metric 和 return period controls。}
+\screenshotDescsThree{\textbf{MKT-US4-01} \textemdash{} \texttt{Watchlist ETFs} 保存结果，显示已选 \texttt{Watchlist} 标签、保存数量及 ETF symbol/\allowbreak{}name。}{\textbf{MKT-US4-02} \textemdash{} \texttt{Add to existing} sheet，包含 selected ETF、lots、estimated value、duplicate/\allowbreak{}disabled portfolio 和 eligible portfolio。}{\textbf{MKT-US4-03} \textemdash{} 统一 \texttt{Screener} 的 \texttt{All /\allowbreak{} Recommended /\allowbreak{} Watchlist} scopes、search、filter、sort metric 和 return period controls。}
+\subsection{Acceptance Criteria}
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+MKT-US4-AC01 & 点击 \texttt{ETF Detail} 的 star icon 后，成功状态与 \texttt{Watchlist} 中的实际保存状态一致。 & US-MKT-04 & Integration & Must \\
+MKT-US4-AC02 & 已保存 ETF 出现在 \texttt{Screener \textgreater{} Watchlist}；移除后从该列表消失。 & US-MKT-04 & Integration & Must \\
+MKT-US4-AC03 & \texttt{Watchlist} 用于保存研究对象，不会创建 portfolio holding 或交易订单。 & US-MKT-04 & Integration & Must \\
+MKT-US4-AC04 & plus button 为当前 ETF 打开 \texttt{Add to existing portfolio} sheet。 & US-MKT-04 & Integration & Must \\
+MKT-US4-AC05 & sheet 展示 selected ETF、latest price、lots 和 estimated market value，并按 1 lot = 100 shares 计算。 & US-MKT-04 & Integration & Must \\
+MKT-US4-AC06 & 已包含该 ETF 的 \texttt{My Portfolio} 显示 duplicate holding 信息且不可再次选择。 & US-MKT-04 & Integration & Must \\
+MKT-US4-AC07 & 用户可以选择另一个 eligible \texttt{My Portfolio} 并完成保存。 & US-MKT-04 & Integration & Must \\
+MKT-US4-AC08 & 保存完成后，重新打开目标 \texttt{My Portfolio} 可看到对应 ETF holding；未选择并确认前不会写入。 & US-MKT-04 & Integration & Must \\
+MKT-US4-AC09 & \texttt{Recommended}、\texttt{All}、\texttt{Watchlist} 共用同一 \texttt{Screener} 交互，但分别限定为精选池、完整可用范围和用户已保存范围。 & US-MKT-04 & Integration & Must \\
+MKT-US4-AC10 & search 支持 symbol、name 或 issuer；filter 支持当前实现提供的 issuer、asset class、sector、currency 或 region。 & US-MKT-04 & Integration & Must \\
+MKT-US4-AC11 & sort 支持当前实现提供的 change、volume、turnover、price、expense ratio、beta、drawdown、Sharpe ratio、name 或 symbol。 & US-MKT-04 & Integration & Must \\
+MKT-US4-AC12 & search、filter 和 sort 不会意外切换当前 \texttt{Recommended}、\texttt{All} 或 \texttt{Watchlist} 数据范围。 & US-MKT-04 & Integration & Must \\
+MKT-US4-AC13 & \texttt{Add to My Portfolio} 只保存研究型 holding record，页面不声称已经下单或执行交易。 & US-MKT-04 & Integration & Must \\
+\bottomrule
+\end{longtable}
+\endgroup

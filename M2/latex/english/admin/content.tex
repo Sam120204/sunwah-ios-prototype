@@ -1,0 +1,110 @@
+\section{Module Overview}
+\texttt{Admin Portal} is the operations console behind the client application. This module proves that the portal and mobile app use the same backend resources: changes to \texttt{ETF Catalogue} and \texttt{Model Portfolios} can be verified after refreshing the mobile app, while administrators can monitor platform status through \texttt{Dashboard}, \texttt{Users} and \texttt{User Portfolios}.
+\section{User Story /\allowbreak{} Video Index}
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.24\linewidth}L{0.28\linewidth}L{0.16\linewidth}}
+\toprule
+\textbf{Story} & \textbf{Video theme} & \textbf{Core path} & \textbf{Video} \\
+\midrule
+\hyperlink{us-adm-01}{US-ADM-01} & Admin Functional Acceptance & Dashboard + ETF Catalogue + Model Portfolios + operational visibility & \href{https://jjpvro70sief.jp.larksuite.com/wiki/BBmUwLwV0iRRxdkl3S9jV9ZHpLe?from=from\_copylink}{Video} \\
+\bottomrule
+\end{longtable}
+\endgroup
+\section{Shared Terminology}
+\begingroup
+\small
+\begin{longtable}{L{0.24\linewidth}L{0.68\linewidth}}
+\toprule
+\textbf{UI original text} & \textbf{Document meaning} \\
+\midrule
+\texttt{Admin Portal} & Operations console for internal administrators \\
+\texttt{Dashboard} & Platform data and resource overview page \\
+\texttt{ETF Catalogue} & Admin page for managing the ETF universe available to clients \\
+\texttt{Add by Ticker} & The process of quickly adding ETFs through ticker lookup \\
+\texttt{Add ETF manually} & Workflow in which the administrator enters all required ETF fields \\
+\texttt{Model Portfolios} & Admin page for managing client Model Portfolio templates \\
+\texttt{Users} & Page to search and view user accounts, verifications, status and risk profiles \\
+\texttt{User Portfolios} & Operations page for viewing My Portfolios created by users \\
+\texttt{published} /\allowbreak{} \texttt{draft} /\allowbreak{} \texttt{hidden} & The publishing status of the Model Portfolio; only \texttt{published} is visible to clients \\
+\texttt{active} /\allowbreak{} \texttt{inactive} & Whether the ETF belongs to the client's active product universe status \\
+\bottomrule
+\end{longtable}
+\endgroup
+\prdhr
+\hypertarget{us-adm-01}{}
+\section{User Story 1 - Maintain and verify client content through \texttt{Admin Portal}}
+\textbf{Story ID:} \texttt{US-ADM-01}
+\textbf{User story:} As an administrator, I want to maintain the ETF catalog and Model Portfolio templates and validate changes on mobile while viewing user and portfolio operational information from a unified backend.
+\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/BBmUwLwV0iRRxdkl3S9jV9ZHpLe?from=from\_copylink}{US-ADM-01 Acceptance Video}
+\subsection{Walkthrough}
+\subsubsection{A. View \texttt{Dashboard}}
+\begin{enumerate}
+\item Log in to the \texttt{Admin Portal} and open the \texttt{Dashboard}.
+\item Display overview data such as total users, ETF catalogue size, user portfolios, structured notes, and ETF tier distribution, indicating that these resources come from the backend shared with the mobile app.
+\end{enumerate}
+\screenshotsSingleCompact{assets/screenshots/adm-us1-01-dashboard.png}{ADM-US1-01}{\texttt{Dashboard} A complete overview of major counters, ETF tier distributions and recent activity.}
+\screenshotDescSingle{\textbf{ADM-US1-01} \textemdash{} \texttt{Dashboard} A complete overview of major counters, ETF tier distributions and recent activity.}
+\subsubsection{B. Add an ETF and verify it in the mobile app}
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item First search for a test ETF that does not currently exist or is not enabled in the iOS simulator, and record the baseline status of the ETF that cannot be found.
+\item Switch to \texttt{Admin Portal \textgreater{} ETF Catalogue}. Show search by symbol/\allowbreak{}name/\allowbreak{}issuer and filters for tier and asset class.
+\item Display the exchange, currency, asset class, region, sector, issuer, expense ratio and other fields in the catalog.
+\item Add a test ETF using \texttt{Add by Ticker} or \texttt{Add ETF manually}. If using manual process, fill in symbol, name, exchange, currency, asset class, region, sector, issuer, inception date, expense ratio and tier.
+\item Return to the simulator, refresh the ETF search/\allowbreak{}list, and confirm that the same ETF appears.
+\end{enumerate}
+\screenshotsDoubleCompact{assets/screenshots/adm-us1-extra-etf-catalogue.png}{ETF Catalog Listing and Filtering}{\texttt{ETF Catalogue} list, search, tier/\allowbreak{}asset class filters, and ETF maintenance fields.}{assets/screenshots/adm-us1-extra-add-by-ticker-validation.png}{Add by Ticker Duplicate record verification}{\texttt{Add by Ticker} displays duplicate record verification for an existing \texttt{VOO}; this picture only proves the verification behavior and is not used as evidence of successful ETF creation.}
+\screenshotDescsTwo{\textbf{ETF Catalog Listing and Filtering} \textemdash{} \texttt{ETF Catalogue} list, search, tier/\allowbreak{}asset class filters, and ETF maintenance fields.}{\textbf{Add by Ticker Duplicate record verification} \textemdash{} \texttt{Add by Ticker} displays duplicate record verification for an existing \texttt{VOO}; this picture only proves the verification behavior and is not used as evidence of successful ETF creation.}
+\subsubsection{C. Deactivate an ETF and verify it in the mobile app}
+\begin{enumerate}
+\setcounter{enumi}{7}
+\item In \texttt{ETF Catalogue}, select a test ETF that is currently searchable in the mobile app and set it to inactive/\allowbreak{}deactivated.
+\item Return to the simulator, refresh the ETF search/\allowbreak{}list, and confirm that the ETF no longer appears as an active product.
+\end{enumerate}
+\subsubsection{D. Modify \texttt{Model Portfolios} and verify the change in the mobile app}
+\begin{enumerate}
+\setcounter{enumi}{9}
+\item First open a published Model Portfolio in the simulator and record its title, display order, risk band, summary and ETF allocations baseline.
+\item Switch to \texttt{Admin Portal \textgreater{} Model Portfolios}. Display template key, display order, title, risk band, return range, horizon, summary, reference note, status and ETF allocations.
+\item Edit a field that is easily identifiable and appropriate for the presentation, such as title, display order, risk band, summary, or allocation. If you modify allocation, confirm that the total weight is 100\%. Save and keep the template as \texttt{published}.
+\item Return to the simulator, refresh or reopen the Model Portfolio page, and confirm that the client displays the latest configuration.
+\item Optional supplementary release boundary: change the dedicated test template to \texttt{draft} or \texttt{hidden}, refresh the client to confirm that it no longer appears; then restore the test data to avoid affecting subsequent demonstrations.
+\end{enumerate}
+\screenshotsDoubleCompact{assets/screenshots/adm-us1-extra-model-portfolios-list.png}{Model Portfolios Management List}{\texttt{Model Portfolios} management list, showing template, display order, risk, status and maintenance operation entry.}{assets/screenshots/adm-us1-05-model-portfolio-edit.png}{ADM-US1-05}{\texttt{Create Model Portfolio} form, showing main configuration fields, ETF allocations and \texttt{Total 100.00\%}; publishing status and saved client results still need to be continuously verified in the video.}
+\screenshotDescsTwo{\textbf{Model Portfolios Management List} \textemdash{} \texttt{Model Portfolios} management list, showing template, display order, risk, status and maintenance operation entry.}{\textbf{ADM-US1-05} \textemdash{} \texttt{Create Model Portfolio} form, showing main configuration fields, ETF allocations and \texttt{Total 100.00\%}; publishing status and saved client results still need to be continuously verified in the video.}
+\subsubsection{E. View the operations pages}
+\begin{enumerate}
+\setcounter{enumi}{14}
+\item Open \texttt{Users} to display search, role/\allowbreak{}status filters, verification status, account status, risk profile, last login, and created date. Use test users or redact PII.
+\item Open \texttt{User Portfolios} and display owner, base currency, objective, horizon, holdings count and created time.
+\end{enumerate}
+\screenshotsDoubleCompact{assets/screenshots/adm-us1-extra-users-redacted.png}{Users operation list}{\texttt{Users} operations list and filter area; identifiable emails are redacted.}{assets/screenshots/adm-us1-07-user-portfolios.png}{ADM-US1-07}{\texttt{User Portfolios} operational list, including search /\allowbreak{} filters, owner, base currency, objective, horizon, holdings and created time.}
+\screenshotDescsTwo{\textbf{Users operation list} \textemdash{} \texttt{Users} operations list and filter area; identifiable emails are redacted.}{\textbf{ADM-US1-07} \textemdash{} \texttt{User Portfolios} operational list, including search /\allowbreak{} filters, owner, base currency, objective, horizon, holdings and created time.}
+\subsection{Acceptance Criteria}
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+ADM-US1-AC01 & \texttt{Dashboard} displays an overview of the platform returned by the current backend, including currently available indicators in users, ETF catalog, user portfolios, structured notes and ETF tier distribution. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC02 & \texttt{ETF Catalogue} supports searching by symbol, name or issuer, and supports the tier and asset-class filters provided by the current implementation. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC03 & ETF records display fields required for maintenance such as exchange, currency, asset class, region, sector, issuer, and expense ratio. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC04 & Administrators can create a valid ETF record through \texttt{Add by Ticker} or \texttt{Add ETF manually}. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC05 & A test ETF that was absent from the mobile app before creation can be found after it is added in \texttt{Admin Portal} and the mobile search/\allowbreak{}list is refreshed; its symbol and name match the admin record. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC06 & Administrators can deactivate an active ETF; after deactivation and a mobile-app refresh, the ETF no longer appears in the active product universe. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC07 & ETF addition or deactivation request cannot be submitted repeatedly during the process, and no duplicate records or conflict status will be generated after completion. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC08 & \texttt{Model Portfolios} supports maintaining template key, display order, title, risk band, return range, horizon, summary, reference note, status and ETF allocations. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC09 & Model Portfolio allocation can only be saved or published as a valid template if the total weight is 100\%. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC10 & Changes made in \texttt{Admin Portal} to the title, order, risk band, summary or allocation of a published Model Portfolio appear after refreshing or reopening it in the mobile app. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC11 & Only the \texttt{published} Model Portfolio is visible to the client; the \texttt{draft} or \texttt{hidden} template does not appear in the client directory. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC12 & The client displays the current Model Portfolio configuration, without using hard-coded content or the last opened template state. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC13 & \texttt{Users} supports search and role/\allowbreak{}status filters, and displays currently available verification status, account status, risk profile, last login and created date. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC14 & \texttt{User Portfolios} displays the currently available fields such as owner, base currency, objective, horizon, holdings count and created time. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC15 & \texttt{Users} and \texttt{User Portfolios} are used for operational visibility and troubleshooting. Ordinary user positions are not modified in this story. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC16 & Every admin change that affects the client is verified by refreshing the simulator or reopening the page; an admin Toast alone is not sufficient evidence of success. & US-ADM-01 & Integration & Must \\
+ADM-US1-AC17 & Videos and screenshots use test data or redact personal information such as email addresses and portfolio owners. & US-ADM-01 & Integration & Must \\
+\bottomrule
+\end{longtable}
+\endgroup

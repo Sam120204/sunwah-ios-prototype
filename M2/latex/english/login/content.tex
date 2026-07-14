@@ -1,0 +1,90 @@
+\section{Module Overview}
+The Login /\allowbreak{} Register module covers the two available authentication paths for non-logged-in users: registering a new account and completing email verification, and logging in using an existing account/\allowbreak{}email and password. The current source material records the two paths in the same video, so this module remains as a User Story.
+\begin{quote}\small Scope: Although \texttt{Google}, \texttt{Microsoft} and \texttt{Sign in with Apple} are displayed on the \texttt{Login} page, they are outside this acceptance scope. The accepted paths are \texttt{Register New Account} and standard email/\allowbreak{}password \texttt{Sign In}.\end{quote}
+\section{User Story /\allowbreak{} Video Index}
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.24\linewidth}L{0.28\linewidth}L{0.16\linewidth}}
+\toprule
+\textbf{Story} & \textbf{Video theme} & \textbf{Core path} & \textbf{Video} \\
+\midrule
+\hyperlink{us-auth-01}{US-AUTH-01} & Authentication Flow & \texttt{Register New Account} + email/\allowbreak{}password \texttt{Sign In} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/CDmcwSmsNinDn8kb92Nj980Epne}{Video} \\
+\bottomrule
+\end{longtable}
+\endgroup
+\section{Shared Terminology}
+\begingroup
+\small
+\begin{longtable}{L{0.24\linewidth}L{0.68\linewidth}}
+\toprule
+\textbf{UI original text} & \textbf{Document meaning} \\
+\midrule
+\texttt{Login} & Authentication start page for users who are not logged in \\
+\texttt{Sign In} & Use existing account/\allowbreak{}email and password to log in \\
+\texttt{Register New Account} & Entry point from \texttt{Login} to the registration flow \\
+\texttt{Create Account} & Registration page and submission action for display name, email and password \\
+\texttt{Verify Email} & Page to enter the six-digit email verification code \\
+\texttt{Verify and Continue} & Verify the six-digit code and complete the registration operation \\
+\texttt{Markets} & The default landing page after successful registration or login \\
+\bottomrule
+\end{longtable}
+\endgroup
+\prdhr
+\hypertarget{us-auth-01}{}
+\section{User Story 1 - Register a new account and log in using an existing account}
+\textbf{Story ID:} \texttt{US-AUTH-01}
+\textbf{User story:} As an unauthenticated user, I want to register a new account and verify my email, or sign in with an existing account/\allowbreak{}email and password, so that I can enter the application's \texttt{Markets} page.
+\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/CDmcwSmsNinDn8kb92Nj980Epne}{US-AUTH-01 Acceptance Video}
+\subsection{Walkthrough}
+\subsubsection{A. \texttt{Login} page and scope description}
+\begin{enumerate}
+\item Open the application and stay on the \texttt{Login} page.
+\item Display the account/\allowbreak{}email and password fields. After entering the password, tap the eye icon and confirm that the password can be shown and hidden.
+\item Confirm that \texttt{Sign In} is disabled when either required field is empty and enabled after both fields are completed.
+\item Briefly display \texttt{Google}, \texttt{Microsoft}, and \texttt{Sign in with Apple} to explain that they do not belong to the current acceptance path.
+\end{enumerate}
+\screenshotsSingleCompact{assets/screenshots/auth-us1-01-login-page.png}{AUTH-US1-01}{The default state of the \texttt{Login} page, including account/\allowbreak{}email and password input boxes, \texttt{Sign In}, \texttt{Register New Account} and three other login entries.}
+\screenshotDescSingle{\textbf{AUTH-US1-01} \textemdash{} The default state of the \texttt{Login} page, including account/\allowbreak{}email and password input boxes, \texttt{Sign In}, \texttt{Register New Account} and three other login entries.}
+\subsubsection{B. Register a new account and verify email}
+\begin{enumerate}
+\setcounter{enumi}{4}
+\item Click \texttt{Register New Account} to enter \texttt{Create Account}.
+\item Enter display name, email and password. First use a password shorter than 8 characters to show the disabled state, then enter a valid password.
+\item Click \texttt{Create Account}. Confirm that the application creates a pending registration, sends a six-digit verification code by email, and opens \texttt{Verify Email}.
+\item Confirm that \texttt{Verify and Continue} is disabled when the code has fewer than six digits and enabled after a complete six-digit code is entered.
+\item Click \texttt{Verify and Continue}. After successful verification, confirm that the account creation is completed, the user automatically logs in, and enters \texttt{Markets}.
+\end{enumerate}
+\screenshotsTripleCompact{assets/screenshots/auth-us1-02-create-account.png}{AUTH-US1-02}{Valid \texttt{Create Account} form, including display name, redacted demo email, hidden password, and enabled \texttt{Create Account}.}{assets/screenshots/auth-us1-03-verify-email.png}{AUTH-US1-03}{Initial \texttt{Verify Email} state, showing the redacted recipient email, empty code field, and disabled \texttt{Verify and Continue}. The video shows the completed six-digit code and submission continuously.}{assets/screenshots/auth-us1-04-registration-success.png}{AUTH-US1-04}{After the new account is successfully verified, you will enter the \texttt{Markets} landing page; the bottom navigation remains in the screen to prove that you have left the authentication process.}
+\screenshotDescsThree{\textbf{AUTH-US1-02} \textemdash{} Valid \texttt{Create Account} form, including display name, redacted demo email, hidden password, and enabled \texttt{Create Account}.}{\textbf{AUTH-US1-03} \textemdash{} Initial \texttt{Verify Email} state, showing the redacted recipient email, empty code field, and disabled \texttt{Verify and Continue}. The video shows the completed six-digit code and submission continuously.}{\textbf{AUTH-US1-04} \textemdash{} After the new account is successfully verified, you will enter the \texttt{Markets} landing page; the bottom navigation remains in the screen to prove that you have left the authentication process.}
+\subsubsection{C. Sign in with an existing account}
+\begin{enumerate}
+\setcounter{enumi}{9}
+\item Exit or reset to the \texttt{Login} page.
+\item Enter the existing account/\allowbreak{}email and password; click \texttt{Sign In} after both fields are valid.
+\item Display signing-in state; after successful authentication, confirm again and enter \texttt{Markets} by default.
+\end{enumerate}
+\subsection{Acceptance Criteria}
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+AUTH-US1-AC01 & Unauthenticated users first see the \texttt{Login} page after opening the application. & US-AUTH-01 & Integration & Must \\
+AUTH-US1-AC02 & \texttt{Login} provides two required fields: account/\allowbreak{}email and password. Password is hidden by default. & US-AUTH-01 & Integration & Must \\
+AUTH-US1-AC03 & The eye icon can show or hide the password without clearing the entered value. & US-AUTH-01 & Integration & Must \\
+AUTH-US1-AC04 & \texttt{Sign In} is not available when any required field is empty; the button is available after both fields are filled in. & US-AUTH-01 & Integration & Must \\
+AUTH-US1-AC05 & \texttt{Google}, \texttt{Microsoft} and \texttt{Sign in with Apple} are not among the accepted working paths for this version. & US-AUTH-01 & Integration & Must \\
+AUTH-US1-AC06 & Click \texttt{Register New Account} to open \texttt{Create Account} and provide the display name, email and password fields. & US-AUTH-01 & Integration & Must \\
+AUTH-US1-AC07 & \texttt{Create Account} is not available when the registration form is missing any required field or the password is less than 8 characters. & US-AUTH-01 & Integration & Must \\
+AUTH-US1-AC08 & Submitting a valid registration form creates one pending registration, sends a six-digit verification code, and opens \texttt{Verify Email}. & US-AUTH-01 & Integration & Must \\
+AUTH-US1-AC09 & \texttt{Verify and Continue} is not available when the verification code is less than six digits; the button is available after six digits are entered. & US-AUTH-01 & Integration & Must \\
+AUTH-US1-AC10 & A correct code completes account creation and signs the user in automatically; only one new account is created. & US-AUTH-01 & Integration & Must \\
+AUTH-US1-AC11 & Newly registered users will enter the default \texttt{Markets} landing page. & US-AUTH-01 & Integration & Must \\
+AUTH-US1-AC12 & Existing users can use account/\allowbreak{}email and password to submit \texttt{Sign In}. & US-AUTH-01 & Integration & Must \\
+AUTH-US1-AC13 & The signing-in state is displayed when the login request is in progress, and the same login request will not be submitted repeatedly. & US-AUTH-01 & Integration & Must \\
+AUTH-US1-AC14 & Enter the default \texttt{Markets} landing page after successful user authentication. & US-AUTH-01 & Integration & Must \\
+AUTH-US1-AC15 & Videos and screenshots do not reveal real passwords, reusable verification codes, or personal information of non-test accounts. & US-AUTH-01 & Integration & Must \\
+\bottomrule
+\end{longtable}
+\endgroup

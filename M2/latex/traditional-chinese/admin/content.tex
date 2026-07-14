@@ -1,0 +1,110 @@
+\section{模組說明}
+\texttt{Admin Portal} 是客戶端應用背後的運營控制台。本模組的核心不是只瀏覽後台頁面，而是證明後台與移動端使用同一組後端資源：管理員對 \texttt{ETF Catalogue} 和 \texttt{Model Portfolios} 的變更，在刷新移動端後可以得到驗證；同時管理員可通過 \texttt{Dashboard}、\texttt{Users} 和 \texttt{User Portfolios} 監控平台狀態。
+\section{User Story /\allowbreak{} Video 索引}
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.24\linewidth}L{0.28\linewidth}L{0.16\linewidth}}
+\toprule
+\textbf{Story} & \textbf{視頻主題} & \textbf{核心路徑} & \textbf{Video} \\
+\midrule
+\hyperlink{us-adm-01}{US-ADM-01} & Admin Functional Acceptance & Dashboard + ETF Catalogue + Model Portfolios + operational visibility & \href{https://jjpvro70sief.jp.larksuite.com/wiki/BBmUwLwV0iRRxdkl3S9jV9ZHpLe?from=from\_copylink}{視頻} \\
+\bottomrule
+\end{longtable}
+\endgroup
+\section{統一術語}
+\begingroup
+\small
+\begin{longtable}{L{0.24\linewidth}L{0.68\linewidth}}
+\toprule
+\textbf{UI 原文} & \textbf{文檔含義} \\
+\midrule
+\texttt{Admin Portal} & 面向內部管理員的運營控制台 \\
+\texttt{Dashboard} & 平台資料與資源概覽頁 \\
+\texttt{ETF Catalogue} & 管理客戶端可用 ETF universe 的後台頁面 \\
+\texttt{Add by Ticker} & 通過 ticker lookup 快速添加 ETF 的流程 \\
+\texttt{Add ETF manually} & 由管理員完整填寫 ETF 字段的添加流程 \\
+\texttt{Model Portfolios} & 管理客戶端 Model Portfolio templates 的後台頁面 \\
+\texttt{Users} & 搜尋與查看用戶賬號、驗證、狀態和風險畫像的頁面 \\
+\texttt{User Portfolios} & 查看用戶所創建 My Portfolio 的運營頁面 \\
+\texttt{published} /\allowbreak{} \texttt{draft} /\allowbreak{} \texttt{hidden} & Model Portfolio 的發布狀態；僅 \texttt{published} 對客戶端可見 \\
+\texttt{active} /\allowbreak{} \texttt{inactive} & ETF 是否屬於客戶端 active product universe 的狀態 \\
+\bottomrule
+\end{longtable}
+\endgroup
+\prdhr
+\hypertarget{us-adm-01}{}
+\section{User Story 1 - 通過 \texttt{Admin Portal} 維護並核驗客戶端內容}
+\textbf{Story ID:} \texttt{US-ADM-01}
+\textbf{用戶故事：} 作為管理員，我希望維護 ETF 目錄和 Model Portfolio templates，並在移動端驗證變更，同時從統一後台查看用戶和 portfolio 運營信息。
+\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/BBmUwLwV0iRRxdkl3S9jV9ZHpLe?from=from\_copylink}{US-ADM-01 驗收視頻}
+\subsection{Walkthrough}
+\subsubsection{A. 查看 \texttt{Dashboard}}
+\begin{enumerate}
+\item 登入 \texttt{Admin Portal} 並打開 \texttt{Dashboard}。
+\item 展示 total users、ETF catalogue size、user portfolios、structured notes 和 ETF tier distribution 等概覽資料，說明這些資源來自與移動端共享的後端。
+\end{enumerate}
+\screenshotsSingleCompact{assets/screenshots/adm-us1-01-dashboard.png}{ADM-US1-01}{\texttt{Dashboard} 完整概覽，包含主要 counters、ETF tier distribution 和最近活動。}
+\screenshotDescSingle{\textbf{ADM-US1-01} \textemdash{} \texttt{Dashboard} 完整概覽，包含主要 counters、ETF tier distribution 和最近活動。}
+\subsubsection{B. 添加 ETF，並在移動端驗證}
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item 先在 iOS simulator 搜尋一只當前不存在或未啟用的測試 ETF，記錄找不到該 ETF 的基線狀態。
+\item 切換到 \texttt{Admin Portal \textgreater{} ETF Catalogue}。展示按 symbol/\allowbreak{}name/\allowbreak{}issuer 搜尋，以及按 tier 或 asset class 篩選。
+\item 展示 catalogue 中的 exchange、currency、asset class、region、sector、issuer、expense ratio 等字段。
+\item 使用 \texttt{Add by Ticker} 或 \texttt{Add ETF manually} 添加測試 ETF。若采用手動流程，填寫 symbol、name、exchange、currency、asset class、region、sector、issuer、inception date、expense ratio 和 tier。
+\item 返回 simulator，刷新 ETF search/\allowbreak{}list，確認相同 ETF 已出現。
+\end{enumerate}
+\screenshotsDoubleCompact{assets/screenshots/adm-us1-extra-etf-catalogue.png}{ETF Catalogue 列表與篩選}{\texttt{ETF Catalogue} 列表、search、tier /\allowbreak{} asset class filters，以及 ETF 維護字段。}{assets/screenshots/adm-us1-extra-add-by-ticker-validation.png}{Add by Ticker 重複記錄校驗}{\texttt{Add by Ticker} 對已存在的 \texttt{VOO} 顯示重複記錄校驗；此圖只證明校驗行為，不作為成功創建 ETF 的證據。}
+\screenshotDescsTwo{\textbf{ETF Catalogue 列表與篩選} \textemdash{} \texttt{ETF Catalogue} 列表、search、tier /\allowbreak{} asset class filters，以及 ETF 維護字段。}{\textbf{Add by Ticker 重複記錄校驗} \textemdash{} \texttt{Add by Ticker} 對已存在的 \texttt{VOO} 顯示重複記錄校驗；此圖只證明校驗行為，不作為成功創建 ETF 的證據。}
+\subsubsection{C. 停用 ETF，並在移動端驗證}
+\begin{enumerate}
+\setcounter{enumi}{7}
+\item 在 \texttt{ETF Catalogue} 選擇一只當前可在移動端搜尋到的測試 ETF，將其設為 inactive/\allowbreak{}deactivated。
+\item 返回 simulator，刷新 ETF search/\allowbreak{}list，確認該 ETF 不再作為 active product 出現。
+\end{enumerate}
+\subsubsection{D. 修改 \texttt{Model Portfolios}，並在移動端驗證}
+\begin{enumerate}
+\setcounter{enumi}{9}
+\item 先在 simulator 打開一個已發布的 Model Portfolio，記錄其 title、display order、risk band、summary 和 ETF allocations 基線。
+\item 切換到 \texttt{Admin Portal \textgreater{} Model Portfolios}。展示 template key、display order、title、risk band、return range、horizon、summary、reference note、status 和 ETF allocations。
+\item 編輯一個容易識別且適合演示的字段，例如 title、display order、risk band、summary 或 allocation。若修改 allocation，確認總權重為 100\%。保存並保持 template 為 \texttt{published}。
+\item 返回 simulator，刷新或重新打開 Model Portfolio 頁面，確認客戶端顯示最新配置。
+\item 可選補充發布邊界：將专用測試 template 改為 \texttt{draft} 或 \texttt{hidden}，刷新客戶端確認不再出現；再恢複測試資料，避免影響後續演示。
+\end{enumerate}
+\screenshotsDoubleCompact{assets/screenshots/adm-us1-extra-model-portfolios-list.png}{Model Portfolios 管理列表}{\texttt{Model Portfolios} 管理列表，展示 template、顯示順序、風險、狀態和維護操作入口。}{assets/screenshots/adm-us1-05-model-portfolio-edit.png}{ADM-US1-05}{\texttt{Create Model Portfolio} 表單，顯示主要配置字段、ETF allocations 和 \texttt{Total 100.00\%}；發布狀態及保存後的客戶端結果仍需在視頻中連續核驗。}
+\screenshotDescsTwo{\textbf{Model Portfolios 管理列表} \textemdash{} \texttt{Model Portfolios} 管理列表，展示 template、顯示順序、風險、狀態和維護操作入口。}{\textbf{ADM-US1-05} \textemdash{} \texttt{Create Model Portfolio} 表單，顯示主要配置字段、ETF allocations 和 \texttt{Total 100.00\%}；發布狀態及保存後的客戶端結果仍需在視頻中連續核驗。}
+\subsubsection{E. 查看運營頁面}
+\begin{enumerate}
+\setcounter{enumi}{14}
+\item 打開 \texttt{Users}，展示 search、role/\allowbreak{}status filters，以及 verification status、account status、risk profile、last login、created date。使用測試用戶或對 PII 打碼。
+\item 打開 \texttt{User Portfolios}，展示 owner、base currency、objective、horizon、holdings count 和 created time。
+\end{enumerate}
+\screenshotsDoubleCompact{assets/screenshots/adm-us1-extra-users-redacted.png}{Users 運營列表}{\texttt{Users} 運營列表與篩選區域；可識別的 email 已脫敏。}{assets/screenshots/adm-us1-07-user-portfolios.png}{ADM-US1-07}{\texttt{User Portfolios} 運營列表，包含 search /\allowbreak{} filters、owner、base currency、objective、horizon、holdings 和 created time。}
+\screenshotDescsTwo{\textbf{Users 運營列表} \textemdash{} \texttt{Users} 運營列表與篩選區域；可識別的 email 已脫敏。}{\textbf{ADM-US1-07} \textemdash{} \texttt{User Portfolios} 運營列表，包含 search /\allowbreak{} filters、owner、base currency、objective、horizon、holdings 和 created time。}
+\subsection{Acceptance Criteria}
+\begingroup
+\small
+\begin{longtable}{L{0.18\linewidth}L{0.30\linewidth}L{0.18\linewidth}L{0.12\linewidth}L{0.10\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Reference} & \textbf{Ownership} & \textbf{Priority} \\
+\midrule
+ADM-US1-AC01 & \texttt{Dashboard} 展示當前後端返回的平台概覽，包括 users、ETF catalogue、user portfolios、structured notes 和 ETF tier distribution 中當前可用的指標。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC02 & \texttt{ETF Catalogue} 支持按 symbol、name 或 issuer 搜尋，並支持當前實現提供的 tier /\allowbreak{} asset class filters。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC03 & ETF 記錄展示 exchange、currency、asset class、region、sector、issuer 和 expense ratio 等維護所需字段。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC04 & 管理員可以通過 \texttt{Add by Ticker} 或 \texttt{Add ETF manually} 創建一條有效 ETF 記錄。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC05 & 添加前在移動端不存在的測試 ETF，在後台成功添加後可通過刷新移動端 search/\allowbreak{}list 找到，且 symbol/\allowbreak{}name 與後台一致。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC06 & 管理員可以停用一只 active ETF；停用後刷新移動端，該 ETF 不再出現在 active product universe。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC07 & ETF 添加或停用請求進行中不可重複提交，完成後不會產生重複記錄或衝突狀態。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC08 & \texttt{Model Portfolios} 支持維護 template key、display order、title、risk band、return range、horizon、summary、reference note、status 和 ETF allocations。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC09 & Model Portfolio allocation 只有在總權重為 100\% 時才能作為有效 template 保存或發布。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC10 & 後台對已發布 Model Portfolio 的 title、order、risk band、summary 或 allocation 所做修改，在刷新或重新打開移動端後得到反映。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC11 & 只有 \texttt{published} Model Portfolio 對客戶端可見；\texttt{draft} 或 \texttt{hidden} template 不出現在客戶端目錄。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC12 & 客戶端顯示的是當前 Model Portfolio 配置，不使用寫死內容或上一次打開的 template 狀態。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC13 & \texttt{Users} 支持 search 和 role/\allowbreak{}status filters，並展示當前可用的 verification status、account status、risk profile、last login 和 created date。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC14 & \texttt{User Portfolios} 展示 owner、base currency、objective、horizon、holdings count 和 created time 等當前可用字段。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC15 & \texttt{Users} 和 \texttt{User Portfolios} 用於運營可見性與排查，不在本 story 中修改普通用戶持倉。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC16 & 所有會影響客戶端的後台變更都通過 simulator 刷新或重新打開頁面驗證，不能只以後台 Toast 作為成功證據。 & US-ADM-01 & Integration & Must \\
+ADM-US1-AC17 & 視頻和截圖使用測試資料，或對 email、owner 等個人信息進行打碼。 & US-ADM-01 & Integration & Must \\
+\bottomrule
+\end{longtable}
+\endgroup

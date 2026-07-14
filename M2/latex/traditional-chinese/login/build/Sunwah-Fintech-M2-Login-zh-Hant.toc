@@ -1,0 +1,9 @@
+\contentsline {section}{\numberline {}模組說明}{2}{section.1}%
+\contentsline {section}{\numberline {}User Story /\allowbreak {} Video 索引}{2}{section.2}%
+\contentsline {section}{\numberline {}統一術語}{2}{section.3}%
+\contentsline {section}{\numberline {}User Story 1 - 註冊新賬號並使用已有賬號登入}{2}{section.4}%
+\contentsline {subsection}{\numberline {}Walkthrough}{2}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {}A. \texttt {Login} 頁面與範圍說明}{2}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {}B. 註冊新賬號並驗證 email}{3}{subsubsection.4.1.2}%
+\contentsline {subsubsection}{\numberline {}C. 已有賬號登入}{4}{subsubsection.4.1.3}%
+\contentsline {subsection}{\numberline {}Acceptance Criteria}{4}{subsection.4.2}%

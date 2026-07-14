@@ -1,0 +1,18 @@
+\contentsline {section}{\numberline {}模組說明}{2}{section.1}%
+\contentsline {section}{\numberline {}User Story /\allowbreak {} Video 索引}{2}{section.2}%
+\contentsline {section}{\numberline {}統一術語}{2}{section.3}%
+\contentsline {section}{\numberline {}User Story 1 - 探索並保存 Model Portfolio}{3}{section.4}%
+\contentsline {subsection}{\numberline {}Walkthrough}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {}Acceptance Criteria}{5}{subsection.4.2}%
+\contentsline {section}{\numberline {}User Story 2 - 創建、編輯和維護 My Portfolio}{8}{section.5}%
+\contentsline {subsection}{\numberline {}Walkthrough}{8}{subsection.5.3}%
+\contentsline {subsection}{\numberline {}Acceptance Criteria}{10}{subsection.5.4}%
+\contentsline {section}{\numberline {}User Story 3 - 生成 AI Portfolio Recommendation}{12}{section.6}%
+\contentsline {subsection}{\numberline {}Walkthrough}{12}{subsection.6.5}%
+\contentsline {subsection}{\numberline {}Acceptance Criteria}{14}{subsection.6.6}%
+\contentsline {section}{\numberline {}User Story 4 - 分析 Portfolio 並審閱 AI 建議}{16}{section.7}%
+\contentsline {subsection}{\numberline {}Walkthrough}{16}{subsection.7.7}%
+\contentsline {subsection}{\numberline {}Acceptance Criteria}{18}{subsection.7.8}%
+\contentsline {section}{\numberline {}User Story 5 - 根據 Baseline Snapshot 審閱}{21}{section.8}%
+\contentsline {subsection}{\numberline {}Walkthrough}{21}{subsection.8.9}%
+\contentsline {subsection}{\numberline {}Acceptance Criteria}{22}{subsection.8.10}%
