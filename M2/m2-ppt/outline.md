@@ -70,7 +70,7 @@
 - **Subtitle:** Three complementary deliverables · four modules · eleven User Stories
 - **Layout:** One combined overview page covering the deliverable hierarchy, deliverable set and module structure.
 
-This page introduces one shared evidence hierarchy across the complete delivery. The package contains three coordinated deliverables — the acceptance documentation, the meeting presentation and the User Story walkthrough videos — organized into Login, Market, Portfolio and Admin. Each module is divided into User Stories, and each Story connects its walkthrough, representative screenshot or video evidence and authoritative Acceptance Criteria list.
+This page introduces one shared evidence hierarchy across the complete delivery. The package contains three coordinated deliverables — the acceptance documentation, the meeting presentation and the User Story walkthrough videos — organized into Login, Market, Portfolio and Admin. Each Story connects its walkthrough, representative evidence and mapped acceptance summary; the complete authoritative Acceptance Criteria remain in the functional acceptance documents.
 
 ### Slide 03 — 01 Login / Register
 
@@ -122,9 +122,9 @@ flowchart LR
 
 **AC Mapping:**
 
-- `AUTH-US1-AC06` — Click Register New Account to open Create Account and provide the display…
-- `AUTH-US1-AC07` — Create Account is not available when the registration form is missing any…
-- `AUTH-US1-AC08` — Submitting a valid registration form creates one pending registration…
+- `AUTH-US1-AC06` — Register New Account opens a form for display name, email and password.
+- `AUTH-US1-AC07` — Create Account stays disabled until all fields and an eight-character password are valid.
+- `AUTH-US1-AC08` — A valid submission creates one pending account, sends a six-digit code and opens Verify Email.
 
 ### Slide 05 — User Story 1 — Verify the email and enter Markets
 
@@ -140,8 +140,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `AUTH-US1-AC09` — Verify and Continue is not available when the verification code is less…
-- `AUTH-US1-AC10` — A correct code completes account creation and signs the user in…
+- `AUTH-US1-AC09` — Verify and Continue stays disabled until all six code digits are entered.
+- `AUTH-US1-AC10` — A correct code creates one account and signs the user in automatically.
 
 #### Evidence 02 — 04 · Markets landing
 
@@ -193,10 +193,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `MKT-US1-AC01` — Market Intelligence loads successfully and organizes research entries into…
-- `MKT-US1-AC02` — Each visible color block in Sector Heatmap displays the sector/theme name…
-- `MKT-US1-AC03` — Rising, Flat, Falling summary corresponds to the current heat map data.
-- `MKT-US1-AC10` — The page does not represent market signals, sector performance…
+- `MKT-US1-AC01–03` — Market Intelligence loads all research entries with sector context and matching heatmap breadth totals.
+- `MKT-US1-AC10` — Market signals, sector performance and selected ETFs are presented as research, not recommendations.
 
 #### Evidence 02 — 02 · AI signals and indices
 
@@ -206,8 +204,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `MKT-US1-AC04` — AI Market Signals card shows signal date, detected changes…
-- `MKT-US1-AC05` — Market Indices displays major indices and available change data…
+- `MKT-US1-AC04` — AI Market Signals shows its date, detected changes, analysis, related ETFs and available sources.
+- `MKT-US1-AC05` — Market Indices shows available index changes and clearly marks delayed-data boundaries.
 
 #### Evidence 03 — 03 · Discovery to Sector Detail
 
@@ -217,10 +215,9 @@ flowchart LR
 
 **AC Mapping:**
 
-- `MKT-US1-AC06` — Market Discovery Rail supports continuing research from sectors, ETF movers…
-- `MKT-US1-AC07` — The Default and Hot scopes in Sectors can be switched…
-- `MKT-US1-AC08` — Recommended ETFs is a curated pool rather than the full ETF universe…
-- `MKT-US1-AC09` — After clicking on a sector, the Sector Detail matching the selected sector…
+- `MKT-US1-AC06–07` — Discovery supports several research routes, and Default or Hot sectors show the selected scope.
+- `MKT-US1-AC08` — Recommended ETFs is a curated list with key quote data and a View all entry.
+- `MKT-US1-AC09` — Selecting a sector opens the matching Sector Detail page.
 
 ### Slide 08 — User Story 2 — Understand sector trends and filter ETFs
 
@@ -236,9 +233,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `MKT-US2-AC01` — Sector Detail displays the name and data for the sector selected by the…
-- `MKT-US2-AC02` — The sector banner displays representative tickers…
-- `MKT-US2-AC03` — The page clearly marks the sector snapshot / EOD cached data boundary and…
+- `MKT-US2-AC01–02` — Sector Detail matches the selected sector and shows its tickers, ETF count and movement.
+- `MKT-US2-AC03` — The page clearly identifies its cached EOD snapshot and avoids implying real-time data.
 
 #### Evidence 02 — 02 · AI Sector Insights
 
@@ -248,9 +244,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `MKT-US2-AC04` — AI Sector Insights covers at least three research angles: Momentum &…
-- `MKT-US2-AC05` — When data is insufficient, the corresponding insight displays an…
-- `MKT-US2-AC11` — AI Sector Insights uses the wording of research observations and does not…
+- `MKT-US2-AC04–05` — AI Sector Insights covers momentum, liquidity and risk, with an explicit state when data is insufficient.
+- `MKT-US2-AC11` — Insight wording describes research observations rather than real-time predictions or trading advice.
 
 #### Evidence 03 — 03 · ETF Rankings
 
@@ -261,10 +256,8 @@ flowchart LR
 **AC Mapping:**
 
 - `MKT-US2-AC06` — ETF Rankings only displays ETFs within the currently selected sector.
-- `MKT-US2-AC07` — Sorting supports metrics supported, including Change, Volume, Turnover…
-- `MKT-US2-AC08` — return period supports switching between 1D, 1W, 1M, and 3M supported…
-- `MKT-US2-AC09` — When switching sorting indicators or periods…
-- `MKT-US2-AC10` — After clicking on the ETF in the ranking, open the ETF Detail matching the…
+- `MKT-US2-AC07–09` — Supported sort metrics and return periods update ranking order without changing the selected sector.
+- `MKT-US2-AC10` — Selecting a ranked ETF opens the matching ETF Detail page.
 
 ### Slide 09 — User Story 3 — Research and compare individual ETFs
 
@@ -280,10 +273,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `MKT-US3-AC01` — ETF Detail displays the fund name, symbol, exchange, latest price, currency…
-- `MKT-US3-AC02` — K-line chart uses the current ETF's price series and does not display…
-- `MKT-US3-AC03` — Users can switch between the 1D, 1W, 1M, and 3M time ranges supported…
-- `MKT-US3-AC04` — When scrubbing a chart, open, high, low, close and volume are updated…
+- `MKT-US3-AC01–02` — ETF Detail and its chart display the selected fund's identity, quote context and price series.
+- `MKT-US3-AC03–04` — Supported time ranges reload the chart, and scrubbing updates OHLC and volume for the selected point.
 
 #### Evidence 02 — 02 · View, Overview and News
 
@@ -293,10 +284,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `MKT-US3-AC05` — The View panel supports the currently enabled chart types in solid…
-- `MKT-US3-AC06` — The MA5, MA10, MA30 switches only change the current chart overlay…
-- `MKT-US3-AC07` — Overview displays the available key stats; unavailable values are shown…
-- `MKT-US3-AC08` — News displays headlines, sources, and timestamps related to current ETF…
+- `MKT-US3-AC05–06` — View controls change the enabled chart type or moving-average overlays for the current ETF.
+- `MKT-US3-AC07–08` — Overview and News show available ETF statistics and related articles, with unavailable values identified clearly.
 
 #### Evidence 03 — 03 · Compare ETF
 
@@ -306,9 +295,9 @@ flowchart LR
 
 **AC Mapping:**
 
-- `MKT-US3-AC09` — Compare ETF in More uses the current ETF as the first comparison object and…
-- `MKT-US3-AC10` — The comparison chart uses the same chart option to load two sets of price…
-- `MKT-US3-AC11` — Exit Compare ETF and still return to the details context of the original…
+- `MKT-US3-AC09` — Compare ETF retains the current fund and allows a second fund to be selected.
+- `MKT-US3-AC10` — The comparison chart normalizes both price series under the same chart settings.
+- `MKT-US3-AC11` — Closing Compare ETF returns to the original ETF Detail context.
 
 ### Slide 10 — User Story 4 — Save ETF research results
 
@@ -324,9 +313,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `MKT-US4-AC01` — After clicking the star icon of ETF Detail, the success status is…
-- `MKT-US4-AC02` — Saved ETFs appear in Screener > Watchlist; disappear from the list when…
-- `MKT-US4-AC03` — Watchlist is used to save research objects and does not create portfolio…
+- `MKT-US4-AC01–02` — A successful star action adds the ETF to Watchlist, and removal updates both states consistently.
+- `MKT-US4-AC03` — Watchlist saves research objects without creating portfolio holdings or transactions.
 
 #### Evidence 02 — 02 · Add to existing portfolio
 
@@ -336,12 +324,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `MKT-US4-AC04` — The plus button opens the Add to existing portfolio sheet for the current…
-- `MKT-US4-AC05` — The sheet displays the selected ETF, latest price…
-- `MKT-US4-AC06` — My Portfolio that already contains this ETF displays duplicate holding…
-- `MKT-US4-AC07` — User can select another eligible My Portfolio and save it.
-- `MKT-US4-AC08` — After saving, reopen the target My Portfolio to see the corresponding ETF…
-- `MKT-US4-AC13` — Add to My Portfolio only saves research holding records…
+- `MKT-US4-AC04–06` — The add sheet shows the current ETF's price, lots and value, while blocking duplicate targets.
+- `MKT-US4-AC07–08,13` — An eligible target saves a research holding after reopening without placing a trade.
 
 #### Evidence 03 — 03 · Unified Screener
 
@@ -351,10 +335,9 @@ flowchart LR
 
 **AC Mapping:**
 
-- `MKT-US4-AC09` — Recommended, All, Watchlist share the same Screener interaction…
-- `MKT-US4-AC10` — search supports symbol, name or issuer; filter supports issuer, asset class…
-- `MKT-US4-AC11` — sort supports change, volume, turnover, price, expense ratio, beta…
-- `MKT-US4-AC12` — search, filter and sort do not accidentally switch the current Recommended…
+- `MKT-US4-AC09` — Recommended, All and Watchlist share the same Screener controls and result layout.
+- `MKT-US4-AC10–11` — Supported search, filter and sort controls update results using the selected criteria.
+- `MKT-US4-AC12` — Search, filter and sort preserve the active Recommended, All or Watchlist scope.
 
 ### Slide 11 — 03 Portfolio
 
@@ -395,11 +378,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US1-AC01` — The Portfolio title and three tabs - Recommended, My portfolios…
-- `US1-AC02` — Each loaded Model Portfolio card uses back-end data to display the title…
-- `US1-AC03` — Each Model Portfolio card displays the Reference description corresponding…
-- `US1-AC04` — View details opens the selected Model Portfolio rather than another…
-- `US1-AC05` — Display the loading status when opening or refreshing the Model Portfolio…
+- `US1-AC01–03` — Recommended shows backend-loaded cards with portfolio facts, allocation and matching References.
+- `US1-AC04–05` — View details opens the selected item after its loading state completes.
 
 #### Evidence 02 — 02 · Model Portfolio detail
 
@@ -409,12 +389,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US1-AC06` — The details header displays the title, return, risk, term…
-- `US1-AC07` — The detail fact values are consistent with the catalog card and current…
-- `US1-AC08` — Reference descriptions show in a dedicated source/reference style and are…
-- `US1-AC09` — The configuration card shows the asset class groupings and their ETF codes…
-- `US1-AC11` — Selecting an ETF row opens the matching ETF details…
-- `US1-AC12` — After returning from ETF details, the current Model Portfolio details…
+- `US1-AC06–09` — Detail facts, Reference and ETF groups match the selected catalogue card and current backend data.
+- `US1-AC11–12` — An ETF row opens the matching detail, and returning preserves the Model Portfolio state.
 
 #### Evidence 03 — 03 · ETF allocation
 
@@ -424,7 +400,7 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US1-AC10` — The ETF configuration area shows Total 100%…
+- `US1-AC10` — ETF rows show identifiers, weights and available metadata, with Total fixed at 100%.
 
 ### Slide 13 — User Story 1 — Evaluate the forecast and save for later
 
@@ -440,12 +416,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US1-AC13` — Loading identifies Monte Carlo work; no chart points are fabricated.
-- `US1-AC14–15` — Chart bands, Today marker and summary match the returned forecast.
-- `US1-AC16–17` — Pan and pinch remain inside the available date range.
-- `US1-AC18` — Historical selection shows a crosshair; future points cannot backtest.
-- `US1-AC19–20` — Backtest loading, series and hide behavior preserve the base forecast.
-- `US1-AC21–22` — Partial coverage and research-only boundaries remain visible.
+- `US1-AC13–18` — Loading remains until the forecast is ready; chart interaction stays in range and backtesting uses history only.
+- `US1-AC19–22` — Backtest preserves the forecast, coverage and research boundaries.
 
 #### Evidence 02 — 05 · Watchlist result
 
@@ -455,11 +427,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US1-AC23` — The details control changes from a hollow star to a solid star only after…
-- `US1-AC24` — The Watchlist count is incremented and the Model Portfolio appears in the…
-- `US1-AC25` — A saved Model Portfolio can be opened from the Watchlist.
-- `US1-AC26` — Removing a saved Model Portfolio causes it to disappear from the Watchlist…
-- `US1-AC27` — After returning to Recommended and opening the same Model Portfolio again…
+- `US1-AC23–25` — A successful save fills the star, updates Watchlist and reopens with matching facts.
+- `US1-AC26–27` — Removal keeps the list, count, empty state and final star consistent across views.
 
 ### Slide 14 — User Story 1 — Edit the configuration before saving
 
@@ -475,10 +444,9 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US1-AC28` — The Add to My Portfolio page opens for the selected Model Portfolio and…
-- `US1-AC29` — Modifying the total value will recalculate the ETF amount and quantity…
-- `US1-AC30` — Dragging the industry boundary only changes two adjacent groups…
-- `US1-AC31` — Dragging an ETF to split changes the ETFs within that group…
+- `US1-AC28` — Add to My Portfolio opens with the selected model, context and default amounts.
+- `US1-AC29` — Changing total value recalculates ETF amounts and quantities while preserving normalized weights.
+- `US1-AC30–31` — Allocation drags update only affected groups, keep values non-negative and preserve a 100% total.
 
 #### Evidence 02 — 07 · ETF list editor
 
@@ -488,10 +456,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US1-AC32` — When switching from Visual to List mode, the current amount and weight is…
-- `US1-AC33` — When switching back to Visual mode from List…
-- `US1-AC34` — When entering the confirmation step, the summary uses the amount…
-- `US1-AC35` — The confirmation step displays the target name, total amount added…
+- `US1-AC32–33` — Visual and List modes convert amounts, weights and shares without losing valid edits.
+- `US1-AC34–35` — Confirmation uses the latest edit and shows the target, totals and per-ETF results.
 
 ### Slide 15 — User Story 1 — Persist or analyze the edited Model Portfolio
 
@@ -507,11 +473,9 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US1-AC36` — Confirm is disabled when the My Portfolio name is empty or a create request…
-- `US1-AC37` — After successful creation, the new name appears in My portfolios…
-- `US1-AC38` — After reopening or refreshing, the position, quantity…
-- `US1-AC39` — The UI states that a research-only My Portfolio was created and that no…
-- `US1-AC40` — Confirm cannot be triggered repeatedly while the creation request is in…
+- `US1-AC36` — Confirm stays disabled while the name is empty or creation is in progress.
+- `US1-AC37–38` — One successful creation appears in My portfolios and preserves its holdings after reopening.
+- `US1-AC39–40` — Creation is research-only, triggers no trade and cannot be submitted repeatedly.
 
 #### Evidence 02 — 09 · Add to existing
 
@@ -521,12 +485,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US1-AC41` — The target selector lists the current My Portfolio and displays each item's…
-- `US1-AC42` — Confirm is not available until the preview is loaded.
-- `US1-AC43` — Preview showing existing value, ETF rows to be added…
-- `US1-AC44` — Update the selected existing My Portfolio after confirmation…
-- `US1-AC45` — After reopening the target, the existing codes in the preview show the…
-- `US1-AC46` — When returning from the target selection or confirmation page…
+- `US1-AC41–43` — Target facts and ETF changes appear in preview before Confirm becomes available.
+- `US1-AC44–46` — Confirmation merges and persists positions, while navigation preserves the last confirmed editing draft.
 
 #### Evidence 03 — 10 · Start analysis hand-off
 
@@ -536,9 +496,9 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US1-AC47` — Analysis Workspace opens in Holdings with the source title consistent with…
-- `US1-AC48` — Editing the Model Portfolio draft affects only the working copy and does…
-- `US1-AC49` — Analyze draft portfolio uses the current edited draft of the Model…
+- `US1-AC47` — Analysis Workspace opens with the selected model's title, holdings, values and normalized weights.
+- `US1-AC48` — Draft edits affect only the working copy and expose no Apply to My Portfolio action.
+- `US1-AC49` — Analysis uses the current draft and does not reuse results from another source.
 
 ### Slide 16 — User Story 2 — Create a My Portfolio
 
@@ -554,10 +514,9 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US2-AC01` — Shows loading status when opening or refreshing for the first time…
-- `US2-AC07` — After creation, My Portfolio appears in the list with its name, total value…
-- `US2-AC08` — After opening a new My Portfolio from the list, its name, base currency…
-- `US2-AC09` — The creation process clearly states that it is creating a research-based My…
+- `US2-AC01` — My portfolios shows a loading state before replacing it with the current saved list.
+- `US2-AC07–08` — A new portfolio appears with matching facts and reopens with its saved holdings.
+- `US2-AC09` — Creation is clearly identified as research-only and does not execute a transaction.
 
 #### Evidence 02 — 02 · Initial holdings
 
@@ -567,11 +526,9 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US2-AC02` — The new My Portfolio form provides HKD, USD, CNY…
-- `US2-AC03` — The create check button in the upper-right corner is disabled when the name…
-- `US2-AC04` — The ETF selector supports code/name/issuer search, sorting indicators…
-- `US2-AC05` — No matching search shows no results status; clear the search to restore the…
-- `US2-AC06` — Initial holdings supports +, −, direct input and deletion…
+- `US2-AC02–03` — The form supports available currencies and enables creation only with a valid name and holdings.
+- `US2-AC04–05` — ETF search, sort and empty results behave consistently and can restore the full list.
+- `US2-AC06` — Initial holdings support quantity controls and deletion while rejecting invalid values.
 
 ### Slide 17 — User Story 2 — Inspect and edit saved holdings
 
@@ -587,11 +544,9 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US2-AC10–11` — Header, grouping, quantities and weights match the saved portfolio.
-- `US2-AC12` — Forecast uses this My Portfolio, not a previously opened template.
+- `US2-AC10–12` — Header, holdings and forecast match this saved portfolio rather than another source.
 - `US2-AC13` — Position rows show current facts and open the matching ETF.
-- `US2-AC14–15` — Saving creates one timestamped Baseline Snapshot and success state.
-- `US2-AC16` — Snapshot detail shows saved value, quantities and weights.
+- `US2-AC14–16` — Saving creates one timestamped snapshot whose detail preserves value, quantities and weights.
 
 #### Evidence 02 — 04 · Holdings maintenance
 
@@ -601,12 +556,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US2-AC17` — Edit identifies the portfolio and shows editable position rows.
-- `US2-AC18–19` — Valid quantity edits persist; invalid quantities do not commit.
-- `US2-AC20–21` — Add ETF supports search/sort and disables existing holdings.
-- `US2-AC22` — A valid ETF is added once and remains after reopening.
-- `US2-AC23–24` — Edits affect only the intended ETF and refresh portfolio totals.
-- `US2-AC25` — Closing an unchanged editor makes no saved-position changes.
+- `US2-AC17–22` — The editor validates quantities, blocks duplicates and persists one new holding.
+- `US2-AC23–25` — Only intended positions change; closing unchanged leaves holdings untouched.
 
 ### Slide 18 — User Story 2 — Maintain baseline history and remove a portfolio
 
@@ -622,12 +573,9 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US2-AC26` — Adds only one Baseline Snapshot per creation, selects and loads its details…
-- `US2-AC27` — Searches can be filtered by Baseline Snapshot tag, date…
-- `US2-AC28` — Rename rejects empty names, persists valid new tags…
-- `US2-AC29` — Delete only removes the selected Baseline Snapshot and reduces the count…
-- `US2-AC30` — UAT Before Edit retains the positions before operation 2.4…
-- `US2-AC31` — After reopening Baseline snapshots, the retained Baseline Snapshot and…
+- `US2-AC26–27` — Each action creates one selectable snapshot, and search filters its saved history.
+- `US2-AC28–29` — Rename rejects empty tags, while deletion removes only the selected snapshot.
+- `US2-AC30–31` — The retained snapshot preserves its pre-edit holdings and remains correct after reopening.
 
 #### Evidence 02 — 06 · Empty and removal boundaries
 
@@ -637,9 +585,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US2-AC32` — A My Portfolio with no holdings can still be opened…
-- `US2-AC33` — Removal requires naming My Portfolio and stating irrevocable destructive…
-- `US2-AC34` — Remove this My Portfolio from the list after confirmation without deleting…
+- `US2-AC32` — A portfolio with no holdings still opens with an explicit empty state.
+- `US2-AC33–34` — Removal requires an irreversible-action confirmation and deletes only the selected portfolio.
 
 ### Slide 19 — User Story 3 — Complete the recommendation questionnaire
 
@@ -655,9 +602,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US3-AC01` — The questionnaire shows exactly four progress steps and the current number…
-- `US3-AC02` — Each question displays supporting text and selectable options with labels…
-- `US3-AC03` — Next/See recommendation is always disabled until the current question has…
+- `US3-AC01–02` — The questionnaire shows four steps, current progress and contextual single-choice options.
+- `US3-AC03` — Next or See recommendation stays disabled until the current question is answered.
 
 #### Evidence 02 — 02 · Answer progress
 
@@ -667,22 +613,20 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US3-AC04` — Only one option can be selected per question…
-- `US3-AC05` — After completing the questionnaire, the results page displays the risk…
+- `US3-AC04` — Each question retains one selected answer when moving forward or backward.
+- `US3-AC05` — Completing all answers produces a result aligned with the selected risk profile.
 - `US3-AC17` — Return to the questionnaire and keep the current answers.
 
 #### Evidence 03 — 03 · Generation progress
 
 <img src="assets/device-framed/portfolio/port-us3-02-generation-progress.png" alt="03 · Generation progress" width="300" />
 
-**Walkthrough copy:** Submit all answers and show four generation stages, pending placeholders and the disabled save path without flashing a stale recommendation.
+**Walkthrough copy:** Submit all answers and show four generation stages with pending placeholders; confirm saving stays disabled until the new result is ready.
 
 **AC Mapping:**
 
-- `US3-AC06` — The page immediately enters a visible generation state…
-- `US3-AC07` — Progress communicates four stages: Screen ETF universe, Optimize allocation…
-- `US3-AC08` — Pending header, forecast, build, explanation and ETF rows are clearly…
-- `US3-AC09` — The save operation is not available until there is a clear Recommendation…
+- `US3-AC06–07` — Submission immediately starts one visible four-stage recommendation flow.
+- `US3-AC08–09` — Pending sections are identified clearly, and saving stays disabled until the result is complete.
 
 ### Slide 20 — User Story 3 — Review the recommendation result and build
 
@@ -698,10 +642,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US3-AC10` — The header displays the title of the generated results, risk level…
-- `US3-AC11` — Expected annualized returns, volatility, Sharpe ratio…
-- `US3-AC12` — Forecasts are calculated based on the generated ETF weights and modeled…
-- `US3-AC18` — Recommendation is marked throughout as AI-assisted and for research only…
+- `US3-AC10–12` — Result identity, metrics and forecast all reflect the same generated weights and modeled amount.
+- `US3-AC18` — The recommendation is consistently marked as AI-assisted, research-only and non-executing.
 
 #### Evidence 02 — 05 · Recommendation build
 
@@ -711,7 +653,7 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US3-AC13` — Recommendation Build displays this run's risk profile…
+- `US3-AC13` — Recommendation Build shows this run's risk profile, metrics, allocation, scope, date and warnings.
 
 ### Slide 21 — User Story 3 — Inspect explanation, constraints and ETF holdings
 
@@ -727,8 +669,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US3-AC14` — Description markup is AI-generated and renders paragraphs, emphasis…
-- `US3-AC15` — The explanation matches this Recommendation Build and its generated…
+- `US3-AC14` — AI description markup renders readable structure without exposing raw Markdown.
+- `US3-AC15` — Explanation, holdings, characteristics and constraints match the current build.
 
 #### Evidence 02 — 07 · ETF holdings
 
@@ -738,7 +680,7 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US3-AC16` — ETF row shows ticker, name, asset class, generated target weight…
+- `US3-AC16` — Each ETF row shows identity, asset class and target weight, with totals equal to 100% within rounding.
 
 ### Slide 22 — User Story 3 — Save the recommendation
 
@@ -754,10 +696,9 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US3-AC19` — The add page uses the generated recommendation, modeled amount…
-- `US3-AC21` — Confirmation shows when using Add as new and the new My Portfolio appears…
-- `US3-AC22` — Use Add to existing to merge quantities: new codes are added and existing…
-- `US3-AC23` — Only opening the add page or returning to Recommendation does not write to…
+- `US3-AC19` — The add page uses the current recommendation, modeled amount, currency and latest prices.
+- `US3-AC21–22` — Confirmation creates a new target or merges quantities into the selected existing portfolio.
+- `US3-AC23` — Opening or leaving the add page does not save anything before confirmation.
 
 #### Evidence 02 — 09 · Recommendation editor
 
@@ -767,7 +708,7 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US3-AC20` — Visual/List editing and both target options are compliant with Operations…
+- `US3-AC20` — Visual and List editing, validation and target choices follow the shared portfolio workflow.
 
 ### Slide 23 — User Story 4 — Run portfolio analysis
 
@@ -783,11 +724,7 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US4-AC01` — Workspace preloads the selected portfolio's saved holdings.
-- `US4-AC02` — Analysis and Suggestions remain locked until results exist.
-- `US4-AC03` — Draft edits recalculate and clear stale results without saving.
-- `US4-AC04` — Add ETF supports search/sort and blocks duplicate holdings.
-- `US4-AC05` — Remove and Clear all affect only the working draft.
+- `US4-AC01–05` — Workspace loads selected holdings; draft edits stay isolated, block duplicates and clear stale results.
 - `US4-AC06–07` — Analyze validates the draft, shows one progress flow and opens Analysis.
 
 #### Evidence 02 — 02 · Analysis overview
@@ -798,10 +735,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US4-AC08` — The completed overview shows the total value/base currency…
-- `US4-AC09` — Unavailable indicators show as Unavailable/—…
-- `US4-AC12` — Analytics disclaimers are always visible; when a response contains…
-- `US4-AC13` — The current result applies only to this draft…
+- `US4-AC08–09` — The completed overview shows current draft metrics and identifies unavailable indicators explicitly.
+- `US4-AC12–13` — Analysis boundaries stay visible, and results belong only to the current draft and run.
 
 #### Evidence 03 — 03 · Holdings and exposure
 
@@ -811,8 +746,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US4-AC10` — The Holdings table displays Symbol, QTY, COST/UNIT, MKT VALUE…
-- `US4-AC11` — Exposure breakdown displays Sector, Region and Currency and consistently…
+- `US4-AC10` — The read-only Holdings table shows each position's quantity, cost, value and weight.
+- `US4-AC11` — Sector, Region and Currency exposures remain consistent between Pie and List views.
 
 ### Slide 24 — User Story 4 — Select findings and generate recommendations
 
@@ -828,11 +763,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US4-AC14` — Diagnostic items display severity, title, metric/threshold and selection…
-- `US4-AC15` — The number, severity, and selection status of diagnostic items returned by…
-- `US4-AC16` — After switching diagnostic items, the Found/Selected/Hidden count is…
-- `US4-AC17` — When zero items are selected, the UI instructs the user to select at least…
-- `US4-AC18` — Recommendation generation is disabled until analysis completes…
+- `US4-AC14–16` — Diagnosis items show severity, metrics and selection, with counts matching the returned results.
+- `US4-AC17–18` — Generation requires completed analysis and at least one selected diagnosis.
 
 #### Evidence 02 — 05 · Generated scope and considerations
 
@@ -842,11 +774,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US4-AC19` — The generation switches to Suggestions and displays four progress stages:…
-- `US4-AC20` — The results indicate the diagnostic items used to generate recommendations.
-- `US4-AC21` — AI-generated considerations appear AI drafted…
-- `US4-AC22` — Considerations only cover diagnostic items selected during submission…
-- `US4-AC23` — Each consideration presents observations, rationale, expected impact…
+- `US4-AC19–22` — Suggestions shows four-stage generation and limits AI-drafted results to submitted diagnoses.
+- `US4-AC23` — Each consideration presents its observation, rationale, expected impact and research boundary.
 
 ### Slide 25 — User Story 4 — Review, edit and apply Suggested actions
 
@@ -862,10 +791,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US4-AC24` — Preview shows feasibility, turnover, candidates and risk.
-- `US4-AC25–27` — Rows, scrolling and candidate pool remain mutually consistent.
-- `US4-AC28–29` — Targets are non-negative, recalculate immediately and can reset.
-- `US4-AC30` — Apply enables only for a complete, feasible and priced scenario.
+- `US4-AC24–27` — Preview metrics, rows and candidate scope remain mutually consistent.
+- `US4-AC28–30` — Non-negative targets recalculate or reset, and Apply requires a complete feasible scenario.
 - `US4-AC31–32` — Apply updates holdings; reopening proves results and clears stale analysis.
 - `US4-AC33` — Apply cannot repeat and produces only one portfolio update.
 
@@ -877,10 +804,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US4-AC34` — Model Portfolio can be used as a draft source to complete the same Analysis…
-- `US4-AC35` — Suggestions displays the selected diagnostic scope…
-- `US4-AC36` — The Model Portfolio's Suggested actions show as a read-only list with…
-- `US4-AC37` — Model Portfolio results do not display Reset or Apply to My Portfolio…
+- `US4-AC34–35` — A Model Portfolio draft completes the same analysis while preserving its selected diagnosis scope.
+- `US4-AC36–37` — Its Suggested actions are read-only and expose neither Reset nor Apply to My Portfolio.
 
 ### Slide 26 — User Story 5 — Select a baseline and inspect drift
 
@@ -896,11 +821,9 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US5-AC01–02` — Baseline lists this portfolio's saved reference configurations.
-- `US5-AC03–05` — No changes stays disabled, unselected and unavailable for Analysis.
-- `US5-AC06` — ETF details remain inspectable for a No changes snapshot.
-- `US5-AC07` — A changed Baseline Snapshot receives the selected state.
-- `US5-AC08` — Expanded details show saved ETF quantities and weights.
+- `US5-AC01–02` — Baseline lists only this portfolio's saved reference configurations.
+- `US5-AC03–06` — No changes remains unselectable for Analysis but still allows ETF detail inspection.
+- `US5-AC07–08` — A changed snapshot can be selected and expanded to show saved quantities and weights.
 
 #### Evidence 02 — 02 · Holding drift
 
@@ -910,9 +833,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US5-AC09` — Deviation results list both new and removed ETFs…
-- `US5-AC10` — The deviation table, sorted by significant change…
-- `US5-AC11` — The summary indicates the name, date, and total absolute deviation of the…
+- `US5-AC09–10` — The deviation table includes added and removed ETFs with signed, significance-sorted changes.
+- `US5-AC11` — The summary identifies the baseline, date and total absolute deviation.
 
 ### Slide 27 — User Story 5 — Explain the baseline deviation
 
@@ -928,10 +850,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US5-AC12` — Analysis clearly indicates that the current position is being compared to…
-- `US5-AC13` — Analysis displays the Within range, Monitor drift…
-- `US5-AC14` — Driver summary identifies the largest exposure increase/decrease and…
-- `US5-AC18` — Baseline Snapshot comparisons must not show AI flags such as AI-generated…
+- `US5-AC12–14` — Analysis identifies the baseline, drift status and largest increase or decrease driving the result.
+- `US5-AC18` — Baseline comparison is deterministic and displays no AI-generated or recommendation labels.
 
 #### Evidence 02 — 04 · Allocation movements
 
@@ -941,8 +861,7 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US5-AC15` — Industry allocation changes summarizes Baseline Snapshot weights and…
-- `US5-AC16` — ETF movement detail shows Baseline Snapshot weights…
+- `US5-AC15–16` — Industry and ETF movement views compare baseline and current weights with signed changes and reasons.
 
 #### Evidence 03 — 05 · Quantity changes
 
@@ -952,7 +871,7 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US5-AC17` — Quantity changes displays the Baseline Snapshot quantity, current quantity…
+- `US5-AC17` — Quantity changes shows baseline, current and target quantities with unit and value differences.
 
 ### Slide 28 — User Story 5 — Adjust and apply the baseline scenario
 
@@ -968,11 +887,9 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US5-AC19` — Suggestions waits for the current preview and hides stale results.
-- `US5-AC20` — Scope names the Baseline Snapshot and reports row counts.
-- `US5-AC21–22` — Rows compare current, baseline and calculated target holdings.
-- `US5-AC23–24` — Non-negative edits recalculate immediately; Reset restores defaults.
-- `US5-AC25` — Apply remains disabled until target calculation completes.
+- `US5-AC19–20` — Suggestions waits for the current preview and identifies the selected baseline and row scope.
+- `US5-AC21–22` — Each row compares current, baseline and calculated target holdings.
+- `US5-AC23–25` — Non-negative edits recalculate or reset, and Apply waits for a complete target.
 
 #### Evidence 02 — 07 · Applied result
 
@@ -982,9 +899,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `US5-AC26` — After Apply to My Portfolio succeeds, the review closes and My Portfolio…
-- `US5-AC27` — Reopening proves that target shares were applied and the previously…
-- `US5-AC28` — Apply to My Portfolio cannot be triggered repeatedly while the request is…
+- `US5-AC26–27` — A successful Apply refreshes target holdings, and reopening confirms shares and comparison.
+- `US5-AC28` — Apply cannot be triggered repeatedly while the request is in progress.
 
 ### Slide 29 — 04 Admin
 
@@ -1024,7 +940,7 @@ flowchart LR
 
 **AC Mapping:**
 
-- `ADM-US1-AC01` — Dashboard displays an overview of the platform returned by the current…
+- `ADM-US1-AC01` — Dashboard summarizes the current backend's users, ETFs, portfolios, notes and tier distribution.
 
 #### Evidence 02 — 02 · ETF Catalogue
 
@@ -1034,8 +950,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `ADM-US1-AC02` — ETF Catalogue supports searching by symbol, name or issuer…
-- `ADM-US1-AC03` — ETF records display fields required for maintenance such as exchange…
+- `ADM-US1-AC02` — ETF Catalogue supports symbol, name or issuer search plus available tier and asset-class filters.
+- `ADM-US1-AC03` — ETF records expose the exchange, currency, classification, issuer and expense fields needed for maintenance.
 
 ### Slide 31 — User Story 1 — Add or deactivate an ETF and verify it on iOS
 
@@ -1051,20 +967,21 @@ flowchart LR
 
 **AC Mapping:**
 
-- `ADM-US1-AC04` — Administrators can create a valid ETF record through Add by Ticker or Add…
-- `ADM-US1-AC07` — ETF addition or deactivation request cannot be submitted repeatedly during…
+- `ADM-US1-AC04` — Administrators can create one valid ETF through Add by Ticker or manual entry.
+- `ADM-US1-AC07` — Add or deactivate requests cannot repeat in progress or create duplicates and conflicts.
 
 #### Evidence 02 — 04 · iOS before/after verification
 
-> **Screenshot required:** Capture two Simulator states with the same test ticker: absent before Admin creation or present before deactivation, then the inverse after refreshing the client. Keep the search query and scope visible in both images.
+<img src="assets/admin/adm-us1-04-ios-etf-before.png" alt="04 · iOS ETF search before Admin creation — no matching M2EVD714 result" width="360" />
+
+<img src="assets/admin/adm-us1-04-ios-etf-after.png" alt="04 · iOS ETF search after refresh — M2EVD714 appears once" width="360" />
 
 **Walkthrough copy:** Return to the simulator after each Admin mutation, refresh or reopen the ETF search/list and prove the client universe changed exactly once.
 
 **AC Mapping:**
 
-- `ADM-US1-AC05` — A test ETF that was absent from the mobile app before creation can be found…
-- `ADM-US1-AC06` — Administrators can deactivate an active ETF…
-- `ADM-US1-AC16` — Every admin change that affects the client is verified by refreshing the…
+- `ADM-US1-AC05–06` — After refresh, a created ETF appears on iOS and a deactivated ETF leaves the active universe.
+- `ADM-US1-AC16` — Client-facing changes require refreshed iOS evidence; an Admin Toast alone is insufficient.
 
 ### Slide 32 — User Story 1 — Maintain and verify Model Portfolios
 
@@ -1080,7 +997,7 @@ flowchart LR
 
 **AC Mapping:**
 
-- `ADM-US1-AC08` — Model Portfolios supports maintaining template key, display order, title…
+- `ADM-US1-AC08` — Model Portfolios maintains template identity, order, facts, status, Reference and ETF allocations.
 
 #### Evidence 02 — 06 · Model Portfolio editor
 
@@ -1090,14 +1007,12 @@ flowchart LR
 
 **AC Mapping:**
 
-- `ADM-US1-AC09` — Model Portfolio allocation can only be saved or published as a valid…
-- `ADM-US1-AC10` — Changes made in Admin Portal to the title, order, risk band…
-- `ADM-US1-AC11` — Only the published Model Portfolio is visible to the client…
-- `ADM-US1-AC12` — The client displays the current Model Portfolio configuration…
+- `ADM-US1-AC09` — A template can be saved or published only when its allocation totals 100%.
+- `ADM-US1-AC10–12` — iOS shows the current published configuration after refresh and excludes draft or hidden templates.
 
 #### Evidence 03 — 07 · iOS published-template verification
 
-> **Screenshot required:** Capture the same Model Portfolio in Simulator after refresh, with the edited title/risk/summary/allocation visible. If demonstrating draft/hidden, capture the catalogue state in which the test template is absent.
+<img src="assets/admin/adm-us1-07-ios-model-portfolio-published.png" alt="07 · Published M2 Acceptance Balanced Portfolio after iOS refresh" width="420" />
 
 **Walkthrough copy:** Reopen the selected Model Portfolio on iOS and compare the visible data with the saved Admin configuration.
 
@@ -1115,8 +1030,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `ADM-US1-AC13` — Users supports search and role/status filters…
-- `ADM-US1-AC17` — Videos and screenshots use test data or redact personal information such as…
+- `ADM-US1-AC13` — Users supports search and role or status filters with current account metadata.
+- `ADM-US1-AC17` — Videos and screenshots use test data or redact emails, owners and other personal information.
 
 #### Evidence 02 — 09 · User Portfolios
 
@@ -1126,8 +1041,8 @@ flowchart LR
 
 **AC Mapping:**
 
-- `ADM-US1-AC14` — User Portfolios displays the available fields such as owner, base currency…
-- `ADM-US1-AC15` — Users and User Portfolios are used for operational visibility and…
+- `ADM-US1-AC14` — User Portfolios shows owner, currency, objective, horizon, holdings count and creation time.
+- `ADM-US1-AC15` — Operations pages support visibility and troubleshooting without modifying ordinary user holdings.
 
 ### Slide 34 — Acceptance Traceability Across Modules
 
@@ -1148,7 +1063,7 @@ flowchart LR
 - **On-slide copy:**
   - Confirm Story-level walkthrough completeness.
   - Confirm AC mapping and any evidence that must remain video-only.
-  - Confirm the two missing Admin iOS before/after capture pairs before final PPT production.
+  - Confirm Admin-to-iOS refresh evidence is complete and traceable to dedicated test data.
 
 ## 覆盖校验
 
@@ -1156,7 +1071,7 @@ flowchart LR
 - Mapped AC total: **248**
 - Missing AC IDs: **0**
 - Planned slides: **35**
-- Explicit screenshot gaps: **2 Admin → iOS verification pairs** (ETF before/after; Model Portfolio after-state / visibility boundary).
+- Explicit screenshot gaps: **0**. The ETF before/after and published Model Portfolio iOS states are now included.
 
 ## Source of truth
 
