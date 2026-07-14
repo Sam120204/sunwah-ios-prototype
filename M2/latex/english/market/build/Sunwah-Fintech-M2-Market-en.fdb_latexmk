@@ -1,10 +1,10 @@
 # Fdb version 4
-["xdvipdfmx"] 1783986914.72608 "build/Sunwah-Fintech-M2-Market-en.xdv" "build/Sunwah-Fintech-M2-Market-en.pdf" "build/Sunwah-Fintech-M2-Market-en" 1783986924.85126 0
-  "build/Sunwah-Fintech-M2-Market-en.xdv" 1783986914.67345 223876 ff2efc3d754fd53295db0a99668ce3b7 "xelatex"
+["xdvipdfmx"] 1783991050.43646 "build/Sunwah-Fintech-M2-Market-en.xdv" "build/Sunwah-Fintech-M2-Market-en.pdf" "build/Sunwah-Fintech-M2-Market-en" 1783991060.14146 0
+  "build/Sunwah-Fintech-M2-Market-en.xdv" 1783991050.38559 219964 c09e9b8c61cc27791a2896e1886c6baf "xelatex"
   (generated)
   "build/Sunwah-Fintech-M2-Market-en.pdf"
   (rewritten before read)
-["xelatex"] 1783986913.8869 "main.tex" "build/Sunwah-Fintech-M2-Market-en.xdv" "Sunwah-Fintech-M2-Market-en" 1783986924.84992 0
+["xelatex"] 1783991049.65674 "main.tex" "build/Sunwah-Fintech-M2-Market-en.xdv" "Sunwah-Fintech-M2-Market-en" 1783991060.14025 0
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -205,11 +205,11 @@
   "assets/screenshots/mkt-us4-01-watchlist-saved.png" 1783970470.73988 245249 584c1cc4aca937baf4a7f119b34f558b ""
   "assets/screenshots/mkt-us4-02-add-existing-portfolio.png" 1783970470.7409 357825 e5b4f59d43da8313231d5953a5caaa47 ""
   "assets/screenshots/mkt-us4-03-screener-controls.png" 1783970470.74141 245249 584c1cc4aca937baf4a7f119b34f558b ""
-  "build/Sunwah-Fintech-M2-Market-en.aux" 1783986914.67284 3118 9a24e81f53efe55bffd8510567d85d4a "xelatex"
-  "build/Sunwah-Fintech-M2-Market-en.toc" 1783986914.67342 1305 e52b64acca3e4cbe67fa2f95d7f8d555 "xelatex"
-  "content.tex" 1783986899.7295 23900 a80245d0c9998d655dbfd2b10ff2096c ""
-  "main.tex" 1783986899.72958 637 1a4a9974f96c2b3afb05f2bb904c71f8 ""
-  "prd-common.tex" 1783986899.72412 12806 fe8f484a4aebd9b71bd92e6aa37cfe7b ""
+  "build/Sunwah-Fintech-M2-Market-en.aux" 1783991050.38502 3065 89625a1a0f9eb7c768d40eb68776c782 "xelatex"
+  "build/Sunwah-Fintech-M2-Market-en.toc" 1783991050.38555 1283 6239783cdce5dff506d285bed30e2b54 "xelatex"
+  "content.tex" 1783991026.28594 22980 13215a4a596479d5270c9f4654f8d634 ""
+  "main.tex" 1783991026.28601 637 1a4a9974f96c2b3afb05f2bb904c71f8 ""
+  "prd-common.tex" 1783991026.28131 12806 fe8f484a4aebd9b71bd92e6aa37cfe7b ""
   (generated)
   "build/Sunwah-Fintech-M2-Market-en.aux"
   "build/Sunwah-Fintech-M2-Market-en.log"

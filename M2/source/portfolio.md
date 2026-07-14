@@ -8,15 +8,15 @@ Portfolio 模块提供仅供研究的工作流：发现 `Model Portfolio`、维�
 
 > 范围说明：本模块中的预测、分析、Recommendation 和 `Suggested actions` 仅供研究，不代表收益保证，也不会触发券商订单或交易执行。
 
-## User Story / Video 索引
+## User Story 索引
 
-| Story | 视频主题 | 核心路径 | Video |
-| --- | --- | --- | --- |
-| [US-PORT-01](#user-story-1---探索并保存-model-portfolio) | 探索并保存 Model Portfolio | `Recommended` -> `Model Portfolio` -> `Watchlist` / `My Portfolio` | [视频](https://jjpvro70sief.jp.larksuite.com/wiki/SjhpwcDNLirUxpkHh1vjUbgqphY) |
-| [US-PORT-02](#user-story-2---创建、编辑和维护-my-portfolio) | 创建、编辑和维护 My Portfolio | `My portfolios` -> `Edit` / `Baseline snapshots` | [视频](https://jjpvro70sief.jp.larksuite.com/wiki/I9gxw6Uugiw5RxkSJ91jVHKipMf) |
-| [US-PORT-03](#user-story-3---生成-ai-portfolio-recommendation) | 生成 AI Portfolio Recommendation | `Find Your Ideal Portfolio` -> `Portfolio recommendation` | [视频](https://jjpvro70sief.jp.larksuite.com/wiki/NSZ1wCHloiD8QAkYSDsj9CNtpje) |
-| [US-PORT-04](#user-story-4---分析-portfolio-并审阅-ai-建议) | 分析 Portfolio 并审阅 AI 建议 | `Draft Portfolio` -> `Analysis` -> `Suggestions` | [视频](https://jjpvro70sief.jp.larksuite.com/wiki/Ey4Bw3xDxiPeETk3yBBjhxOHpdf) |
-| [US-PORT-05](#user-story-5---根据-baseline-snapshot-审阅) | 根据 Baseline Snapshot 审阅 | `Portfolio Review` -> `Baseline` -> `Analysis` -> `Suggestions` | [视频](https://jjpvro70sief.jp.larksuite.com/wiki/H1ULwBLKeiaEIKkEbQDjhRiepue) |
+| Story | User Story | 核心路径 |
+| --- | --- | --- |
+| [US-PORT-01](#user-story-1---探索并保存-model-portfolio) | 探索并保存 Model Portfolio | `Recommended` -> `Model Portfolio` -> `Watchlist` / `My Portfolio` |
+| [US-PORT-02](#user-story-2---创建、编辑和维护-my-portfolio) | 创建、编辑和维护 My Portfolio | `My portfolios` -> `Edit` / `Baseline snapshots` |
+| [US-PORT-03](#user-story-3---生成-ai-portfolio-recommendation) | 生成 AI Portfolio Recommendation | `Find Your Ideal Portfolio` -> `Portfolio recommendation` |
+| [US-PORT-04](#user-story-4---分析-portfolio-并审阅-ai-建议) | 分析 Portfolio 并审阅 AI 建议 | `Draft Portfolio` -> `Analysis` -> `Suggestions` |
+| [US-PORT-05](#user-story-5---根据-baseline-snapshot-审阅) | 根据 Baseline Snapshot 审阅 | `Portfolio Review` -> `Baseline` -> `Analysis` -> `Suggestions` |
 
 ## 统一术语
 
@@ -40,7 +40,6 @@ Portfolio 模块提供仅供研究的工作流：发现 `Model Portfolio`、维�
 
 **Story ID:** `US-PORT-01`  
 **用户故事：** 作为用户，我希望检查精选的 Model Portfolio，了解其配置和示意性预测，将其保存以便稍后参考，并使用 Add to My Portfolio。  
-**Video:** [US-PORT-01 验收视频](https://jjpvro70sief.jp.larksuite.com/wiki/SjhpwcDNLirUxpkHh1vjUbgqphY)
 
 ### Walkthrough
 
@@ -145,7 +144,6 @@ Portfolio 模块提供仅供研究的工作流：发现 `Model Portfolio`、维�
 
 **Story ID:** `US-PORT-02`  
 **用户故事：** 作为用户，我希望创建和维护已保存的 ETF My Portfolio，包括其持仓和 Baseline Snapshot 历史记录。  
-**Video:** [US-PORT-02 验收视频](https://jjpvro70sief.jp.larksuite.com/wiki/I9gxw6Uugiw5RxkSJ91jVHKipMf)
 
 ### Walkthrough
 
@@ -219,7 +217,6 @@ Portfolio 模块提供仅供研究的工作流：发现 `Model Portfolio`、维�
 
 **Story ID:** `US-PORT-03`  
 **用户故事：** 作为用户，我希望回答适配度问卷，获得可解释的 ETF 建议，检查生成的结果并保存到 My portfolios。  
-**Video:** [US-PORT-03 验收视频](https://jjpvro70sief.jp.larksuite.com/wiki/NSZ1wCHloiD8QAkYSDsj9CNtpje)
 
 ### Walkthrough
 
@@ -303,7 +300,6 @@ Portfolio 模块提供仅供研究的工作流：发现 `Model Portfolio`、维�
 
 **Story ID:** `US-PORT-04`  
 **用户故事：** 作为用户，我希望分析 My Portfolio 或 Model Portfolio 的工作草稿，选择重要的诊断问题，并审阅 AI 辅助的考虑因素和量化 `Suggested actions`；当来源是 My Portfolio 时，我还可以编辑并应用这些操作。  
-**Video:** [US-PORT-04 验收视频](https://jjpvro70sief.jp.larksuite.com/wiki/Ey4Bw3xDxiPeETk3yBBjhxOHpdf)
 
 ### Walkthrough
 
@@ -385,7 +381,6 @@ Portfolio 模块提供仅供研究的工作流：发现 `Model Portfolio`、维�
 
 **Story ID:** `US-PORT-05`  
 **用户故事：** 作为用户，我希望将今天的 My Portfolio 与有效的历史 Baseline Snapshot 比较，了解配置偏离，编辑基于 Baseline Snapshot 的调整方案并应用。  
-**Video:** [US-PORT-05 验收视频](https://jjpvro70sief.jp.larksuite.com/wiki/H1ULwBLKeiaEIKkEbQDjhRiepue)
 
 ### Walkthrough
 

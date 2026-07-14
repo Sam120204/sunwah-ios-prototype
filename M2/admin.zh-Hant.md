@@ -4,11 +4,11 @@
 
 `Admin Portal` 是客戶端應用背後的運營控制台。本模組的核心不是只瀏覽後台頁面，而是證明後台與移動端使用同一組後端資源：管理員對 `ETF Catalogue` 和 `Model Portfolios` 的變更，在刷新移動端後可以得到驗證；同時管理員可通過 `Dashboard`、`Users` 和 `User Portfolios` 監控平台狀態。
 
-## User Story / Video 索引
+## User Story 索引
 
-| Story | 視頻主題 | 核心路徑 | Video |
-| --- | --- | --- | --- |
-| [US-ADM-01](#us-adm-01) | Admin Functional Acceptance | Dashboard + ETF Catalogue + Model Portfolios + operational visibility | [視頻](https://jjpvro70sief.jp.larksuite.com/wiki/BBmUwLwV0iRRxdkl3S9jV9ZHpLe?from=from_copylink) |
+| Story | User Story | 核心路徑 |
+| --- | --- | --- |
+| [US-ADM-01](#us-adm-01) | Admin Functional Acceptance | Dashboard + ETF Catalogue + Model Portfolios + operational visibility |
 
 ## 統一術語
 
@@ -33,7 +33,6 @@
 
 **Story ID:** `US-ADM-01`  
 **用戶故事：** 作為管理員，我希望維護 ETF 目錄和 Model Portfolio templates，並在移動端驗證變更，同時從統一後台查看用戶和 portfolio 運營信息。  
-**Video:** [US-ADM-01 驗收視頻](https://jjpvro70sief.jp.larksuite.com/wiki/BBmUwLwV0iRRxdkl3S9jV9ZHpLe?from=from_copylink)
 
 ### Walkthrough
 
@@ -122,4 +121,3 @@
 | ADM-US1-AC15 | `Users` 和 `User Portfolios` 用於運營可見性與排查，不在本 story 中修改普通用戶持倉。 | US-ADM-01 | Integration | Must |
 | ADM-US1-AC16 | 所有會影響客戶端的後台變更都通過 simulator 刷新或重新打開頁面驗證，不能只以後台 Toast 作為成功證據。 | US-ADM-01 | Integration | Must |
 | ADM-US1-AC17 | 視頻和截圖使用測試資料，或對 email、owner 等個人信息進行打碼。 | US-ADM-01 | Integration | Must |
-

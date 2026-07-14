@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.14)  14 JUL 2026 07:55
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.14)  14 JUL 2026 09:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1324,7 +1324,7 @@ File: assets/screenshots/mkt-us1-03-discovery-recommended.png Graphic file (typ
 e bmp)
 <assets/screenshots/mkt-us1-03-discovery-recommended.png>
 
-ignored: Infinite glue shrinkage found in box being split [3] [4]
+ignored: Infinite glue shrinkage found in box being split [3]
 File: assets/screenshots/mkt-us2-01-sector-banner.png Graphic file (type bmp)
 <assets/screenshots/mkt-us2-01-sector-banner.png>
 File: assets/screenshots/mkt-us2-02-ai-sector-insights.png Graphic file (type b
@@ -1332,7 +1332,7 @@ mp)
 <assets/screenshots/mkt-us2-02-ai-sector-insights.png>
 File: assets/screenshots/mkt-us2-03-etf-rankings.png Graphic file (type bmp)
 <assets/screenshots/mkt-us2-03-etf-rankings.png>
-
+ [4]
 ignored: Infinite glue shrinkage found in box being split [5]
 File: assets/screenshots/mkt-us3-01-etf-detail-header.png Graphic file (type bm
 p)
@@ -1370,11 +1370,11 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  35397 strings out of 468168
  783025 string characters out of 5432815
- 1280984 words of memory out of 5000000
+ 1280969 words of memory out of 5000000
  63536 multiletter control sequences out of 15000+600000
  632524 words of font info for 114 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 91i,12n,101p,1001b,665s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 91i,12n,101p,1001b,622s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on build/Sunwah-Fintech-M2-Market-zh-Hant.xdv (11 pages, 178756 
+Output written on build/Sunwah-Fintech-M2-Market-zh-Hant.xdv (11 pages, 175528 
 bytes).

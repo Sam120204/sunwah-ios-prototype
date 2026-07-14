@@ -6,11 +6,11 @@ The Login / Register module covers the two available authentication paths for no
 
 > Scope: Although `Google`, `Microsoft` and `Sign in with Apple` are displayed on the `Login` page, they are outside this acceptance scope. The accepted paths are `Register New Account` and standard email/password `Sign In`.
 
-## User Story / Video Index
+## User Story Index
 
-| Story | Video theme | Core path | Video |
-| --- | --- | --- | --- |
-| [US-AUTH-01](#us-auth-01) | Authentication Flow | `Register New Account` + email/password `Sign In` | [Video](https://jjpvro70sief.jp.larksuite.com/wiki/CDmcwSmsNinDn8kb92Nj980Epne) |
+| Story | User story | Core path |
+| --- | --- | --- |
+| [US-AUTH-01](#us-auth-01) | Authentication Flow | `Register New Account` + email/password `Sign In` |
 
 ## Shared Terminology
 
@@ -32,7 +32,6 @@ The Login / Register module covers the two available authentication paths for no
 
 **Story ID:** `US-AUTH-01`  
 **User story:** As an unauthenticated user, I want to register a new account and verify my email, or sign in with an existing account/email and password, so that I can enter the application's `Markets` page.  
-**Video:** [US-AUTH-01 Acceptance Video](https://jjpvro70sief.jp.larksuite.com/wiki/CDmcwSmsNinDn8kb92Nj980Epne)
 
 ### Walkthrough
 

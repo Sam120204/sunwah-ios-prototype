@@ -2,18 +2,18 @@
 Portfolio 模組提供僅供研究的工作流：發現 \texttt{Model Portfolio}、維護 \texttt{My Portfolio}、生成 \texttt{AI Portfolio Recommendation}、分析 portfolio 草稿，以及根據歷史 \texttt{Baseline Snapshot} 審閱已保存的 \texttt{My Portfolio}。
 模組由三個入口標簽組織：\texttt{Recommended} 用於瀏覽管理員維護的 Model Portfolio 並開始 recommendation quiz；\texttt{My portfolios} 用於創建、查看、編輯、刪除、分析和審閱用戶保存的 portfolio；\texttt{Watchlist} 用於查看與移除用戶保存供日後參考的 Model Portfolio。
 \begin{quote}\small 範圍說明：本模組中的預測、分析、Recommendation 和 \texttt{Suggested actions} 僅供研究，不代表收益保證，也不會觸發券商訂單或交易執行。\end{quote}
-\section{User Story /\allowbreak{} Video 索引}
+\section{User Story 索引}
 \begingroup
 \small
-\begin{longtable}{L{0.18\linewidth}L{0.24\linewidth}L{0.28\linewidth}L{0.16\linewidth}}
+\begin{longtable}{L{0.20\linewidth}L{0.34\linewidth}L{0.34\linewidth}}
 \toprule
-\textbf{Story} & \textbf{視頻主題} & \textbf{核心路徑} & \textbf{Video} \\
+\textbf{Story} & \textbf{User Story} & \textbf{核心路徑} \\
 \midrule
-\hyperlink{us-port-01}{US-PORT-01} & 探索並保存 Model Portfolio & \texttt{Recommended} -\textgreater{} \texttt{Model Portfolio} -\textgreater{} \texttt{Watchlist} /\allowbreak{} \texttt{My Portfolio} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/SjhpwcDNLirUxpkHh1vjUbgqphY}{視頻} \\
-\hyperlink{us-port-02}{US-PORT-02} & 創建、編輯和維護 My Portfolio & \texttt{My portfolios} -\textgreater{} \texttt{Edit} /\allowbreak{} \texttt{Baseline snapshots} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/I9gxw6Uugiw5RxkSJ91jVHKipMf}{視頻} \\
-\hyperlink{us-port-03}{US-PORT-03} & 生成 AI Portfolio Recommendation & \texttt{Find Your Ideal Portfolio} -\textgreater{} \texttt{Portfolio recommendation} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/NSZ1wCHloiD8QAkYSDsj9CNtpje}{視頻} \\
-\hyperlink{us-port-04}{US-PORT-04} & 分析 Portfolio 並審閱 AI 建議 & \texttt{Draft Portfolio} -\textgreater{} \texttt{Analysis} -\textgreater{} \texttt{Suggestions} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/Ey4Bw3xDxiPeETk3yBBjhxOHpdf}{視頻} \\
-\hyperlink{us-port-05}{US-PORT-05} & 根據 Baseline Snapshot 審閱 & \texttt{Portfolio Review} -\textgreater{} \texttt{Baseline} -\textgreater{} \texttt{Analysis} -\textgreater{} \texttt{Suggestions} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/H1ULwBLKeiaEIKkEbQDjhRiepue}{視頻} \\
+\hyperlink{us-port-01}{US-PORT-01} & 探索並保存 Model Portfolio & \texttt{Recommended} -\textgreater{} \texttt{Model Portfolio} -\textgreater{} \texttt{Watchlist} /\allowbreak{} \texttt{My Portfolio} \\
+\hyperlink{us-port-02}{US-PORT-02} & 創建、編輯和維護 My Portfolio & \texttt{My portfolios} -\textgreater{} \texttt{Edit} /\allowbreak{} \texttt{Baseline snapshots} \\
+\hyperlink{us-port-03}{US-PORT-03} & 生成 AI Portfolio Recommendation & \texttt{Find Your Ideal Portfolio} -\textgreater{} \texttt{Portfolio recommendation} \\
+\hyperlink{us-port-04}{US-PORT-04} & 分析 Portfolio 並審閱 AI 建議 & \texttt{Draft Portfolio} -\textgreater{} \texttt{Analysis} -\textgreater{} \texttt{Suggestions} \\
+\hyperlink{us-port-05}{US-PORT-05} & 根據 Baseline Snapshot 審閱 & \texttt{Portfolio Review} -\textgreater{} \texttt{Baseline} -\textgreater{} \texttt{Analysis} -\textgreater{} \texttt{Suggestions} \\
 \bottomrule
 \end{longtable}
 \endgroup
@@ -43,7 +43,6 @@ Portfolio 模組提供僅供研究的工作流：發現 \texttt{Model Portfolio}
 \section{User Story 1 - 探索並保存 Model Portfolio}
 \textbf{Story ID:} \texttt{US-PORT-01}
 \textbf{用戶故事：} 作為用戶，我希望檢查精選的 Model Portfolio，了解其配置和示意性預測，將其保存以便稍後參考，並使用 Add to My Portfolio。
-\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/SjhpwcDNLirUxpkHh1vjUbgqphY}{US-PORT-01 驗收視頻}
 \subsection{Walkthrough}
 \begin{enumerate}
 \item 打開 \texttt{Portfolio \textgreater{} Recommended}，瀏覽 Model Portfolio 卡片及其 \texttt{Reference} 說明。
@@ -125,7 +124,6 @@ US1-AC49 & \texttt{Analyze draft portfolio} 使用當前編輯後的 Model Portf
 \section{User Story 2 - 創建、編輯和維護 My Portfolio}
 \textbf{Story ID:} \texttt{US-PORT-02}
 \textbf{用戶故事：} 作為用戶，我希望創建和維護已保存的 ETF My Portfolio，包括其持倉和 Baseline Snapshot 歷史記錄。
-\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/I9gxw6Uugiw5RxkSJ91jVHKipMf}{US-PORT-02 驗收視頻}
 \subsection{Walkthrough}
 \begin{enumerate}
 \item 打開 \texttt{Portfolio \textgreater{} My portfolios}，查看已保存的 portfolios，並進入 \texttt{New Portfolio}。
@@ -188,7 +186,6 @@ US2-AC34 & 確認後從列表移除該 My Portfolio，且不刪除其他 My Port
 \section{User Story 3 - 生成 AI Portfolio Recommendation}
 \textbf{Story ID:} \texttt{US-PORT-03}
 \textbf{用戶故事：} 作為用戶，我希望回答適配度問卷，獲得可解釋的 ETF 建議，檢查生成的結果並保存到 My portfolios。
-\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/NSZ1wCHloiD8QAkYSDsj9CNtpje}{US-PORT-03 驗收視頻}
 \subsection{Walkthrough}
 \begin{enumerate}
 \item 從 \texttt{Portfolio \textgreater{} Recommended} 打開 \texttt{Find Your Ideal Portfolio}，完成四題問卷並查看回答進度。
@@ -242,7 +239,6 @@ US3-AC23 & 僅打開添加頁或返回 Recommendation 不會寫入 My portfolios
 \section{User Story 4 - 分析 Portfolio 並審閱 AI 建議}
 \textbf{Story ID:} \texttt{US-PORT-04}
 \textbf{用戶故事：} 作為用戶，我希望分析 My Portfolio 或 Model Portfolio 的工作草稿，選擇重要的診斷問題，並審閱 AI 輔助的考慮因素和量化 \texttt{Suggested actions}；當來源是 My Portfolio 時，我還可以編輯並應用這些操作。
-\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/Ey4Bw3xDxiPeETk3yBBjhxOHpdf}{US-PORT-04 驗收視頻}
 \subsection{Walkthrough}
 \begin{enumerate}
 \item 從一個 My Portfolio 選擇 \texttt{Start analysis}，查看並按需要調整草稿持倉。
@@ -308,7 +304,6 @@ US4-AC37 & Model Portfolio 結果不顯示 Reset 或 Apply to My Portfolio；關
 \section{User Story 5 - 根據 Baseline Snapshot 審閱}
 \textbf{Story ID:} \texttt{US-PORT-05}
 \textbf{用戶故事：} 作為用戶，我希望將今天的 My Portfolio 與有效的歷史 Baseline Snapshot 比較，了解配置偏離，編輯基於 Baseline Snapshot 的調整方案並應用。
-\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/H1ULwBLKeiaEIKkEbQDjhRiepue}{US-PORT-05 驗收視頻}
 \subsection{Walkthrough}
 \begin{enumerate}
 \item 從一個 My Portfolio 打開 \texttt{Portfolio Review}，瀏覽可用的 Baseline Snapshots，並區分 \texttt{No changes} 與可審閱狀態。

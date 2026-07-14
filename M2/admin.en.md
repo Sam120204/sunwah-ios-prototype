@@ -4,11 +4,11 @@
 
 `Admin Portal` is the operations console behind the client application. This module proves that the portal and mobile app use the same backend resources: changes to `ETF Catalogue` and `Model Portfolios` can be verified after refreshing the mobile app, while administrators can monitor platform status through `Dashboard`, `Users` and `User Portfolios`.
 
-## User Story / Video Index
+## User Story Index
 
-| Story | Video theme | Core path | Video |
-| --- | --- | --- | --- |
-| [US-ADM-01](#us-adm-01) | Admin Functional Acceptance | Dashboard + ETF Catalogue + Model Portfolios + operational visibility | [Video](https://jjpvro70sief.jp.larksuite.com/wiki/BBmUwLwV0iRRxdkl3S9jV9ZHpLe?from=from_copylink) |
+| Story | User story | Core path |
+| --- | --- | --- |
+| [US-ADM-01](#us-adm-01) | Admin Functional Acceptance | Dashboard + ETF Catalogue + Model Portfolios + operational visibility |
 
 ## Shared Terminology
 
@@ -33,7 +33,6 @@
 
 **Story ID:** `US-ADM-01`  
 **User story:** As an administrator, I want to maintain the ETF catalog and Model Portfolio templates and validate changes on mobile while viewing user and portfolio operational information from a unified backend.  
-**Video:** [US-ADM-01 Acceptance Video](https://jjpvro70sief.jp.larksuite.com/wiki/BBmUwLwV0iRRxdkl3S9jV9ZHpLe?from=from_copylink)
 
 ### Walkthrough
 

@@ -6,14 +6,14 @@ Market 模組提供從市場結構發現到單只 ETF 研究、比較和保存�
 
 > 資料邊界：頁面展示延遲行情、緩存快照或 EOD（end-of-day）資料時，必須保留相應標簽。Market 模組用於研究發現，不構成交易建議。
 
-## User Story / Video 索引
+## User Story 索引
 
-| Story | 視頻主題 | 核心路徑 | Video |
-| --- | --- | --- | --- |
-| [US-MKT-01](#us-mkt-01) | Market Intelligence Home | `Market Intelligence` -> `Sector Detail` | [視頻頁面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge) |
-| [US-MKT-02](#us-mkt-02) | Sector Detail | `Sector Detail` -> `ETF Rankings` | [視頻頁面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge) |
-| [US-MKT-03](#us-mkt-03) | ETF Detail and Compare ETF | `ETF Detail` -> `Compare ETF` | [視頻頁面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge) |
-| [US-MKT-04](#us-mkt-04) | Save ETF Research | `Watchlist` / `Add to My Portfolio` / `Screener` | [視頻頁面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge) |
+| Story | User Story | 核心路徑 |
+| --- | --- | --- |
+| [US-MKT-01](#us-mkt-01) | Market Intelligence Home | `Market Intelligence` -> `Sector Detail` |
+| [US-MKT-02](#us-mkt-02) | Sector Detail | `Sector Detail` -> `ETF Rankings` |
+| [US-MKT-03](#us-mkt-03) | ETF Detail and Compare ETF | `ETF Detail` -> `Compare ETF` |
+| [US-MKT-04](#us-mkt-04) | Save ETF Research | `Watchlist` / `Add to My Portfolio` / `Screener` |
 
 ## 統一術語
 
@@ -38,7 +38,6 @@ Market 模組提供從市場結構發現到單只 ETF 研究、比較和保存�
 
 **Story ID:** `US-MKT-01`  
 **用戶故事：** 作為尚未確定具體 ETF 的用戶，我希望先了解當天的市場廣度、板塊變動和主要指數背景，從而選擇下一步值得研究的板塊。  
-**Video:** [Market 驗收視頻頁面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge)
 
 ### Walkthrough
 
@@ -88,7 +87,6 @@ Market 模組提供從市場結構發現到單只 ETF 研究、比較和保存�
 
 **Story ID:** `US-MKT-02`  
 **用戶故事：** 作為從市場首頁進入某個板塊的用戶，我希望理解該板塊變動的廣度、流動性與風險背景，並在板塊內比較 ETF，選出下一步研究對象。  
-**Video:** [Market 驗收視頻頁面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge)
 
 ### Walkthrough
 
@@ -138,7 +136,6 @@ Market 模組提供從市場結構發現到單只 ETF 研究、比較和保存�
 
 **Story ID:** `US-MKT-03`  
 **用戶故事：** 作為已選定候選 ETF 的用戶，我希望查看報價、K 線、關鍵統計和新聞，並與另一只 ETF 比較相對走勢。  
-**Video:** [Market 驗收視頻頁面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge)
 
 ### Walkthrough
 
@@ -188,7 +185,6 @@ Market 模組提供從市場結構發現到單只 ETF 研究、比較和保存�
 
 **Story ID:** `US-MKT-04`  
 **用戶故事：** 作為完成初步研究的用戶，我希望將 ETF 保存到 `Watchlist` 繼續跟蹤，或加入已有 `My Portfolio` 做進一步組合分析，並可通過統一 `Screener` 繼續篩選。  
-**Video:** [Market 驗收視頻頁面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge)
 
 ### Walkthrough
 

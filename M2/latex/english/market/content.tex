@@ -1,17 +1,17 @@
 \section{Module Overview}
 The Market module provides a complete path from market structure discovery to individual ETF research, comparison and saving. Users first establish market direction in \texttt{Market Intelligence}, then enter \texttt{Sector Detail} to compare ETFs within sectors, then conduct in-depth research in \texttt{ETF Detail}, and save the results to \texttt{Watchlist} or \texttt{My Portfolio}.
 \begin{quote}\small Data boundaries: When the page displays delayed quotes, cached snapshots or EOD (end-of-day) data, the corresponding tags must be retained. The Market module is used for research discovery and does not constitute trading advice.\end{quote}
-\section{User Story /\allowbreak{} Video Index}
+\section{User Story Index}
 \begingroup
 \small
-\begin{longtable}{L{0.18\linewidth}L{0.24\linewidth}L{0.28\linewidth}L{0.16\linewidth}}
+\begin{longtable}{L{0.20\linewidth}L{0.34\linewidth}L{0.34\linewidth}}
 \toprule
-\textbf{Story} & \textbf{Video theme} & \textbf{Core path} & \textbf{Video} \\
+\textbf{Story} & \textbf{User story} & \textbf{Core path} \\
 \midrule
-\hyperlink{us-mkt-01}{US-MKT-01} & Market Intelligence Home & \texttt{Market Intelligence} -\textgreater{} \texttt{Sector Detail} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Video Page} \\
-\hyperlink{us-mkt-02}{US-MKT-02} & Sector Detail & \texttt{Sector Detail} -\textgreater{} \texttt{ETF Rankings} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Video Page} \\
-\hyperlink{us-mkt-03}{US-MKT-03} & ETF Detail and Compare ETF & \texttt{ETF Detail} -\textgreater{} \texttt{Compare ETF} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Video page} \\
-\hyperlink{us-mkt-04}{US-MKT-04} & Save ETF Research & \texttt{Watchlist} /\allowbreak{} \texttt{Add to My Portfolio} /\allowbreak{} \texttt{Screener} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Video Page} \\
+\hyperlink{us-mkt-01}{US-MKT-01} & Market Intelligence Home & \texttt{Market Intelligence} -\textgreater{} \texttt{Sector Detail} \\
+\hyperlink{us-mkt-02}{US-MKT-02} & Sector Detail & \texttt{Sector Detail} -\textgreater{} \texttt{ETF Rankings} \\
+\hyperlink{us-mkt-03}{US-MKT-03} & ETF Detail and Compare ETF & \texttt{ETF Detail} -\textgreater{} \texttt{Compare ETF} \\
+\hyperlink{us-mkt-04}{US-MKT-04} & Save ETF Research & \texttt{Watchlist} /\allowbreak{} \texttt{Add to My Portfolio} /\allowbreak{} \texttt{Screener} \\
 \bottomrule
 \end{longtable}
 \endgroup
@@ -40,7 +40,6 @@ The Market module provides a complete path from market structure discovery to in
 \section{User Story 1 - Establish research direction from \texttt{Market Intelligence}}
 \textbf{Story ID:} \texttt{US-MKT-01}
 \textbf{User story:} As a user who has not yet selected a specific ETF, I want to understand the day's market breadth, sector movements and major-index context so that I can choose a sector to research next.
-\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Market acceptance video page}
 \subsection{Walkthrough}
 \begin{enumerate}
 \item Open \texttt{Market Intelligence}. Show the overall structure of the page first and explain that it is a starting point for ETF research, not a complete ETF directory or trading recommendation page.
@@ -78,7 +77,6 @@ MKT-US1-AC10 & The page does not represent market signals, sector performance, o
 \section{User Story 2 - Understand sector trends and filter ETFs}
 \textbf{Story ID:} \texttt{US-MKT-02}
 \textbf{User story:} As a user who enters a certain sector from the market homepage, I hope to understand the breadth, liquidity and risk background of changes in the sector, compare ETFs within the sector, and select the next research target.
-\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Market acceptance video page}
 \subsection{Walkthrough}
 \begin{enumerate}
 \item Open a sector from \texttt{Sector Heatmap} or \texttt{Market Discovery Rail}. Use a sector with complete data, such as \texttt{Crypto}.
@@ -116,7 +114,6 @@ MKT-US2-AC11 & \texttt{AI Sector Insights} uses the wording of research observat
 \section{User Story 3 - Research and compare individual ETFs}
 \textbf{Story ID:} \texttt{US-MKT-03}
 \textbf{User story:} As a user who has selected a candidate ETF, I would like to view quotes, candlesticks, key statistics and news, and compare relative movements to another ETF.
-\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Market acceptance video page}
 \subsection{Walkthrough}
 \begin{enumerate}
 \item Open an ETF with complete data from \texttt{ETF Rankings}, \texttt{Recommended ETFs}, \texttt{All}, \texttt{Watchlist} or ETF movers.
@@ -155,7 +152,6 @@ MKT-US3-AC11 & Exit \texttt{Compare ETF} and still return to the details context
 \section{User Story 4 - Save ETF Research Results}
 \textbf{Story ID:} \texttt{US-MKT-04}
 \textbf{User story:} As a user who has completed preliminary research, I want to save an ETF to \texttt{Watchlist} for continued tracking, add it to an existing \texttt{My Portfolio} for further portfolio analysis, or continue screening through the unified \texttt{Screener}.
-\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Market acceptance video page}
 \subsection{Walkthrough}
 \begin{enumerate}
 \item Click the star icon in \texttt{ETF Detail} to add the ETF to \texttt{Watchlist}.

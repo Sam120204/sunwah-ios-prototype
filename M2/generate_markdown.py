@@ -16,8 +16,8 @@ import urllib.request
 from pathlib import Path
 
 M2_ROOT = Path(__file__).resolve().parent
-PRD_ROOT = M2_ROOT.parent
-TOOLS_ROOT = PRD_ROOT / "tools"
+WORKSPACE_ROOT = M2_ROOT.parent
+TOOLS_ROOT = WORKSPACE_ROOT / "docs" / "prd" / "tools"
 sys.path.insert(0, str(TOOLS_ROOT))
 
 from build_latex import to_hant  # noqa: E402
@@ -28,7 +28,7 @@ except ImportError:  # The system trust store remains the portable fallback.
     certifi = None
 
 
-REPO_ROOT = PRD_ROOT.parents[1]
+REPO_ROOT = WORKSPACE_ROOT
 SOURCE_ROOT = M2_ROOT / "source"
 OUTPUT_ROOT = M2_ROOT
 
@@ -170,8 +170,9 @@ def polish_english(text: str) -> str:
         "## Module description": "## Module Overview",
         "## Unified Terminology": "## Shared Terminology",
         "## Unified terminology": "## Shared Terminology",
-        "## User Story/Video Index": "## User Story / Video Index",
-        "## User Story / Video index": "## User Story / Video Index",
+        "## User Story/Video Index": "## User Story Index",
+        "## User Story / Video index": "## User Story Index",
+        "## User Story / Video Index": "## User Story Index",
         "**User Stories:**": "**User story:**",
         "**User Story:**": "**User story:**",
         "**video:**": "**Video:**",
@@ -195,21 +196,21 @@ def build_index() -> str:
         )
     return """# M2 Functional Acceptance Documentation
 
-本目录按模块组织 M2 功能验收文档。每个语言版本均以模块为一级索引，模块文档内以 User Story 为二级索引；每个 User Story 对应一支验收视频。
+本目录按模块组织 M2 功能验收文档。每个语言版本均以模块为一级索引，模块文档内以 User Story 为二级索引。验收视频链接由统一入口维护，不放入各模块文档。
 
-This directory organizes M2 functional acceptance documentation by module. In every language, modules form the primary index, User Stories form the secondary index within each module, and each User Story maps to one acceptance video.
+This directory organizes M2 functional acceptance documentation by module. In every language, modules form the primary index and User Stories form the secondary index within each module. Acceptance video links are maintained in one centralized location rather than inside the module documents.
 
-| Module | User Stories / Videos | 简体中文 | 繁體中文 | English |
+| Module | User Stories | 简体中文 | 繁體中文 | English |
 | --- | ---: | --- | --- | --- |
 """ + "\n".join(rows) + """
 
 ## Maintenance
 
-- Canonical functional content: `docs/prd/m2/source/*.md`
-- Generated module documents: `docs/prd/m2/*.md`
-- Markdown generation command: `python3 docs/prd/m2/generate_markdown.py --translate-en`
+- Canonical functional content: `M2/source/*.md`
+- Generated module documents: `M2/*.md`
+- Markdown generation command: `python3 M2/generate_markdown.py --translate-en`
 - UI names, labels, buttons, cards, and states enclosed in backticks remain in their original English in both Chinese versions.
-- Screenshot files remain canonical under `docs/prd/m2/source/assets/screenshots/`; generated documents reference those shared files rather than duplicating them.
+- Screenshot files remain canonical under `M2/source/assets/screenshots/`; generated documents reference those shared files rather than duplicating them.
 """
 
 
@@ -218,7 +219,6 @@ def validate_outputs(sources: dict[str, str]) -> None:
     for slug, (_, story_count) in MODULES.items():
         source = sources[slug]
         source_ac = set(re.findall(r"(?:[A-Z]+-)?US\d+-AC\d+", source))
-        source_urls = Counter(re.findall(r"https://jjpvro70sief\.jp\.larksuite\.com/wiki/[^)\s]+", source))
         source_terms = set(re.findall(r"`[^`\n]+`", source))
 
         for language in ("zh-Hans", "zh-Hant", "en"):
@@ -227,13 +227,12 @@ def validate_outputs(sources: dict[str, str]) -> None:
             label = path.relative_to(REPO_ROOT)
             if len(re.findall(r"^## User Story \d+", text, re.MULTILINE)) != story_count:
                 errors.append(f"{label}: incorrect User Story count")
-            if len(re.findall(r"^\*\*Video:\*\*", text, re.MULTILINE)) != story_count:
-                errors.append(f"{label}: incorrect story Video count")
+            if re.search(r"^\*\*Video:\*\*", text, re.MULTILINE):
+                errors.append(f"{label}: unexpected per-story Video field")
             if set(re.findall(r"(?:[A-Z]+-)?US\d+-AC\d+", text)) != source_ac:
                 errors.append(f"{label}: Acceptance Criteria IDs differ from source")
-            urls = Counter(re.findall(r"https://jjpvro70sief\.jp\.larksuite\.com/wiki/[^)\s]+", text))
-            if urls != source_urls:
-                errors.append(f"{label}: video URLs differ from source")
+            if "jjpvro70sief.jp.larksuite.com/wiki" in text:
+                errors.append(f"{label}: unexpected per-story video URL")
             missing_terms = source_terms - set(re.findall(r"`[^`\n]+`", text))
             if missing_terms:
                 errors.append(f"{label}: missing backticked UI terms {sorted(missing_terms)}")

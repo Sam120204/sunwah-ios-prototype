@@ -1,10 +1,10 @@
 # Fdb version 4
-["xdvipdfmx"] 1783986900.70239 "build/Sunwah-Fintech-M2-Market-zh-Hans.xdv" "build/Sunwah-Fintech-M2-Market-zh-Hans.pdf" "build/Sunwah-Fintech-M2-Market-zh-Hans" 1783986910.63701 0
-  "build/Sunwah-Fintech-M2-Market-zh-Hans.xdv" 1783986900.65296 178756 70a46bb0527a4b13b8380ecdde52884e "xelatex"
+["xdvipdfmx"] 1783991028.18617 "build/Sunwah-Fintech-M2-Market-zh-Hans.xdv" "build/Sunwah-Fintech-M2-Market-zh-Hans.pdf" "build/Sunwah-Fintech-M2-Market-zh-Hans" 1783991038.36684 0
+  "build/Sunwah-Fintech-M2-Market-zh-Hans.xdv" 1783991028.13169 175528 e5295ab24d04c5e572d9c7bca8fe592e "xelatex"
   (generated)
   "build/Sunwah-Fintech-M2-Market-zh-Hans.pdf"
   (rewritten before read)
-["xelatex"] 1783986899.82879 "main.tex" "build/Sunwah-Fintech-M2-Market-zh-Hans.xdv" "Sunwah-Fintech-M2-Market-zh-Hans" 1783986910.63572 0
+["xelatex"] 1783991027.30727 "main.tex" "build/Sunwah-Fintech-M2-Market-zh-Hans.xdv" "Sunwah-Fintech-M2-Market-zh-Hans" 1783991038.36561 0
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -205,11 +205,11 @@
   "assets/screenshots/mkt-us4-01-watchlist-saved.png" 1783970470.73988 245249 584c1cc4aca937baf4a7f119b34f558b ""
   "assets/screenshots/mkt-us4-02-add-existing-portfolio.png" 1783970470.7409 357825 e5b4f59d43da8313231d5953a5caaa47 ""
   "assets/screenshots/mkt-us4-03-screener-controls.png" 1783970470.74141 245249 584c1cc4aca937baf4a7f119b34f558b ""
-  "build/Sunwah-Fintech-M2-Market-zh-Hans.aux" 1783986900.65238 3076 208ac0d433e77162a54509b2a0f24599 "xelatex"
-  "build/Sunwah-Fintech-M2-Market-zh-Hans.toc" 1783986900.65293 1263 c8ea22f575d4ed33c39cab7122bd9e11 "xelatex"
-  "content.tex" 1783986899.68096 22363 71a13ece2d2697d4b22b04b2ce57ffdf ""
-  "main.tex" 1783986899.68128 622 9030cd5370800c896224544bd6e414a7 ""
-  "prd-common.tex" 1783986899.67543 12806 fe8f484a4aebd9b71bd92e6aa37cfe7b ""
+  "build/Sunwah-Fintech-M2-Market-zh-Hans.aux" 1783991028.13068 3023 8a17e2ebbfad77e4b482561977bb5afb "xelatex"
+  "build/Sunwah-Fintech-M2-Market-zh-Hans.toc" 1783991028.13164 1241 a73e6e3d4f52d7494fcebd954fcf682f "xelatex"
+  "content.tex" 1783991026.24487 21446 956c33a40904821a7e7ebcf71bf26174 ""
+  "main.tex" 1783991026.24494 622 9030cd5370800c896224544bd6e414a7 ""
+  "prd-common.tex" 1783991026.23977 12806 fe8f484a4aebd9b71bd92e6aa37cfe7b ""
   (generated)
   "build/Sunwah-Fintech-M2-Market-zh-Hans.aux"
   "build/Sunwah-Fintech-M2-Market-zh-Hans.log"

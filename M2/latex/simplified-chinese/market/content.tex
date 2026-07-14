@@ -1,17 +1,17 @@
 \section{模块说明}
 Market 模块提供从市场结构发现到单只 ETF 研究、比较和保存的完整路径。用户先在 \texttt{Market Intelligence} 建立市场方向，再进入 \texttt{Sector Detail} 比较板块内 ETF，随后在 \texttt{ETF Detail} 深入研究，并将结果保存到 \texttt{Watchlist} 或 \texttt{My Portfolio}。
 \begin{quote}\small 数据边界：页面展示延迟行情、缓存快照或 EOD（end-of-day）数据时，必须保留相应标签。Market 模块用于研究发现，不构成交易建议。\end{quote}
-\section{User Story /\allowbreak{} Video 索引}
+\section{User Story 索引}
 \begingroup
 \small
-\begin{longtable}{L{0.18\linewidth}L{0.24\linewidth}L{0.28\linewidth}L{0.16\linewidth}}
+\begin{longtable}{L{0.20\linewidth}L{0.34\linewidth}L{0.34\linewidth}}
 \toprule
-\textbf{Story} & \textbf{视频主题} & \textbf{核心路径} & \textbf{Video} \\
+\textbf{Story} & \textbf{User Story} & \textbf{核心路径} \\
 \midrule
-\hyperlink{us-mkt-01}{US-MKT-01} & Market Intelligence Home & \texttt{Market Intelligence} -\textgreater{} \texttt{Sector Detail} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{视频页面} \\
-\hyperlink{us-mkt-02}{US-MKT-02} & Sector Detail & \texttt{Sector Detail} -\textgreater{} \texttt{ETF Rankings} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{视频页面} \\
-\hyperlink{us-mkt-03}{US-MKT-03} & ETF Detail and Compare ETF & \texttt{ETF Detail} -\textgreater{} \texttt{Compare ETF} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{视频页面} \\
-\hyperlink{us-mkt-04}{US-MKT-04} & Save ETF Research & \texttt{Watchlist} /\allowbreak{} \texttt{Add to My Portfolio} /\allowbreak{} \texttt{Screener} & \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{视频页面} \\
+\hyperlink{us-mkt-01}{US-MKT-01} & Market Intelligence Home & \texttt{Market Intelligence} -\textgreater{} \texttt{Sector Detail} \\
+\hyperlink{us-mkt-02}{US-MKT-02} & Sector Detail & \texttt{Sector Detail} -\textgreater{} \texttt{ETF Rankings} \\
+\hyperlink{us-mkt-03}{US-MKT-03} & ETF Detail and Compare ETF & \texttt{ETF Detail} -\textgreater{} \texttt{Compare ETF} \\
+\hyperlink{us-mkt-04}{US-MKT-04} & Save ETF Research & \texttt{Watchlist} /\allowbreak{} \texttt{Add to My Portfolio} /\allowbreak{} \texttt{Screener} \\
 \bottomrule
 \end{longtable}
 \endgroup
@@ -40,7 +40,6 @@ Market 模块提供从市场结构发现到单只 ETF 研究、比较和保存�
 \section{User Story 1 - 从 \texttt{Market Intelligence} 建立研究方向}
 \textbf{Story ID:} \texttt{US-MKT-01}
 \textbf{用户故事：} 作为尚未确定具体 ETF 的用户，我希望先了解当天的市场广度、板块变动和主要指数背景，从而选择下一步值得研究的板块。
-\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Market 验收视频页面}
 \subsection{Walkthrough}
 \begin{enumerate}
 \item 打开 \texttt{Market Intelligence}。先展示页面整体结构，说明它是 ETF 研究起点，而不是完整 ETF 目录或交易推荐页。
@@ -78,7 +77,6 @@ MKT-US1-AC10 & 页面没有把市场信号、板块表现或精选 ETF 表述为
 \section{User Story 2 - 理解板块走势并筛选 ETF}
 \textbf{Story ID:} \texttt{US-MKT-02}
 \textbf{用户故事：} 作为从市场首页进入某个板块的用户，我希望理解该板块变动的广度、流动性与风险背景，并在板块内比较 ETF，选出下一步研究对象。
-\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Market 验收视频页面}
 \subsection{Walkthrough}
 \begin{enumerate}
 \item 从 \texttt{Sector Heatmap} 或 \texttt{Market Discovery Rail} 打开一个板块。建议使用数据完整的 \texttt{Crypto}。
@@ -116,7 +114,6 @@ MKT-US2-AC11 & \texttt{AI Sector Insights} 采用研究观察措辞，不预测�
 \section{User Story 3 - 研究并比较单只 ETF}
 \textbf{Story ID:} \texttt{US-MKT-03}
 \textbf{用户故事：} 作为已选定候选 ETF 的用户，我希望查看报价、K 线、关键统计和新闻，并与另一只 ETF 比较相对走势。
-\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Market 验收视频页面}
 \subsection{Walkthrough}
 \begin{enumerate}
 \item 从 \texttt{ETF Rankings}、\texttt{Recommended ETFs}、\texttt{All}、\texttt{Watchlist} 或 ETF movers 打开一只数据完整的 ETF。
@@ -155,7 +152,6 @@ MKT-US3-AC11 & 退出 \texttt{Compare ETF} 后仍回到原 ETF 的详情上下�
 \section{User Story 4 - 保存 ETF 研究结果}
 \textbf{Story ID:} \texttt{US-MKT-04}
 \textbf{用户故事：} 作为完成初步研究的用户，我希望将 ETF 保存到 \texttt{Watchlist} 继续跟踪，或加入已有 \texttt{My Portfolio} 做进一步组合分析，并可通过统一 \texttt{Screener} 继续筛选。
-\textbf{Video:} \href{https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge}{Market 验收视频页面}
 \subsection{Walkthrough}
 \begin{enumerate}
 \item 在 \texttt{ETF Detail} 点击 star icon，将 ETF 加入 \texttt{Watchlist}。

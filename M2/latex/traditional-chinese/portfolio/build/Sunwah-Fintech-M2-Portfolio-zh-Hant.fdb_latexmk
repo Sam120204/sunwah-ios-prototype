@@ -1,10 +1,10 @@
 # Fdb version 4
-["xdvipdfmx"] 1783986905.70648 "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.xdv" "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.pdf" "build/Sunwah-Fintech-M2-Portfolio-zh-Hant" 1783986922.22717 0
-  "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.xdv" 1783986905.65235 405076 84397e00ed82ff2347a9df8262942f8e "xelatex"
+["xdvipdfmx"] 1783991040.45475 "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.xdv" "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.pdf" "build/Sunwah-Fintech-M2-Portfolio-zh-Hant" 1783991056.58655 0
+  "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.xdv" 1783991040.37831 401132 fff56986eba444261d089c7c2e414e24 "xelatex"
   (generated)
   "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.pdf"
   (rewritten before read)
-["xelatex"] 1783986904.81816 "main.tex" "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.xdv" "Sunwah-Fintech-M2-Portfolio-zh-Hant" 1783986922.22586 0
+["xelatex"] 1783991039.50704 "main.tex" "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.xdv" "Sunwah-Fintech-M2-Portfolio-zh-Hant" 1783991056.58524 0
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -224,11 +224,11 @@
   "assets/screenshots/port-us5-04-adjustment-suggestions.png" 1783970470.7789 531270 89a77be69f005d13edf1d85ef45ce0c9 ""
   "assets/screenshots/port-us5-extra-allocation-movements.png" 1783970470.77999 511608 c9d543d837e24b58af6d4afe008ea715 ""
   "assets/screenshots/port-us5-extra-quantity-changes.png" 1783970470.78096 389148 6778c7f56a2fc4a125e1071ec9144f0f ""
-  "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.aux" 1783986905.6517 3641 cec9d8c7a379e4fa4adc2d04c6bee4ee "xelatex"
-  "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.toc" 1783986905.65232 1538 e3328e8239bac1e5f8ccb69ad7d4eb6a "xelatex"
-  "content.tex" 1783986899.7174 54908 93ea0bb60fbb5c2544d44dbaa25d022b ""
-  "main.tex" 1783986899.71751 628 67a7b22d770871b0de64faf18d63dada ""
-  "prd-common.tex" 1783986899.70563 12806 fe8f484a4aebd9b71bd92e6aa37cfe7b ""
+  "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.aux" 1783991040.37768 3588 d91026a50142212436916c7369f5b3e2 "xelatex"
+  "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.toc" 1783991040.37828 1516 40e1efc945563862a0eae26e79c3db24 "xelatex"
+  "content.tex" 1783991026.27667 53816 408fa74f499ba28acbf08873540ac387 ""
+  "main.tex" 1783991026.27674 628 67a7b22d770871b0de64faf18d63dada ""
+  "prd-common.tex" 1783991026.26533 12806 fe8f484a4aebd9b71bd92e6aa37cfe7b ""
   (generated)
   "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.aux"
   "build/Sunwah-Fintech-M2-Portfolio-zh-Hant.log"

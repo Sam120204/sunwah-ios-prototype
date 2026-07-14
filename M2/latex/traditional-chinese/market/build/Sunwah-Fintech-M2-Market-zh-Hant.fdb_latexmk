@@ -1,10 +1,10 @@
 # Fdb version 4
-["xdvipdfmx"] 1783986904.06026 "build/Sunwah-Fintech-M2-Market-zh-Hant.xdv" "build/Sunwah-Fintech-M2-Market-zh-Hant.pdf" "build/Sunwah-Fintech-M2-Market-zh-Hant" 1783986913.81941 0
-  "build/Sunwah-Fintech-M2-Market-zh-Hant.xdv" 1783986904.00737 178756 32ce237683db5352498e509c5222b387 "xelatex"
+["xdvipdfmx"] 1783991038.58761 "build/Sunwah-Fintech-M2-Market-zh-Hant.xdv" "build/Sunwah-Fintech-M2-Market-zh-Hant.pdf" "build/Sunwah-Fintech-M2-Market-zh-Hant" 1783991048.39684 0
+  "build/Sunwah-Fintech-M2-Market-zh-Hant.xdv" 1783991038.53793 175528 c3b671c7a169688b2c0273dc9df4e766 "xelatex"
   (generated)
   "build/Sunwah-Fintech-M2-Market-zh-Hant.pdf"
   (rewritten before read)
-["xelatex"] 1783986903.09374 "main.tex" "build/Sunwah-Fintech-M2-Market-zh-Hant.xdv" "Sunwah-Fintech-M2-Market-zh-Hant" 1783986913.81811 0
+["xelatex"] 1783991037.75166 "main.tex" "build/Sunwah-Fintech-M2-Market-zh-Hant.xdv" "Sunwah-Fintech-M2-Market-zh-Hant" 1783991048.39551 0
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -205,11 +205,11 @@
   "assets/screenshots/mkt-us4-01-watchlist-saved.png" 1783970470.73988 245249 584c1cc4aca937baf4a7f119b34f558b ""
   "assets/screenshots/mkt-us4-02-add-existing-portfolio.png" 1783970470.7409 357825 e5b4f59d43da8313231d5953a5caaa47 ""
   "assets/screenshots/mkt-us4-03-screener-controls.png" 1783970470.74141 245249 584c1cc4aca937baf4a7f119b34f558b ""
-  "build/Sunwah-Fintech-M2-Market-zh-Hant.aux" 1783986904.00675 3076 d37f85677f8aced56ed54a7cb7362bb9 "xelatex"
-  "build/Sunwah-Fintech-M2-Market-zh-Hant.toc" 1783986904.00733 1263 c94b7d51e598f8bef61c61067f370e2c "xelatex"
-  "content.tex" 1783986899.70535 22363 d47d8e8fcab8098555ffb30609bdc6e0 ""
-  "main.tex" 1783986899.70543 622 24ac2a3b936a5675867a1b4afbdcbc1c ""
-  "prd-common.tex" 1783986899.7008 12806 fe8f484a4aebd9b71bd92e6aa37cfe7b ""
+  "build/Sunwah-Fintech-M2-Market-zh-Hant.aux" 1783991038.53735 3023 2045329912e514867633446640c1f850 "xelatex"
+  "build/Sunwah-Fintech-M2-Market-zh-Hant.toc" 1783991038.5379 1241 62ff8f2c012ee7c4f69f3bcc94f1ff40 "xelatex"
+  "content.tex" 1783991026.26506 21446 d0448381f719495178ef507382bd2ad3 ""
+  "main.tex" 1783991026.26513 622 24ac2a3b936a5675867a1b4afbdcbc1c ""
+  "prd-common.tex" 1783991026.26004 12806 fe8f484a4aebd9b71bd92e6aa37cfe7b ""
   (generated)
   "build/Sunwah-Fintech-M2-Market-zh-Hant.aux"
   "build/Sunwah-Fintech-M2-Market-zh-Hant.log"

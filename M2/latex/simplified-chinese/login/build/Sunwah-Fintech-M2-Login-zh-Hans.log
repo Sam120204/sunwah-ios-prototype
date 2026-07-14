@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.14)  14 JUL 2026 07:54
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.14)  14 JUL 2026 09:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1311,7 +1311,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (./content.tex
 
 LaTeX Font Warning: Font shape `TU/lmmono10(0)/b/n' undefined
-(Font)              using `TU/lmmono10(0)/m/n' instead on input line 39.
+(Font)              using `TU/lmmono10(0)/m/n' instead on input line 38.
 
 File: assets/screenshots/auth-us1-01-login-page.png Graphic file (type bmp)
 <assets/screenshots/auth-us1-01-login-page.png>
@@ -1342,11 +1342,11 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  35253 strings out of 468168
  774867 string characters out of 5432815
- 1281806 words of memory out of 5000000
+ 1281791 words of memory out of 5000000
  63400 multiletter control sequences out of 15000+600000
  632524 words of font info for 114 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  91i,12n,101p,1001b,622s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on build/Sunwah-Fintech-M2-Login-zh-Hans.xdv (6 pages, 84440 byt
+Output written on build/Sunwah-Fintech-M2-Login-zh-Hans.xdv (6 pages, 83488 byt
 es).

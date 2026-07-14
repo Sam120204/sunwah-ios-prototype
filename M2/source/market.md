@@ -6,14 +6,14 @@ Market 模块提供从市场结构发现到单只 ETF 研究、比较和保存�
 
 > 数据边界：页面展示延迟行情、缓存快照或 EOD（end-of-day）数据时，必须保留相应标签。Market 模块用于研究发现，不构成交易建议。
 
-## User Story / Video 索引
+## User Story 索引
 
-| Story | 视频主题 | 核心路径 | Video |
-| --- | --- | --- | --- |
-| [US-MKT-01](#user-story-1---从-market-intelligence-建立研究方向) | Market Intelligence Home | `Market Intelligence` -> `Sector Detail` | [视频页面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge) |
-| [US-MKT-02](#user-story-2---理解板块走势并筛选-etf) | Sector Detail | `Sector Detail` -> `ETF Rankings` | [视频页面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge) |
-| [US-MKT-03](#user-story-3---研究并比较单只-etf) | ETF Detail and Compare ETF | `ETF Detail` -> `Compare ETF` | [视频页面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge) |
-| [US-MKT-04](#user-story-4---保存-etf-研究结果) | Save ETF Research | `Watchlist` / `Add to My Portfolio` / `Screener` | [视频页面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge) |
+| Story | User Story | 核心路径 |
+| --- | --- | --- |
+| [US-MKT-01](#user-story-1---从-market-intelligence-建立研究方向) | Market Intelligence Home | `Market Intelligence` -> `Sector Detail` |
+| [US-MKT-02](#user-story-2---理解板块走势并筛选-etf) | Sector Detail | `Sector Detail` -> `ETF Rankings` |
+| [US-MKT-03](#user-story-3---研究并比较单只-etf) | ETF Detail and Compare ETF | `ETF Detail` -> `Compare ETF` |
+| [US-MKT-04](#user-story-4---保存-etf-研究结果) | Save ETF Research | `Watchlist` / `Add to My Portfolio` / `Screener` |
 
 ## 统一术语
 
@@ -36,7 +36,6 @@ Market 模块提供从市场结构发现到单只 ETF 研究、比较和保存�
 
 **Story ID:** `US-MKT-01`  
 **用户故事：** 作为尚未确定具体 ETF 的用户，我希望先了解当天的市场广度、板块变动和主要指数背景，从而选择下一步值得研究的板块。  
-**Video:** [Market 验收视频页面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge)
 
 ### Walkthrough
 
@@ -84,7 +83,6 @@ Market 模块提供从市场结构发现到单只 ETF 研究、比较和保存�
 
 **Story ID:** `US-MKT-02`  
 **用户故事：** 作为从市场首页进入某个板块的用户，我希望理解该板块变动的广度、流动性与风险背景，并在板块内比较 ETF，选出下一步研究对象。  
-**Video:** [Market 验收视频页面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge)
 
 ### Walkthrough
 
@@ -132,7 +130,6 @@ Market 模块提供从市场结构发现到单只 ETF 研究、比较和保存�
 
 **Story ID:** `US-MKT-03`  
 **用户故事：** 作为已选定候选 ETF 的用户，我希望查看报价、K 线、关键统计和新闻，并与另一只 ETF 比较相对走势。  
-**Video:** [Market 验收视频页面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge)
 
 ### Walkthrough
 
@@ -180,7 +177,6 @@ Market 模块提供从市场结构发现到单只 ETF 研究、比较和保存�
 
 **Story ID:** `US-MKT-04`  
 **用户故事：** 作为完成初步研究的用户，我希望将 ETF 保存到 `Watchlist` 继续跟踪，或加入已有 `My Portfolio` 做进一步组合分析，并可通过统一 `Screener` 继续筛选。  
-**Video:** [Market 验收视频页面](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge)
 
 ### Walkthrough
 

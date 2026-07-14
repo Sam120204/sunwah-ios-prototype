@@ -8,15 +8,15 @@ The module is organized by three tabs: `Recommended` is used to browse administr
 
 > Scope: The forecasts, analysis, recommendations and `Suggested actions` in this module are for research only, do not guarantee returns, and do not trigger brokerage orders or trade execution.
 
-## User Story / Video Index
+## User Story Index
 
-| Story | Video theme | Core path | Video |
-| --- | --- | --- | --- |
-| [US-PORT-01](#us-port-01) | Explore and save Model Portfolio | `Recommended` -> `Model Portfolio` -> `Watchlist` / `My Portfolio` | [Video](https://jjpvro70sief.jp.larksuite.com/wiki/SjhpwcDNLirUxpkHh1vjUbgqphY) |
-| [US-PORT-02](#us-port-02) | Create, edit and maintain My Portfolio | `My portfolios` -> `Edit` / `Baseline snapshots` | [Video](https://jjpvro70sief.jp.larksuite.com/wiki/I9gxw6Uugiw5RxkSJ91jVHKipMf) |
-| [US-PORT-03](#us-port-03) | Generate AI Portfolio Recommendation | `Find Your Ideal Portfolio` -> `Portfolio recommendation` | [Video](https://jjpvro70sief.jp.larksuite.com/wiki/NSZ1wCHloiD8QAkYSDsj9CNtpje) |
-| [US-PORT-04](#us-port-04) | Analyze Portfolio and review AI suggestions | `Draft Portfolio` -> `Analysis` -> `Suggestions` | [Video](https://jjpvro70sief.jp.larksuite.com/wiki/Ey4Bw3xDxiPeETk3yBBjhxOHpdf) |
-| [US-PORT-05](#us-port-05) | Review based on Baseline Snapshot | `Portfolio Review` -> `Baseline` -> `Analysis` -> `Suggestions` | [Video](https://jjpvro70sief.jp.larksuite.com/wiki/H1ULwBLKeiaEIKkEbQDjhRiepue) |
+| Story | User story | Core path |
+| --- | --- | --- |
+| [US-PORT-01](#us-port-01) | Explore and save Model Portfolio | `Recommended` -> `Model Portfolio` -> `Watchlist` / `My Portfolio` |
+| [US-PORT-02](#us-port-02) | Create, edit and maintain My Portfolio | `My portfolios` -> `Edit` / `Baseline snapshots` |
+| [US-PORT-03](#us-port-03) | Generate AI Portfolio Recommendation | `Find Your Ideal Portfolio` -> `Portfolio recommendation` |
+| [US-PORT-04](#us-port-04) | Analyze Portfolio and review AI suggestions | `Draft Portfolio` -> `Analysis` -> `Suggestions` |
+| [US-PORT-05](#us-port-05) | Review based on Baseline Snapshot | `Portfolio Review` -> `Baseline` -> `Analysis` -> `Suggestions` |
 
 ## Shared Terminology
 
@@ -42,7 +42,6 @@ The module is organized by three tabs: `Recommended` is used to browse administr
 
 **Story ID:** `US-PORT-01`  
 **User story:** As a user, I would like to examine a selected Model Portfolio, understand its configuration and illustrative forecasts, save it for later reference, and use Add to My Portfolio.  
-**Video:** [US-PORT-01 Acceptance Video](https://jjpvro70sief.jp.larksuite.com/wiki/SjhpwcDNLirUxpkHh1vjUbgqphY)
 
 ### Walkthrough
 
@@ -149,7 +148,6 @@ The module is organized by three tabs: `Recommended` is used to browse administr
 
 **Story ID:** `US-PORT-02`  
 **User story:** As a user, I would like to create and maintain a saved My Portfolio of ETFs, including their holdings and Baseline Snapshot history.  
-**Video:** [US-PORT-02 Acceptance Video](https://jjpvro70sief.jp.larksuite.com/wiki/I9gxw6Uugiw5RxkSJ91jVHKipMf)
 
 ### Walkthrough
 
@@ -225,7 +223,6 @@ The module is organized by three tabs: `Recommended` is used to browse administr
 
 **Story ID:** `US-PORT-03`  
 **User story:** As a user, I want to answer the fit questionnaire, get interpretable ETF recommendations, check the generated results and save to My portfolios.  
-**Video:** [US-PORT-03 Acceptance Video](https://jjpvro70sief.jp.larksuite.com/wiki/NSZ1wCHloiD8QAkYSDsj9CNtpje)
 
 ### Walkthrough
 
@@ -311,7 +308,6 @@ The module is organized by three tabs: `Recommended` is used to browse administr
 
 **Story ID:** `US-PORT-04`  
 **User story:** As a user, I wish to analyze a working draft for My Portfolio or Model Portfolio, select important diagnostic issues, and review AI-assisted considerations and quantitative `Suggested actions`; when the source is My Portfolio, I can also edit and apply these actions.  
-**Video:** [US-PORT-04 Acceptance Video](https://jjpvro70sief.jp.larksuite.com/wiki/Ey4Bw3xDxiPeETk3yBBjhxOHpdf)
 
 ### Walkthrough
 
@@ -395,7 +391,6 @@ The module is organized by three tabs: `Recommended` is used to browse administr
 
 **Story ID:** `US-PORT-05`  
 **User story:** As a user, I want to compare today's My Portfolio with a valid historical Baseline Snapshot, understand configuration deviations, edit adjustments based on the Baseline Snapshot and apply them.  
-**Video:** [US-PORT-05 Acceptance Video](https://jjpvro70sief.jp.larksuite.com/wiki/H1ULwBLKeiaEIKkEbQDjhRiepue)
 
 ### Walkthrough
 

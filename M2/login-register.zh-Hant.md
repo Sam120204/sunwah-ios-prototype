@@ -6,11 +6,11 @@ Login / Register 模組覆蓋未登入用戶的兩個可用認證路徑：註冊
 
 > 範圍說明：`Google`、`Microsoft` 和 `Sign in with Apple` 雖然顯示在 `Login` 頁面，但不屬於本次驗收範圍。當前驗收路徑僅包括 `Register New Account` 和標準 email/password `Sign In`。
 
-## User Story / Video 索引
+## User Story 索引
 
-| Story | 視頻主題 | 核心路徑 | Video |
-| --- | --- | --- | --- |
-| [US-AUTH-01](#us-auth-01) | Authentication Flow | `Register New Account` + email/password `Sign In` | [視頻](https://jjpvro70sief.jp.larksuite.com/wiki/CDmcwSmsNinDn8kb92Nj980Epne) |
+| Story | User Story | 核心路徑 |
+| --- | --- | --- |
+| [US-AUTH-01](#us-auth-01) | Authentication Flow | `Register New Account` + email/password `Sign In` |
 
 ## 統一術語
 
@@ -32,7 +32,6 @@ Login / Register 模組覆蓋未登入用戶的兩個可用認證路徑：註冊
 
 **Story ID:** `US-AUTH-01`  
 **用戶故事：** 作為未登入用戶，我希望註冊新賬號並驗證 email，或使用已有 account/email 和 password 登入，從而進入應用的 `Markets` 頁面。  
-**Video:** [US-AUTH-01 驗收視頻](https://jjpvro70sief.jp.larksuite.com/wiki/CDmcwSmsNinDn8kb92Nj980Epne)
 
 ### Walkthrough
 

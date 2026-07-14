@@ -8,15 +8,15 @@ Portfolio 模組提供僅供研究的工作流：發現 `Model Portfolio`、維�
 
 > 範圍說明：本模組中的預測、分析、Recommendation 和 `Suggested actions` 僅供研究，不代表收益保證，也不會觸發券商訂單或交易執行。
 
-## User Story / Video 索引
+## User Story 索引
 
-| Story | 視頻主題 | 核心路徑 | Video |
-| --- | --- | --- | --- |
-| [US-PORT-01](#us-port-01) | 探索並保存 Model Portfolio | `Recommended` -> `Model Portfolio` -> `Watchlist` / `My Portfolio` | [視頻](https://jjpvro70sief.jp.larksuite.com/wiki/SjhpwcDNLirUxpkHh1vjUbgqphY) |
-| [US-PORT-02](#us-port-02) | 創建、編輯和維護 My Portfolio | `My portfolios` -> `Edit` / `Baseline snapshots` | [視頻](https://jjpvro70sief.jp.larksuite.com/wiki/I9gxw6Uugiw5RxkSJ91jVHKipMf) |
-| [US-PORT-03](#us-port-03) | 生成 AI Portfolio Recommendation | `Find Your Ideal Portfolio` -> `Portfolio recommendation` | [視頻](https://jjpvro70sief.jp.larksuite.com/wiki/NSZ1wCHloiD8QAkYSDsj9CNtpje) |
-| [US-PORT-04](#us-port-04) | 分析 Portfolio 並審閱 AI 建議 | `Draft Portfolio` -> `Analysis` -> `Suggestions` | [視頻](https://jjpvro70sief.jp.larksuite.com/wiki/Ey4Bw3xDxiPeETk3yBBjhxOHpdf) |
-| [US-PORT-05](#us-port-05) | 根據 Baseline Snapshot 審閱 | `Portfolio Review` -> `Baseline` -> `Analysis` -> `Suggestions` | [視頻](https://jjpvro70sief.jp.larksuite.com/wiki/H1ULwBLKeiaEIKkEbQDjhRiepue) |
+| Story | User Story | 核心路徑 |
+| --- | --- | --- |
+| [US-PORT-01](#us-port-01) | 探索並保存 Model Portfolio | `Recommended` -> `Model Portfolio` -> `Watchlist` / `My Portfolio` |
+| [US-PORT-02](#us-port-02) | 創建、編輯和維護 My Portfolio | `My portfolios` -> `Edit` / `Baseline snapshots` |
+| [US-PORT-03](#us-port-03) | 生成 AI Portfolio Recommendation | `Find Your Ideal Portfolio` -> `Portfolio recommendation` |
+| [US-PORT-04](#us-port-04) | 分析 Portfolio 並審閱 AI 建議 | `Draft Portfolio` -> `Analysis` -> `Suggestions` |
+| [US-PORT-05](#us-port-05) | 根據 Baseline Snapshot 審閱 | `Portfolio Review` -> `Baseline` -> `Analysis` -> `Suggestions` |
 
 ## 統一術語
 
@@ -42,7 +42,6 @@ Portfolio 模組提供僅供研究的工作流：發現 `Model Portfolio`、維�
 
 **Story ID:** `US-PORT-01`  
 **用戶故事：** 作為用戶，我希望檢查精選的 Model Portfolio，了解其配置和示意性預測，將其保存以便稍後參考，並使用 Add to My Portfolio。  
-**Video:** [US-PORT-01 驗收視頻](https://jjpvro70sief.jp.larksuite.com/wiki/SjhpwcDNLirUxpkHh1vjUbgqphY)
 
 ### Walkthrough
 
@@ -149,7 +148,6 @@ Portfolio 模組提供僅供研究的工作流：發現 `Model Portfolio`、維�
 
 **Story ID:** `US-PORT-02`  
 **用戶故事：** 作為用戶，我希望創建和維護已保存的 ETF My Portfolio，包括其持倉和 Baseline Snapshot 歷史記錄。  
-**Video:** [US-PORT-02 驗收視頻](https://jjpvro70sief.jp.larksuite.com/wiki/I9gxw6Uugiw5RxkSJ91jVHKipMf)
 
 ### Walkthrough
 
@@ -225,7 +223,6 @@ Portfolio 模組提供僅供研究的工作流：發現 `Model Portfolio`、維�
 
 **Story ID:** `US-PORT-03`  
 **用戶故事：** 作為用戶，我希望回答適配度問卷，獲得可解釋的 ETF 建議，檢查生成的結果並保存到 My portfolios。  
-**Video:** [US-PORT-03 驗收視頻](https://jjpvro70sief.jp.larksuite.com/wiki/NSZ1wCHloiD8QAkYSDsj9CNtpje)
 
 ### Walkthrough
 
@@ -311,7 +308,6 @@ Portfolio 模組提供僅供研究的工作流：發現 `Model Portfolio`、維�
 
 **Story ID:** `US-PORT-04`  
 **用戶故事：** 作為用戶，我希望分析 My Portfolio 或 Model Portfolio 的工作草稿，選擇重要的診斷問題，並審閱 AI 輔助的考慮因素和量化 `Suggested actions`；當來源是 My Portfolio 時，我還可以編輯並應用這些操作。  
-**Video:** [US-PORT-04 驗收視頻](https://jjpvro70sief.jp.larksuite.com/wiki/Ey4Bw3xDxiPeETk3yBBjhxOHpdf)
 
 ### Walkthrough
 
@@ -395,7 +391,6 @@ Portfolio 模組提供僅供研究的工作流：發現 `Model Portfolio`、維�
 
 **Story ID:** `US-PORT-05`  
 **用戶故事：** 作為用戶，我希望將今天的 My Portfolio 與有效的歷史 Baseline Snapshot 比較，了解配置偏離，編輯基於 Baseline Snapshot 的調整方案並應用。  
-**Video:** [US-PORT-05 驗收視頻](https://jjpvro70sief.jp.larksuite.com/wiki/H1ULwBLKeiaEIKkEbQDjhRiepue)
 
 ### Walkthrough
 

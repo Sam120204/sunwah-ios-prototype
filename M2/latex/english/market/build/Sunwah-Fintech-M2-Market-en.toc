@@ -1,5 +1,5 @@
 \contentsline {section}{\numberline {}Module Overview}{2}{section.1}%
-\contentsline {section}{\numberline {}User Story /\allowbreak {} Video Index}{2}{section.2}%
+\contentsline {section}{\numberline {}User Story Index}{2}{section.2}%
 \contentsline {section}{\numberline {}Shared Terminology}{2}{section.3}%
 \contentsline {section}{\numberline {}User Story 1 - Establish research direction from \texttt {Market Intelligence}}{2}{section.4}%
 \contentsline {subsection}{\numberline {}Walkthrough}{3}{subsection.4.1}%

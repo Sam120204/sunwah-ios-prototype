@@ -4,11 +4,11 @@
 
 `Admin Portal` 是客户端应用背后的运营控制台。本模块的核心不是只浏览后台页面，而是证明后台与移动端使用同一组后端资源：管理员对 `ETF Catalogue` 和 `Model Portfolios` 的变更，在刷新移动端后可以得到验证；同时管理员可通过 `Dashboard`、`Users` 和 `User Portfolios` 监控平台状态。
 
-## User Story / Video 索引
+## User Story 索引
 
-| Story | 视频主题 | 核心路径 | Video |
-| --- | --- | --- | --- |
-| [US-ADM-01](#us-adm-01) | Admin Functional Acceptance | Dashboard + ETF Catalogue + Model Portfolios + operational visibility | [视频](https://jjpvro70sief.jp.larksuite.com/wiki/BBmUwLwV0iRRxdkl3S9jV9ZHpLe?from=from_copylink) |
+| Story | User Story | 核心路径 |
+| --- | --- | --- |
+| [US-ADM-01](#us-adm-01) | Admin Functional Acceptance | Dashboard + ETF Catalogue + Model Portfolios + operational visibility |
 
 ## 统一术语
 
@@ -33,7 +33,6 @@
 
 **Story ID:** `US-ADM-01`  
 **用户故事：** 作为管理员，我希望维护 ETF 目录和 Model Portfolio templates，并在移动端验证变更，同时从统一后台查看用户和 portfolio 运营信息。  
-**Video:** [US-ADM-01 验收视频](https://jjpvro70sief.jp.larksuite.com/wiki/BBmUwLwV0iRRxdkl3S9jV9ZHpLe?from=from_copylink)
 
 ### Walkthrough
 
@@ -122,4 +121,3 @@
 | ADM-US1-AC15 | `Users` 和 `User Portfolios` 用于运营可见性与排查，不在本 story 中修改普通用户持仓。 | US-ADM-01 | Integration | Must |
 | ADM-US1-AC16 | 所有会影响客户端的后台变更都通过 simulator 刷新或重新打开页面验证，不能只以后台 Toast 作为成功证据。 | US-ADM-01 | Integration | Must |
 | ADM-US1-AC17 | 视频和截图使用测试数据，或对 email、owner 等个人信息进行打码。 | US-ADM-01 | Integration | Must |
-

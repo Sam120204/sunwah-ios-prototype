@@ -6,14 +6,14 @@ The Market module provides a complete path from market structure discovery to in
 
 > Data boundaries: When the page displays delayed quotes, cached snapshots or EOD (end-of-day) data, the corresponding tags must be retained. The Market module is used for research discovery and does not constitute trading advice.
 
-## User Story / Video Index
+## User Story Index
 
-| Story | Video theme | Core path | Video |
-| --- | --- | --- | --- |
-| [US-MKT-01](#us-mkt-01) | Market Intelligence Home | `Market Intelligence` -> `Sector Detail` | [Video Page](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge) |
-| [US-MKT-02](#us-mkt-02) | Sector Detail | `Sector Detail` -> `ETF Rankings` | [Video Page](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge) |
-| [US-MKT-03](#us-mkt-03) | ETF Detail and Compare ETF | `ETF Detail` -> `Compare ETF` | [Video page](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge) |
-| [US-MKT-04](#us-mkt-04) | Save ETF Research | `Watchlist` / `Add to My Portfolio` / `Screener` | [Video Page](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge) |
+| Story | User story | Core path |
+| --- | --- | --- |
+| [US-MKT-01](#us-mkt-01) | Market Intelligence Home | `Market Intelligence` -> `Sector Detail` |
+| [US-MKT-02](#us-mkt-02) | Sector Detail | `Sector Detail` -> `ETF Rankings` |
+| [US-MKT-03](#us-mkt-03) | ETF Detail and Compare ETF | `ETF Detail` -> `Compare ETF` |
+| [US-MKT-04](#us-mkt-04) | Save ETF Research | `Watchlist` / `Add to My Portfolio` / `Screener` |
 
 ## Shared Terminology
 
@@ -38,7 +38,6 @@ The Market module provides a complete path from market structure discovery to in
 
 **Story ID:** `US-MKT-01`  
 **User story:** As a user who has not yet selected a specific ETF, I want to understand the day's market breadth, sector movements and major-index context so that I can choose a sector to research next.  
-**Video:** [Market acceptance video page](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge)
 
 ### Walkthrough
 
@@ -88,7 +87,6 @@ The Market module provides a complete path from market structure discovery to in
 
 **Story ID:** `US-MKT-02`  
 **User story:** As a user who enters a certain sector from the market homepage, I hope to understand the breadth, liquidity and risk background of changes in the sector, compare ETFs within the sector, and select the next research target.  
-**Video:** [Market acceptance video page](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge)
 
 ### Walkthrough
 
@@ -138,7 +136,6 @@ The Market module provides a complete path from market structure discovery to in
 
 **Story ID:** `US-MKT-03`  
 **User story:** As a user who has selected a candidate ETF, I would like to view quotes, candlesticks, key statistics and news, and compare relative movements to another ETF.  
-**Video:** [Market acceptance video page](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge)
 
 ### Walkthrough
 
@@ -188,7 +185,6 @@ The Market module provides a complete path from market structure discovery to in
 
 **Story ID:** `US-MKT-04`  
 **User story:** As a user who has completed preliminary research, I want to save an ETF to `Watchlist` for continued tracking, add it to an existing `My Portfolio` for further portfolio analysis, or continue screening through the unified `Screener`.  
-**Video:** [Market acceptance video page](https://jjpvro70sief.jp.larksuite.com/wiki/WE34wt8oyiO3NOkBA3zjFrxppge)
 
 ### Walkthrough
 

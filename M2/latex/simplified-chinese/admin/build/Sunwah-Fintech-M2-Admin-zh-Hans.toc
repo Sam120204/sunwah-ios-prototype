@@ -1,5 +1,5 @@
 \contentsline {section}{\numberline {}模块说明}{2}{section.1}%
-\contentsline {section}{\numberline {}User Story /\allowbreak {} Video 索引}{2}{section.2}%
+\contentsline {section}{\numberline {}User Story 索引}{2}{section.2}%
 \contentsline {section}{\numberline {}统一术语}{2}{section.3}%
 \contentsline {section}{\numberline {}User Story 1 - 通过 \texttt {Admin Portal} 维护并核验客户端内容}{2}{section.4}%
 \contentsline {subsection}{\numberline {}Walkthrough}{2}{subsection.4.1}%

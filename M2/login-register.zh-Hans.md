@@ -6,11 +6,11 @@ Login / Register 模块覆盖未登录用户的两个可用认证路径：注册
 
 > 范围说明：`Google`、`Microsoft` 和 `Sign in with Apple` 虽然显示在 `Login` 页面，但不属于本次验收范围。当前验收路径仅包括 `Register New Account` 和标准 email/password `Sign In`。
 
-## User Story / Video 索引
+## User Story 索引
 
-| Story | 视频主题 | 核心路径 | Video |
-| --- | --- | --- | --- |
-| [US-AUTH-01](#us-auth-01) | Authentication Flow | `Register New Account` + email/password `Sign In` | [视频](https://jjpvro70sief.jp.larksuite.com/wiki/CDmcwSmsNinDn8kb92Nj980Epne) |
+| Story | User Story | 核心路径 |
+| --- | --- | --- |
+| [US-AUTH-01](#us-auth-01) | Authentication Flow | `Register New Account` + email/password `Sign In` |
 
 ## 统一术语
 
@@ -32,7 +32,6 @@ Login / Register 模块覆盖未登录用户的两个可用认证路径：注册
 
 **Story ID:** `US-AUTH-01`  
 **用户故事：** 作为未登录用户，我希望注册新账号并验证 email，或使用已有 account/email 和 password 登录，从而进入应用的 `Markets` 页面。  
-**Video:** [US-AUTH-01 验收视频](https://jjpvro70sief.jp.larksuite.com/wiki/CDmcwSmsNinDn8kb92Nj980Epne)
 
 ### Walkthrough
 
