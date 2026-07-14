@@ -1,0 +1,7 @@
+flowchart LR
+  A[Open Login] --> B{Choose path}
+  B -->|New account| C[Create Account]
+  C --> D[Verify Email]
+  B -->|Existing user| E[Email / Password]
+  D --> F[Markets]
+  E --> F
